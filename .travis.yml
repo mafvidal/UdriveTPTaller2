@@ -1,0 +1,19 @@
+language: cpp 
+compiler:
+    - gcc
+script:
+    - mkdir build && cd build
+#    - cmake ..
+#    - make
+branches:     # decidimos que TravisCI solo compruebe los test de PrimerEntrega de github.
+    only:
+        - PrimeraEntrega
+notifications:   # Notificamos los resultados de los test por correo
+    recipients:
+        - mafvidal@gmail.com
+        - morgan.tast@gmail.com
+        - samuel.malouda@gmail.com
+        - facundosg@hotmail.com
+    email:
+        on_success: change
+        on_failure: always
