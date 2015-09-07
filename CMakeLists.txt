@@ -1,0 +1,3 @@
+MAKE_MINIMUM_REQUIRED(VERSION 2.8)
+PROJECT(tpTaller)
+ADD_EXECUTABLE((tpTaller holaMundo.cpp)

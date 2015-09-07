@@ -3,8 +3,8 @@ compiler:
     - gcc
 script:
     - mkdir build && cd build
-#    - cmake ..
-#    - make
+    - cmake ..
+    - make
 branches:     # decidimos que TravisCI solo compruebe los test de PrimerEntrega de github.
     only:
         - PrimeraEntrega
