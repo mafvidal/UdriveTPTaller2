@@ -5,9 +5,9 @@ script:
     - mkdir build && cd build
     - cmake ..
     - make
-branches:     # decidimos que TravisCI solo compruebe los test de PrimerEntrega de github.
+branches:     # decidimos que TravisCI solo compruebe los test de TestPrimerEntrega de github.
     only:
-        - PrimeraEntrega
+        - TestPrimeraEntrega
 notifications:   # Notificamos los resultados de los test por correo
     recipients:
         - mafvidal@gmail.com
