@@ -3,7 +3,37 @@ Repositorio para el taller de programación 2
 
 ##Instalacion general
 
-  sudo apt-get install cmake
+ - sudo apt-get install cmake
+
+### Instalar Docker
+#### Comprobar Curl
+
+ - which curl
+
+##### Si no existe
+
+ - sudo apt-get update
+ - sudo apt-get install curl
+
+#### Obtener ultimo paquete de Docker
+
+ - curl -sSL https://get.docker.com/ | sh
+ 
+#### Probar Docker
+
+ - sudo docker run hello-world
+
+### Descargar imagen con este repo de dockerHub(La imagen no fue actualizada con la ultima versión)
+
+ - docker pull mafvidal/tp:v1
+
+### Correr imagen
+
+ - docker run -it mafvidal/tp:v1
+
+### Ver el repo en la imagen
+
+ - cd home/proyectoTaller2/UdriveTPTaller2
 
 ## Servidor
 
@@ -30,7 +60,7 @@ Repositorio para el taller de programación 2
  - cd build
  - cmake ..
  - make
- - ./ejemplo
+ - ./servidor
 
 #### GTest y GMock
 
