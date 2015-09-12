@@ -10,7 +10,7 @@ TEST(Database, existeUsuario) {
 
 }
 
-TEST(Database, claveCorrecta) {
+TEST(Database, verificarClaveCorrecta) {
 	BaseDeDatos base("testdb/");
 	base.setUsuario("Juan","ROCKSDB");
 	EXPECT_TRUE(base.esLaClaveCorrecta("Juan","ROCKSDB"));
