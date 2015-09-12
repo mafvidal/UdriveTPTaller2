@@ -614,17 +614,18 @@ TEST_F(DBTest, ReadLatencyHistogramByLevel) {
   table_options.no_block_cache = true;
 
   DestroyAndReopen(options);
+  int key_index = 0;
   Random rnd(301);
   for (int num = 0; num < 5; num++) {
     Put("foo", "bar");
-    GenerateNewRandomFile(&rnd);
+    GenerateNewFile(&rnd, &key_index);
   }
 
   std::string prop;
   ASSERT_TRUE(dbfull()->GetProperty("rocksdb.dbstats", &prop));
 
   // Get() after flushes, See latency histogram tracked.
-  for (int key = 0; key < 50; key++) {
+  for (int key = 0; key < 500; key++) {
     Get(Key(key));
   }
   ASSERT_TRUE(dbfull()->GetProperty("rocksdb.dbstats", &prop));
@@ -634,7 +635,7 @@ TEST_F(DBTest, ReadLatencyHistogramByLevel) {
 
   // Reopen and issue Get(). See thee latency tracked
   Reopen(options);
-  for (int key = 0; key < 50; key++) {
+  for (int key = 0; key < 500; key++) {
     Get(Key(key));
   }
   ASSERT_TRUE(dbfull()->GetProperty("rocksdb.dbstats", &prop));
@@ -665,7 +666,7 @@ TEST_F(DBTest, ReadLatencyHistogramByLevel) {
   ASSERT_NE(std::string::npos, prop.find("** Level 0 read latency histogram"));
   ASSERT_NE(std::string::npos, prop.find("** Level 1 read latency histogram"));
   ASSERT_EQ(std::string::npos, prop.find("** Level 2 read latency histogram"));
-  for (int key = 0; key < 50; key++) {
+  for (int key = 0; key < 500; key++) {
     Get(Key(key));
   }
   ASSERT_TRUE(dbfull()->GetProperty("rocksdb.dbstats", &prop));
@@ -7223,7 +7224,7 @@ TEST_F(DBTest, DynamicLevelCompressionPerLevel2) {
   ASSERT_GT(num_zlib.load(), 0);
 }
 
-TEST_P(DBTestWithParam, DynamicCompactionOptions) {
+TEST_F(DBTest, DynamicCompactionOptions) {
   // minimum write buffer size is enforced at 64KB
   const uint64_t k32KB = 1 << 15;
   const uint64_t k64KB = 1 << 16;
@@ -7249,7 +7250,6 @@ TEST_P(DBTestWithParam, DynamicCompactionOptions) {
   options.target_file_size_multiplier = 1;
   options.max_bytes_for_level_base = k128KB;
   options.max_bytes_for_level_multiplier = 4;
-  options.max_subcompactions = max_subcompactions_;
 
   // Block flush thread and disable compaction thread
   env_->SetBackgroundThreads(1, Env::LOW);

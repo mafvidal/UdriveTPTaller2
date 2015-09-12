@@ -18,6 +18,7 @@
 #include <vector>
 
 #include "db/column_family.h"
+#include "db/compaction_iterator.h"
 #include "db/dbformat.h"
 #include "db/flush_scheduler.h"
 #include "db/internal_stats.h"
@@ -79,38 +80,28 @@ class CompactionJob {
                  InstrumentedMutex* db_mutex);
 
  private:
-  struct SubCompactionState;
+  struct SubcompactionState;
 
   void AggregateStatistics();
-  // Set up the individual states used by each subcompaction
-  void InitializeSubCompactions();
+  void GenSubcompactionBoundaries();
 
   // update the thread status for starting a compaction.
   void ReportStartedCompaction(Compaction* compaction);
   void AllocateCompactionOutputFileNumbers();
   // Call compaction filter. Then iterate through input and compact the
   // kv-pairs
-  void ProcessKeyValueCompaction(SubCompactionState* sub_compact);
-
-  Status WriteKeyValue(const Slice& key, const Slice& value,
-                       const ParsedInternalKey& ikey,
-                       const Status& input_status,
-                       SubCompactionState* sub_compact);
+  void ProcessKeyValueCompaction(SubcompactionState* sub_compact);
 
   Status FinishCompactionOutputFile(const Status& input_status,
-                                    SubCompactionState* sub_compact);
+                                    SubcompactionState* sub_compact);
   Status InstallCompactionResults(const MutableCFOptions& mutable_cf_options,
                                   InstrumentedMutex* db_mutex);
-  SequenceNumber findEarliestVisibleSnapshot(SequenceNumber in,
-                                             SequenceNumber* prev_snapshot);
   void RecordCompactionIOStats();
-  Status OpenCompactionOutputFile(SubCompactionState* sub_compact);
+  Status OpenCompactionOutputFile(SubcompactionState* sub_compact);
   void CleanupCompaction();
   void UpdateCompactionJobStats(
     const InternalStats::CompactionStats& stats) const;
-  void RecordDroppedKeys(int64_t* key_drop_user,
-                         int64_t* key_drop_newer_entry,
-                         int64_t* key_drop_obsolete,
+  void RecordDroppedKeys(const CompactionIteratorStats& c_iter_stats,
                          CompactionJobStats* compaction_job_stats = nullptr);
 
   void UpdateCompactionStats();
@@ -125,14 +116,7 @@ class CompactionJob {
   struct CompactionState;
   CompactionState* compact_;
   CompactionJobStats* compaction_job_stats_;
-
-  bool bottommost_level_;
-
   InternalStats::CompactionStats compaction_stats_;
-
-  SequenceNumber earliest_snapshot_;
-  SequenceNumber latest_snapshot_;
-  SequenceNumber visible_at_tip_;
 
   // DBImpl state
   const std::string& dbname_;
@@ -154,9 +138,13 @@ class CompactionJob {
 
   EventLogger* event_logger_;
 
+  bool bottommost_level_;
   bool paranoid_file_checks_;
   bool measure_io_stats_;
-  std::vector<Slice> sub_compaction_boundaries_;
+  // Stores the Slices that designate the boundaries for each subcompaction
+  std::vector<Slice> boundaries_;
+  // Stores the approx size of keys covered in the range of each subcompaction
+  std::vector<uint64_t> sizes_;
 };
 
 }  // namespace rocksdb

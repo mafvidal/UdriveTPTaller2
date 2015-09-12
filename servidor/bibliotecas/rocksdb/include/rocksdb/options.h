@@ -276,10 +276,9 @@ struct ColumnFamilyOptions {
   // If this value is set to -1, 'max_write_buffer_number' will be used.
   //
   // Default:
-  // If using an OptimisticTransactionDB, the default value will be set to the
-  // value
-  // of 'max_write_buffer_number' if it is not explicitly set by the user.
-  // Otherwise, the default is 0.
+  // If using a TransactionDB/OptimisticTransactionDB, the default value will
+  // be set to the value of 'max_write_buffer_number' if it is not explicitly
+  // set by the user.  Otherwise, the default is 0.
   int max_write_buffer_number_to_maintain;
 
   // Compress blocks using the specified compression algorithm.  This
@@ -816,7 +815,7 @@ struct DBOptions {
   // files opened are always kept open. You can estimate number of files based
   // on target_file_size_base and target_file_size_multiplier for level-based
   // compaction. For universal-style compaction, you can usually set it to -1.
-  // Default: 5000
+  // Default: 5000 or ulimit value of max open files (whichever is smaller)
   int max_open_files;
 
   // If max_open_files is -1, DB will open all files on DB::Open(). You can
@@ -908,12 +907,9 @@ struct DBOptions {
   int max_background_compactions;
 
   // This integer represents the maximum number of threads that will
-  // concurrently perform a level-based compaction from L0 to L1. A value
-  // of 1 means there is no parallelism, and a greater number enables a
-  // multi-threaded version of the L0-L1 compaction that divides the compaction
-  // into multiple, smaller ones that are run simultaneously. This is still
-  // under development and is only available for level-based compaction.
-  // Default: 1
+  // concurrently perform a compaction job by breaking it into multiple,
+  // smaller ones that are run simultaneously.
+  // Default: 1 (i.e. no subcompactions)
   uint32_t max_subcompactions;
 
   // Maximum number of concurrent background memtable flush jobs, submitted to
