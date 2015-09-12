@@ -1,34 +1,34 @@
 # UdriveTPTaller2
 Repositorio para el taller de programación 2
 
-#Instalacion general
+##Instalacion general
 
   sudo apt-get install cmake
 
-# Servidor
+## Servidor
 
-# rocksdb
+#### rocksdb
 
-Instalar bibliotecas:
+##### Instalar bibliotecas:
 
-  sudo apt-get install libsnappy-dev
-  sudo apt-get install libgflags-dev
-  sudo apt-get install zlib1g-dev
-  sudo apt-get install libbz2-dev
+ - sudo apt-get install libsnappy-dev
+ - sudo apt-get install libgflags-dev
+ - sudo apt-get install zlib1g-dev
+ - sudo apt-get install libbz2-dev
 
-Compilar rocksdb:
+##### Compilar rocksdb:
 
---En la carpeta servidor/bibliotecas/rocksdb
+###### En la carpeta servidor/bibliotecas/rocksdb
 
-  make static_lib
+ - make static_lib
 
-Compilar y ejecutar el "holaMundorRDB.cpp":
+##### Compilar y ejecutar el "holaMundorRDB.cpp":
 
---En la carpeta servidor/
+###### En la carpeta servidor/
 
-  mkdir build
-  cd build
-  cmake ..
-  make
-  ./ejemplo
+ - mkdir build
+ - cd build
+ - cmake ..
+ - make
+ - ./ejemplo
 
