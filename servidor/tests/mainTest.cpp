@@ -1,10 +1,9 @@
 #include <iostream>
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
-#include <cstdio>
 #include "BaseDeDatos.h"
 
-TEST(Database, CreateOnOpen) {
+TEST(Database, existeUsuario) {
 	BaseDeDatos base("testdb/");
 	base.setUsuario("Juan","ROCKSDB");
 	EXPECT_TRUE(base.existeUsuario("Juan"));
