@@ -1,7 +1,7 @@
 language: cpp 
 compiler:
     - gcc
-script:
+before_script:
     - sudo apt-get install g++
     - sudo apt-get install libsnappy-dev
     - wget https://gflags.googlecode.com/files/libgflags0_2.0-1_amd64.deb
