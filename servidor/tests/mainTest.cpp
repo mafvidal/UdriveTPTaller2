@@ -10,6 +10,13 @@ TEST(Database, existeUsuario) {
 
 }
 
+TEST(Database, claveCorrecta) {
+	BaseDeDatos base("testdb/");
+	base.setUsuario("Juan","ROCKSDB");
+	EXPECT_TRUE(base.esLaClaveCorrecta("Juan","ROCKSDB"));
+
+}
+
 int main(int argc, char* argv[]) {
 	testing::InitGoogleTest(&argc, argv);
   	testing::InitGoogleMock(&argc, argv);
