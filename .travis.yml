@@ -9,11 +9,19 @@ before_script:
     - wget https://gflags.googlecode.com/files/libgflags-dev_2.0-1_amd64.deb
     - sudo dpkg -i libgflags-dev_2.0-1_amd64.deb
     - sudo apt-get install -y zlib1g-dev
-    - sudo apt-get install -y libbz2-dev
+    - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
+    - sudo apt-get update
+    - sudo apt-get install gcc-4.8
+    - sudo apt-get install g++-4.8
+    - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.8 20
+    - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.8 20
+    - sudo update-alternatives --config gcc
+    - sudo update-alternatives --config g++
     - cd servidor
     - mkdir build
 script:
     - cd bibliotecas/gmock && cmake . && make && cd ../..
+    - cd bibliotecas/rocksdb && make static_lib -j8 && cd ../..
     - cd build
     - cmake ..
     - make
@@ -22,9 +30,6 @@ script:
 notifications:   # Notificamos los resultados de los test por correo
     recipients:
         - mafvidal@gmail.com
-        - morgan.tast@gmail.com
-        - samuel.malouda@gmail.com
-        - facundosg@hotmail.com
     email:
         on_success: change
         on_failure: always

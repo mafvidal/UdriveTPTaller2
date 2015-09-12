@@ -1,10 +1,13 @@
+#include <iostream>
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
+#include <cstdio>
+#include "BaseDeDatos.h"
 
-//Test de prueba, para ver si compila y pasa 
-TEST(Test, primerTest) {
-
-	EXPECT_TRUE(true);
+TEST(Database, CreateOnOpen) {
+	BaseDeDatos base("testdb/");
+	base.setUsuario("Juan","ROCKSDB");
+	EXPECT_TRUE(base.existeUsuario("Juan"));
 
 }
 
