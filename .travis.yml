@@ -22,6 +22,9 @@ script:
 notifications:   # Notificamos los resultados de los test por correo
     recipients:
         - mafvidal@gmail.com
+        - morgan.tast@gmail.com
+        - samuel.malouda@gmail.com
+        - facundosg@hotmail.com
     email:
         on_success: change
         on_failure: always
