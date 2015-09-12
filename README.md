@@ -32,3 +32,20 @@ Repositorio para el taller de programación 2
  - make
  - ./ejemplo
 
+#### GTest y GMock
+
+##### Compilar GTest y GMock:
+
+###### En la carpeta servidor/bibliotecas/gmock:
+
+ - cmake .
+ - make
+
+##### Correr test
+
+###### En la carpeta servidor/build
+
+ - cmake ..
+ - make
+ - cd tests
+ - ./tests
