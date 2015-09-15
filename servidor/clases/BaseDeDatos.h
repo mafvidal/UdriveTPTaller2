@@ -6,14 +6,18 @@
 #include "rocksdb/slice.h"
 #include <vector>
 #include <assert.h>
+#include <list>
+#include "estructuras.h"
 
 using namespace std;
 using namespace rocksdb;
+
 
 class BaseDeDatos {
 private:
 	const int USARIOS=1;
 	const int DATOSUSARIOS=2;
+	const int ARCHIVOSUSARIOS=3;
 	DB* db;
 	Status estado;
 	string dirPath;
@@ -36,12 +40,19 @@ public:
 	//Almacena los datos de un usuario
 	//Los datos son reemplazados
 	bool setDatosUsuario(string nombreUsuario, string datosUsuario);
+	//Agregar el nombre del archivo en el directorio
+	//El usuario debe existir
+	bool agregarArchivo(string nombreUsuario, string archivo);
+	//Devuelve la lista de archivos que posee el usuario
+	//En una estructura Archivo, que contiene el nombre y la ruta
+	list<Archivo> getArchivos(string nombreUsuario);
 
 	~BaseDeDatos();
 private:
 
 	void inicializarColumnas();
 	void cargarColumnas();
+	list<Archivo> parsearArchivos(string listaDeArchivos);
 
 };
 
