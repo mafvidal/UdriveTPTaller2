@@ -3,18 +3,29 @@
 #include <gmock/gmock.h>
 #include "BaseDeDatos.h"
 
-TEST(Database, existeUsuario) {
+TEST(baseDeDatos, existeUsuario) {
 	BaseDeDatos base("testdb/");
 	base.setUsuario("Juan","ROCKSDB");
 	EXPECT_TRUE(base.existeUsuario("Juan"));
-
 }
 
-TEST(Database, verificarClaveCorrecta) {
+TEST(baseDeDatos, verificarInexistenciaDeUsuario){
+        BaseDeDatos base("testdb/");
+        base.setUsuario("Juan","ROCKSDB");
+        EXPECT_FALSE(base.existeUsuario("Roberto"));
+}
+
+TEST(baseDeDatos, verificarClaveCorrecta) {
 	BaseDeDatos base("testdb/");
 	base.setUsuario("Juan","ROCKSDB");
 	EXPECT_TRUE(base.esLaClaveCorrecta("Juan","ROCKSDB"));
 
+}
+
+TEST(baseDeDatos, verificarClaveIncorrecta) {
+	BaseDeDatos base("testdb/");
+	base.setUsuario("Pedro","123456");
+	EXPECT_FALSE(base.esLaClaveCorrecta("Pedro","otraClave"));
 }
 
 int main(int argc, char* argv[]) {

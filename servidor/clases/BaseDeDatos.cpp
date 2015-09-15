@@ -2,26 +2,24 @@
 
 BaseDeDatos::BaseDeDatos(string directorio) {
 
-	cout<<directorio<<endl;
+	dirPath = directorio;
 	Options opciones;
 	opciones.create_if_missing = true;
-	estado = DB::Open(opciones,directorio, &db);
-	//assert(estado.ok());
-
-}
-
-BaseDeDatos::BaseDeDatos() {
+	opciones.error_if_exists = true;
+	estado = DB::Open(opciones,dirPath, &db);
+	if(estado.ok())
+		this->inicializarColumnas();
 	
-	Options opciones;
-	opciones.create_if_missing = true;
-	estado = DB::Open(opciones, "/tmp/mydb_rocks", &db);
-	assert(estado.ok());
+	this->cargarColumnas();
 
 }
+
 
 bool BaseDeDatos::setUsuario(string nombreUsuario,string clave){
 
-	estado = this->db->Put(WriteOptions(), nombreUsuario, clave);
+	WriteBatch batch;
+	batch.Put(handles[USARIOS], Slice(nombreUsuario), Slice(clave));
+	estado = db->Write(WriteOptions(), &batch);
 
 	return estado.ok();
 
@@ -29,24 +27,55 @@ bool BaseDeDatos::setUsuario(string nombreUsuario,string clave){
 
 bool BaseDeDatos::existeUsuario(string nombreUsuario){
 
-	string clave;
-	estado = db->Get(ReadOptions(), nombreUsuario, &clave);
-
+	string value;
+	estado = db->Get(ReadOptions(), handles[USARIOS], Slice(nombreUsuario), &value);
 	return estado.ok();
 
 }
 
+
 bool BaseDeDatos::esLaClaveCorrecta(string nombreUsuario,string clave){
 
 	string claveReal;
-	estado = db->Get(ReadOptions(), nombreUsuario, &claveReal);
+
+	db->Get(ReadOptions(), handles[USARIOS], Slice(nombreUsuario), &claveReal);
 
 	return (clave == claveReal);
 
 }
 
+
 BaseDeDatos::~BaseDeDatos() {
 
+	for (auto handle : handles) {
+		delete handle;
+	}
 	delete db;
+
+}
+
+void BaseDeDatos::inicializarColumnas(){
+
+	ColumnFamilyHandle* usuarios;
+
+	estado = db->CreateColumnFamily(ColumnFamilyOptions(),"USUARIOS", &usuarios);
+
+	delete usuarios;
+
+	delete db;
+
+}
+
+void BaseDeDatos::cargarColumnas(){
+
+	vector<ColumnFamilyDescriptor> column_families;
+
+	column_families.push_back(ColumnFamilyDescriptor(
+			kDefaultColumnFamilyName, ColumnFamilyOptions()));
+
+	column_families.push_back(ColumnFamilyDescriptor(
+			"USUARIOS", ColumnFamilyOptions()));
+	estado = DB::Open(DBOptions(), dirPath, column_families, &handles, &db);
+
 
 }
