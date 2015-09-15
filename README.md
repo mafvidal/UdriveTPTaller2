@@ -1,5 +1,5 @@
 # UdriveTPTaller2
-Repositorio para el taller de programación 2
+Repositorio para el grupo de taller de programación 2
 
 ##Instalacion general
 
