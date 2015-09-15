@@ -43,7 +43,25 @@ bool BaseDeDatos::esLaClaveCorrecta(string nombreUsuario,string clave){
 	return (clave == claveReal);
 
 }
+string BaseDeDatos::getDatosUsuario(string nombreUsuario){
 
+	string datos;
+
+	db->Get(ReadOptions(), handles[DATOSUSARIOS], Slice(nombreUsuario), &datos);
+
+	return datos;
+
+}
+
+bool BaseDeDatos::setDatosUsuario(string nombreUsuario, string datosUsuario){
+
+	WriteBatch batch;
+	batch.Put(handles[DATOSUSARIOS], Slice(nombreUsuario), Slice(datosUsuario));
+	estado = db->Write(WriteOptions(), &batch);
+
+	return estado.ok();
+
+}
 
 BaseDeDatos::~BaseDeDatos() {
 
@@ -57,10 +75,13 @@ BaseDeDatos::~BaseDeDatos() {
 void BaseDeDatos::inicializarColumnas(){
 
 	ColumnFamilyHandle* usuarios;
+	ColumnFamilyHandle* datosUsuarios;
 
 	estado = db->CreateColumnFamily(ColumnFamilyOptions(),"USUARIOS", &usuarios);
+	estado = db->CreateColumnFamily(ColumnFamilyOptions(),"DATOSUSARIOS", &datosUsuarios);
 
 	delete usuarios;
+	delete datosUsuarios;
 
 	delete db;
 
@@ -75,7 +96,9 @@ void BaseDeDatos::cargarColumnas(){
 
 	column_families.push_back(ColumnFamilyDescriptor(
 			"USUARIOS", ColumnFamilyOptions()));
-	estado = DB::Open(DBOptions(), dirPath, column_families, &handles, &db);
+	column_families.push_back(ColumnFamilyDescriptor(
+			"DATOSUSARIOS", ColumnFamilyOptions()));
 
+	estado = DB::Open(DBOptions(), dirPath, column_families, &handles, &db);
 
 }

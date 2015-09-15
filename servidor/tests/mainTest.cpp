@@ -27,6 +27,13 @@ TEST(baseDeDatos, verificarClaveIncorrecta) {
 	base.setUsuario("Pedro","123456");
 	EXPECT_FALSE(base.esLaClaveCorrecta("Pedro","otraClave"));
 }
+TEST(baseDeDatos, almacenarDatosDeUnUsuarioExistente){
+	BaseDeDatos base("testdb/");
+	base.setUsuario("Pedro","123456");
+	base.setDatosUsuario("Pedro","Pedro,pedro@mail.com");
+	EXPECT_EQ(base.getDatosUsuario("Pedro"),"Pedro,pedro@mail.com");
+
+}
 
 int main(int argc, char* argv[]) {
 	testing::InitGoogleTest(&argc, argv);
