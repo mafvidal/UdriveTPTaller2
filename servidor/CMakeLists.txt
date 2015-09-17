@@ -12,10 +12,10 @@ file(GLOB Clases
 
 
 #Incluyo el directorio para evitar poner la ruta entera por cada vez que se la usa
-include_directories(clases bibliotecas/rocksdb/include)
+include_directories(clases bibliotecas/rocksdb/include bibliotecas/mongoose)
 
 #Vincula los archivos al ejecutable
-add_executable(servidor holaMundorRDB ${Clases})
+add_executable(servidor holaMundorRDB ${Clases} bibliotecas/mongoose/mongoose.c)
 
 #Agrego biblioteca de rocksdb
 add_library(rocksdb SHARED IMPORTED)
