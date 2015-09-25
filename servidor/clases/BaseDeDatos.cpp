@@ -15,10 +15,12 @@ BaseDeDatos::BaseDeDatos(string directorio) {
 }
 
 
-bool BaseDeDatos::setUsuario(string nombreUsuario,string clave){
+bool BaseDeDatos::setUsuario(string nombreUsuario,string clave,float cuota){
+
+	DatosDeUsuario dato(clave,cuota);
 
 	WriteBatch batch;
-	batch.Put(handles[USARIOS], Slice(nombreUsuario), Slice(clave));
+	batch.Put(handles[USARIOS], Slice(nombreUsuario), Slice(dato.getDatos()));
 	estado = db->Write(WriteOptions(), &batch);
 
 	return estado.ok();
@@ -36,64 +38,111 @@ bool BaseDeDatos::existeUsuario(string nombreUsuario){
 
 bool BaseDeDatos::esLaClaveCorrecta(string nombreUsuario,string clave){
 
-	string claveReal;
+	string datos;
 
-	db->Get(ReadOptions(), handles[USARIOS], Slice(nombreUsuario), &claveReal);
+	db->Get(ReadOptions(), handles[USARIOS], Slice(nombreUsuario), &datos);
 
-	return (clave == claveReal);
+	DatosDeUsuario datosDeUsuario(datos);
+
+	return (clave == datosDeUsuario.getClave());
 
 }
 string BaseDeDatos::getDatosUsuario(string nombreUsuario){
 
 	string datos;
 
-	db->Get(ReadOptions(), handles[DATOSUSARIOS], Slice(nombreUsuario), &datos);
+	db->Get(ReadOptions(), handles[USARIOS], Slice(nombreUsuario), &datos);
 
-	return datos;
+	DatosDeUsuario datosDeUsuario(datos);
+
+	return datosDeUsuario.getDatosDelUsuario();
 
 }
 
 bool BaseDeDatos::setDatosUsuario(string nombreUsuario, string datosUsuario){
 
+	string datos;
+
+	db->Get(ReadOptions(), handles[USARIOS], Slice(nombreUsuario), &datos);
+
+	DatosDeUsuario datosDeUsuario(datos);
+
+	datosDeUsuario.cargarDatosDelUsuario(datosUsuario);
+
 	WriteBatch batch;
-	batch.Put(handles[DATOSUSARIOS], Slice(nombreUsuario), Slice(datosUsuario));
+	batch.Put(handles[USARIOS], Slice(nombreUsuario), Slice(datosDeUsuario.getDatos()));
 	estado = db->Write(WriteOptions(), &batch);
 
 	return estado.ok();
 
 }
 
-bool BaseDeDatos::agregarArchivo(string nombreUsuario, string archivo){
-	
-	string listaDeArchivos;
+bool BaseDeDatos::agregarArchivo(string nombreUsuario,string metadatos,float espacio){
 
-	estado=db->Get(ReadOptions(), handles[ARCHIVOSUSARIOS], Slice(nombreUsuario), &listaDeArchivos);
-	//El usuario no tiene archivos en la base
-	if(!estado.ok()){
-		WriteBatch batch;
-		batch.Put(handles[ARCHIVOSUSARIOS], Slice(nombreUsuario), Slice(archivo));
-		estado = db->Write(WriteOptions(), &batch);
-	}else{
-		listaDeArchivos=listaDeArchivos+"-"+archivo;
-		WriteBatch batch;
-		batch.Put(handles[ARCHIVOSUSARIOS], Slice(nombreUsuario), Slice(listaDeArchivos));
-		estado = db->Write(WriteOptions(), &batch);
-	}		
+	string datos;
+
+	db->Get(ReadOptions(), handles[USARIOS], Slice(nombreUsuario), &datos);
+
+	DatosDeUsuario datosDeUsuario(datos);
+
+	DatosDeArchivos datosDeArchivos(metadatos);
+
+	unsigned int hash = this->obtenerHash(datosDeArchivos.getNombreCompleto());
+	string hashString = this->convertirAString(hash);
+
+	string nombreArchivo;
+
+	estado = db->Get(ReadOptions(), handles[ARCHIVOSNOMBRES], Slice(hashString), &nombreArchivo);
+	while(estado.ok()){
+		hash++;
+		hashString = this->convertirAString(hash);
+		estado = db->Get(ReadOptions(), handles[ARCHIVOSNOMBRES], Slice(hashString), &nombreArchivo);
+	}
+
+	datosDeUsuario.setArchivo(hashString,espacio);
+
+	WriteBatch batch;
+	batch.Put(handles[USARIOS], Slice(nombreUsuario), Slice(datosDeUsuario.getDatos()));
+	estado = db->Write(WriteOptions(), &batch);
+	
+	WriteBatch batchArchivoNombre;
+	batchArchivoNombre.Put(handles[ARCHIVOSNOMBRES], Slice(hashString), Slice(datosDeArchivos.getNombreCompleto()));
+	estado = db->Write(WriteOptions(), &batchArchivoNombre);
+
+
+	WriteBatch batchArchivos;
+	batchArchivos.Put(handles[ARCHIVOS], Slice(hashString), Slice(datosDeArchivos.getDatos()));
+	estado = db->Write(WriteOptions(), &batchArchivos);
+	
 
 }
 
-list<Archivo> BaseDeDatos::getArchivos(string nombreUsuario){
+list<string> BaseDeDatos::getArchivos(string nombreUsuario){
 
-	string listaDeArchivos;
+	list<string> listaDeArchivos;
 
-	estado=db->Get(ReadOptions(), handles[ARCHIVOSUSARIOS], Slice(nombreUsuario), &listaDeArchivos);
+	string datos;
 
-	if(!estado.ok()){
-		list<Archivo> archivos;
-		return archivos;
-	}else{
-		return this->parsearArchivos(listaDeArchivos);
+	db->Get(ReadOptions(), handles[USARIOS], Slice(nombreUsuario), &datos);
+
+	DatosDeUsuario datosDeUsuario(datos);
+
+	//cout<<datos<<endl;
+
+	list<string> hashDeArchivos = datosDeUsuario.getArchivos();
+
+	for(list<string>::iterator it = hashDeArchivos.begin(); it != hashDeArchivos.end(); it++){
+		DatosDeArchivos datosDeArchivos;
+		string datosArchivo;
+		//cout<<(*it)<<endl;
+		db->Get(ReadOptions(), handles[ARCHIVOS], Slice((*it)), &datosArchivo);
+		//cout<<datosArchivo<<endl;
+		datosDeArchivos.setDatos(datosArchivo);
+		//cout<<datosDeArchivos.getMetadatosDatos()<<endl;
+		listaDeArchivos.push_back(datosDeArchivos.getMetadatosDatos());
 	}
+
+	return listaDeArchivos;
 
 }
 
@@ -106,19 +155,49 @@ BaseDeDatos::~BaseDeDatos() {
 
 }
 
+unsigned int BaseDeDatos::obtenerHash(string archivo){
+
+	unsigned int hash = 0;
+
+	for(int i=0; i<archivo.size(); ++i)
+	{
+		hash += archivo[i];
+		hash += (hash << 10);
+ 		hash ^= (hash >> 6);
+	}
+
+	hash += (hash << 3);
+	hash ^= (hash >> 11);
+	hash += (hash << 15);
+
+	return hash;
+
+}
+
+string BaseDeDatos::convertirAString(unsigned int hash){
+
+	string hashString;
+	ostringstream convertir;
+	convertir << hash;
+	hashString = convertir.str();
+
+	return hashString;
+
+
+}
 void BaseDeDatos::inicializarColumnas(){
 
 	ColumnFamilyHandle* usuarios;
-	ColumnFamilyHandle* datosUsuarios;
-	ColumnFamilyHandle* archivosUsuarios;
+	ColumnFamilyHandle* archivos;
+	ColumnFamilyHandle* archivosNombres;
 
 	estado = db->CreateColumnFamily(ColumnFamilyOptions(),"USUARIOS", &usuarios);
-	estado = db->CreateColumnFamily(ColumnFamilyOptions(),"DATOSUSARIOS", &datosUsuarios);
-	estado = db->CreateColumnFamily(ColumnFamilyOptions(),"ARCHIVOSUSARIOS", &archivosUsuarios);
+	estado = db->CreateColumnFamily(ColumnFamilyOptions(),"ARCHIVOS", &archivos);
+	estado = db->CreateColumnFamily(ColumnFamilyOptions(),"ARCHIVOSNOMBRES", &archivosNombres);
 
 	delete usuarios;
-	delete datosUsuarios;
-	delete archivosUsuarios;
+	delete archivos;
+	delete archivosNombres;
 
 	delete db;
 
@@ -134,15 +213,15 @@ void BaseDeDatos::cargarColumnas(){
 	column_families.push_back(ColumnFamilyDescriptor(
 			"USUARIOS", ColumnFamilyOptions()));
 	column_families.push_back(ColumnFamilyDescriptor(
-			"DATOSUSARIOS", ColumnFamilyOptions()));
+			"ARCHIVOS", ColumnFamilyOptions()));
 	column_families.push_back(ColumnFamilyDescriptor(
-			"ARCHIVOSUSARIOS", ColumnFamilyOptions()));
+			"ARCHIVOSNOMBRES", ColumnFamilyOptions()));
 
 	estado = DB::Open(DBOptions(), dirPath, column_families, &handles, &db);
 
 }
 
-list<Archivo> BaseDeDatos::parsearArchivos(string listaDeArchivos){
+/*list<Archivo> BaseDeDatos::parsearArchivos(string listaDeArchivos){
 
 	list<string> lista;
 	size_t finArchivo = listaDeArchivos.find("-");
@@ -170,4 +249,4 @@ list<Archivo> BaseDeDatos::parsearArchivos(string listaDeArchivos){
 
 	return archivos;
 
-}
+}*/

@@ -6,7 +6,7 @@ set(GTest "${PROJECT_SOURCE_DIR}/bibliotecas/gmock/gtest/libgtest.a")
 set(Clases ${PROJECT_SOURCE_DIR}/clases)
 
 #Incluyo la ruta de GMock y Gtest, para evitar en los archivos incluirla
-include_directories("${PROJECT_SOURCE_DIR}/bibliotecas/gmock/include" "${PROJECT_SOURCE_DIR}/bibliotecas/gmock/gtest/include" ${Clases})
+include_directories("${PROJECT_SOURCE_DIR}/bibliotecas/gmock/include" "${PROJECT_SOURCE_DIR}/bibliotecas/gmock/gtest/include" ${Clases} jsonPrueba)
 
 #Incluimos las clases
 file(GLOB Clases_INC
@@ -14,10 +14,18 @@ file(GLOB Clases_INC
 	"${PROJECT_SOURCE_DIR}/clases/*.cpp"
 )
 
+#Incluimos archivos de prueba
+file(GLOB Json_INC
+	"${PROJECT_SOURCE_DIR}/jsonPrueba/*.json"
+)
+
+
 #Vincula el archivo de tests "mainTest.cpp" con el ejecutable
-add_executable(tests mainTest ${Clases_INC})
+add_executable(tests mainTest ${Clases_INC} "${PROJECT_SOURCE_DIR}/bibliotecas/JsonCpp/jsoncpp.cpp")
 
 #Se agregan las librerias de GTest y GMock
 target_link_libraries(tests ${GTest})
 target_link_libraries(tests ${GMock})
 target_link_libraries(tests rocksdb pthread rt snappy gflags z bz2)
+
+file(COPY ${Json_INC} DESTINATION "${PROJECT_SOURCE_DIR}/build/tests/")
