@@ -2,12 +2,15 @@
 #include "BaseDeDatos.h"
 #include <iostream>
 #include <mongoose.h>
+#include <json/json.h>
+#include <fstream>
 
 
 using namespace std;
 
 int main(int argc, char** argv) {
 
+	
 	struct mg_server *server = mg_create_server(NULL, NULL);
 	mg_set_option(server, "document_root", ".");	  // Serve current directory
 	mg_set_option(server, "listening_port", "8080");  // Open port 8080
