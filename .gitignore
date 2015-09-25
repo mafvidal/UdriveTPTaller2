@@ -1,3 +1,4 @@
 servidor/bibliotecas/gmock
 servidor/bibliotecas/rocksdb
+servidor/bibliotecas/JsonCpp
 servidor/build
