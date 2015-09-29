@@ -187,9 +187,29 @@ TEST(baseDeDatos, alConsultarPorEtiquetaQueNoExisteNoDeboRecibirArchivos){
 	base.agregarArchivo("Perez",datosArchivo,55);
 
 	list<string> listaDeArchivos = base.buscarPorEtiquetas("Perez","Pato");
-	cout<<"SIZE  "<<listaDeArchivos.size()<<endl;
 
 	EXPECT_EQ(listaDeArchivos.size(),0);
+
+}
+
+TEST(baseDeDatos, alConsultarPorExtensionDeboRecibirElArchivoQuePoseeLaExtension){
+
+	string datosUsuario = cargarJsonUsuario();
+	string datosArchivo = cargarJsonArchivo("Luis");
+
+	BaseDeDatos base("testdb/");
+	base.agregarUsuario("Luis","MiClave",datosUsuario,800);
+	
+	base.agregarArchivo("Luis",datosArchivo,55);
+
+	list<string> listaDeArchivos = base.buscarPorExtension("Luis","txt");
+
+	Json::Value metadatos;
+	Json::Reader reader;
+
+	reader.parse(listaDeArchivos.front(), metadatos);
+
+	EXPECT_EQ("colores",metadatos.get("Nombre", "" ).asString());
 
 }
 

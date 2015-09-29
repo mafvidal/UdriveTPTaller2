@@ -28,7 +28,13 @@ public:
 	list<string> listaDeEtiquetas(string metadatosJson);
 	//Retorna el propietario a partir de los metadatos
 	string propietario(string metadatosJson);
+	//Retorna el nombre del archivo a partir de los metadatos
+	string nombre(string metadatosJson);
+	//Retorna la extension del archivo a partir de los metadatos
+	string extension(string metadatosJson);
 	virtual ~DatosDeArchivos();
+private:
+	string getDato(string metadatosJson, string tipo);
 };
 
 #endif /* DATOSDEARCHIVOS_H_ */

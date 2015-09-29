@@ -51,6 +51,7 @@ bool BaseDeDatos::esLaClaveCorrecta(string nombreUsuario,string clave){
 	return (clave == datos.clave(datosUsuario));
 
 }
+
 string BaseDeDatos::getMetaDatosUsuario(string nombreUsuario){
 
 	string datosUsuario;
@@ -101,7 +102,11 @@ bool BaseDeDatos::agregarArchivo(string nombreUsuario,string metadatos,float esp
 		estado = db->Get(ReadOptions(), handles[ARCHIVOS], Slice(hashString), &archivoExistente);
 	}
 
-	this->cargarEtiquetas(datosArchivo.listaDeEtiquetas(metadatos),datosArchivo.propietario(metadatos),hashString);
+	this->cargarEtiquetas(datosArchivo.listaDeEtiquetas(metadatos),nombreUsuario,hashString);
+	//this->cargarEtiquetas(datosArchivo.listaDeEtiquetas(metadatos),datosArchivo.propietario(metadatos),hashString);
+	this->cargarMetadatos(datosArchivo.propietario(metadatos),nombreUsuario,hashString,PROPIETARIO);
+	this->cargarMetadatos(datosArchivo.nombre(metadatos),nombreUsuario,hashString,NOMBRE);
+	this->cargarMetadatos(datosArchivo.extension(metadatos),nombreUsuario,hashString,EXTENSION);
 
 	WriteBatch batchArchivos;
 	batchArchivos.Put(handles[ARCHIVOS], Slice(hashString), Slice(datosArchivoAGuardar));
@@ -230,10 +235,12 @@ list<string> BaseDeDatos::getArchivosEnPapelera(string nombreUsuario){
 
 list<string> BaseDeDatos::buscarPorEtiquetas(string nombreUsuario,string etiqueta){
 
+	return buscarPorMetadato(nombreUsuario,etiqueta,ETIQUETAS);
+
 	list<string> archivosLista;
 	list<string> hasharchivosLista;
 	string datosEtiquetas;
-	DatosEtiquetas datos;
+	MetadatosConsulta datos;
 
 	string nombre=nombreUsuario+etiqueta;
 	
@@ -257,6 +264,25 @@ list<string> BaseDeDatos::buscarPorEtiquetas(string nombreUsuario,string etiquet
 	return archivosLista;
 
 }
+
+list<string> BaseDeDatos::buscarPorExtension(string nombreUsuario,string extension){
+
+	return buscarPorMetadato(nombreUsuario,extension,EXTENSION);
+
+}
+
+list<string> BaseDeDatos::buscarPorNombre(string nombreUsuario,string nombre){
+
+	return buscarPorMetadato(nombreUsuario,nombre,NOMBRE);
+
+}
+
+list<string> BaseDeDatos::buscarPorPropietario(string nombreUsuario,string propietario){
+
+	return buscarPorMetadato(nombreUsuario,propietario,PROPIETARIO);
+
+}
+
 
 BaseDeDatos::~BaseDeDatos() {
 
@@ -301,14 +327,23 @@ void BaseDeDatos::inicializarColumnas(){
 	ColumnFamilyHandle* usuarios;
 	ColumnFamilyHandle* archivos;
 	ColumnFamilyHandle* etiquetas;
+	ColumnFamilyHandle* nombre;
+	ColumnFamilyHandle* extension;
+	ColumnFamilyHandle* propietario;
 
 	estado = db->CreateColumnFamily(ColumnFamilyOptions(),"USUARIOS", &usuarios);
 	estado = db->CreateColumnFamily(ColumnFamilyOptions(),"ARCHIVOS", &archivos);
 	estado = db->CreateColumnFamily(ColumnFamilyOptions(),"ETIQUETAS", &etiquetas);
+	estado = db->CreateColumnFamily(ColumnFamilyOptions(),"NOMBRE", &nombre);
+	estado = db->CreateColumnFamily(ColumnFamilyOptions(),"EXTENSION", &extension);
+	estado = db->CreateColumnFamily(ColumnFamilyOptions(),"PROPIETARIO", &propietario);
 
 	delete usuarios;
 	delete archivos;
 	delete etiquetas;
+	delete nombre;
+	delete extension;
+	delete propietario;
 
 	delete db;
 
@@ -321,12 +356,12 @@ void BaseDeDatos::cargarColumnas(){
 	column_families.push_back(ColumnFamilyDescriptor(
 			kDefaultColumnFamilyName, ColumnFamilyOptions()));
 
-	column_families.push_back(ColumnFamilyDescriptor(
-			"USUARIOS", ColumnFamilyOptions()));
-	column_families.push_back(ColumnFamilyDescriptor(
-			"ARCHIVOS", ColumnFamilyOptions()));
-	column_families.push_back(ColumnFamilyDescriptor(
-			"ETIQUETAS", ColumnFamilyOptions()));
+	column_families.push_back(ColumnFamilyDescriptor("USUARIOS", ColumnFamilyOptions()));
+	column_families.push_back(ColumnFamilyDescriptor("ARCHIVOS", ColumnFamilyOptions()));
+	column_families.push_back(ColumnFamilyDescriptor("ETIQUETAS", ColumnFamilyOptions()));
+	column_families.push_back(ColumnFamilyDescriptor("NOMBRE", ColumnFamilyOptions()));
+	column_families.push_back(ColumnFamilyDescriptor("EXTENSION", ColumnFamilyOptions()));
+	column_families.push_back(ColumnFamilyDescriptor("PROPIETARIO", ColumnFamilyOptions()));
 
 	estado = DB::Open(DBOptions(), dirPath, column_families, &handles, &db);
 
@@ -370,13 +405,13 @@ list<string> BaseDeDatos::obtenerArchivos(string nombreUsuario,string modo){
 	return listaDeMetadatos;
 
 }
-void BaseDeDatos::cargarEtiquetas(list<string> etiquetas, string propietario,string hashArchivo){
+void BaseDeDatos::cargarEtiquetas(list<string> etiquetas, string nombreUsuario,string hashArchivo){
 	
-	DatosEtiquetas datos;
+	MetadatosConsulta datos;
 
 	for(list<string>::iterator it = etiquetas.begin(); it != etiquetas.end(); it++){
 
-		string nombre=propietario+(*it);
+		string nombre=nombreUsuario+(*it);
 		string archivos;
 	
 		estado = db->Get(ReadOptions(), handles[ETIQUETAS], Slice(nombre), &archivos);
@@ -396,5 +431,58 @@ void BaseDeDatos::cargarEtiquetas(list<string> etiquetas, string propietario,str
 
 	}
 
+
+}
+void BaseDeDatos::cargarMetadatos(string metadato, string nombreUsuario,string hashArchivo,const int TIPO){
+
+	MetadatosConsulta datos;
+
+	string nombre=nombreUsuario+metadato;
+	string archivos;
+	
+	estado = db->Get(ReadOptions(), handles[TIPO], Slice(nombre), &archivos);
+		
+	if(!estado.ok()){
+
+		archivos = datos.contruir(hashArchivo);
+
+	}else{
+
+		archivos = datos.cargarArchivo(archivos,hashArchivo);
+
+	}
+
+	WriteBatch batch;
+	batch.Put(handles[TIPO], Slice(nombre), Slice(archivos));
+	estado = db->Write(WriteOptions(), &batch);
+
+}
+list<string> BaseDeDatos::buscarPorMetadato(string nombreUsuario,string metadato,const int TIPO){
+
+	list<string> archivosLista;
+	list<string> hashArchivosLista;
+	string datosExistente;
+	MetadatosConsulta datos;
+
+	string nombre=nombreUsuario+metadato;
+	
+	estado = db->Get(ReadOptions(), handles[TIPO], Slice(nombre), &datosExistente);
+
+	if(!estado.ok())
+		return archivosLista;
+
+	hashArchivosLista = datos.archivos(datosExistente);
+
+	for(list<string>::iterator it = hashArchivosLista.begin(); it != hashArchivosLista.end(); it++){
+		
+		DatosDeArchivos datosArchivo;
+		string datosDelArchivo;
+
+		db->Get(ReadOptions(), handles[ARCHIVOS], Slice((*it)), &datosDelArchivo);
+
+		archivosLista.push_back(datosArchivo.obtenerMetadatos(datosDelArchivo));
+	}
+
+	return archivosLista;
 
 }

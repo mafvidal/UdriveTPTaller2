@@ -11,7 +11,7 @@
 #include "estructuras.h"
 #include "DatosDeUsuario.h"
 #include "DatosDeArchivos.h"
-#include "DatosEtiquetas.h"
+#include "MetadatosConsulta.h"
 
 using namespace std;
 using namespace rocksdb;
@@ -22,6 +22,9 @@ private:
 	const int USARIOS=1;
 	const int ARCHIVOS=2;
 	const int ETIQUETAS=3;
+	const int NOMBRE=4;
+	const int EXTENSION=5;
+	const int PROPIETARIO=6;
 	DB* db;
 	Status estado;
 	string dirPath;
@@ -56,6 +59,12 @@ public:
 	list<string> getArchivosEnPapelera(string nombreUsuario);
 	//Devuelve la lista de archivos que coinciden con la etiqueta del usuario
 	list<string> buscarPorEtiquetas(string nombreUsuario,string etiqueta);
+	//Devuelve la lista de archivos que coinciden con la etiqueta del usuario
+	list<string> buscarPorExtension(string nombreUsuario,string extension);
+	//Devuelve la lista de archivos que coinciden con la etiqueta del usuario
+	list<string> buscarPorNombre(string nombreUsuario,string nombre);
+	//Devuelve la lista de archivos que coinciden con la etiqueta del usuario
+	list<string> buscarPorPropietario(string nombreUsuario,string propietario);
 
 	~BaseDeDatos();
 private:
@@ -65,7 +74,9 @@ private:
 	void cargarColumnas();
 	string convertirAString(unsigned int hash);
 	list<string> obtenerArchivos(string nombreUsuario,string modo);
-	void cargarEtiquetas(list<string> etiquetas, string propietario,string hashArchivo);
+	void cargarEtiquetas(list<string> etiquetas, string nombreUsuario,string hashArchivo);
+	void cargarMetadatos(string metadato, string nombreUsuario,string hashArchivo,const int TIPO);
+	list<string> buscarPorMetadato(string nombreUsuario,string propietario,const int TIPO);
 
 };
 

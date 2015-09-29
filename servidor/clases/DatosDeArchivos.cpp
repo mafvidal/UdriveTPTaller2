@@ -116,14 +116,29 @@ list<string> DatosDeArchivos::listaDeEtiquetas(string metadatosJson){
 }
 string DatosDeArchivos::propietario(string metadatosJson){
 
+	return this->getDato(metadatosJson,"Propietario");
+
+}
+string DatosDeArchivos::nombre(string metadatosJson){
+
+	return this->getDato(metadatosJson,"Nombre");
+
+}
+string DatosDeArchivos::extension(string metadatosJson){
+
+	return this->getDato(metadatosJson,"Extension");
+
+}
+DatosDeArchivos::~DatosDeArchivos(){
+}
+string DatosDeArchivos::getDato(string metadatosJson, string tipo){
+
 	Value datos;
 	Reader reader;
 
 	reader.parse(metadatosJson, datos,false);
 
-	return datos["Propietario"].asString();
+	return datos[tipo].asString();
 
-}
-DatosDeArchivos::~DatosDeArchivos(){
 }
 

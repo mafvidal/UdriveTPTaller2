@@ -1,8 +1,8 @@
-#include "DatosEtiquetas.h"
+#include "MetadatosConsulta.h"
 
-DatosEtiquetas::DatosEtiquetas(){}
+MetadatosConsulta::MetadatosConsulta(){}
 
-string DatosEtiquetas::contruir(string hashArchivo){
+string MetadatosConsulta::contruir(string hashArchivo){
 
 	Value datos;
 	Value archivos(arrayValue);
@@ -15,12 +15,12 @@ string DatosEtiquetas::contruir(string hashArchivo){
 
 }
 
-string DatosEtiquetas::cargarArchivo(string etiquetasJson,string hashArchivo){
+string MetadatosConsulta::cargarArchivo(string datosjson,string hashArchivo){
 
 	Value datos;
 	Reader reader;
 
-	reader.parse(etiquetasJson, datos,false);
+	reader.parse(datosjson, datos,false);
 
 	datos["Archivos"].append(Value(hashArchivo));
 
@@ -28,14 +28,14 @@ string DatosEtiquetas::cargarArchivo(string etiquetasJson,string hashArchivo){
 
 }
 
-string DatosEtiquetas::eliminarArchivo(string etiquetasJson,string hashArchivo){
+string MetadatosConsulta::eliminarArchivo(string datosjson,string hashArchivo){
 
 	Value datos;
 	Reader reader;
 	Value archivosNuevos(arrayValue);
 	Value archivos(arrayValue);
 
-	reader.parse(etiquetasJson, datos,false);
+	reader.parse(datosjson, datos,false);
 
 	archivos = datos["Archivos"];
 
@@ -50,13 +50,13 @@ string DatosEtiquetas::eliminarArchivo(string etiquetasJson,string hashArchivo){
 	return datos.toStyledString();
 
 }
-list<string> DatosEtiquetas::archivos(string etiquetasJson){
+list<string> MetadatosConsulta::archivos(string datosjson){
 
 	Value datos;
 	Reader reader;
 	list<string> archivosLista;
 
-	reader.parse(etiquetasJson, datos,false);
+	reader.parse(datosjson, datos,false);
 
 	Value archivos = datos["Archivos"];
 	for ( int indice = 0; indice < archivos.size(); ++indice )
@@ -66,4 +66,4 @@ list<string> DatosEtiquetas::archivos(string etiquetasJson){
 
 }
 
-DatosEtiquetas::~DatosEtiquetas(){}
+MetadatosConsulta::~MetadatosConsulta(){}

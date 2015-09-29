@@ -1,5 +1,5 @@
-#ifndef DATOSETIQUETAS_H_
-#define DATOSETIQUETAS_H_
+#ifndef METADATOSCONSULTA_H_
+#define METADATOSCONSULTA_H_
 
 #include <iostream>
 #include <list>
@@ -9,19 +9,19 @@
 using namespace std;
 using namespace Json;
 
-class DatosEtiquetas {
+class MetadatosConsulta {
 public:
-	DatosEtiquetas();
+	MetadatosConsulta();
 	//Retorna el json con solamente el archivo pasado
 	string contruir(string hashArchivo);
 	//Agrega un archivo al json existente
-	string cargarArchivo(string etiquetasJson,string hashArchivo);
+	string cargarArchivo(string datosjson,string hashArchivo);
 	//Elimina un archivo del json existente
-	string eliminarArchivo(string etiquetasJson,string hashArchivo);
+	string eliminarArchivo(string datosjson,string hashArchivo);
 	//Retorna la lista de hash de archivos
-	list<string> archivos(string etiquetasJson);
-	~DatosEtiquetas();
+	list<string> archivos(string datosjson);
+	~MetadatosConsulta();
 
 };
 
-#endif /* DATOSETIQUETAS_H_ */
+#endif /* METADATOSCONSULTA_H_ */
