@@ -20,13 +20,14 @@ string cargarJsonUsuario(){
 	return datosUsuario.toStyledString();
 
 }
-string cargarJsonArchivo(){
+string cargarJsonArchivo(string propietario){
 
 	//Cargo el json de prueba
 	Json::Value datosArchivo;
 	Json::Reader reader;
 	ifstream test("archivo.json", ifstream::binary);
 	reader.parse( test, datosArchivo, false );
+	datosArchivo["Propietario"]=propietario;
 	
 	return datosArchivo.toStyledString();
 
@@ -95,7 +96,7 @@ TEST(baseDeDatos, almacenarDatosDeUnUsuarioExistenteYVerificarCorrectoAlmacenami
 TEST(baseDeDatos, alAlmacenarUnArchivoEsteDebeEstarEnLaBase){
 
 	string datosUsuario = cargarJsonUsuario();
-	string datosArchivo = cargarJsonArchivo();
+	string datosArchivo = cargarJsonArchivo("Juan");
 
 	BaseDeDatos base("testdb/");
 	base.agregarUsuario("Juan","MiClave",datosUsuario,800);
@@ -110,6 +111,24 @@ TEST(baseDeDatos, alAlmacenarUnArchivoEsteDebeEstarEnLaBase){
 	reader.parse(listaDeArchivos.front(), metadatos);
 
 	EXPECT_EQ("colores",metadatos.get("Nombre", "" ).asString());
+
+}
+
+TEST(baseDeDatos, alEliminarUnArchivoYSolicitarArchivosDelUsuarioEsteNoDebeExistir){
+
+	string datosUsuario = cargarJsonUsuario();
+	string datosArchivo = cargarJsonArchivo("Pedro");
+
+	BaseDeDatos base("testdb/");
+	base.agregarUsuario("Pedro","MiClave",datosUsuario,800);
+	
+	base.agregarArchivo("Pedro",datosArchivo,55);
+
+	base.eliminarLogicamenteArchivo("Pedro",datosArchivo,55);
+
+	list<string> listaDeArchivos = base.getArchivos("Pedro");
+
+	EXPECT_EQ(listaDeArchivos.size(),0);
 
 }
 

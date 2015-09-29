@@ -46,7 +46,8 @@ public:
 	bool agregarArchivo(string nombreUsuario,string metadatos,float espacio);
 	//Devuelve la lista de archivos que posee el usuario
 	list<string> getArchivos(string nombreUsuario);
-
+	//Elimina logicamente el archivo de la base de datos
+	void eliminarLogicamenteArchivo(string nombreUsuario,string metadatosArchivo,float espacio);
 	~BaseDeDatos();
 private:
 
