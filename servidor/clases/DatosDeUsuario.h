@@ -1,4 +1,3 @@
-
 #ifndef DATOSDEUSUARIO_H_
 #define DATOSDEUSUARIO_H_
 
@@ -11,38 +10,36 @@ using namespace std;
 using namespace Json;
 
 class DatosDeUsuario {
-private:
-	string clave;
-	float cuota;
-	float cuotaUsada;
-	string nombre;
-	string email;
-	string ubicacionFoto;
-	string ultimaUbicacion;
-	list<string> archivos;
 public:
-	DatosDeUsuario(string clave,float cuota);
-	DatosDeUsuario(string datos);
-	//Carga los metadatos del usuario
-	void cargarDatosDelUsuario(string datosDeUsuario);
-	//Retorna el json con los datos del usuario
-	string getDatos();
-	//Retorna el json con los metadatos del usuario
-	string getDatosDelUsuario();
-	//Modifica la clave del usuario
-	void setClave(string clave);
-	//Agrega un archivo de un espacio determinado
-	void setArchivo(string archivo, float espacio);
-	//retorna la lista de archivos
-	list<string> getArchivos();
-	//Modifica la cuota maxima del usuario
-	void setCuota(float cuota);
-	//Retorna la clave
-	string getClave();
+	DatosDeUsuario();
+	//Construye los Datos de usuario a partir de los metadatos del usuario
+	string obtenerDatosDeUsuarios(string metadatosJson,string clave,float cuota);
+	//Modifica los datos del usuario a partir de los metadatos del usuario
+	string modificarDatosDeUsuarios(string datosJson,string metaDatosJson);
+	//Retorna los metadatos del usuario
+	string obtenerMetadatosDelUsuario(string datosJson);
+	//Modifica la clave
+	string modificarClave(string datosJson,string clave);
+	//retorna la clave del usuario
+	string clave(string datosJson);
+	//Agrega un archivo nuevo
+	string agregarArchivoNuevo(string datosJson,string hashArchivo,float espacio);
+	//Elimina un archivo
+	string eliminarArchivo(string datosJson,string hashArchivo,float espacio);
+	//Elimina un archivo
+	string eliminarArchivoCompartido(string datosJson,string hashArchivo,float espacio);
+	//Retorna la cuota asignada al usuario
+	float cuota(string datosJson);
+	//Retorna la cuota usada por el usuario
+	float cuotaUsada(string datosJson);
+	//Modifica la cuota asignada al usuario
+	string modificarCuota(string datosJson,float cuotaNueva);
+	//Retorna la lista de los hash de los archivos
+	list<string> obtenerArchivos(string datosJson);
 	virtual ~DatosDeUsuario();
 private:
 	//Puede ser privado
-	void cargarDatos(string datos);
+	string eliminar(string datosJson,string hashArchivo,string tipo,float espacio);
 };
 
 #endif /* DATOSDEUSUARIO_H_ */

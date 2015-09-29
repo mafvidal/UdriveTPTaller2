@@ -15,12 +15,16 @@ BaseDeDatos::BaseDeDatos(string directorio) {
 }
 
 
-bool BaseDeDatos::setUsuario(string nombreUsuario,string clave,float cuota){
+bool BaseDeDatos::agregarUsuario(string nombreUsuario,string clave,string metadatosJson,float cuota){
 
-	DatosDeUsuario dato(clave,cuota);
+	DatosDeUsuario dato;
+
+	string datosUsuarios;
+
+	datosUsuarios = dato.obtenerDatosDeUsuarios(metadatosJson,clave,cuota);
 
 	WriteBatch batch;
-	batch.Put(handles[USARIOS], Slice(nombreUsuario), Slice(dato.getDatos()));
+	batch.Put(handles[USARIOS], Slice(nombreUsuario), Slice(datosUsuarios));
 	estado = db->Write(WriteOptions(), &batch);
 
 	return estado.ok();
@@ -38,39 +42,39 @@ bool BaseDeDatos::existeUsuario(string nombreUsuario){
 
 bool BaseDeDatos::esLaClaveCorrecta(string nombreUsuario,string clave){
 
-	string datos;
+	string datosUsuario;
 
-	db->Get(ReadOptions(), handles[USARIOS], Slice(nombreUsuario), &datos);
+	db->Get(ReadOptions(), handles[USARIOS], Slice(nombreUsuario), &datosUsuario);
 
-	DatosDeUsuario datosDeUsuario(datos);
+	DatosDeUsuario datos;
 
-	return (clave == datosDeUsuario.getClave());
-
-}
-string BaseDeDatos::getDatosUsuario(string nombreUsuario){
-
-	string datos;
-
-	db->Get(ReadOptions(), handles[USARIOS], Slice(nombreUsuario), &datos);
-
-	DatosDeUsuario datosDeUsuario(datos);
-
-	return datosDeUsuario.getDatosDelUsuario();
+	return (clave == datos.clave(datosUsuario));
 
 }
+string BaseDeDatos::getMetaDatosUsuario(string nombreUsuario){
 
-bool BaseDeDatos::setDatosUsuario(string nombreUsuario, string datosUsuario){
+	string datosUsuario;
 
-	string datos;
+	db->Get(ReadOptions(), handles[USARIOS], Slice(nombreUsuario), &datosUsuario);
 
-	db->Get(ReadOptions(), handles[USARIOS], Slice(nombreUsuario), &datos);
+	DatosDeUsuario datos;
 
-	DatosDeUsuario datosDeUsuario(datos);
+	return datos.obtenerMetadatosDelUsuario(datosUsuario);
 
-	datosDeUsuario.cargarDatosDelUsuario(datosUsuario);
+}
+
+bool BaseDeDatos::setDatosUsuario(string nombreUsuario, string metaDatosUsuario){
+
+	string datoUsuario;
+
+	db->Get(ReadOptions(), handles[USARIOS], Slice(nombreUsuario), &datoUsuario);
+
+	DatosDeUsuario datos;
+
+	datoUsuario = datos.modificarDatosDeUsuarios(datoUsuario,metaDatosUsuario);
 
 	WriteBatch batch;
-	batch.Put(handles[USARIOS], Slice(nombreUsuario), Slice(datosDeUsuario.getDatos()));
+	batch.Put(handles[USARIOS], Slice(nombreUsuario), Slice(datoUsuario));
 	estado = db->Write(WriteOptions(), &batch);
 
 	return estado.ok();
@@ -79,70 +83,68 @@ bool BaseDeDatos::setDatosUsuario(string nombreUsuario, string datosUsuario){
 
 bool BaseDeDatos::agregarArchivo(string nombreUsuario,string metadatos,float espacio){
 
-	string datos;
+	//Guardo archivo
+	DatosDeArchivos datosArchivo;
+	string datosArchivoAGuardar;
 
-	db->Get(ReadOptions(), handles[USARIOS], Slice(nombreUsuario), &datos);
-
-	DatosDeUsuario datosDeUsuario(datos);
-
-	DatosDeArchivos datosDeArchivos(metadatos);
-
-	unsigned int hash = this->obtenerHash(datosDeArchivos.getNombreCompleto());
+	datosArchivoAGuardar = datosArchivo.obtenerDatos(metadatos);
+	
+	unsigned int hash = this->obtenerHash(datosArchivo.getNombreCompleto(datosArchivoAGuardar));
 	string hashString = this->convertirAString(hash);
 
-	string nombreArchivo;
+	string archivoExistente;
 
-	estado = db->Get(ReadOptions(), handles[ARCHIVOSNOMBRES], Slice(hashString), &nombreArchivo);
+	estado = db->Get(ReadOptions(), handles[ARCHIVOS], Slice(hashString), &archivoExistente);
 	while(estado.ok()){
 		hash++;
 		hashString = this->convertirAString(hash);
-		estado = db->Get(ReadOptions(), handles[ARCHIVOSNOMBRES], Slice(hashString), &nombreArchivo);
+		estado = db->Get(ReadOptions(), handles[ARCHIVOS], Slice(hashString), &archivoExistente);
 	}
 
-	datosDeUsuario.setArchivo(hashString,espacio);
+	WriteBatch batchArchivos;
+	batchArchivos.Put(handles[ARCHIVOS], Slice(hashString), Slice(datosArchivoAGuardar));
+	estado = db->Write(WriteOptions(), &batchArchivos);
+
+	//Guardo el archivo en el usuario
+
+	string datosUsuario;
+
+	db->Get(ReadOptions(), handles[USARIOS], Slice(nombreUsuario), &datosUsuario);
+
+	DatosDeUsuario datos;
 
 	WriteBatch batch;
-	batch.Put(handles[USARIOS], Slice(nombreUsuario), Slice(datosDeUsuario.getDatos()));
+
+	batch.Put(handles[USARIOS], Slice(nombreUsuario), Slice(datos.agregarArchivoNuevo(datosUsuario,hashString,espacio)));
 	estado = db->Write(WriteOptions(), &batch);
-	
-	WriteBatch batchArchivoNombre;
-	batchArchivoNombre.Put(handles[ARCHIVOSNOMBRES], Slice(hashString), Slice(datosDeArchivos.getNombreCompleto()));
-	estado = db->Write(WriteOptions(), &batchArchivoNombre);
-
-
-	WriteBatch batchArchivos;
-	batchArchivos.Put(handles[ARCHIVOS], Slice(hashString), Slice(datosDeArchivos.getDatos()));
-	estado = db->Write(WriteOptions(), &batchArchivos);
-	
 
 }
 
 list<string> BaseDeDatos::getArchivos(string nombreUsuario){
 
 	list<string> listaDeArchivos;
+	list<string> listaDeMetadatos;
 
-	string datos;
+	string datosUsuario;
 
-	db->Get(ReadOptions(), handles[USARIOS], Slice(nombreUsuario), &datos);
+	db->Get(ReadOptions(), handles[USARIOS], Slice(nombreUsuario), &datosUsuario);
 
-	DatosDeUsuario datosDeUsuario(datos);
+	DatosDeUsuario datos;
 
-	//cout<<datos<<endl;
+	listaDeArchivos = datos.obtenerArchivos(datosUsuario);
 
-	list<string> hashDeArchivos = datosDeUsuario.getArchivos();
+	for(list<string>::iterator it = listaDeArchivos.begin(); it != listaDeArchivos.end(); it++){
 
-	for(list<string>::iterator it = hashDeArchivos.begin(); it != hashDeArchivos.end(); it++){
-		DatosDeArchivos datosDeArchivos;
-		string datosArchivo;
-		//cout<<(*it)<<endl;
-		db->Get(ReadOptions(), handles[ARCHIVOS], Slice((*it)), &datosArchivo);
-		//cout<<datosArchivo<<endl;
-		datosDeArchivos.setDatos(datosArchivo);
-		//cout<<datosDeArchivos.getMetadatosDatos()<<endl;
-		listaDeArchivos.push_back(datosDeArchivos.getMetadatosDatos());
+		DatosDeArchivos datosArchivo;
+		string datosDelArchivo;
+
+		db->Get(ReadOptions(), handles[ARCHIVOS], Slice((*it)), &datosDelArchivo);
+
+		listaDeMetadatos.push_back(datosArchivo.obtenerMetadatos(datosDelArchivo));
+
 	}
 
-	return listaDeArchivos;
+	return listaDeMetadatos;
 
 }
 
@@ -183,21 +185,17 @@ string BaseDeDatos::convertirAString(unsigned int hash){
 
 	return hashString;
 
-
 }
 void BaseDeDatos::inicializarColumnas(){
 
 	ColumnFamilyHandle* usuarios;
 	ColumnFamilyHandle* archivos;
-	ColumnFamilyHandle* archivosNombres;
 
 	estado = db->CreateColumnFamily(ColumnFamilyOptions(),"USUARIOS", &usuarios);
 	estado = db->CreateColumnFamily(ColumnFamilyOptions(),"ARCHIVOS", &archivos);
-	estado = db->CreateColumnFamily(ColumnFamilyOptions(),"ARCHIVOSNOMBRES", &archivosNombres);
 
 	delete usuarios;
 	delete archivos;
-	delete archivosNombres;
 
 	delete db;
 
@@ -214,39 +212,7 @@ void BaseDeDatos::cargarColumnas(){
 			"USUARIOS", ColumnFamilyOptions()));
 	column_families.push_back(ColumnFamilyDescriptor(
 			"ARCHIVOS", ColumnFamilyOptions()));
-	column_families.push_back(ColumnFamilyDescriptor(
-			"ARCHIVOSNOMBRES", ColumnFamilyOptions()));
 
 	estado = DB::Open(DBOptions(), dirPath, column_families, &handles, &db);
 
 }
-
-/*list<Archivo> BaseDeDatos::parsearArchivos(string listaDeArchivos){
-
-	list<string> lista;
-	size_t finArchivo = listaDeArchivos.find("-");
-	size_t posicionInicial=0;
-
-	for(int i=0;finArchivo!=string::npos;){
-		lista.push_back(listaDeArchivos.substr(i,finArchivo-posicionInicial));
-		i=finArchivo+1;
-		posicionInicial=finArchivo+1;
-		finArchivo = listaDeArchivos.find("-",posicionInicial);
-	}
-
-	lista.push_back(listaDeArchivos.substr(posicionInicial,listaDeArchivos.size()-posicionInicial));
-
-	list<Archivo> archivos;
-
-	for (std::list<string>::iterator it = lista.begin(); it != lista.end(); it++){
-		Archivo archivo;
-		size_t posFin = (*it).find_last_of('/');
-		size_t largo = (*it).size();
-		archivo.nombre=(*it).substr(posFin+1,largo-posFin);
-		archivo.directorio=(*it).substr(0,posFin+1);
-		archivos.push_back(archivo);
-	}
-
-	return archivos;
-
-}*/

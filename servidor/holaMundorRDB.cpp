@@ -22,7 +22,7 @@ int main(int argc, char** argv) {
 
 	mg_destroy_server(&server);*/
 
-	BaseDeDatos base("testdb/");
+	/*BaseDeDatos base("testdb/");
 	base.setUsuario("Juan","ROCKSDB",800);
 	if (base.existeUsuario("Juan"))
 		cout<<"Existe"<<endl;
@@ -40,7 +40,7 @@ int main(int argc, char** argv) {
 	if (base.esLaClaveCorrecta("Juan","ROC"))
 		cout<<"SI"<<endl;
 	else
-		cout<<"NO"<<endl;
+		cout<<"NO"<<endl;*/
 
 	return 0;
 

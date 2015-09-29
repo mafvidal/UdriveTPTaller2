@@ -20,7 +20,6 @@ class BaseDeDatos {
 private:
 	const int USARIOS=1;
 	const int ARCHIVOS=2;
-	const int ARCHIVOSNOMBRES=3;
 	DB* db;
 	Status estado;
 	string dirPath;
@@ -28,21 +27,20 @@ private:
 
 public:
 	BaseDeDatos(string directorio);
-
 	//Agrega un usuario nuevo a la base de datos
 	//El usuario no debe existir
-	bool setUsuario(string nombreUsuario,string clave,float cuota);
+	bool agregarUsuario(string nombreUsuario,string clave,string metadatosJson,float cuota);
 	//Retorna si el usuario existe o no en la base de datos
 	bool existeUsuario(string nombreUsuario);
 	//Devuelve si la clave es la del usuario
 	//El usuario debe existir
 	bool esLaClaveCorrecta(string nombreUsuario,string clave);
-	//Devuelve los datos del usuario
+	//Devuelve los metadatos del usuario
 	//el usuario debe existir
-	string getDatosUsuario(string nombreUsuario);
-	//Almacena los datos de un usuario
+	string getMetaDatosUsuario(string nombreUsuario);
+	//Almacena los metaDatos de un usuario
 	//Los datos son reemplazados
-	bool setDatosUsuario(string nombreUsuario, string datosUsuario);
+	bool setDatosUsuario(string nombreUsuario, string metaDatosUsuario);
 	//Agregar el nombre del archivo en el directorio
 	//El usuario debe existir
 	bool agregarArchivo(string nombreUsuario,string metadatos,float espacio);

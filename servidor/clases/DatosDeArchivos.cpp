@@ -3,137 +3,101 @@
 DatosDeArchivos::DatosDeArchivos(){
 
 }
-DatosDeArchivos::DatosDeArchivos(string datos){
 
-	Value root;
-	Reader reader;
+string DatosDeArchivos::obtenerDatos(string metadatosJson){
 
-	reader.parse(datos, root,false);
-
-	this->directorio = root.get("Directorio","").asString();
-	this->nombre = root.get("Nombre","").asString();
-	this->ultimaModificacion = root.get("UltimaFechaModificacion","").asString();
-	this->usuarioQueModifico = root.get("UsuarioQueModifico","").asString();
-	this->propietario = root.get("Propietario","").asString();
-	this->extension = root.get("Extension","").asString();
-
-	Value etiquetas = root["Etiquetas"];
-	for ( int indice = 0; indice < etiquetas.size(); ++indice )
-		this->etiquetas.push_back(etiquetas[indice].asString());
-
-}
-
-void DatosDeArchivos::setDatos(string datos){
-
-	Value root;
-	Reader reader;
-
-	reader.parse(datos, root,false);
-
-	this->directorio = root["MetaDatos"].get("Directorio","").asString();
-	this->nombre = root["MetaDatos"].get("Nombre","").asString();
-	this->ultimaModificacion = root["MetaDatos"].get("UltimaFechaModificacion","").asString();
-	this->usuarioQueModifico = root["MetaDatos"].get("UsuarioQueModifico","").asString();
-	this->propietario = root["MetaDatos"].get("Propietario","").asString();
-	this->extension = root["MetaDatos"].get("Extension","").asString();
-
-	Value etiquetas = root["MetaDatos"]["Etiquetas"];
-	for ( int indice = 0; indice < etiquetas.size(); ++indice )
-		this->etiquetas.push_back(etiquetas[indice].asString());
-
-}
-void DatosDeArchivos::agregarEtiqueta(string etiqueta){
-
-	this->etiquetas.push_back(etiqueta);
-
-}
-
-void DatosDeArchivos::setUsuarioCompartido(string usuario){
-
-	this->compartido.push_back(usuario);
-
-}
-list<string> DatosDeArchivos::getEtiquetas(){
-
-	return this->etiquetas;
-
-}
-
-void DatosDeArchivos::setMetaDatos(string metadatos){
-
-	Value root;
-	Reader reader;
-
-	reader.parse(metadatos, root,false);
-
-	this->directorio = root.get("Directorio","").asString();
-	this->nombre = root.get("Nombre","").asString();
-	this->ultimaModificacion = root.get("UltimaFechaModificacion","").asString();
-	this->usuarioQueModifico = root.get("UsuarioQueModifico","").asString();
-	this->propietario = root.get("Propietario","").asString();
-	this->extension = root.get("Extension","").asString();
-
-	Value etiquetas = root["Etiquetas"];
-	for ( int indice = 0; indice < etiquetas.size(); ++indice ){
-		this->etiquetas.push_back(etiquetas[indice].asString());
-	}
-
-}
-
-string DatosDeArchivos::getDatos(){
-
-	Value datos;
 	Value metadatos;
-	Value etiquetas(arrayValue);
+	Value datos;
+	Reader reader;
 	Value compartido(arrayValue);
 
-	for (list<string>::iterator it = this->compartido.begin(); it != this->compartido.end(); it++)
-		compartido.append(Value((*it)));
+	reader.parse(metadatosJson, metadatos,false);
+
 	datos["Compartido"] = compartido;
-
-	metadatos["Etiquetas"] = etiquetas;
-	metadatos["Directorio"] = this->directorio;
-	metadatos["Nombre"] = this->nombre;
-	metadatos["UltimaFechaModificacion"] = this->ultimaModificacion;
-	metadatos["UsuarioQueModifico"] = this->usuarioQueModifico;
-	metadatos["Propietario"] = this->propietario;
-	metadatos["Extension"] = this->extension;
-	for (list<string>::iterator it = this->etiquetas.begin(); it != this->etiquetas.end(); it++)
-			etiquetas.append(Value((*it)));
-	metadatos["Etiquetas"] = etiquetas;
-
-	datos["MetaDatos"] =  metadatos;
+	datos["MetaDatos"] = metadatos;
 
 	return datos.toStyledString();
 
 }
-string DatosDeArchivos::getMetadatosDatos(){
+string DatosDeArchivos::obtenerMetadatos(string datosJson){
 
 	Value metadatos;
-	Value etiquet(arrayValue);
+	Value datos;
+	Reader reader;
 
-	for (list<string>::iterator it = this->etiquetas.begin(); it != this->etiquetas.end(); it++)
-		etiquet.append(Value((*it)));
-	metadatos["Etiquetas"] = etiquet;
-	metadatos["Directorio"] = this->directorio;
-	metadatos["Nombre"] = this->nombre;
-	metadatos["UltimaFechaModificacion"] = this->ultimaModificacion;
-	metadatos["UsuarioQueModifico"] = this->usuarioQueModifico;
-	metadatos["Propietario"] = this->propietario;
-	metadatos["Extension"] = this->extension;
+	reader.parse(datosJson, datos,false);
+
+	metadatos = datos["MetaDatos"];
 
 	return metadatos.toStyledString();
 
 }
-string DatosDeArchivos::getNombreCompleto(){
+string DatosDeArchivos::agregarUsuarioCompartido(string datosJson,string usuarioNuevo){
+
+	Value datos;
+	Reader reader;
+
+	reader.parse(datosJson, datos,false);
+
+	datos["Compartido"].append(Value(usuarioNuevo));
+
+	return datos.toStyledString();
+
+}
+string DatosDeArchivos::agregarEtiqueta(string datosJson,string etiqueta){
+
+	Value datos;
+	Reader reader;
+
+	reader.parse(datosJson, datos,false);
+
+	datos["MetaDatos"]["Etiquetas"].append(Value(etiqueta));
+
+	return datos.toStyledString();
+
+}
+
+string DatosDeArchivos::getNombreCompleto(string datosJson){
 
 	string nombreCompleto;
+	string propietario;
+	string directorio;
+	string nombre;
+	string extension;
+	Value datos;
+	Reader reader;
 
-	nombreCompleto = this->propietario + this->directorio + this->nombre + "." + this->extension;
+	reader.parse(datosJson, datos,false);
+
+	propietario = datos["MetaDatos"].get("Propietario","").asString();
+	directorio = datos["MetaDatos"].get("Directorio","").asString();
+	nombre = datos["MetaDatos"].get("Nombre","").asString();
+	extension = datos["MetaDatos"].get("Extension","").asString();
+
+	nombreCompleto = propietario + directorio + nombre + "." + extension;
 
 	return nombreCompleto;
 
 }
+string DatosDeArchivos::modificarMetadatos(string datosJson,string metaDatosJson){
 
+	Value datosNuevos;
+	Value datos;
+	Value metadatos;
+	Reader reader;
+	Value compartido(arrayValue);
+
+	reader.parse(datosJson, datos,false);
+	reader.parse(metaDatosJson, metadatos,false);
+
+	compartido = datos["Compartido"];
+
+	datosNuevos["Compartido"] = compartido;
+	datosNuevos["MetaDatos"] = metadatos;
+
+	return datosNuevos.toStyledString();
+
+}
 DatosDeArchivos::~DatosDeArchivos(){
 }
+

@@ -9,78 +9,107 @@
 
 using namespace std;
 
+string cargarJsonUsuario(){
+
+	//Cargo el json de prueba
+	Json::Value datosUsuario;
+	Json::Reader reader;
+	ifstream test("datosDeUsuario.json", ifstream::binary);
+	reader.parse( test, datosUsuario, false );
+
+	return datosUsuario.toStyledString();
+
+}
+string cargarJsonArchivo(){
+
+	//Cargo el json de prueba
+	Json::Value datosArchivo;
+	Json::Reader reader;
+	ifstream test("archivo.json", ifstream::binary);
+	reader.parse( test, datosArchivo, false );
+	
+	return datosArchivo.toStyledString();
+
+}
+
 TEST(baseDeDatos, existeUsuario) {
+	
+	string datosUsuario = cargarJsonUsuario();
+
 	BaseDeDatos base("testdb/");
-	base.setUsuario("Juan","ROCKSDB",800);
+	base.agregarUsuario("Juan","Clave",datosUsuario,800);
 	EXPECT_TRUE(base.existeUsuario("Juan"));
+
 }
 
 TEST(baseDeDatos, verificarInexistenciaDeUsuario){
+
+	string datosUsuario = cargarJsonUsuario();
+
         BaseDeDatos base("testdb/");
-        base.setUsuario("Juan","ROCKSDB",800);
+        base.agregarUsuario("Juan","Clave",datosUsuario,800);
         EXPECT_FALSE(base.existeUsuario("Roberto"));
+
 }
 
 TEST(baseDeDatos, verificarClaveCorrecta) {
+
+	string datosUsuario = cargarJsonUsuario();
+
 	BaseDeDatos base("testdb/");
-	base.setUsuario("Juan","ROCKSDB",800);
-	EXPECT_TRUE(base.esLaClaveCorrecta("Juan","ROCKSDB"));
+	base.agregarUsuario("Juan","MiClave",datosUsuario,800);
+	EXPECT_TRUE(base.esLaClaveCorrecta("Juan","MiClave"));
 
 }
 
 TEST(baseDeDatos, verificarClaveIncorrecta) {
+
+	string datosUsuario = cargarJsonUsuario();
+
 	BaseDeDatos base("testdb/");
-	base.setUsuario("Pedro","123456",800);
+	base.agregarUsuario("Pedro","MiClave",datosUsuario,800);
 	EXPECT_FALSE(base.esLaClaveCorrecta("Pedro","otraClave"));
+
 }
 
 TEST(baseDeDatos, almacenarDatosDeUnUsuarioExistenteYVerificarCorrectoAlmacenamiento){
 
+	string datosUsuario = cargarJsonUsuario();
+
 	BaseDeDatos base("testdb/");
-	base.setUsuario("Juan","123456",800);
+	base.agregarUsuario("Juan","MiClave",datosUsuario,800);
+	string datos = base.getMetaDatosUsuario("Juan");
 
-	//Cargo el json de prueba
-	Json::Value root;
+	Json::Value metadatos;
 	Json::Reader reader;
-	ifstream test("datosDeUsuario.json", ifstream::binary);
-	reader.parse( test, root, false );
 
-	base.setDatosUsuario("Juan",root.toStyledString());
+	reader.parse(datos, metadatos);
 
-	string datos = base.getDatosUsuario("Juan");
-
-	reader.parse(datos, root);
-
-	EXPECT_EQ("Juan",root.get("Nombre", "" ).asString());
-	EXPECT_EQ("juan@gmail.com",root.get("Email", "" ).asString());
-	EXPECT_EQ("juanFoto",root.get("Foto", "" ).asString());
-	EXPECT_EQ("La Pampa",root.get("UltimaUbicacion", "" ).asString());
+	EXPECT_EQ("Juan",metadatos.get("Nombre", "" ).asString());
+	EXPECT_EQ("juan@gmail.com",metadatos.get("Email", "" ).asString());
+	EXPECT_EQ("juanFoto",metadatos.get("Foto", "" ).asString());
+	EXPECT_EQ("La Pampa",metadatos.get("UltimaUbicacion", "" ).asString());
 
 }
 
 TEST(baseDeDatos, alAlmacenarUnArchivoEsteDebeEstarEnLaBase){
-	
+
+	string datosUsuario = cargarJsonUsuario();
+	string datosArchivo = cargarJsonArchivo();
+
 	BaseDeDatos base("testdb/");
-	base.setUsuario("Juan","123456",800);
-
-	//Cargo el json de prueba
-	Json::Value root;
-	Json::Reader reader;
-	ifstream test("datosDeUsuario.json", ifstream::binary);
-	reader.parse( test, root, false );
-
-	base.setDatosUsuario("Juan",root.toStyledString());
+	base.agregarUsuario("Juan","MiClave",datosUsuario,800);
 	
-	ifstream test2("archivo.json", ifstream::binary);
-	reader.parse( test2, root, false );
-	
-	base.agregarArchivo("Juan",root.toStyledString(),55);
+	base.agregarArchivo("Juan",datosArchivo,55);
 
 	list<string> listaDeArchivos = base.getArchivos("Juan");
 
-	reader.parse(listaDeArchivos.front(), root);
+	Json::Value metadatos;
+	Json::Reader reader;
 
-	EXPECT_EQ("colores",root.get("Nombre", "" ).asString());
+	reader.parse(listaDeArchivos.front(), metadatos);
+
+	EXPECT_EQ("colores",metadatos.get("Nombre", "" ).asString());
 
 }
 

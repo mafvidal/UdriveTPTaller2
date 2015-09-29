@@ -1,121 +1,179 @@
-
 #include "DatosDeUsuario.h"
 
-DatosDeUsuario::DatosDeUsuario(string clave,float cuota) {
-
-	this->clave = clave;
-	this->cuota = cuota;
-	this->cuotaUsada = 0;
-
-	this->email = "";
-	this->nombre = "";
-	this->ubicacionFoto = "";
-	this->ultimaUbicacion = "";
+DatosDeUsuario::DatosDeUsuario() {
 
 }
-DatosDeUsuario::DatosDeUsuario(string datos) {
+string DatosDeUsuario::obtenerDatosDeUsuarios(string metadatosJson,string clave,float cuota){
 
-	this->cargarDatos(datos);
-
-}
-void DatosDeUsuario::cargarDatos(string datos){
-
-	Value root;
-	Reader reader;
-
-	reader.parse(datos, root,false);
-
-	this->clave = root.get("Clave", "" ).asString();//.asString();
-	this->cuotaUsada = root.get("CuotaUsada", "" ).asFloat();
-	this->cuota = root.get("Cuota", "" ).asFloat();
-
-	Value files = root["Archivos"];
-	for ( int indice = 0; indice < files.size(); ++indice )  // Iterates over the sequence elements.
-		this->archivos.push_back(files[indice].asString());
-
-	this->nombre = root["MetaDatos"].get("Nombre","").asString();
-	this->email = root["MetaDatos"].get("Email","").asString();
-	this->ubicacionFoto = root["MetaDatos"].get("Foto","").asString();
-	this->ultimaUbicacion = root["MetaDatos"].get("UltimaUbicacion","").asString();//asString().size();
-	//cout<<root["MetaDatos"].get("UltimaUbicacion","").asString().size()<<endl;
-
-}
-
-void DatosDeUsuario::cargarDatosDelUsuario(string datosDeUsuario){
-
-	Value root;
-	Reader reader;
-
-	reader.parse(datosDeUsuario, root,false);
-
-	this->nombre = root.get("Nombre", "" ).asString();
-	this->email = root.get("Email", "" ).asString();
-	this->ubicacionFoto = root.get("Foto", "" ).asString();
-	this->ultimaUbicacion = root.get("UltimaUbicacion", "" ).asString();
-
-}
-
-string DatosDeUsuario::getDatos(){
-
-	Value datos;
 	Value metadatos;
+	Value datos;
+	Reader reader;
 	Value archivos(arrayValue);
-	for (list<string>::iterator it = this->archivos.begin(); it != this->archivos.end(); it++)
-		archivos.append(Value((*it)));
+	Value archivosCompartidos(arrayValue);
+
+	reader.parse(metadatosJson, metadatos,false);
+
+	datos["Clave"] = clave;
+	datos["Cuota"] = cuota;
+	datos["CuotaUsada"] = 0;
 	datos["Archivos"] = archivos;
-	metadatos["Nombre"] = this->nombre;
-	metadatos["Email"] = this->email;
-	metadatos["UltimaUbicacion"] = this->ultimaUbicacion;
-	metadatos["Foto"] = this->ubicacionFoto;
+	datos["ArchivosCompartidos"] = archivosCompartidos;
 	datos["MetaDatos"] = metadatos;
-	datos["Clave"] = this->clave;
-	datos["Cuota"] = this->cuota;
-	datos["CuotaUsada"] = this->cuotaUsada;
 
 	return datos.toStyledString();
 
 }
+string DatosDeUsuario::modificarDatosDeUsuarios(string datosJson,string metaDatosJson){
 
-string DatosDeUsuario::getDatosDelUsuario(){
+	Value datos;
+	Value metadatos;
+	Reader reader;
+
+	reader.parse(datosJson, datos,false);
+	reader.parse(metaDatosJson, metadatos,false);
+
+	datos["MetaDatos"] = metadatos;
+
+	return datos.toStyledString();
+
+}
+string DatosDeUsuario::obtenerMetadatosDelUsuario(string datosJson){
 
 	Value metadatos;
-	metadatos["Nombre"] = this->nombre;
-	metadatos["Email"] = this->email;
-	metadatos["UltimaUbicacion"] = this->ultimaUbicacion;
-	metadatos["Foto"] = this->ubicacionFoto;
+	Value datos;
+	Reader reader;
+
+	reader.parse(datosJson, datos,false);
+
+	metadatos = datos["MetaDatos"];
 
 	return metadatos.toStyledString();
 
 }
+string DatosDeUsuario::modificarClave(string datosJson,string clave){
 
-void DatosDeUsuario::setArchivo(string archivo, float espacio){
+	Value datos;
+	Reader reader;
 
-	this->archivos.push_back(archivo);
-	this->cuotaUsada = this->cuotaUsada + espacio;
+	reader.parse(datosJson, datos,false);
 
-}
+	datos["Clave"] = clave;
 
-list<string> DatosDeUsuario::getArchivos(){
-
-	return this->archivos;
-
-}
-
-void DatosDeUsuario::setCuota(float cuota){
-
-	this->cuota = cuota;
+	return datos.toStyledString();
 
 }
-void DatosDeUsuario::setClave(string clave){
+string DatosDeUsuario::clave(string datosJson){
 
-	this->clave = clave;
+	Value datos;
+	Reader reader;
+
+	reader.parse(datosJson, datos,false);
+
+	return datos.get("Clave","").asString();
 
 }
-string DatosDeUsuario::getClave(){
+string DatosDeUsuario::agregarArchivoNuevo(string datosJson,string hashArchivo,float espacio){
 
-	return this->clave;
+	Value datos;
+	Reader reader;
+	float espacioNuevo;
+
+	reader.parse(datosJson, datos,false);
+
+	datos["Archivos"].append(Value(hashArchivo));
+
+	espacioNuevo = datos.get("CuotaUsada",0).asFloat() + espacio;
+
+	datos["CuotaUsada"] = espacioNuevo;
+
+	return datos.toStyledString();
+
+
+}
+string DatosDeUsuario::eliminarArchivo(string datosJson,string hashArchivo,float espacio){
+
+	return this->eliminar(datosJson,hashArchivo,"Archivos",espacio);
+
+}
+string DatosDeUsuario::eliminarArchivoCompartido(string datosJson,string hashArchivo,float espacio){
+
+	return this->eliminar(datosJson,hashArchivo,"ArchivosCompartidos",espacio);
+
+}
+float DatosDeUsuario::cuota(string datosJson){
+
+	Value datos;
+	Reader reader;
+
+	reader.parse(datosJson, datos,false);
+
+	return datos.get("Cuota",0).asFloat();
+
+}
+float DatosDeUsuario::cuotaUsada(string datosJson){
+
+	Value datos;
+	Reader reader;
+
+	reader.parse(datosJson, datos,false);
+
+	return datos.get("CuotaUsada",0).asFloat();
+
+}
+string DatosDeUsuario::modificarCuota(string datosJson,float cuotaNueva){
+
+	Value datos;
+	Reader reader;
+
+	reader.parse(datosJson, datos,false);
+
+	datos["Cuota"] = cuotaNueva;
+
+	return datos.toStyledString();
+
+}
+list<string> DatosDeUsuario::obtenerArchivos(string datosJson){
+
+	Value datos;
+	Reader reader;
+	list<string> archivos;
+
+	reader.parse(datosJson, datos,false);
+
+
+	Value archivosJson = datos["Archivos"];
+	for ( int indice = 0; indice < archivosJson.size(); ++indice )
+		archivos.push_back(archivosJson[indice].asString());
+
+	return archivos;
 
 }
 DatosDeUsuario::~DatosDeUsuario() {
 }
+string DatosDeUsuario::eliminar(string datosJson,string hashArchivo,string tipo,float espacio){
 
+	Value datos;
+	Reader reader;
+	Value archivosNuevos(arrayValue);
+	Value archivos(arrayValue);
+	float espacioNuevo;
+
+	reader.parse(datosJson, datos,false);
+
+	archivos = datos[tipo];
+
+	for ( int indice = 0; indice < archivos.size(); ++indice ){
+		if(archivos[indice].asString() != hashArchivo ){
+			archivosNuevos.append(Value(archivos[indice].asString()));
+		}
+	}
+
+	espacioNuevo = datos.get("CuotaUsada",0).asFloat() - espacio;
+
+	datos["CuotaUsada"] = espacioNuevo;
+
+	datos[tipo] = archivosNuevos;
+
+	return datos.toStyledString();
+
+}
