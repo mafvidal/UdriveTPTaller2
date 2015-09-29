@@ -50,6 +50,9 @@ public:
 	void eliminarLogicamenteArchivo(string nombreUsuario,string metadatosArchivo,float espacio);
 	//Elimina fisicamente el archivo de la base de datos
 	void eliminarFisicamenteArchivo(string nombreUsuario,string metadatosArchivo);
+	//Devuelve la lista de archivos que posee el usuario en la papelera
+	list<string> getArchivosEnPapelera(string nombreUsuario);
+
 	~BaseDeDatos();
 private:
 

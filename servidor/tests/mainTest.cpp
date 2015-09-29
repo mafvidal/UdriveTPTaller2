@@ -132,6 +132,29 @@ TEST(baseDeDatos, alEliminarUnArchivoYSolicitarArchivosDelUsuarioEsteNoDebeExist
 
 }
 
+TEST(baseDeDatos, alEliminarUnArchivoEsteDebeEstarEnLaPapelera){
+
+	string datosUsuario = cargarJsonUsuario();
+	string datosArchivo = cargarJsonArchivo("Ramon");
+
+	BaseDeDatos base("testdb/");
+	base.agregarUsuario("Ramon","MiClave",datosUsuario,800);
+	
+	base.agregarArchivo("Ramon",datosArchivo,55);
+	base.eliminarLogicamenteArchivo("Ramon",datosArchivo,55);
+
+	list<string> listaDeArchivos = base.getArchivosEnPapelera("Ramon");
+
+	Json::Value metadatos;
+	Json::Reader reader;
+
+	reader.parse(listaDeArchivos.front(), metadatos);
+
+	EXPECT_EQ("colores",metadatos.get("Nombre", "" ).asString());
+	EXPECT_EQ("Ramon",metadatos.get("Propietario", "" ).asString());
+
+}
+
 int main(int argc, char* argv[]) {
 	testing::InitGoogleTest(&argc, argv);
   	return RUN_ALL_TESTS();

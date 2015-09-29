@@ -243,6 +243,35 @@ void BaseDeDatos::eliminarFisicamenteArchivo(string nombreUsuario,string metadat
 
 }
 
+list<string> BaseDeDatos::getArchivosEnPapelera(string nombreUsuario){
+
+	list<string> listaDeArchivos;
+	list<string> listaDeMetadatos;
+
+	string datosUsuario;
+
+	db->Get(ReadOptions(), handles[USARIOS], Slice(nombreUsuario), &datosUsuario);
+
+	DatosDeUsuario datos;
+
+	listaDeArchivos = datos.obtenerArchivos(datosUsuario);
+
+	for(list<string>::iterator it = listaDeArchivos.begin(); it != listaDeArchivos.end(); it++){
+		if((*it)[0] == '~'){
+			DatosDeArchivos datosArchivo;
+			string datosDelArchivo;
+
+			db->Get(ReadOptions(), handles[ARCHIVOS], Slice((*it)), &datosDelArchivo);
+
+			listaDeMetadatos.push_back(datosArchivo.obtenerMetadatos(datosDelArchivo));
+		}
+
+	}
+
+	return listaDeMetadatos;
+
+}
+
 BaseDeDatos::~BaseDeDatos() {
 
 	for (auto handle : handles) {
