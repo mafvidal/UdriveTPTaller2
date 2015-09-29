@@ -98,6 +98,32 @@ string DatosDeArchivos::modificarMetadatos(string datosJson,string metaDatosJson
 	return datosNuevos.toStyledString();
 
 }
+list<string> DatosDeArchivos::listaDeEtiquetas(string metadatosJson){
+
+	Value datos;
+	Reader reader;
+	list<string> etiquetas;
+
+	reader.parse(metadatosJson, datos,false);
+
+
+	Value etiquetasJson = datos["Etiquetas"];
+	for ( int indice = 0; indice < etiquetasJson.size(); ++indice )
+		etiquetas.push_back(etiquetasJson[indice].asString());
+
+	return etiquetas;
+
+}
+string DatosDeArchivos::propietario(string metadatosJson){
+
+	Value datos;
+	Reader reader;
+
+	reader.parse(metadatosJson, datos,false);
+
+	return datos["Propietario"].asString();
+
+}
 DatosDeArchivos::~DatosDeArchivos(){
 }
 

@@ -11,6 +11,7 @@
 #include "estructuras.h"
 #include "DatosDeUsuario.h"
 #include "DatosDeArchivos.h"
+#include "DatosEtiquetas.h"
 
 using namespace std;
 using namespace rocksdb;
@@ -20,6 +21,7 @@ class BaseDeDatos {
 private:
 	const int USARIOS=1;
 	const int ARCHIVOS=2;
+	const int ETIQUETAS=3;
 	DB* db;
 	Status estado;
 	string dirPath;
@@ -52,6 +54,8 @@ public:
 	void eliminarFisicamenteArchivo(string nombreUsuario,string metadatosArchivo);
 	//Devuelve la lista de archivos que posee el usuario en la papelera
 	list<string> getArchivosEnPapelera(string nombreUsuario);
+	//Devuelve la lista de archivos que coinciden con la etiqueta del usuario
+	list<string> buscarPorEtiquetas(string nombreUsuario,string etiqueta);
 
 	~BaseDeDatos();
 private:
@@ -60,7 +64,8 @@ private:
 	void inicializarColumnas();
 	void cargarColumnas();
 	string convertirAString(unsigned int hash);
-	//list<Archivo> parsearArchivos(string listaDeArchivos);
+	list<string> obtenerArchivos(string nombreUsuario,string modo);
+	void cargarEtiquetas(list<string> etiquetas, string propietario,string hashArchivo);
 
 };
 

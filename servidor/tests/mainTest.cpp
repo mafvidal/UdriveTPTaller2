@@ -155,6 +155,44 @@ TEST(baseDeDatos, alEliminarUnArchivoEsteDebeEstarEnLaPapelera){
 
 }
 
+TEST(baseDeDatos, alConsultarPorEtiquetaDeboRecibirElArchivoQuePoseeLaEtiqueta){
+
+	string datosUsuario = cargarJsonUsuario();
+	string datosArchivo = cargarJsonArchivo("Perez");
+
+	BaseDeDatos base("testdb/");
+	base.agregarUsuario("Perez","MiClave",datosUsuario,800);
+	
+	base.agregarArchivo("Perez",datosArchivo,55);
+
+	list<string> listaDeArchivos = base.buscarPorEtiquetas("Perez","Rojo");
+
+	Json::Value metadatos;
+	Json::Reader reader;
+
+	reader.parse(listaDeArchivos.front(), metadatos);
+
+	EXPECT_EQ("colores",metadatos.get("Nombre", "" ).asString());
+
+}
+
+TEST(baseDeDatos, alConsultarPorEtiquetaQueNoExisteNoDeboRecibirArchivos){
+
+	string datosUsuario = cargarJsonUsuario();
+	string datosArchivo = cargarJsonArchivo("Perez");
+
+	BaseDeDatos base("testdb/");
+	base.agregarUsuario("Perez","MiClave",datosUsuario,800);
+	
+	base.agregarArchivo("Perez",datosArchivo,55);
+
+	list<string> listaDeArchivos = base.buscarPorEtiquetas("Perez","Pato");
+	cout<<"SIZE  "<<listaDeArchivos.size()<<endl;
+
+	EXPECT_EQ(listaDeArchivos.size(),0);
+
+}
+
 int main(int argc, char* argv[]) {
 	testing::InitGoogleTest(&argc, argv);
   	return RUN_ALL_TESTS();

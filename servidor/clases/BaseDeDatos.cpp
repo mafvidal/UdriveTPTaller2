@@ -101,6 +101,8 @@ bool BaseDeDatos::agregarArchivo(string nombreUsuario,string metadatos,float esp
 		estado = db->Get(ReadOptions(), handles[ARCHIVOS], Slice(hashString), &archivoExistente);
 	}
 
+	this->cargarEtiquetas(datosArchivo.listaDeEtiquetas(metadatos),datosArchivo.propietario(metadatos),hashString);
+
 	WriteBatch batchArchivos;
 	batchArchivos.Put(handles[ARCHIVOS], Slice(hashString), Slice(datosArchivoAGuardar));
 	estado = db->Write(WriteOptions(), &batchArchivos);
@@ -122,30 +124,7 @@ bool BaseDeDatos::agregarArchivo(string nombreUsuario,string metadatos,float esp
 
 list<string> BaseDeDatos::getArchivos(string nombreUsuario){
 
-	list<string> listaDeArchivos;
-	list<string> listaDeMetadatos;
-
-	string datosUsuario;
-
-	db->Get(ReadOptions(), handles[USARIOS], Slice(nombreUsuario), &datosUsuario);
-
-	DatosDeUsuario datos;
-
-	listaDeArchivos = datos.obtenerArchivos(datosUsuario);
-
-	for(list<string>::iterator it = listaDeArchivos.begin(); it != listaDeArchivos.end(); it++){
-		if((*it)[0] != '~'){
-			DatosDeArchivos datosArchivo;
-			string datosDelArchivo;
-
-			db->Get(ReadOptions(), handles[ARCHIVOS], Slice((*it)), &datosDelArchivo);
-
-			listaDeMetadatos.push_back(datosArchivo.obtenerMetadatos(datosDelArchivo));
-		}
-
-	}
-
-	return listaDeMetadatos;
+	return this->obtenerArchivos(nombreUsuario,"NoPapelera");
 
 }
 
@@ -245,30 +224,37 @@ void BaseDeDatos::eliminarFisicamenteArchivo(string nombreUsuario,string metadat
 
 list<string> BaseDeDatos::getArchivosEnPapelera(string nombreUsuario){
 
-	list<string> listaDeArchivos;
-	list<string> listaDeMetadatos;
+	return this->obtenerArchivos(nombreUsuario,"Papelera");
 
-	string datosUsuario;
+}
 
-	db->Get(ReadOptions(), handles[USARIOS], Slice(nombreUsuario), &datosUsuario);
+list<string> BaseDeDatos::buscarPorEtiquetas(string nombreUsuario,string etiqueta){
 
-	DatosDeUsuario datos;
+	list<string> archivosLista;
+	list<string> hasharchivosLista;
+	string datosEtiquetas;
+	DatosEtiquetas datos;
 
-	listaDeArchivos = datos.obtenerArchivos(datosUsuario);
+	string nombre=nombreUsuario+etiqueta;
+	
+	estado = db->Get(ReadOptions(), handles[ETIQUETAS], Slice(nombre), &datosEtiquetas);
 
-	for(list<string>::iterator it = listaDeArchivos.begin(); it != listaDeArchivos.end(); it++){
-		if((*it)[0] == '~'){
-			DatosDeArchivos datosArchivo;
-			string datosDelArchivo;
+	if(!estado.ok())
+		return archivosLista;
 
-			db->Get(ReadOptions(), handles[ARCHIVOS], Slice((*it)), &datosDelArchivo);
+	hasharchivosLista = datos.archivos(datosEtiquetas);
 
-			listaDeMetadatos.push_back(datosArchivo.obtenerMetadatos(datosDelArchivo));
-		}
+	for(list<string>::iterator it = hasharchivosLista.begin(); it != hasharchivosLista.end(); it++){
+		
+		DatosDeArchivos datosArchivo;
+		string datosDelArchivo;
 
+		db->Get(ReadOptions(), handles[ARCHIVOS], Slice((*it)), &datosDelArchivo);
+
+		archivosLista.push_back(datosArchivo.obtenerMetadatos(datosDelArchivo));
 	}
 
-	return listaDeMetadatos;
+	return archivosLista;
 
 }
 
@@ -314,12 +300,15 @@ void BaseDeDatos::inicializarColumnas(){
 
 	ColumnFamilyHandle* usuarios;
 	ColumnFamilyHandle* archivos;
+	ColumnFamilyHandle* etiquetas;
 
 	estado = db->CreateColumnFamily(ColumnFamilyOptions(),"USUARIOS", &usuarios);
 	estado = db->CreateColumnFamily(ColumnFamilyOptions(),"ARCHIVOS", &archivos);
+	estado = db->CreateColumnFamily(ColumnFamilyOptions(),"ETIQUETAS", &etiquetas);
 
 	delete usuarios;
 	delete archivos;
+	delete etiquetas;
 
 	delete db;
 
@@ -336,7 +325,76 @@ void BaseDeDatos::cargarColumnas(){
 			"USUARIOS", ColumnFamilyOptions()));
 	column_families.push_back(ColumnFamilyDescriptor(
 			"ARCHIVOS", ColumnFamilyOptions()));
+	column_families.push_back(ColumnFamilyDescriptor(
+			"ETIQUETAS", ColumnFamilyOptions()));
 
 	estado = DB::Open(DBOptions(), dirPath, column_families, &handles, &db);
+
+}
+list<string> BaseDeDatos::obtenerArchivos(string nombreUsuario,string modo){
+
+	list<string> listaDeArchivos;
+	list<string> listaDeMetadatos;
+
+	string datosUsuario;
+
+	db->Get(ReadOptions(), handles[USARIOS], Slice(nombreUsuario), &datosUsuario);
+
+	DatosDeUsuario datos;
+
+	listaDeArchivos = datos.obtenerArchivos(datosUsuario);
+
+	for(list<string>::iterator it = listaDeArchivos.begin(); it != listaDeArchivos.end(); it++){
+		if( modo == "Papelera" ){
+			if((*it)[0] == '~'){
+				DatosDeArchivos datosArchivo;
+				string datosDelArchivo;
+
+				db->Get(ReadOptions(), handles[ARCHIVOS], Slice((*it)), &datosDelArchivo);
+
+				listaDeMetadatos.push_back(datosArchivo.obtenerMetadatos(datosDelArchivo));
+			}
+		}else{
+			if((*it)[0] != '~'){
+				DatosDeArchivos datosArchivo;
+				string datosDelArchivo;
+
+				db->Get(ReadOptions(), handles[ARCHIVOS], Slice((*it)), &datosDelArchivo);
+
+				listaDeMetadatos.push_back(datosArchivo.obtenerMetadatos(datosDelArchivo));
+			}
+		}
+
+	}
+
+	return listaDeMetadatos;
+
+}
+void BaseDeDatos::cargarEtiquetas(list<string> etiquetas, string propietario,string hashArchivo){
+	
+	DatosEtiquetas datos;
+
+	for(list<string>::iterator it = etiquetas.begin(); it != etiquetas.end(); it++){
+
+		string nombre=propietario+(*it);
+		string archivos;
+	
+		estado = db->Get(ReadOptions(), handles[ETIQUETAS], Slice(nombre), &archivos);
+		
+		if(!estado.ok()){
+
+			archivos = datos.contruir(hashArchivo);
+
+		}else{
+
+			archivos = datos.cargarArchivo(archivos,hashArchivo);
+
+		}
+		WriteBatch batch;
+		batch.Put(handles[ETIQUETAS], Slice(nombre), Slice(archivos));
+		estado = db->Write(WriteOptions(), &batch);
+
+	}
+
 
 }

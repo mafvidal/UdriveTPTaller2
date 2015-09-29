@@ -24,6 +24,10 @@ public:
 	string getNombreCompleto(string datosJson);
 	//Modifica los metadatos actuales por los nuevos
 	string modificarMetadatos(string datosJson,string metaDatosJson);
+	//Retorna la lista de etiquetas a partir de los metadatos
+	list<string> listaDeEtiquetas(string metadatosJson);
+	//Retorna el propietario a partir de los metadatos
+	string propietario(string metadatosJson);
 	virtual ~DatosDeArchivos();
 };
 
