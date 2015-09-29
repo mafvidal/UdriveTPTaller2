@@ -120,6 +120,18 @@ float DatosDeUsuario::cuotaUsada(string datosJson){
 	return datos.get("CuotaUsada",0).asFloat();
 
 }
+float DatosDeUsuario::cuotaDisponible(string datosJson){
+
+	Value datos;
+	Reader reader;
+
+	reader.parse(datosJson, datos,false);
+
+	float cuotaDisponible = datos.get("Cuota",0).asFloat() - datos.get("CuotaUsada",0).asFloat();
+
+	return cuotaDisponible;
+
+}
 string DatosDeUsuario::modificarCuota(string datosJson,float cuotaNueva){
 
 	Value datos;

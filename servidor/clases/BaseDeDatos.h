@@ -65,6 +65,8 @@ public:
 	list<string> buscarPorNombre(string nombreUsuario,string nombre);
 	//Devuelve la lista de archivos que coinciden con la etiqueta del usuario
 	list<string> buscarPorPropietario(string nombreUsuario,string propietario);
+	//Retorna la cuota que tiene disponible el usuario
+	float cuotaDisponible(string nombreUsuario);
 
 	~BaseDeDatos();
 private:

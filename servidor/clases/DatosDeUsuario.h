@@ -32,6 +32,8 @@ public:
 	float cuota(string datosJson);
 	//Retorna la cuota usada por el usuario
 	float cuotaUsada(string datosJson);
+	//Retorna la cuota disponible que le queda al usuario
+	float cuotaDisponible(string datosJson);
 	//Modifica la cuota asignada al usuario
 	string modificarCuota(string datosJson,float cuotaNueva);
 	//Retorna la lista de los hash de los archivos

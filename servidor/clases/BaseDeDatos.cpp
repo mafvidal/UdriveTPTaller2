@@ -283,6 +283,17 @@ list<string> BaseDeDatos::buscarPorPropietario(string nombreUsuario,string propi
 
 }
 
+float BaseDeDatos::cuotaDisponible(string nombreUsuario){
+
+	string datosUsuario;
+
+	db->Get(ReadOptions(), handles[USARIOS], Slice(nombreUsuario), &datosUsuario);
+
+	DatosDeUsuario datos;
+
+	return datos.cuotaDisponible(datosUsuario);
+
+}
 
 BaseDeDatos::~BaseDeDatos() {
 
