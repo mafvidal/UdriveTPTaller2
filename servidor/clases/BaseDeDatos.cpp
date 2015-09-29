@@ -134,7 +134,6 @@ list<string> BaseDeDatos::getArchivos(string nombreUsuario){
 	listaDeArchivos = datos.obtenerArchivos(datosUsuario);
 
 	for(list<string>::iterator it = listaDeArchivos.begin(); it != listaDeArchivos.end(); it++){
-
 		if((*it)[0] != '~'){
 			DatosDeArchivos datosArchivo;
 			string datosDelArchivo;
@@ -153,7 +152,6 @@ list<string> BaseDeDatos::getArchivos(string nombreUsuario){
 void BaseDeDatos::eliminarLogicamenteArchivo(string nombreUsuario,string metadatosArchivo,float espacio){
 
 	//eliminar archivo
-
 	DatosDeArchivos datosArchivo;
 	string nombreCompleto;
 
@@ -193,6 +191,51 @@ void BaseDeDatos::eliminarLogicamenteArchivo(string nombreUsuario,string metadat
 
 	datosUsuario = datos.eliminarArchivo(datosUsuario,hashString,espacio);
 	datosUsuario = datos.agregarArchivoNuevo(datosUsuario,nuevohash,0);
+
+	WriteBatch batch;
+	batch.Put(handles[USARIOS], Slice(nombreUsuario), Slice(datosUsuario));
+	estado = db->Write(WriteOptions(), &batch);
+
+}
+
+void BaseDeDatos::eliminarFisicamenteArchivo(string nombreUsuario,string metadatosArchivo){
+
+	//eliminar archivo
+	DatosDeArchivos datosArchivo;
+	string nombreCompleto;
+
+	nombreCompleto = datosArchivo.getNombreCompleto(datosArchivo.obtenerDatos(metadatosArchivo));
+	
+	unsigned int hash = this->obtenerHash(nombreCompleto);
+	string hashString = "~"+this->convertirAString(hash);
+
+	string archivoExistente;
+	string nombreExistente;
+
+	estado = db->Get(ReadOptions(), handles[ARCHIVOS], Slice(hashString), &archivoExistente);
+
+	nombreExistente = datosArchivo.getNombreCompleto(archivoExistente);
+
+	while(nombreExistente != nombreCompleto){
+		hash++;
+		hashString = "~"+this->convertirAString(hash);
+		estado = db->Get(ReadOptions(), handles[ARCHIVOS], Slice(hashString), &archivoExistente);
+		nombreExistente = datosArchivo.getNombreCompleto(archivoExistente);
+	}
+
+	WriteBatch batchArchivos;
+	batchArchivos.Delete(handles[ARCHIVOS], Slice(hashString));
+	estado = db->Write(WriteOptions(), &batchArchivos);
+
+	//Eliminar archivo del usuario
+
+	string datosUsuario;
+
+	db->Get(ReadOptions(), handles[USARIOS], Slice(nombreUsuario), &datosUsuario);
+
+	DatosDeUsuario datos;
+
+	datosUsuario = datos.eliminarArchivo(datosUsuario,hashString,0);
 
 	WriteBatch batch;
 	batch.Put(handles[USARIOS], Slice(nombreUsuario), Slice(datosUsuario));

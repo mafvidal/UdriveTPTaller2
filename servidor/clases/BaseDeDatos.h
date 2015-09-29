@@ -48,6 +48,8 @@ public:
 	list<string> getArchivos(string nombreUsuario);
 	//Elimina logicamente el archivo de la base de datos
 	void eliminarLogicamenteArchivo(string nombreUsuario,string metadatosArchivo,float espacio);
+	//Elimina fisicamente el archivo de la base de datos
+	void eliminarFisicamenteArchivo(string nombreUsuario,string metadatosArchivo);
 	~BaseDeDatos();
 private:
 
