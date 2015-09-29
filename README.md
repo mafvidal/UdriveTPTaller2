@@ -5,6 +5,7 @@ Repositorio para el grupo de taller de programación 2
 ##Instalacion general
 
  - sudo apt-get install cmake
+ - sudo apt-get install g++
 
 ### Instalar Docker
 #### Comprobar Curl
