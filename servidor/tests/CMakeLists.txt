@@ -6,7 +6,7 @@ set(GTest "${PROJECT_SOURCE_DIR}/bibliotecas/gmock/gtest/libgtest.a")
 set(Clases ${PROJECT_SOURCE_DIR}/clases)
 
 #Incluyo la ruta de GMock y Gtest, para evitar en los archivos incluirla
-include_directories("${PROJECT_SOURCE_DIR}/bibliotecas/gmock/include" "${PROJECT_SOURCE_DIR}/bibliotecas/gmock/gtest/include" ${Clases} jsonPrueba)
+include_directories("${PROJECT_SOURCE_DIR}/bibliotecas/mongoose" "${PROJECT_SOURCE_DIR}/bibliotecas/gmock/include" "${PROJECT_SOURCE_DIR}/bibliotecas/gmock/gtest/include" ${Clases} jsonPrueba)
 
 #Incluimos las clases
 file(GLOB Clases_INC
