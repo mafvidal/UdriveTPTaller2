@@ -1,4 +1,4 @@
-
+/*
 #include "BaseDeDatos.h"
 #include <iostream>
 #include <mongoose.h>
@@ -40,9 +40,44 @@ int main(int argc, char** argv) {
 	if (base.esLaClaveCorrecta("Juan","ROC"))
 		cout<<"SI"<<endl;
 	else
-		cout<<"NO"<<endl;*/
+		cout<<"NO"<<endl;
 
 	return 0;
 
 }
+*/
+//============================================================================
+// Name        : ServidorMongooseCPP.cpp
+// Author      : Facundo
+// Version     :
+// Copyright   : Your copyright notice
+// Description : Hello World in C++, Ansi-style
+//============================================================================
 
+#include <stdlib.h>
+#include <signal.h>
+#include <unistd.h>
+#include "Server.h"
+#include "WebController.h"
+#include "MyController.h"
+#include "FilesController.h"
+#include "BaseDeDatos.h"
+
+using namespace std;
+using namespace Mongoose;
+
+int main()
+{
+    MyController myController;
+    FilesController filesController;
+
+    Server server(8080);
+    server.registerController(&myController);
+    server.registerController(&filesController);
+
+    server.start();
+
+    while (1) {
+        sleep(10);
+    }
+}
