@@ -47,7 +47,7 @@ void UsersController::addUser(Request &request, StreamResponse &response)
 	base.agregarUsuario("Facu123","Clave",datosUsuario,800);
 
 	if (base.existeUsuario("Facu123"))
-		response << "Usuario creado"<< endl;
+	response << "Usuario creado"<< endl;
 
 }
 void UsersController::setup()

@@ -6,9 +6,6 @@
 
 using namespace std;
 
-
-namespace Mongoose
-{
 static int lowercase(const char *s) {
   return tolower(* (const unsigned char *) s);
 }
@@ -94,6 +91,8 @@ static int mg_get_cookie(const char *cookie_header, const char *var_name,
   return len;
 }
 
+namespace Mongoose
+{
     Request::Request(struct mg_connection *connection_) :
         connection(connection_)
     {

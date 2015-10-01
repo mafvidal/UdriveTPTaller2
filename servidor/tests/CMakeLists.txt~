@@ -21,7 +21,7 @@ file(GLOB Json_INC
 
 
 #Vincula el archivo de tests "mainTest.cpp" con el ejecutable
-add_executable(tests mainTest ${Clases_INC} "${PROJECT_SOURCE_DIR}/bibliotecas/JsonCpp/jsoncpp.cpp" "${PROJECT_SOURCE_DIR}/bibliotecas/mongoose/mongoose.c")
+add_executable(tests mainTest ${Clases_INC} "${PROJECT_SOURCE_DIR}/bibliotecas/JsonCpp/jsoncpp.cpp" "${PROJECT_SOURCE_DIR}/bibliotecas/mongoose")
 
 #Se agregan las librerias de GTest y GMock
 target_link_libraries(tests ${GTest})

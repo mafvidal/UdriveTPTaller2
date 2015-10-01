@@ -17,7 +17,7 @@ namespace Mongoose
 		virtual ~UsersController();
 
 		void setup();
-		void addUser(Request &request, StreamResponse &response);
+		void addUser();
 	};
 }
 #endif /* USERSCONTROLLER_H_ */
