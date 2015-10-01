@@ -25,9 +25,9 @@ Repositorio para el grupo de taller de programación 2
 
  - sudo docker run hello-world
 
-#### Descargar imagen con este repo de dockerHub(La imagen no fue actualizada con la ultima versión)
+#### Descargar imagen con este repo de dockerHub(Hasta commit 48)
 
- - docker pull mafvidal/tp:v1
+ - docker pull mafvidal/tp:v3
 
 ### Correr imagen
 
