@@ -8,6 +8,7 @@
 #include <vector>
 #include <assert.h>
 #include <list>
+#include <mutex>
 #include "estructuras.h"
 #include "DatosDeUsuario.h"
 #include "DatosDeArchivos.h"
@@ -19,6 +20,7 @@ using namespace rocksdb;
 
 class BaseDeDatos {
 private:
+	mutex mtx;
 	const int USARIOS=1;
 	const int ARCHIVOS=2;
 	const int ETIQUETAS=3;
@@ -79,6 +81,8 @@ private:
 	void cargarEtiquetas(list<string> etiquetas, string nombreUsuario,string hashArchivo);
 	void cargarMetadatos(string metadato, string nombreUsuario,string hashArchivo,const int TIPO);
 	list<string> buscarPorMetadato(string nombreUsuario,string propietario,const int TIPO);
+	bool escribir(const int TIPO,string nombre,string datos);
+	void eliminar(const int TIPO,string nombre);
 
 };
 

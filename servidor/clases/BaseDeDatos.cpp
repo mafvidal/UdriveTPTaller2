@@ -23,11 +23,7 @@ bool BaseDeDatos::agregarUsuario(string nombreUsuario,string clave,string metada
 
 	datosUsuarios = dato.obtenerDatosDeUsuarios(metadatosJson,clave,cuota);
 
-	WriteBatch batch;
-	batch.Put(handles[USARIOS], Slice(nombreUsuario), Slice(datosUsuarios));
-	estado = db->Write(WriteOptions(), &batch);
-
-	return estado.ok();
+	return this->escribir(USARIOS,nombreUsuario,datosUsuarios);
 
 }
 
@@ -67,6 +63,7 @@ string BaseDeDatos::getMetaDatosUsuario(string nombreUsuario){
 bool BaseDeDatos::setDatosUsuario(string nombreUsuario, string metaDatosUsuario){
 
 	string datoUsuario;
+	bool agregadoCorrectamente;
 
 	db->Get(ReadOptions(), handles[USARIOS], Slice(nombreUsuario), &datoUsuario);
 
@@ -74,16 +71,15 @@ bool BaseDeDatos::setDatosUsuario(string nombreUsuario, string metaDatosUsuario)
 
 	datoUsuario = datos.modificarDatosDeUsuarios(datoUsuario,metaDatosUsuario);
 
-	WriteBatch batch;
-	batch.Put(handles[USARIOS], Slice(nombreUsuario), Slice(datoUsuario));
-	estado = db->Write(WriteOptions(), &batch);
+	agregadoCorrectamente = this->escribir(USARIOS,nombreUsuario,datoUsuario);
 
-	return estado.ok();
+	return agregadoCorrectamente;
 
 }
 
 bool BaseDeDatos::agregarArchivo(string nombreUsuario,string metadatos,float espacio){
 
+	bool agregadoCorrectamente;
 	//Guardo archivo
 	DatosDeArchivos datosArchivo;
 	string datosArchivoAGuardar;
@@ -103,14 +99,10 @@ bool BaseDeDatos::agregarArchivo(string nombreUsuario,string metadatos,float esp
 	}
 
 	this->cargarEtiquetas(datosArchivo.listaDeEtiquetas(metadatos),nombreUsuario,hashString);
-	//this->cargarEtiquetas(datosArchivo.listaDeEtiquetas(metadatos),datosArchivo.propietario(metadatos),hashString);
 	this->cargarMetadatos(datosArchivo.propietario(metadatos),nombreUsuario,hashString,PROPIETARIO);
 	this->cargarMetadatos(datosArchivo.nombre(metadatos),nombreUsuario,hashString,NOMBRE);
 	this->cargarMetadatos(datosArchivo.extension(metadatos),nombreUsuario,hashString,EXTENSION);
 
-	WriteBatch batchArchivos;
-	batchArchivos.Put(handles[ARCHIVOS], Slice(hashString), Slice(datosArchivoAGuardar));
-	estado = db->Write(WriteOptions(), &batchArchivos);
 
 	//Guardo el archivo en el usuario
 
@@ -120,11 +112,10 @@ bool BaseDeDatos::agregarArchivo(string nombreUsuario,string metadatos,float esp
 
 	DatosDeUsuario datos;
 
-	WriteBatch batch;
+	this->escribir(ARCHIVOS,hashString,datosArchivoAGuardar);
+	agregadoCorrectamente = this->escribir(USARIOS,nombreUsuario,datos.agregarArchivoNuevo(datosUsuario,hashString,espacio));
 
-	batch.Put(handles[USARIOS], Slice(nombreUsuario), Slice(datos.agregarArchivoNuevo(datosUsuario,hashString,espacio)));
-	estado = db->Write(WriteOptions(), &batch);
-
+	return agregadoCorrectamente;
 }
 
 list<string> BaseDeDatos::getArchivos(string nombreUsuario){
@@ -160,10 +151,6 @@ void BaseDeDatos::eliminarLogicamenteArchivo(string nombreUsuario,string metadat
 
 	string nuevohash = "~"+hashString;
 
-	WriteBatch batchArchivos;
-	batchArchivos.Put(handles[ARCHIVOS], Slice(nuevohash), Slice(datosArchivo.obtenerDatos(metadatosArchivo)));
-	batchArchivos.Delete(handles[ARCHIVOS], Slice(hashString));
-	estado = db->Write(WriteOptions(), &batchArchivos);
 
 	//Eliminar archivo del usuario
 	
@@ -176,9 +163,10 @@ void BaseDeDatos::eliminarLogicamenteArchivo(string nombreUsuario,string metadat
 	datosUsuario = datos.eliminarArchivo(datosUsuario,hashString,espacio);
 	datosUsuario = datos.agregarArchivoNuevo(datosUsuario,nuevohash,0);
 
-	WriteBatch batch;
-	batch.Put(handles[USARIOS], Slice(nombreUsuario), Slice(datosUsuario));
-	estado = db->Write(WriteOptions(), &batch);
+	this->eliminar(ARCHIVOS,hashString);
+	this->escribir(ARCHIVOS,nuevohash,datosArchivo.obtenerDatos(metadatosArchivo));
+	this->escribir(USARIOS,nombreUsuario,datosUsuario);
+
 
 }
 
@@ -207,9 +195,6 @@ void BaseDeDatos::eliminarFisicamenteArchivo(string nombreUsuario,string metadat
 		nombreExistente = datosArchivo.getNombreCompleto(archivoExistente);
 	}
 
-	WriteBatch batchArchivos;
-	batchArchivos.Delete(handles[ARCHIVOS], Slice(hashString));
-	estado = db->Write(WriteOptions(), &batchArchivos);
 
 	//Eliminar archivo del usuario
 
@@ -221,10 +206,8 @@ void BaseDeDatos::eliminarFisicamenteArchivo(string nombreUsuario,string metadat
 
 	datosUsuario = datos.eliminarArchivo(datosUsuario,hashString,0);
 
-	WriteBatch batch;
-	batch.Put(handles[USARIOS], Slice(nombreUsuario), Slice(datosUsuario));
-	estado = db->Write(WriteOptions(), &batch);
-
+	this->eliminar(ARCHIVOS,hashString);
+	this->escribir(USARIOS,nombreUsuario,datosUsuario);
 }
 
 list<string> BaseDeDatos::getArchivosEnPapelera(string nombreUsuario){
@@ -436,9 +419,8 @@ void BaseDeDatos::cargarEtiquetas(list<string> etiquetas, string nombreUsuario,s
 			archivos = datos.cargarArchivo(archivos,hashArchivo);
 
 		}
-		WriteBatch batch;
-		batch.Put(handles[ETIQUETAS], Slice(nombre), Slice(archivos));
-		estado = db->Write(WriteOptions(), &batch);
+
+		this->escribir(ETIQUETAS,nombre,archivos);
 
 	}
 
@@ -463,9 +445,7 @@ void BaseDeDatos::cargarMetadatos(string metadato, string nombreUsuario,string h
 
 	}
 
-	WriteBatch batch;
-	batch.Put(handles[TIPO], Slice(nombre), Slice(archivos));
-	estado = db->Write(WriteOptions(), &batch);
+	this->escribir(TIPO,nombre,archivos);
 
 }
 list<string> BaseDeDatos::buscarPorMetadato(string nombreUsuario,string metadato,const int TIPO){
@@ -495,5 +475,29 @@ list<string> BaseDeDatos::buscarPorMetadato(string nombreUsuario,string metadato
 	}
 
 	return archivosLista;
+
+}
+bool BaseDeDatos::escribir(const int TIPO,string nombre,string datos){
+
+	this->mtx.lock();
+
+	WriteBatch batch;
+	batch.Put(handles[TIPO], Slice(nombre), Slice(datos));
+	estado = db->Write(WriteOptions(), &batch);
+
+	this->mtx.unlock();
+
+	return estado.ok();
+
+}
+void BaseDeDatos::eliminar(const int TIPO,string nombre){
+
+	this->mtx.lock();
+
+	WriteBatch batch;
+	batch.Delete(handles[TIPO], Slice(nombre));
+	estado = db->Write(WriteOptions(), &batch);
+
+	this->mtx.unlock();
 
 }
