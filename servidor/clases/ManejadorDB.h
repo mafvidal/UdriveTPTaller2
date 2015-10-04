@@ -14,7 +14,7 @@ class ManejadorDB {
 private:
 	BaseDeDatos *db;
 public:
-	ManejadorDB(string directorioDB);
+	ManejadorDB(BaseDeDatos * db);
 	//Registra el usuario en la base de datos
 	//Retorna si pudo o no agregarlo
 	bool registrarUsuario(string registroJson);
@@ -26,11 +26,11 @@ public:
 	bool agregarArchivo(string archivoJson);
 	//Retorna la lista de archivos
 	//Si no tiene retorna la lista vacia
-	list<string> obtenerListaArchivos(string usuarioJson);
+	string obtenerListaArchivos(string usuarioJson);
 	//Elimina un archivo logicamente
 	void eliminarArchivo(string archivoJson);
 	//Retorna los archivos de la papelera
-	list<string> verPapelera(string usuarioJson);
+	string verPapelera(string usuarioJson);
 	//Elimina el archivo de la papelera
 	void eliminarArchivoDePapelera(string archivoJson);
 	~ManejadorDB();

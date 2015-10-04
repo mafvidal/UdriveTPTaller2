@@ -1,8 +1,8 @@
 #include "ManejadorDB.h"
 
-ManejadorDB::ManejadorDB(string directorioDB){
+ManejadorDB::ManejadorDB(BaseDeDatos * db){
 
-	this->db = new BaseDeDatos(directorioDB);
+	this->db = db;
 
 }
 
@@ -81,17 +81,30 @@ bool ManejadorDB::agregarArchivo(string archivoJson){
 
 }
 
-list<string> ManejadorDB::obtenerListaArchivos(string usuarioJson){
+string ManejadorDB::obtenerListaArchivos(string usuarioJson){
 
 	string usuario;
 	Value datos;
+	Value archivos;
+	Value archivo;
 	Reader reader;
+	list<string> listaArchivos;
 
 	reader.parse(usuarioJson, datos,false);
 
 	usuario = datos.get("Usuario","").asString();
 
-	return this->db->getArchivos(usuario);
+	listaArchivos = this->db->getArchivos(usuario);
+
+	for(list<string>::iterator it = listaArchivos.begin(); it != listaArchivos.end(); it++){
+
+		reader.parse((*it), archivo,false);
+
+		archivos.append(archivo);
+
+	}
+
+	return archivos.toStyledString();
 
 }
 
@@ -114,17 +127,30 @@ void ManejadorDB::eliminarArchivo(string archivoJson){
 
 }
 
-list<string> ManejadorDB::verPapelera(string usuarioJson){
+string ManejadorDB::verPapelera(string usuarioJson){
 
 	string usuario;
 	Value datos;
+	Value archivos;
+	Value archivo;
 	Reader reader;
+	list<string> listaArchivos;
 
 	reader.parse(usuarioJson, datos,false);
 
 	usuario = datos.get("Usuario","").asString();
 
-	return this->db->getArchivosEnPapelera(usuario);
+	listaArchivos = this->db->getArchivosEnPapelera(usuario);
+
+	for(list<string>::iterator it = listaArchivos.begin(); it != listaArchivos.end(); it++){
+
+		reader.parse((*it), archivo,false);
+
+		archivos.append(archivo);
+
+	}
+
+	return archivos.toStyledString();
 
 }
 
