@@ -81,3 +81,7 @@ Repositorio para el grupo de taller de programación 2
  - make
  - cd tests
  - ./tests
+
+##Ver documentacion
+
+Para ver la documentacion debe acceder a la carpera: Documentacion/build/html, y ejecutar el archivo index.html

@@ -1,0 +1,136 @@
+.. _REST:
+
+Protocolo REST
+==============
+
+Registrar Usuario
++++++++++++++++++
+
+{
+
+	"Usuario" : "fulanito15",
+
+	"Clave" : "MiClave",
+
+	"Nombre" : "Fulanito",
+
+	"Email" : "``fulanitoMail@mail.com``",
+
+	"Foto" : "FulanitoFoto",
+
+	"UltimaUbicacion" : "La Pampa"
+
+}
+
+Iniciar sesión
+++++++++++++++
+
+{
+
+	"Usuario" : "fulanito15",
+
+	"Clave" : "MiClave",
+}
+
+Agregar archivo
++++++++++++++++
+
+{
+
+	"Usuario" : "fulanito15",
+
+	"Espacio" : "50",
+
+	"Metadatos" : {
+
+		"Directorio" : "./documentos/",
+
+		"Etiquetas" : [ "Rojo", "Azul", "Colores" ],
+
+		"Extension" : "txt",
+
+		"Nombre" : "colores",
+
+		"Propietario" : "Fulanito15",
+
+		"UltimaFechaModificacion" : "05/07/2009 06:55 p.m.",
+
+		"UsuarioQueModifico" : "Fulanito15"
+
+	}
+
+}
+
+Eliminar archivo
+++++++++++++++++
+
+{
+
+	"Usuario" : "fulanito15",
+
+	"Espacio" : "50",
+
+	"Metadatos" : {
+
+		"Directorio" : "./documentos/",
+
+		"Etiquetas" : [ "Rojo", "Azul", "Colores" ],
+
+		"Extension" : "txt",
+
+		"Nombre" : "colores",
+
+		"Propietario" : "Fulanito15",
+
+		"UltimaFechaModificacion" : "05/07/2009 06:55 p.m.",
+
+		"UsuarioQueModifico" : "Fulanito15"
+
+	}
+
+}
+
+Ver papelera
+++++++++++++
+
+{
+
+	"Usuario" : "fulanito15"
+
+}
+
+Eliminar archivo de la papelera
++++++++++++++++++++++++++++++++
+
+{
+
+	"Usuario" : "fulanito15",
+
+	"Espacio" : "50",
+
+	"Metadatos" : {
+
+		"Directorio" : "./documentos/",
+
+		"Etiquetas" : [ "Rojo", "Azul", "Colores" ],
+
+		"Extension" : "txt",
+
+		"Nombre" : "colores",
+
+		"Propietario" : "Fulanito15",
+
+		"UltimaFechaModificacion" : "05/07/2009 06:55 p.m.",
+
+		"UsuarioQueModifico" : "Fulanito15"
+
+	}
+
+}
+
+|
+|
+| :ref:`Volver a la pagina anterior <DocTecnica>`
+| :ref:`Volver a la pagina principal <index>`
+
+
