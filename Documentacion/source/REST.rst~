@@ -12,8 +12,6 @@ Registrar Usuario
 
 	"Clave" : "MiClave",
 
-	"Cuota" : 800,
-
 	"Nombre" : "Fulanito",
 
 	"Email" : "``fulanitoMail@mail.com``",
