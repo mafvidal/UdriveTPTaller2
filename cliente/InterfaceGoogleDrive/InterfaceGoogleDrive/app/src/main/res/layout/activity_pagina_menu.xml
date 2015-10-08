@@ -1,0 +1,68 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:background="#EFFFE4">
+
+    <TableLayout
+        android:layout_marginTop="40dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TableRow
+            android:layout_margin="5dp"
+            android:id="@+id/trConfig">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/configuracion"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Configuracion"
+                android:textColor="#000000"
+                android:textSize="30dp"
+                android:layout_gravity="center"/>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_margin="5dp"
+            android:id="@+id/trCuenta">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/micuenta"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mi Cuenta"
+                android:textColor="#000000"
+                android:textSize="30dp"
+                android:layout_gravity="center"/>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_margin="5dp"
+            android:id="@+id/trAmigos">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/amigos"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Amigos"
+                android:textColor="#000000"
+                android:textSize="30dp"
+                android:layout_gravity="center"/>
+
+        </TableRow>
+
+    </TableLayout>
+
+</LinearLayout>
