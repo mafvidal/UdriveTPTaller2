@@ -58,6 +58,9 @@
 <span id="rest"></span><h1>Protocolo REST<a class="headerlink" href="#protocolo-rest" title="Enlazar permanentemente con este título">¶</a></h1>
 <div class="section" id="registrar-usuario">
 <h2>Registrar Usuario<a class="headerlink" href="#registrar-usuario" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>URL: /users</p>
+<p>TIPO: POST</p>
+<p>BODY:</p>
 <p>{</p>
 <blockquote>
 <div><p>&#8220;Usuario&#8221; : &#8220;fulanito15&#8221;,</p>
@@ -69,18 +72,32 @@
 <p>&#8220;UltimaUbicacion&#8221; : &#8220;La Pampa&#8221;</p>
 </div></blockquote>
 <p>}</p>
+<p>RESPONSE:</p>
+<dl class="docutils">
+<dt>200 OK  &#8220;Creacion exitosa&#8221;</dt>
+<dd>&#8220;Usuario existente&#8221;</dd>
+</dl>
 </div>
 <div class="section" id="iniciar-sesion">
 <h2>Iniciar sesión<a class="headerlink" href="#iniciar-sesion" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>URL: /login</p>
+<p>TIPO: GET</p>
+<p>BODY:</p>
 <p>{</p>
 <blockquote>
 <div><p>&#8220;Usuario&#8221; : &#8220;fulanito15&#8221;,</p>
 <p>&#8220;Clave&#8221; : &#8220;MiClave&#8221;,</p>
 </div></blockquote>
 <p>}</p>
+<p>RESPONSE:</p>
+<p>200 OK  &#8220;Inicio existoso&#8221;
+401     &#8220;No autorizado&#8221;</p>
 </div>
 <div class="section" id="agregar-archivo">
 <h2>Agregar archivo<a class="headerlink" href="#agregar-archivo" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>URL:/files</p>
+<p>TIPO: POST</p>
+<p>BODY:</p>
 <p>{</p>
 <blockquote>
 <div><p>&#8220;Usuario&#8221; : &#8220;fulanito15&#8221;,</p>
@@ -98,9 +115,14 @@
 <p>}</p>
 </div></blockquote>
 <p>}</p>
+<p>RESPONSE:</p>
+<p>200 OK  &#8220;Creacion exitosa&#8221;</p>
 </div>
 <div class="section" id="eliminar-archivo">
 <h2>Eliminar archivo<a class="headerlink" href="#eliminar-archivo" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>URL: /files</p>
+<p>TIPO: DELETE</p>
+<p>BODY:</p>
 <p>{</p>
 <blockquote>
 <div><p>&#8220;Usuario&#8221; : &#8220;fulanito15&#8221;,</p>
@@ -118,16 +140,37 @@
 <p>}</p>
 </div></blockquote>
 <p>}</p>
+<p>RESPONSE:</p>
+<p>200 OK  &#8220;Archivo eliminado&#8221;</p>
 </div>
 <div class="section" id="ver-papelera">
 <h2>Ver papelera<a class="headerlink" href="#ver-papelera" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>URL: /deletedFiles</p>
+<p>TIPO: GET</p>
+<p>BODY:</p>
 <p>{</p>
 <blockquote>
 <div>&#8220;Usuario&#8221; : &#8220;fulanito15&#8221;</div></blockquote>
 <p>}</p>
+<p>RESPONSE:</p>
+<p>200 OK</p>
+<p>[{</p>
+<blockquote>
+<div><p>&#8220;Directorio&#8221; : &#8221;./documentos/&#8221;,</p>
+<p>&#8220;Etiquetas&#8221; : [ &#8220;Rojo&#8221;, &#8220;Azul&#8221;, &#8220;Colores&#8221; ],</p>
+<p>&#8220;Extension&#8221; : &#8220;txt&#8221;,</p>
+<p>&#8220;Nombre&#8221; : &#8220;colores&#8221;,</p>
+<p>&#8220;Propietario&#8221; : &#8220;Fulanito15&#8221;,</p>
+<p>&#8220;UltimaFechaModificacion&#8221; : &#8220;05/07/2009 06:55 p.m.&#8221;,</p>
+<p>&#8220;UsuarioQueModifico&#8221; : &#8220;Fulanito15&#8221;</p>
+</div></blockquote>
+<p>}]</p>
 </div>
 <div class="section" id="eliminar-archivo-de-la-papelera">
 <h2>Eliminar archivo de la papelera<a class="headerlink" href="#eliminar-archivo-de-la-papelera" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>URL: /deletedFiles</p>
+<p>TIPO: DELETE</p>
+<p>BODY:</p>
 <p>{</p>
 <blockquote>
 <div><p>&#8220;Usuario&#8221; : &#8220;fulanito15&#8221;,</p>
@@ -145,6 +188,8 @@
 <p>}</p>
 </div></blockquote>
 <p>}</p>
+<p>RESPONSE:</p>
+<p>200 OK &#8220;Archivo eliminado&#8221;</p>
 <div class="line-block">
 <div class="line"><br /></div>
 <div class="line"><br /></div>
@@ -160,7 +205,7 @@
 
     <div class="footer">
         &copy; Copyright 2015, Grupo 1 Taller 2.
-      Creado con <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+      Creado con <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>
 </html>

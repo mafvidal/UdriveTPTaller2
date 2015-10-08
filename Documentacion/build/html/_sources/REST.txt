@@ -6,6 +6,12 @@ Protocolo REST
 Registrar Usuario
 +++++++++++++++++
 
+URL: /users
+
+TIPO: POST
+
+BODY:
+
 {
 
 	"Usuario" : "fulanito15",
@@ -24,8 +30,18 @@ Registrar Usuario
 
 }
 
+RESPONSE:
+
+200 OK 	"Creacion exitosa"
+	"Usuario existente"
+	 
 Iniciar sesión
 ++++++++++++++
+URL: /login
+
+TIPO: GET
+
+BODY:
 
 {
 
@@ -34,8 +50,19 @@ Iniciar sesión
 	"Clave" : "MiClave",
 }
 
+RESPONSE:
+
+200 OK 	"Inicio existoso"
+401 	"No autorizado"
+
 Agregar archivo
 +++++++++++++++
+
+URL:/files
+
+TIPO: POST
+
+BODY:
 
 {
 
@@ -62,10 +89,20 @@ Agregar archivo
 	}
 
 }
+
+RESPONSE:
+
+200 OK 	"Creacion exitosa"
 
 Eliminar archivo
 ++++++++++++++++
 
+URL: /files
+
+TIPO: DELETE
+
+BODY:
+
 {
 
 	"Usuario" : "fulanito15",
@@ -92,8 +129,18 @@ Eliminar archivo
 
 }
 
+RESPONSE:
+
+200 OK 	"Archivo eliminado"
+
 Ver papelera
 ++++++++++++
+
+URL: /deletedFiles
+
+TIPO: GET
+
+BODY:
 
 {
 
@@ -101,8 +148,36 @@ Ver papelera
 
 }
 
+RESPONSE:
+
+200 OK 
+
+[{
+
+		"Directorio" : "./documentos/",
+
+		"Etiquetas" : [ "Rojo", "Azul", "Colores" ],
+
+		"Extension" : "txt",
+
+		"Nombre" : "colores",
+
+		"Propietario" : "Fulanito15",
+
+		"UltimaFechaModificacion" : "05/07/2009 06:55 p.m.",
+
+		"UsuarioQueModifico" : "Fulanito15"
+
+}]
+
 Eliminar archivo de la papelera
 +++++++++++++++++++++++++++++++
+
+URL: /deletedFiles
+
+TIPO: DELETE
+
+BODY:
 
 {
 
@@ -129,6 +204,10 @@ Eliminar archivo de la papelera
 	}
 
 }
+
+RESPONSE:
+
+200 OK "Archivo eliminado"
 
 |
 |
