@@ -62,8 +62,8 @@ void FilesController::setup()
 	addRoute("GET","/files",FilesController, getFiles);
 	addRouteWithId("GET","/files/",FilesController, getFile);
 	addRoute("POST","/files",FilesController, addFile);
-	addRoute("PUT","/files/",FilesController, updateFile);
-	addRoute("DELETE","/files/",FilesController, deleteFile);
+	addRouteWithId("PUT","/files/",FilesController, updateFile);
+	addRouteWithId("DELETE","/files/",FilesController, deleteFile);
 
 
 }
