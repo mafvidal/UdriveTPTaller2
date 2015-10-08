@@ -44,10 +44,10 @@ void UsersController::addUser(Request &request, StreamResponse &response)
 	string datosUsuario = cargarJsonUsuario();
 
 	BaseDeDatos base("testdb/");
-	base.agregarUsuario("Facu123","Clave",datosUsuario,800);
-
-	if (base.existeUsuario("Facu123"))
-		response << "Usuario creado"<< endl;
+	base.agregarUsuario(htmlEntities(request.get("name")),"Clave",request.getData(),800);
+	//bool agregarUsuario(string nombreUsuario,string clave,string metadatosJson,float cuota);
+	if (base.existeUsuario(request.getData()))
+		response << request.getData() << endl;
 
 }
 void UsersController::setup()

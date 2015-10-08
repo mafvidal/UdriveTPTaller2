@@ -18,9 +18,13 @@ class FilesController : public WebController
 		FilesController();
 		virtual ~FilesController();
 		void getFiles(Request &request, StreamResponse &response);
-		void getFile(Request &request, StreamResponse &response,int id);
+		void getFile(Request &request, StreamResponse &response);
+		void addFile(Request &request, StreamResponse &response);
+		void updateFile(Request &request, StreamResponse &response);
+		void deleteFile(Request &request, StreamResponse &response);
 		void setup();
 
 };
+
 }
 #endif /* FILESCONTROLLER_H_ */

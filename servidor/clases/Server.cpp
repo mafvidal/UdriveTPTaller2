@@ -222,7 +222,7 @@ static void *server_poll(void *param)
             return true;
         }
 #endif
-
+        cout <<"server::handles: " + method + " - " + url << endl;
         vector<Controller *>::iterator it;
         for (it=controllers.begin(); it!=controllers.end(); it++) {
             if ((*it)->handles(method, url)) {
@@ -241,9 +241,11 @@ static void *server_poll(void *param)
         mutex.lock();
         requests++;
         mutex.unlock();
-
+        cout<< "server::handleRequest: " + request.getUrl() << endl;
         for (it=controllers.begin(); it!=controllers.end(); it++) {
             Controller *controller = *it;
+
+
             response = controller->process(request);
 
             if (response != NULL) {

@@ -7,6 +7,7 @@
 
 namespace Mongoose
 {
+
     class RequestHandlerBase
     {
         public:
@@ -29,8 +30,14 @@ namespace Mongoose
                 R *response = new R;
 
                 try {
-                    controller->preProcess(request, *response);
-                    (controller->*function)(request, *response);
+
+                	cout<< "requesthandler.h process- antes de preprocess: "<< endl;
+                							controller->preProcess(request, *response);
+
+                							cout<< "requesthandler.h process- antes de procesar: "<< endl;
+                							(controller->*function)(request, *response);
+
+
                 } catch (string exception) {
                     return controller->serverInternalError(exception);
                 } catch (...) {
@@ -39,6 +46,7 @@ namespace Mongoose
 
                 return response;
             }
+
 
         protected:
             T *controller;

@@ -1,11 +1,32 @@
 #include <iostream>
 #include "Controller.h"
 #include "StreamResponse.h"
+#include <string>
+#include <sstream>
+#include <vector>
+
 
 using namespace std;
 
+std::vector<std::string> &split(const std::string &s, char delim, std::vector<std::string> &elems) {
+    std::stringstream ss(s);
+    std::string item;
+    while (std::getline(ss, item, delim)) {
+        elems.push_back(item);
+    }
+    return elems;
+}
+
+
+std::vector<std::string> split(const std::string &s, char delim) {
+    std::vector<std::string> elems;
+    split(s, delim, elems);
+    return elems;
+}
+
 namespace Mongoose
 {
+
     Controller::Controller() 
         : sessions(NULL), server(NULL), prefix("")
     {
@@ -42,6 +63,14 @@ namespace Mongoose
     bool Controller::handles(string method, string url)
     { 
         string key = method + ":" + url;
+        std::vector<std::string> urlSplited = split(url, '/');
+
+        if(urlSplited.size() == 3)
+        {
+        	cout << "123Controller-handles-size-path: " << endl;
+        	return true;
+        }
+
 
         return (routes.find(key) != routes.end());
     }
@@ -59,9 +88,21 @@ namespace Mongoose
             }   
         }   
 #else
-        string key = request.getMethod() + ":" + request.getUrl();
-        if (routes.find(key) != routes.end()) {
-            response = routes[key]->process(request);
+        std::vector<std::string> urlSplited = split(request.getUrl(), '/');
+        if(urlSplited.size() == 3){
+        	int indexId = request.getUrl().find_last_of("/");
+        	string urlWithoutId = request.getUrl().substr(0,indexId + 1);
+
+        	string key = request.getMethod() + ":" + urlWithoutId;
+        	cout<<"controller: process-  urlWithoutId: "+ urlWithoutId +"- key: "+key << endl;
+        	        	        if (routesWithId.find(key) != routesWithId.end()) {
+        	        	            response = routesWithId[key]->process(request);
+        	        	        }
+        }else{
+			string key = request.getMethod() + ":" + request.getUrl();
+					if (routes.find(key) != routes.end()) {
+						response = routes[key]->process(request);
+					}
         }
 #endif
         
@@ -98,6 +139,14 @@ namespace Mongoose
         routes[key] = handler;
         urls.push_back(prefix + route);
     }
+
+    void Controller::registerRouteWithId(string httpMethod, string route, RequestHandlerBase *handler)
+        {
+            string key = httpMethod + ":" + prefix + route;
+            cout<<"controller::registerRouteWithId key:" + key <<endl;
+            routesWithId[key] = handler;
+            urls.push_back(prefix + route);
+        }
 
     void Controller::dumpRoutes()
     {

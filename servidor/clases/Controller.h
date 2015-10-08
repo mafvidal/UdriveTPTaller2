@@ -13,6 +13,9 @@ using namespace std;
 
 #define addRoute(httpMethod, url, controllerType, method) \
     registerRoute(httpMethod, url, new RequestHandler<controllerType, StreamResponse>(this, &controllerType::method ));
+#define addRouteWithId(httpMethod, url, controllerType, method) \
+    registerRouteWithId(httpMethod, url, new RequestHandler<controllerType, StreamResponse>(this, &controllerType::method ));
+
 
 #define addRouteResponse(httpMethod, url, controllerType, method, responseType) \
     registerRoute(httpMethod, url, new RequestHandler<controllerType, responseType>(this, &controllerType::method ));
@@ -106,7 +109,7 @@ namespace Mongoose
              * @param RequestHandlerBase the request handler for this route
              */
             virtual void registerRoute(string httpMethod, string route, RequestHandlerBase *handler);
-
+            virtual void registerRouteWithId(string httpMethod, string route, RequestHandlerBase *handler);
             /**
              * Initializes the route and settings
              */
@@ -151,8 +154,10 @@ namespace Mongoose
             Server *server;
             string prefix;
             map<string, RequestHandlerBase*> routes;
+            map<string, RequestHandlerBase*> routesWithId;
             vector<string> urls;
     };
+
 }
 
 #endif
