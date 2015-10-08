@@ -3,10 +3,10 @@
 ManejadorDB::ManejadorDB(BaseDeDatos * db){
 
 	this->db = db;
-
 }
 
 bool ManejadorDB::registrarUsuario(string registroJson){
+
 
 	string usuario;
 	string clave;
@@ -26,8 +26,10 @@ bool ManejadorDB::registrarUsuario(string registroJson){
 	metadatos["UltimaUbicacion"] = datos.get("UltimaUbicacion","").asString();
 	metadatos["Foto"] = datos.get("Foto","").asString();
 
-	if ( this->db->existeUsuario(usuario))
+
+	if ( this->db->existeUsuario(usuario)){
 		return false;
+	}
 
 	this->db->agregarUsuario(usuario,clave,metadatos.toStyledString(),cuota);
 
@@ -173,6 +175,5 @@ void ManejadorDB::eliminarArchivoDePapelera(string archivoJson){
 
 ManejadorDB::~ManejadorDB(){
 
-	delete db;
 
 }

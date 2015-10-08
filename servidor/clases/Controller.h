@@ -8,6 +8,7 @@
 #include "StreamResponse.h"
 #include "WebSocket.h"
 #include "Sessions.h"
+#include "ManejadorDB.h"
 
 using namespace std;
 
@@ -148,7 +149,7 @@ namespace Mongoose
 
             virtual bool handles(string method, string url);
             vector<string> getUrls();
-
+            void setManejadorDB(ManejadorDB* manejador );
         protected:
             Sessions *sessions;
             Server *server;
@@ -156,6 +157,7 @@ namespace Mongoose
             map<string, RequestHandlerBase*> routes;
             map<string, RequestHandlerBase*> routesWithId;
             vector<string> urls;
+            ManejadorDB* manejadorDB;
     };
 
 }

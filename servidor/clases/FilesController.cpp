@@ -28,9 +28,13 @@ FilesController::FilesController() {
 	// TODO Auto-generated constructor stub
 
 }
-
+FilesController::FilesController(ManejadorDB* manejador) {
+	// TODO Auto-generated constructor stub
+	this->manejadorDB = manejador;
+}
 FilesController::~FilesController() {
 	// TODO Auto-generated destructor stub
+	delete this->manejadorDB;
 }
 
 void FilesController::getFiles(Request &request, StreamResponse &response)

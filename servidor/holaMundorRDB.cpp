@@ -71,18 +71,19 @@ using namespace Mongoose;
 
 int main()
 {
-    MyController myController;
-    FilesController filesController;
-    UsersController usersController;
+	BaseDeDatos* baseDeDatos = new BaseDeDatos("testdb/");
+    Controller* filesController = new FilesController(new ManejadorDB(baseDeDatos));
+    Controller* usersController = new UsersController(new ManejadorDB(baseDeDatos));
+
 
     Server server(8080);
-    server.registerController(&myController);
-    server.registerController(&filesController);
-    server.registerController(&usersController);
+    server.registerController(filesController);
+    server.registerController(usersController);
 
     server.start();
 
     while (1) {
         sleep(10);
     }
+    delete baseDeDatos;
 }

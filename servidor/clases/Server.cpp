@@ -91,6 +91,9 @@ static void *server_poll(void *param)
         optionsMap["listening_port"] = portOss.str();
         optionsMap["document_root"] = string(documentRoot);
         optionsMap["enable_keep_alive"] = "yes";
+
+
+
     }
 
     Server::~Server()
@@ -151,6 +154,7 @@ static void *server_poll(void *param)
         controller->setSessions(&sessions);
         controller->setServer(this);
         controller->setup();
+
         controllers.push_back(controller);
     }
 
@@ -222,7 +226,6 @@ static void *server_poll(void *param)
             return true;
         }
 #endif
-        cout <<"server::handles: " + method + " - " + url << endl;
         vector<Controller *>::iterator it;
         for (it=controllers.begin(); it!=controllers.end(); it++) {
             if ((*it)->handles(method, url)) {
@@ -241,7 +244,7 @@ static void *server_poll(void *param)
         mutex.lock();
         requests++;
         mutex.unlock();
-        cout<< "server::handleRequest: " + request.getUrl() << endl;
+
         for (it=controllers.begin(); it!=controllers.end(); it++) {
             Controller *controller = *it;
 

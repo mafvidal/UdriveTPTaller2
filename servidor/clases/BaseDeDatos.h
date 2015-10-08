@@ -20,7 +20,7 @@ using namespace rocksdb;
 
 class BaseDeDatos {
 private:
-	mutex mtx;
+	//mutex mtx;
 	const int USARIOS=1;
 	const int ARCHIVOS=2;
 	const int ETIQUETAS=3;
@@ -33,6 +33,7 @@ private:
 	vector<ColumnFamilyHandle*> handles;
 
 public:
+	void CheckearBaseDeDatos(string ubicacion);
 	BaseDeDatos(string directorio);
 	//Agrega un usuario nuevo a la base de datos
 	//El usuario no debe existir

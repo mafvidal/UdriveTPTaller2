@@ -30,14 +30,8 @@ namespace Mongoose
                 R *response = new R;
 
                 try {
-
-                	cout<< "requesthandler.h process- antes de preprocess: "<< endl;
-                							controller->preProcess(request, *response);
-
-                							cout<< "requesthandler.h process- antes de procesar: "<< endl;
-                							(controller->*function)(request, *response);
-
-
+					controller->preProcess(request, *response);
+					(controller->*function)(request, *response);
                 } catch (string exception) {
                     return controller->serverInternalError(exception);
                 } catch (...) {

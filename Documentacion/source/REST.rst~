@@ -5,9 +5,13 @@ Protocolo REST
 
 Registrar Usuario
 +++++++++++++++++
+
 URL: /users
+
 TIPO: POST
+
 BODY:
+
 {
 
 	"Usuario" : "fulanito15",

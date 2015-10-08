@@ -31,6 +31,7 @@ bool BaseDeDatos::existeUsuario(string nombreUsuario){
 
 	string value;
 	estado = db->Get(ReadOptions(), handles[USARIOS], Slice(nombreUsuario), &value);
+
 	return estado.ok();
 
 }
@@ -479,25 +480,29 @@ list<string> BaseDeDatos::buscarPorMetadato(string nombreUsuario,string metadato
 }
 bool BaseDeDatos::escribir(const int TIPO,string nombre,string datos){
 
-	this->mtx.lock();
+	//this->mtx.lock();
 
 	WriteBatch batch;
 	batch.Put(handles[TIPO], Slice(nombre), Slice(datos));
-	estado = db->Write(WriteOptions(), &batch);
 
-	this->mtx.unlock();
+	estado = db->Write(WriteOptions(), &batch);
+	//this->mtx.unlock();
 
 	return estado.ok();
 
 }
 void BaseDeDatos::eliminar(const int TIPO,string nombre){
 
-	this->mtx.lock();
+	//this->mtx.lock();
 
 	WriteBatch batch;
 	batch.Delete(handles[TIPO], Slice(nombre));
 	estado = db->Write(WriteOptions(), &batch);
 
-	this->mtx.unlock();
+	//this->mtx.unlock();
 
+}
+void BaseDeDatos::CheckearBaseDeDatos(string ubicacion)
+{
+	cout << "Base de datos OK - Ubicacion: " + ubicacion <<endl;
 }

@@ -13,6 +13,8 @@
 #endif
 #include "Mutex.h"
 #include "Sessions.h"
+#include "BaseDeDatos.h"
+
 
 using namespace std;
 

@@ -67,7 +67,6 @@ namespace Mongoose
 
         if(urlSplited.size() == 3)
         {
-        	cout << "123Controller-handles-size-path: " << endl;
         	return true;
         }
 
@@ -94,15 +93,14 @@ namespace Mongoose
         	string urlWithoutId = request.getUrl().substr(0,indexId + 1);
 
         	string key = request.getMethod() + ":" + urlWithoutId;
-        	cout<<"controller: process-  urlWithoutId: "+ urlWithoutId +"- key: "+key << endl;
-        	        	        if (routesWithId.find(key) != routesWithId.end()) {
-        	        	            response = routesWithId[key]->process(request);
-        	        	        }
+			if (routesWithId.find(key) != routesWithId.end()) {
+				response = routesWithId[key]->process(request);
+			}
         }else{
 			string key = request.getMethod() + ":" + request.getUrl();
-					if (routes.find(key) != routes.end()) {
-						response = routes[key]->process(request);
-					}
+			if (routes.find(key) != routes.end()) {
+				response = routes[key]->process(request);
+			}
         }
 #endif
         
@@ -143,7 +141,6 @@ namespace Mongoose
     void Controller::registerRouteWithId(string httpMethod, string route, RequestHandlerBase *handler)
         {
             string key = httpMethod + ":" + prefix + route;
-            cout<<"controller::registerRouteWithId key:" + key <<endl;
             routesWithId[key] = handler;
             urls.push_back(prefix + route);
         }
@@ -181,5 +178,8 @@ namespace Mongoose
     void Controller::setSessions(Sessions *sessions_)
     {
         sessions = sessions_;
+    }
+    void Controller::setManejadorDB(ManejadorDB* manejador ){
+    	manejadorDB = manejador;
     }
 }

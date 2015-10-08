@@ -32,7 +32,7 @@ BODY:
 
 RESPONSE:
 
-200 OK 	"Creacion exitosa"
+200 OK 	"Usuario creado exitosamente"
 	"Usuario existente"
 	 
 Iniciar sesión

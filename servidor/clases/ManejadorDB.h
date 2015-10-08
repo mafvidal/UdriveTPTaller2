@@ -14,6 +14,9 @@ class ManejadorDB {
 private:
 	BaseDeDatos *db;
 public:
+	void CheckearBaseDeDatos(string ubicacion){
+		this->db->CheckearBaseDeDatos(ubicacion);
+	}
 	ManejadorDB(BaseDeDatos * db);
 	//Registra el usuario en la base de datos
 	//Retorna si pudo o no agregarlo

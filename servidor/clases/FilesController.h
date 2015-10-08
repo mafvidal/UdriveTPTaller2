@@ -16,6 +16,7 @@ class FilesController : public WebController
 {
 	public:
 		FilesController();
+		FilesController(ManejadorDB* manejadorDB);
 		virtual ~FilesController();
 		void getFiles(Request &request, StreamResponse &response);
 		void getFile(Request &request, StreamResponse &response);

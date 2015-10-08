@@ -33,27 +33,31 @@ UsersController::UsersController() {
 	// TODO Auto-generated constructor stub
 
 }
+UsersController::UsersController(ManejadorDB* manejadorDB) {
+	// TODO Auto-generated constructor stub
+ this->manejadorDB = manejadorDB;
+}
 
 UsersController::~UsersController() {
-	// TODO Auto-generated destructor stub
+	delete this->manejadorDB;
 }
 
 void UsersController::addUser(Request &request, StreamResponse &response)
 {
-
-	string datosUsuario = cargarJsonUsuario();
-
-	BaseDeDatos base("testdb/");
-	base.agregarUsuario(htmlEntities(request.get("name")),"Clave",request.getData(),800);
-	//bool agregarUsuario(string nombreUsuario,string clave,string metadatosJson,float cuota);
-	if (base.existeUsuario(request.getData()))
-		response << request.getData() << endl;
-
+	  if(  manejadorDB->registrarUsuario(request.getData())){
+		  response << "Usuario creado exitosamente" << endl;
+	  }else{
+		  response << "Usuario existente" << endl;
+	  }
 }
 void UsersController::setup()
 {
 
 	addRoute("POST","/users",UsersController, addUser);
+
+}
+void UsersController::CheckearBaseDeDatos(string ubicacion) {
+	this->manejadorDB->CheckearBaseDeDatos("UsersController::CheckearBaseDeDatos");
 
 }
 }
