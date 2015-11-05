@@ -20,7 +20,7 @@ const int ETIQUETAS=3;
 const int NOMBRE=4;
 const int EXTENSION=5;
 const int PROPIETARIO=6;
-/*
+
 static const struct mg_str s_put_method = MG_STR("PUT");
 static const struct mg_str s_get_method = MG_STR("GET");
 static const struct mg_str s_post_method = MG_STR("POST");
@@ -36,6 +36,6 @@ struct Datos {
 	struct mg_connection *c;
 	int ev;
 	struct http_message p;
-};*/
+};
 
 #endif /* CONSTANTES_H_ */
