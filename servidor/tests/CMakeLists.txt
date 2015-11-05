@@ -3,15 +3,15 @@ set(GMock "${PROJECT_SOURCE_DIR}/bibliotecas/gmock/libgmock.a")
 set(GTest "${PROJECT_SOURCE_DIR}/bibliotecas/gmock/gtest/libgtest.a")
 
 #Agrego la clases programados por nosotros
-set(Clases ${PROJECT_SOURCE_DIR}/clases)
+set(Clases ${PROJECT_SOURCE_DIR}/clasesCP2)
 
 #Incluyo la ruta de GMock y Gtest, para evitar en los archivos incluirla
 include_directories("${PROJECT_SOURCE_DIR}/bibliotecas/mongoose" "${PROJECT_SOURCE_DIR}/bibliotecas/gmock/include" "${PROJECT_SOURCE_DIR}/bibliotecas/gmock/gtest/include" ${Clases} jsonPrueba)
 
 #Incluimos las clases
 file(GLOB Clases_INC
-	"${PROJECT_SOURCE_DIR}/clases/*.h"
-	"${PROJECT_SOURCE_DIR}/clases/*.cpp"
+	"${PROJECT_SOURCE_DIR}/clasesCP2/*.h"
+	"${PROJECT_SOURCE_DIR}/clasesCP2/*.cpp"
 )
 
 #Incluimos archivos de prueba

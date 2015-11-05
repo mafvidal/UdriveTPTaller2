@@ -1,0 +1,19 @@
+{
+
+	"Cuota" : "800",
+
+	"Clave" : "otraClave",
+
+    "MetaDatos" : {
+    
+    	"Email" : "otroMail@mail.com",
+    	
+    	"Foto" : "otraFoto",
+    	
+    	"Nombre" : "Fulanito",
+    	
+    	"UltimaUbicacion" : "Corrientes"
+    
+    }
+
+}

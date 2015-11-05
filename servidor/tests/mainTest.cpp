@@ -3,213 +3,228 @@
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
 #include "BaseDeDatos.h"
-#include "estructuras.h"
+#include "Constantes.h"
 #include <fstream>
+#include "Usuario.h"
+#include "Archivo.h"
 #include "json/json.h"
 
 using namespace std;
 
+string cargarJsonArchivoEliminado(const string &propietario){
+
+	Value datosArchivo;
+	Reader reader;
+	ifstream test("archivoEliminado.json", ifstream::binary);
+	reader.parse( test, datosArchivo, false );
+	datosArchivo["Propietario"] = propietario;
+
+	return datosArchivo.toStyledString();
+
+}
+
+string cargarJsonArchivo(const string &propietario){
+
+	Value datosArchivo;
+	Reader reader;
+	ifstream test("archivo.json", ifstream::binary);
+	reader.parse( test, datosArchivo, false );
+	datosArchivo["Propietario"] = propietario;
+
+	return datosArchivo.toStyledString();
+
+}
+
+string cargarDatosUsuarioActualizado(){
+
+	//Cargo el json de prueba
+	Value datosUsuario;
+	Reader reader;
+	ifstream test("datosDeUsuarioActualizado.json", ifstream::binary);
+	reader.parse( test, datosUsuario, false );
+
+	return datosUsuario.toStyledString();
+
+}
+
 string cargarJsonUsuario(){
 
 	//Cargo el json de prueba
-	Json::Value datosUsuario;
-	Json::Reader reader;
+	Value datosUsuario;
+	Reader reader;
 	ifstream test("datosDeUsuario.json", ifstream::binary);
 	reader.parse( test, datosUsuario, false );
 
 	return datosUsuario.toStyledString();
 
 }
-string cargarJsonArchivo(string propietario){
 
-	//Cargo el json de prueba
-	Json::Value datosArchivo;
-	Json::Reader reader;
-	ifstream test("archivo.json", ifstream::binary);
-	reader.parse( test, datosArchivo, false );
-	datosArchivo["Propietario"]=propietario;
+TEST(baseDeDatos, AlGuardarUnArchivoYRecuperarloDeboObtenerloCorrectamente) {
 	
-	return datosArchivo.toStyledString();
+	BasedeDatos *base=BasedeDatos::obteberInstancia();
+
+	base->guardar(USUARIOS,"usuarioTest1",cargarJsonUsuario());
+
+	EXPECT_EQ(cargarJsonUsuario(),base->leer(USUARIOS,"usuarioTest1"));
 
 }
 
-TEST(baseDeDatos, existeUsuario) {
+TEST(baseDeDatos, AlGuardarYEliminarElDatoNoDebePermanecerEnLaBaseDeDatos) {
 	
-	string datosUsuario = cargarJsonUsuario();
+	BasedeDatos *base=BasedeDatos::obteberInstancia();
 
-	BaseDeDatos base("testdb/");
-	base.agregarUsuario("Juan","Clave",datosUsuario,800);
-	EXPECT_TRUE(base.existeUsuario("Juan"));
+	base->guardar(USUARIOS,"usuarioTest2",cargarJsonUsuario());
+	base->eliminar(USUARIOS,"usuarioTest2");
 
-}
-
-TEST(baseDeDatos, verificarInexistenciaDeUsuario){
-
-	string datosUsuario = cargarJsonUsuario();
-
-        BaseDeDatos base("testdb/");
-        base.agregarUsuario("Juan","Clave",datosUsuario,800);
-        EXPECT_FALSE(base.existeUsuario("Roberto"));
+	EXPECT_EQ("",base->leer(USUARIOS,"usuarioTest2"));
 
 }
 
-TEST(baseDeDatos, verificarClaveCorrecta) {
-
-	string datosUsuario = cargarJsonUsuario();
-
-	BaseDeDatos base("testdb/");
-	base.agregarUsuario("Juan","MiClave",datosUsuario,800);
-	EXPECT_TRUE(base.esLaClaveCorrecta("Juan","MiClave"));
-
-}
-
-TEST(baseDeDatos, verificarClaveIncorrecta) {
-
-	string datosUsuario = cargarJsonUsuario();
-
-	BaseDeDatos base("testdb/");
-	base.agregarUsuario("Pedro","MiClave",datosUsuario,800);
-	EXPECT_FALSE(base.esLaClaveCorrecta("Pedro","otraClave"));
-
-}
-
-TEST(baseDeDatos, almacenarDatosDeUnUsuarioExistenteYVerificarCorrectoAlmacenamiento){
-
-	string datosUsuario = cargarJsonUsuario();
-
-	BaseDeDatos base("testdb/");
-	base.agregarUsuario("Juan","MiClave",datosUsuario,800);
-	string datos = base.getMetaDatosUsuario("Juan");
-
-	Json::Value metadatos;
-	Json::Reader reader;
-
-	reader.parse(datos, metadatos);
-
-	EXPECT_EQ("Juan",metadatos.get("Nombre", "" ).asString());
-	EXPECT_EQ("juan@gmail.com",metadatos.get("Email", "" ).asString());
-	EXPECT_EQ("juanFoto",metadatos.get("Foto", "" ).asString());
-	EXPECT_EQ("La Pampa",metadatos.get("UltimaUbicacion", "" ).asString());
-
-}
-
-TEST(baseDeDatos, alAlmacenarUnArchivoEsteDebeEstarEnLaBase){
-
-	string datosUsuario = cargarJsonUsuario();
-	string datosArchivo = cargarJsonArchivo("Juan");
-
-	BaseDeDatos base("testdb/");
-	base.agregarUsuario("Juan","MiClave",datosUsuario,800);
+TEST(baseDeDatos, SiElUsuarioNoExisteAlIdentificarmeDeboRecibirUnFalse) {
 	
-	base.agregarArchivo("Juan",datosArchivo,55);
+	Usuario usuario;
 
-	list<string> listaDeArchivos = base.getArchivos("Juan");
+	Value identificarse;
 
-	Json::Value metadatos;
-	Json::Reader reader;
+	identificarse["Clave"] = "Mi_Clave";
 
-	reader.parse(listaDeArchivos.front(), metadatos);
-
-	EXPECT_EQ("colores",metadatos.get("Nombre", "" ).asString());
+	EXPECT_FALSE(usuario.identificarse("usuarioTest3",identificarse.toStyledString()));
 
 }
 
-TEST(baseDeDatos, alEliminarUnArchivoYSolicitarArchivosDelUsuarioEsteNoDebeExistir){
-
-	string datosUsuario = cargarJsonUsuario();
-	string datosArchivo = cargarJsonArchivo("Pedro");
-
-	BaseDeDatos base("testdb/");
-	base.agregarUsuario("Pedro","MiClave",datosUsuario,800);
+TEST(baseDeDatos, SiElUsuarioExisteAlIdentificarmeDeboRecibirUnTrue) {
 	
-	base.agregarArchivo("Pedro",datosArchivo,55);
+	Usuario usuario;
 
-	base.eliminarLogicamenteArchivo("Pedro",datosArchivo,55);
+	Value identificarse;
 
-	list<string> listaDeArchivos = base.getArchivos("Pedro");
+	identificarse["Clave"] = "MiClave";
 
-	EXPECT_EQ(listaDeArchivos.size(),0);
+	usuario.registrarse("usuarioTest4",cargarJsonUsuario());
+
+	EXPECT_TRUE(usuario.identificarse("usuarioTest4",identificarse.toStyledString()));
 
 }
 
-TEST(baseDeDatos, alEliminarUnArchivoEsteDebeEstarEnLaPapelera){
-
-	string datosUsuario = cargarJsonUsuario();
-	string datosArchivo = cargarJsonArchivo("Ramon");
-
-	BaseDeDatos base("testdb/");
-	base.agregarUsuario("Ramon","MiClave",datosUsuario,800);
+TEST(baseDeDatos, AlRegistrarUnUsuarioYObtenerSusDatosEstosDebenSerCorrectos) {
 	
-	base.agregarArchivo("Ramon",datosArchivo,55);
-	base.eliminarLogicamenteArchivo("Ramon",datosArchivo,55);
+	Usuario usuario;
 
-	list<string> listaDeArchivos = base.getArchivosEnPapelera("Ramon");
+	Value identificarse;
+	Value datos;
+	Reader lector;
 
-	Json::Value metadatos;
-	Json::Reader reader;
+	identificarse["Clave"] = "MiClave";
 
-	reader.parse(listaDeArchivos.front(), metadatos);
+	usuario.registrarse("usuarioTest5",cargarJsonUsuario());
 
-	EXPECT_EQ("colores",metadatos.get("Nombre", "" ).asString());
-	EXPECT_EQ("Ramon",metadatos.get("Propietario", "" ).asString());
+	lector.parse(usuario.obtenerDatos("usuarioTest5"),datos,false);
+
+	EXPECT_EQ("fulanitoMail@mail.com",datos.get("Email","").asString());
+	EXPECT_EQ("FulanitoFoto",datos.get("Foto","").asString());
+	EXPECT_EQ("Fulanito",datos.get("Nombre","").asString());
+	EXPECT_EQ("Bs As",datos.get("UltimaUbicacion","").asString());
 
 }
 
-TEST(baseDeDatos, alConsultarPorEtiquetaDeboRecibirElArchivoQuePoseeLaEtiqueta){
+TEST(baseDeDatos, AlActualizarLosDatosDeUnUsuarioEstosDebenActualizarseCorrectamente) {
 
-	string datosUsuario = cargarJsonUsuario();
-	string datosArchivo = cargarJsonArchivo("Perez");
+	Usuario usuario;
+	Value datos;
+	Reader lector;
 
-	BaseDeDatos base("testdb/");
-	base.agregarUsuario("Perez","MiClave",datosUsuario,800);
+	usuario.registrarse("usuarioTest6",cargarJsonUsuario());
+	usuario.actualizarDatos("usuarioTest6",cargarDatosUsuarioActualizado());
+
+	lector.parse(usuario.obtenerDatos("usuarioTest6"),datos,false);
+
+	EXPECT_EQ("otroMail@mail.com",datos.get("Email","").asString());
+	EXPECT_EQ("otraFoto",datos.get("Foto","").asString());
+	EXPECT_EQ("Fulanito",datos.get("Nombre","").asString());
+	EXPECT_EQ("Corrientes",datos.get("UltimaUbicacion","").asString());
+}
+
+TEST(baseDeDatos, AlAgregarUnArchivoElUsuarioDebeTenerlo) {
+
+	Usuario usuario;
+	Archivo archivo;
+	Reader  lector;
+	Value datosArchivo;
+
+	usuario.registrarse("usuarioTest7",cargarJsonUsuario());
+	//Primero verifico que no tenga archivos
+	lector.parse(usuario.obtenerArchivos("usuarioTest7"),datosArchivo,false);
+
+	EXPECT_EQ(0,datosArchivo.size());
 	
-	base.agregarArchivo("Perez",datosArchivo,55);
+	archivo.crearArchivo("usuarioTest7",cargarJsonArchivo("usuarioTest7"));
 
-	list<string> listaDeArchivos = base.buscarPorEtiquetas("Perez","Rojo");
+	lector.parse(usuario.obtenerArchivos("usuarioTest7"),datosArchivo,false);
 
-	Json::Value metadatos;
-	Json::Reader reader;
-
-	reader.parse(listaDeArchivos.front(), metadatos);
-
-	EXPECT_EQ("colores",metadatos.get("Nombre", "" ).asString());
+	//El usuario debe tener el archivo
+	EXPECT_EQ(1,datosArchivo.size());
 
 }
 
-TEST(baseDeDatos, alConsultarPorEtiquetaQueNoExisteNoDeboRecibirArchivos){
 
-	string datosUsuario = cargarJsonUsuario();
-	string datosArchivo = cargarJsonArchivo("Perez");
+TEST(baseDeDatos, alEliminarUnArchivoElUsuarioDebeTenerloEnlaPapelera) {
 
-	BaseDeDatos base("testdb/");
-	base.agregarUsuario("Perez","MiClave",datosUsuario,800);
+	Usuario usuario;
+	Archivo archivo;
+	Reader  lector;
+	Value datosArchivo;
+
+	usuario.registrarse("usuarioTest8",cargarJsonUsuario());
+
+	//Primero verifico que no tenga archivos
+	lector.parse(usuario.verPapelera("usuarioTest8"),datosArchivo,false);
+
+	EXPECT_EQ(0,datosArchivo.size());
 	
-	base.agregarArchivo("Perez",datosArchivo,55);
+	archivo.crearArchivo("usuarioTest8",cargarJsonArchivo("usuarioTest8"));
+	archivo.eliminarArchivo(cargarJsonArchivoEliminado("usuarioTest8"));
 
-	list<string> listaDeArchivos = base.buscarPorEtiquetas("Perez","Pato");
+	lector.parse(usuario.verPapelera("usuarioTest8"),datosArchivo,false);
 
-	EXPECT_EQ(listaDeArchivos.size(),0);
+	//El usuario debe tener el archivo
+	EXPECT_EQ(1,datosArchivo.size());
 
 }
 
-TEST(baseDeDatos, alConsultarPorExtensionDeboRecibirElArchivoQuePoseeLaExtension){
+TEST(baseDeDatos, alCompartirUnArchivoConUnUsarioEsteDebeTenerlo) {
 
-	string datosUsuario = cargarJsonUsuario();
-	string datosArchivo = cargarJsonArchivo("Luis");
+	Usuario usuario;
+	Archivo archivo;
+	Reader  lector;
+	Value datosArchivo;	
+	Value datosArchivo1;
+	Value datosArchivo2;
+	Value usuarios;
 
-	BaseDeDatos base("testdb/");
-	base.agregarUsuario("Luis","MiClave",datosUsuario,800);
+	usuarios.append("usuarioTest9_1");
+	usuarios.append("usuarioTest9_2");
+
+	usuario.registrarse("usuarioTest9",cargarJsonUsuario());
+	usuario.registrarse("usuarioTest9_1",cargarJsonUsuario());
+	usuario.registrarse("usuarioTest9_2",cargarJsonUsuario());
+
+	//Primero verifico que no tenga archivos
+	lector.parse(usuario.obtenerArchivos("usuarioTest9_1"),datosArchivo1,false);
+	lector.parse(usuario.obtenerArchivos("usuarioTest9_2"),datosArchivo2,false);
+
+	EXPECT_EQ(0,datosArchivo1.size());
+	EXPECT_EQ(0,datosArchivo2.size());
 	
-	base.agregarArchivo("Luis",datosArchivo,55);
+	archivo.crearArchivo("usuarioTest9",cargarJsonArchivo("usuarioTest9"));
 
-	list<string> listaDeArchivos = base.buscarPorExtension("Luis","txt");
+	archivo.compartir(usuarios.toStyledString(),cargarJsonArchivo("usuarioTest9"));
 
-	Json::Value metadatos;
-	Json::Reader reader;
+	lector.parse(usuario.obtenerArchivos("usuarioTest9_1"),datosArchivo1,false);
+	lector.parse(usuario.obtenerArchivos("usuarioTest9_2"),datosArchivo2,false);
 
-	reader.parse(listaDeArchivos.front(), metadatos);
-
-	EXPECT_EQ("colores",metadatos.get("Nombre", "" ).asString());
+	//El usuario debe tener el archivo
+	EXPECT_EQ(1,datosArchivo1.size());
+	EXPECT_EQ(1,datosArchivo2.size());
 
 }
 

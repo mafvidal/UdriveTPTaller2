@@ -1,6 +1,19 @@
 {
-	"Email" : "juan@gmail.com",
-	"Foto" : "juanFoto",
-	"Nombre" : "Juan",
-	"UltimaUbicacion" : "La Pampa"
+
+	"Cuota" : "800",
+
+	"Clave" : "MiClave",
+
+    "MetaDatos" : {
+    
+    	"Email" : "fulanitoMail@mail.com",
+    	
+    	"Foto" : "FulanitoFoto",
+    	
+    	"Nombre" : "Fulanito",
+    	
+    	"UltimaUbicacion" : "Bs As"
+    
+    }
+
 }

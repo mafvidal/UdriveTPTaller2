@@ -1,0 +1,125 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - main.info - clases/Mutex.cpp</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">clases</a> - Mutex.cpp<span style="font-size: 80%;"> (source / <a href="Mutex.cpp.func-sort-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">main.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">1</td>
+            <td class="headerCovTableEntry">13</td>
+            <td class="headerCovTableEntryLo">7.7 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2015-10-05 23:45:43</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">2</td>
+            <td class="headerCovTableEntry">7</td>
+            <td class="headerCovTableEntryLo">28.6 %</td>
+          </tr>
+          <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : #include &lt;string&gt;</a>
+<span class="lineNum">       2 </span>            : #include &lt;iostream&gt;
+<span class="lineNum">       3 </span>            : 
+<span class="lineNum">       4 </span>            : #include &quot;Mutex.h&quot;
+<span class="lineNum">       5 </span>            : 
+<span class="lineNum">       6 </span>            : using namespace std;
+<span class="lineNum">       7 </span>            : 
+<span class="lineNum">       8 </span>            : namespace Mongoose
+<span class="lineNum">       9 </span>            : {
+<span class="lineNum">      10 </span>            :         #ifdef _MSC_VER
+<span class="lineNum">      11 </span>            :         static int pthread_mutex_init(pthread_mutex_t *mutex, void *unused) {
+<span class="lineNum">      12 </span>            :           (void) unused;
+<span class="lineNum">      13 </span>            :           *mutex = CreateMutex(NULL, FALSE, NULL);
+<span class="lineNum">      14 </span>            :           return *mutex == NULL ? -1 : 0;
+<span class="lineNum">      15 </span>            :         }
+<span class="lineNum">      16 </span>            : 
+<span class="lineNum">      17 </span>            :         static int pthread_mutex_destroy(pthread_mutex_t *mutex) {
+<span class="lineNum">      18 </span>            :           return CloseHandle(*mutex) == 0 ? -1 : 0;
+<span class="lineNum">      19 </span>            :         }
+<span class="lineNum">      20 </span>            : 
+<span class="lineNum">      21 </span>            :         static int pthread_mutex_lock(pthread_mutex_t *mutex) {
+<span class="lineNum">      22 </span>            :           return WaitForSingleObject(*mutex, INFINITE) == WAIT_OBJECT_0? 0 : -1;
+<span class="lineNum">      23 </span>            :         }
+<span class="lineNum">      24 </span>            : 
+<span class="lineNum">      25 </span>            :         static int pthread_mutex_unlock(pthread_mutex_t *mutex) {
+<span class="lineNum">      26 </span>            :           return ReleaseMutex(*mutex) == 0 ? -1 : 0;
+<span class="lineNum">      27 </span>            :         }
+<a name="28"><span class="lineNum">      28 </span>            :         #endif</a>
+<span class="lineNum">      29 </span>            : 
+<span class="lineNum">      30 </span><span class="lineNoCov">          0 :     Mutex::Mutex()</span>
+<span class="lineNum">      31 </span>            :     {
+<span class="lineNum">      32 </span><span class="lineNoCov">          0 :         pthread_mutex_init(&amp;_mutex, NULL);</span>
+<a name="33"><span class="lineNum">      33 </span><span class="lineNoCov">          0 :     }</span></a>
+<span class="lineNum">      34 </span>            : 
+<span class="lineNum">      35 </span><span class="lineNoCov">          0 :     Mutex::~Mutex()</span>
+<span class="lineNum">      36 </span>            :     {
+<span class="lineNum">      37 </span><span class="lineNoCov">          0 :         pthread_mutex_destroy(&amp;_mutex);</span>
+<a name="38"><span class="lineNum">      38 </span><span class="lineNoCov">          0 :     }</span></a>
+<span class="lineNum">      39 </span>            : 
+<span class="lineNum">      40 </span><span class="lineNoCov">          0 :     void Mutex::lock()</span>
+<span class="lineNum">      41 </span>            :     {
+<span class="lineNum">      42 </span><span class="lineNoCov">          0 :         pthread_mutex_lock(&amp;_mutex);</span>
+<a name="43"><span class="lineNum">      43 </span><span class="lineNoCov">          0 :     }</span></a>
+<span class="lineNum">      44 </span>            : 
+<span class="lineNum">      45 </span><span class="lineNoCov">          0 :     void Mutex::unlock()</span>
+<span class="lineNum">      46 </span>            :     {
+<a name="47"><span class="lineNum">      47 </span><span class="lineNoCov">          0 :         pthread_mutex_unlock(&amp;_mutex);</span></a>
+<span class="lineNum">      48 </span><span class="lineNoCov">          0 :     }</span>
+<span class="lineNum">      49 </span><span class="lineCov">          3 : }</span>
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.11</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>
