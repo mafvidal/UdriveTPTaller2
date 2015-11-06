@@ -3,102 +3,81 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="5dp"
-    android:background="@drawable/linearborder">
+    android:orientation="vertical">
 
-    <TableLayout
+
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="40dp"
-        android:layout_marginLeft="10dp">
-        <TableRow
-            android:layout_margin="5dp"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp">
+        android:layout_height="40dp"
+        android:text="Usuario"
+        android:textColor="#FFFFFF"
+        android:background="#81AEDB"
+        android:textStyle="bold"
+        android:textSize="30dp"
+        android:layout_marginTop="30dp"
+        android:gravity="center"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Usuario : "
-                android:textColor="#000000"
-                android:textSize="30dp"
-                android:layout_gravity="center"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:textSize="20dp"
+        android:textColor="#000000"
+        android:layout_marginTop="5dp"
+        android:text="Jack"
+        android:gravity="center"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#000000"
-                android:textSize="30dp"
-                android:layout_gravity="center"
-                android:id="@+id/txtUsu"/>
-        </TableRow>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="Cuota"
+        android:textColor="#FFFFFF"
+        android:background="#81AEDB"
+        android:textStyle="bold"
+        android:textSize="30dp"
+        android:layout_marginTop="30dp"
+        android:gravity="center"/>
 
-        <TableRow
-            android:layout_margin="5dp"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:textSize="20dp"
+        android:textColor="#000000"
+        android:gravity="center"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Clave : "
-                android:textColor="#000000"
-                android:textSize="30dp"
-                android:layout_gravity="center"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="Nombre"
+        android:textColor="#FFFFFF"
+        android:background="#81AEDB"
+        android:textStyle="bold"
+        android:textSize="30dp"
+        android:layout_marginTop="30dp"
+        android:gravity="center"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#000000"
-                android:textSize="30dp"
-                android:layout_gravity="center"
-                android:id="@+id/txtClave"/>
-        </TableRow>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:textSize="20dp"
+        android:textColor="#000000"
+        android:gravity="center"/>
 
-        <TableRow
-            android:layout_margin="5dp"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="Email"
+        android:textColor="#FFFFFF"
+        android:background="#81AEDB"
+        android:textStyle="bold"
+        android:textSize="30dp"
+        android:layout_marginTop="30dp"
+        android:gravity="center"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Nombre : "
-                android:textColor="#000000"
-                android:textSize="30dp"
-                android:layout_gravity="center"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#000000"
-                android:textSize="30dp"
-                android:layout_gravity="center"
-                android:id="@+id/txtNombre"/>
-        </TableRow>
-
-        <TableRow
-            android:layout_margin="5dp"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Email : "
-                android:textColor="#000000"
-                android:textSize="30dp"
-                android:layout_gravity="center"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#000000"
-                android:textSize="30dp"
-                android:layout_gravity="center"
-                android:id="@+id/txtEmail"/>
-        </TableRow>
-
-
-    </TableLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:textSize="20dp"
+        android:textColor="#000000"
+        android:gravity="center"/>
 
 </LinearLayout>
