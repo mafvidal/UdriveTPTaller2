@@ -54,17 +54,23 @@ string ManejadorUsuario::obtenerDatos(const string &nombreUsuario){
 
 string ManejadorUsuario::actualizarDatos(const string &nombreUsuario,const string &datosUsuario){
 
+	Respuesta respuesta;
 	Usuario usuario;
 
 	if(usuario.actualizarDatos(nombreUsuario,datosUsuario)){
 
+		respuesta.agregarEstado("OK");
+		respuesta.agregarMensaje("datos actualizados correctamente");
 		return "datos actualizados correctamente";
 
 	}else{
 
-		return "error al actualizar los datos";
+		respuesta.agregarEstado("ERROR");
+		respuesta.agregarMensaje("error al actualizar los datos");
 
 	}
+
+	return respuesta.obtenerRespuesta();
 
 }
 

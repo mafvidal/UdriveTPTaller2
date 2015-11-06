@@ -42,7 +42,6 @@ Las tareas que se cumplieron son
 * `Realizar actualización lógica de un archivo <https://github.com/mafvidal/UdriveTPTaller2/issues/21>`_
 * `Realizar baja lógica de un archivo <https://github.com/mafvidal/UdriveTPTaller2/issues/20>`_
 * `Permitir búsqueda de archivos por sus metadatos <https://github.com/mafvidal/UdriveTPTaller2/issues/25>`_
-* `Consultar archivos que un usuario tiene en la papelera <https://github.com/mafvidal/UdriveTPTaller2/issues/42>`_
 
 
 
@@ -67,6 +66,7 @@ Las tareas a desarrollar son
 
 * `Disponer de un sistema de log <https://github.com/mafvidal/UdriveTPTaller2/issues/44>`_
 * `Permitir recuperar archivos de la papelera <https://github.com/mafvidal/UdriveTPTaller2/issues/43>`_
+* `Consultar archivos que un usuario tiene en la papelera <https://github.com/mafvidal/UdriveTPTaller2/issues/42>`_
 * `Interfaz gráfica para la papelera <https://github.com/mafvidal/UdriveTPTaller2/issues/41>`_
 * `Interfaz gráfica para administrar carpetas y archivos <https://github.com/mafvidal/UdriveTPTaller2/issues/40>`_
 * `Interfaz gráfica para ver los archivos que posee un usuario <https://github.com/mafvidal/UdriveTPTaller2/issues/38>`_
