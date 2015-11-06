@@ -21,13 +21,8 @@ Las tareas que se cumplieron son
 * `Compilar rocksDB con TravisCI <https://github.com/mafvidal/UdriveTPTaller2/issues/12>`_
 * `Modificar la base de datos, para que maneje column family <https://github.com/mafvidal/UdriveTPTaller2/issues/13>`_
 * `Configurar jsoncpp <https://github.com/mafvidal/UdriveTPTaller2/issues/53>`_
-
-Las tareas en desarrollo son
-++++++++++++++++++++++++++++
-
 * `Almacenar datos del usuario en la DB  <https://github.com/mafvidal/UdriveTPTaller2/issues/4>`_
 * `Agregar archivo .gitignore <https://github.com/mafvidal/UdriveTPTaller2/issues/9>`_
-* `Editar README.md con instrucciones de instalacion y compilacion <https://github.com/mafvidal/UdriveTPTaller2/issues/10>`_
 * `Agregar en la base de datos el alta y consulta de nombres de archivos <https://github.com/mafvidal/UdriveTPTaller2/issues/14>`_
 * `Configurar mongoose <https://github.com/mafvidal/UdriveTPTaller2/issues/15>`_
 * `Agregar el registro de usuarios <https://github.com/mafvidal/UdriveTPTaller2/issues/16>`_
@@ -35,43 +30,50 @@ Las tareas en desarrollo son
 * `Almacenar metadatos correspondientes al alta de un archivo <https://github.com/mafvidal/UdriveTPTaller2>`_
 * `Obtener metadatos de un archivo <https://github.com/mafvidal/UdriveTPTaller2/issues/23>`_
 * `Permitir consultar archivos borrados <https://github.com/mafvidal/UdriveTPTaller2/issues/27>`_
-* `Asignar cuotas a usuarios  <https://github.com/mafvidal/UdriveTPTaller2/issues/29>`_
 * `Cargar perfil de usuario <https://github.com/mafvidal/UdriveTPTaller2/issues/30>`_
-* `Interfaz gráfica para el menú de acceso <https://github.com/mafvidal/UdriveTPTaller2/issues/34>`_
 * `Solicitar acceso de un usuario al servidor <https://github.com/mafvidal/UdriveTPTaller2/issues/35>`_
+* `Permitir realizar búsqueda por sus metadatos <https://github.com/mafvidal/UdriveTPTaller2/issues/47>`_
+* `Permitir consultar metadatos de un archivo <https://github.com/mafvidal/UdriveTPTaller2/issues/46>`_
+* `Permitir modificar metadatos de un archivo <https://github.com/mafvidal/UdriveTPTaller2/issues/45>`_
+* `Consultar archivos que tiene un usuario <https://github.com/mafvidal/UdriveTPTaller2/issues/39>`_
+* `Actualizar metadatos del perfil del usuario <https://github.com/mafvidal/UdriveTPTaller2/issues/32>`_
+* `Permitir actualización de datos el perfil del usuario <https://github.com/mafvidal/UdriveTPTaller2/issues/31>`_
+* `Permitir compartir archivos entre usuarios <https://github.com/mafvidal/UdriveTPTaller2/issues/28>`_
+* `Realizar actualización lógica de un archivo <https://github.com/mafvidal/UdriveTPTaller2/issues/21>`_
+* `Realizar baja lógica de un archivo <https://github.com/mafvidal/UdriveTPTaller2/issues/20>`_
+* `Permitir búsqueda de archivos por sus metadatos <https://github.com/mafvidal/UdriveTPTaller2/issues/25>`_
+* `Consultar archivos que un usuario tiene en la papelera <https://github.com/mafvidal/UdriveTPTaller2/issues/42>`_
+
+
+
+Las tareas en desarrollo son
+++++++++++++++++++++++++++++
+
+* `Editar README.md con instrucciones de instalacion y compilacion <https://github.com/mafvidal/UdriveTPTaller2/issues/10>`_
+* `Asignar cuotas a usuarios  <https://github.com/mafvidal/UdriveTPTaller2/issues/29>`_
+* `Interfaz gráfica para el menú de acceso <https://github.com/mafvidal/UdriveTPTaller2/issues/34>`_
 * `Interfaz gráfica para el menú de registro <https://github.com/mafvidal/UdriveTPTaller2/issues/36>`_
 * `Solicitar registro de un nuevo usuario al servidor <https://github.com/mafvidal/UdriveTPTaller2/issues/37>`_
 * `La base de datos debe soportar se manejada por varios hilos <https://github.com/mafvidal/UdriveTPTaller2/issues/54>`_
 * `Generar documentacion del proyecto <https://github.com/mafvidal/UdriveTPTaller2/issues/55>`_
-
-Las tareas a desarrollar son
-++++++++++++++++++++++++++++
-
 * `Permitir agregar archivos <https://github.com/mafvidal/UdriveTPTaller2/issues/52>`_
 * `Permitir crear una nueva carpeta <https://github.com/mafvidal/UdriveTPTaller2/issues/51>`_
 * `Permitir acualizar un archivo <https://github.com/mafvidal/UdriveTPTaller2/issues/50>`_
 * `Permitir eliminar archivos <https://github.com/mafvidal/UdriveTPTaller2/issues/49>`_
 * `Permitir eliminar carpetas <https://github.com/mafvidal/UdriveTPTaller2/issues/48>`_
-* `Permitir realizar búsqueda por sus metadatos <https://github.com/mafvidal/UdriveTPTaller2/issues/47>`_
-* `Permitir consultar metadatos de un archivo <https://github.com/mafvidal/UdriveTPTaller2/issues/46>`_
-* `Permitir modificar metadatos de un archivo <https://github.com/mafvidal/UdriveTPTaller2/issues/45>`_
+
+Las tareas a desarrollar son
+++++++++++++++++++++++++++++
+
 * `Disponer de un sistema de log <https://github.com/mafvidal/UdriveTPTaller2/issues/44>`_
 * `Permitir recuperar archivos de la papelera <https://github.com/mafvidal/UdriveTPTaller2/issues/43>`_
-* `Consultar archivos que un usuario tiene en la papelera <https://github.com/mafvidal/UdriveTPTaller2/issues/42>`_
 * `Interfaz gráfica para la papelera <https://github.com/mafvidal/UdriveTPTaller2/issues/41>`_
 * `Interfaz gráfica para administrar carpetas y archivos <https://github.com/mafvidal/UdriveTPTaller2/issues/40>`_
-* `Consultar archivos que tiene un usuario <https://github.com/mafvidal/UdriveTPTaller2/issues/39>`_
 * `Interfaz gráfica para ver los archivos que posee un usuario <https://github.com/mafvidal/UdriveTPTaller2/issues/38>`_
 * `Contar con un sistema de Log <https://github.com/mafvidal/UdriveTPTaller2/issues/33>`_
-* `Actualizar metadatos del perfil del usuario <https://github.com/mafvidal/UdriveTPTaller2/issues/32>`_
-* `Permitir actualización de datos el perfil del usuario <https://github.com/mafvidal/UdriveTPTaller2/issues/31>`_
-* `Permitir compartir archivos entre usuarios <https://github.com/mafvidal/UdriveTPTaller2/issues/28>`_
 * `Permitir recuperar archivos borrados de la papelera <https://github.com/mafvidal/UdriveTPTaller2/issues/26>`_
-* `Permitir búsqueda de archivos por sus metadatos <https://github.com/mafvidal/UdriveTPTaller2/issues/25>`_
 * `Permitir descarga física de un archivo <https://github.com/mafvidal/UdriveTPTaller2/issues/24>`_
 * `Realizar actualización física de un archivo <https://github.com/mafvidal/UdriveTPTaller2/issues/22>`_
-* `Realizar actualización lógica de un archivo <https://github.com/mafvidal/UdriveTPTaller2/issues/21>`_
-* `Realizar baja lógica de un archivo <https://github.com/mafvidal/UdriveTPTaller2/issues/20>`_
 * `Realizar alta de archivos de usuarios <https://github.com/mafvidal/UdriveTPTaller2/issues/18>`_
 
 |

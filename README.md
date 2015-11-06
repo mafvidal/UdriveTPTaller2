@@ -27,11 +27,11 @@ Repositorio para el grupo de taller de programación 2
 
 #### Descargar imagen con este repo de dockerHub(Hasta commit 48)
 
- - docker pull mafvidal/tp:v3
+ - docker pull mafvidal/tp:v5
 
 ### Correr imagen
 
- - docker run -it mafvidal/tp:v1
+ - docker run -it mafvidal/tp:v5
 
 ### Ver el repo en la imagen
 

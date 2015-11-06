@@ -16,6 +16,9 @@ Para compilar el proyecto deberá ejecutar los siguientes comandos:
 Finalmente ejecute el servidor mediante el siguiente comando:
 
 * ./servidor
+
+Para finalizar el servidor precione la tecla "q" y enter
+
 |
 |
 | :ref:`Volver a la pagina anterior <ManAdministracion>`

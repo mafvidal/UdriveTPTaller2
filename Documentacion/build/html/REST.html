@@ -28,133 +28,158 @@
     <script type="text/javascript" src="_static/theme_extras.js"></script>
     <link rel="top" title="documentación de UdriveTP - 2.5.1" href="index.html" /> 
   </head>
-  <body>
+  <body role="document">
     <div id="content">
       <div class="header">
         <h1 class="heading"><a href="index.html"
           title="back to the documentation overview"><span>Protocolo REST</span></a></h1>
       </div>
-      <div class="relnav">
+      <div class="relnav" role="navigation" aria-label="related navigation">
         <a href="#">Protocolo REST</a>
       </div>
       <div id="contentwrapper">
-        <div id="toc">
+        <div id="toc" role="navigation" aria-label="table of contents navigation">
           <h3>Tabla de Contenidos</h3>
           <ul>
 <li><a class="reference internal" href="#">Protocolo REST</a><ul>
-<li><a class="reference internal" href="#registrar-usuario">Registrar Usuario</a></li>
+<li><a class="reference internal" href="#registrarse">Registrarse</a></li>
 <li><a class="reference internal" href="#iniciar-sesion">Iniciar sesión</a></li>
-<li><a class="reference internal" href="#agregar-archivo">Agregar archivo</a></li>
-<li><a class="reference internal" href="#eliminar-archivo">Eliminar archivo</a></li>
-<li><a class="reference internal" href="#ver-papelera">Ver papelera</a></li>
-<li><a class="reference internal" href="#eliminar-archivo-de-la-papelera">Eliminar archivo de la papelera</a></li>
+<li><a class="reference internal" href="#obtener-datos-del-usuario">Obtener datos del usuario</a></li>
+<li><a class="reference internal" href="#actualizar-datos-del-usuario">Actualizar datos del usuario</a></li>
+<li><a class="reference internal" href="#crear-archivo">Crear archivo</a></li>
+<li><a class="reference internal" href="#obtener-archivos">Obtener archivos</a></li>
+<li><a class="reference internal" href="#eliminar-archivos">Eliminar archivos</a></li>
+<li><a class="reference internal" href="#compartir-archivos">Compartir archivos</a></li>
+<li><a class="reference internal" href="#buscar-por-metadato">Buscar por metadato</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#actualizar-archivos">Actualizar archivos</a></li>
+<li><a class="reference internal" href="#restaurar-archivos">Restaurar archivos</a></li>
 </ul>
 
         </div>
         
   <div class="section" id="protocolo-rest">
 <span id="rest"></span><h1>Protocolo REST<a class="headerlink" href="#protocolo-rest" title="Enlazar permanentemente con este título">¶</a></h1>
-<div class="section" id="registrar-usuario">
-<h2>Registrar Usuario<a class="headerlink" href="#registrar-usuario" title="Enlazar permanentemente con este título">¶</a></h2>
-<p>URL: /users</p>
+<div class="section" id="registrarse">
+<h2>Registrarse<a class="headerlink" href="#registrarse" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Permite al usuario registrarse en el sistema</p>
+<p>URL: /usuarios/nombreUsuario</p>
 <p>TIPO: POST</p>
 <p>BODY:</p>
-<p>{</p>
 <blockquote>
-<div><p>&#8220;Usuario&#8221; : &#8220;fulanito15&#8221;,</p>
+<div><p>{</p>
+<p>&#8220;Cuota&#8221; : &#8220;800&#8221;,</p>
 <p>&#8220;Clave&#8221; : &#8220;MiClave&#8221;,</p>
-<p>&#8220;Cuota&#8221; : 800,</p>
-<p>&#8220;Nombre&#8221; : &#8220;Fulanito&#8221;,</p>
-<p>&#8220;Email&#8221; : &#8220;<tt class="docutils literal"><span class="pre">fulanitoMail&#64;mail.com</span></tt>&#8221;,</p>
+<p>&#8220;MetaDatos&#8221; : {</p>
+<blockquote>
+<div><p>&#8220;Email&#8221; : &#8220;<a class="reference external" href="mailto:fulanitoMail&#37;&#52;&#48;mail&#46;com">fulanitoMail<span>&#64;</span>mail<span>&#46;</span>com</a>&#8221;,</p>
 <p>&#8220;Foto&#8221; : &#8220;FulanitoFoto&#8221;,</p>
-<p>&#8220;UltimaUbicacion&#8221; : &#8220;La Pampa&#8221;</p>
+<p>&#8220;Nombre&#8221; : &#8220;Fulanito&#8221;,</p>
+<p>&#8220;UltimaUbicacion&#8221; : &#8220;Bs As&#8221;</p>
+<p>}</p>
 </div></blockquote>
 <p>}</p>
-<p>RESPONSE:</p>
-<dl class="docutils">
-<dt>200 OK  &#8220;Creacion exitosa&#8221;</dt>
-<dd>&#8220;Usuario existente&#8221;</dd>
-</dl>
+</div></blockquote>
+<p>Salida:</p>
+<ul class="simple">
+<li>&#8220;OK&#8221; &#8220;Usuario creado exitosamente&#8221;</li>
+<li>&#8220;ERROR&#8221; &#8220;Error usuario existente&#8221;</li>
+</ul>
 </div>
 <div class="section" id="iniciar-sesion">
 <h2>Iniciar sesión<a class="headerlink" href="#iniciar-sesion" title="Enlazar permanentemente con este título">¶</a></h2>
-<p>URL: /login</p>
-<p>TIPO: GET</p>
-<p>BODY:</p>
-<p>{</p>
-<blockquote>
-<div><p>&#8220;Usuario&#8221; : &#8220;fulanito15&#8221;,</p>
-<p>&#8220;Clave&#8221; : &#8220;MiClave&#8221;,</p>
-</div></blockquote>
-<p>}</p>
-<p>RESPONSE:</p>
-<p>200 OK  &#8220;Inicio existoso&#8221;
-401     &#8220;No autorizado&#8221;</p>
-</div>
-<div class="section" id="agregar-archivo">
-<h2>Agregar archivo<a class="headerlink" href="#agregar-archivo" title="Enlazar permanentemente con este título">¶</a></h2>
-<p>URL:/files</p>
+<p>URL: /iniciarsesion/nombreUsuario</p>
 <p>TIPO: POST</p>
 <p>BODY:</p>
-<p>{</p>
 <blockquote>
-<div><p>&#8220;Usuario&#8221; : &#8220;fulanito15&#8221;,</p>
-<p>&#8220;Espacio&#8221; : &#8220;50&#8221;,</p>
-<p>&#8220;Metadatos&#8221; : {</p>
+<div><p>{</p>
 <blockquote>
-<div><p>&#8220;Directorio&#8221; : &#8221;./documentos/&#8221;,</p>
-<p>&#8220;Etiquetas&#8221; : [ &#8220;Rojo&#8221;, &#8220;Azul&#8221;, &#8220;Colores&#8221; ],</p>
-<p>&#8220;Extension&#8221; : &#8220;txt&#8221;,</p>
-<p>&#8220;Nombre&#8221; : &#8220;colores&#8221;,</p>
-<p>&#8220;Propietario&#8221; : &#8220;Fulanito15&#8221;,</p>
-<p>&#8220;UltimaFechaModificacion&#8221; : &#8220;05/07/2009 06:55 p.m.&#8221;,</p>
-<p>&#8220;UsuarioQueModifico&#8221; : &#8220;Fulanito15&#8221;</p>
-</div></blockquote>
+<div>&#8220;Clave&#8221; : &#8220;MiClave&#8221;</div></blockquote>
 <p>}</p>
 </div></blockquote>
-<p>}</p>
-<p>RESPONSE:</p>
-<p>200 OK  &#8220;Creacion exitosa&#8221;</p>
+<p>Salida:</p>
+<ul class="simple">
+<li>&#8220;OK&#8221; &#8220;Inicio existoso&#8221;</li>
+<li>&#8220;ERROR&#8221; &#8220;Usuario o clave incorrecta&#8221;</li>
+</ul>
 </div>
-<div class="section" id="eliminar-archivo">
-<h2>Eliminar archivo<a class="headerlink" href="#eliminar-archivo" title="Enlazar permanentemente con este título">¶</a></h2>
-<p>URL: /files</p>
-<p>TIPO: DELETE</p>
-<p>BODY:</p>
-<p>{</p>
-<blockquote>
-<div><p>&#8220;Usuario&#8221; : &#8220;fulanito15&#8221;,</p>
-<p>&#8220;Espacio&#8221; : &#8220;50&#8221;,</p>
-<p>&#8220;Metadatos&#8221; : {</p>
-<blockquote>
-<div><p>&#8220;Directorio&#8221; : &#8221;./documentos/&#8221;,</p>
-<p>&#8220;Etiquetas&#8221; : [ &#8220;Rojo&#8221;, &#8220;Azul&#8221;, &#8220;Colores&#8221; ],</p>
-<p>&#8220;Extension&#8221; : &#8220;txt&#8221;,</p>
-<p>&#8220;Nombre&#8221; : &#8220;colores&#8221;,</p>
-<p>&#8220;Propietario&#8221; : &#8220;Fulanito15&#8221;,</p>
-<p>&#8220;UltimaFechaModificacion&#8221; : &#8220;05/07/2009 06:55 p.m.&#8221;,</p>
-<p>&#8220;UsuarioQueModifico&#8221; : &#8220;Fulanito15&#8221;</p>
-</div></blockquote>
-<p>}</p>
-</div></blockquote>
-<p>}</p>
-<p>RESPONSE:</p>
-<p>200 OK  &#8220;Archivo eliminado&#8221;</p>
-</div>
-<div class="section" id="ver-papelera">
-<h2>Ver papelera<a class="headerlink" href="#ver-papelera" title="Enlazar permanentemente con este título">¶</a></h2>
-<p>URL: /deletedFiles</p>
+<div class="section" id="obtener-datos-del-usuario">
+<h2>Obtener datos del usuario<a class="headerlink" href="#obtener-datos-del-usuario" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Retorna los datos del usuario</p>
+<p>URL: /usuarios/nombreUsuario</p>
 <p>TIPO: GET</p>
-<p>BODY:</p>
+<p>Salida:</p>
+<blockquote>
+<div><p>&#8220;OK&#8221;</p>
 <p>{</p>
 <blockquote>
-<div>&#8220;Usuario&#8221; : &#8220;fulanito15&#8221;</div></blockquote>
+<div><p>&#8220;Email&#8221; : &#8220;<a class="reference external" href="mailto:fulanitoMail&#37;&#52;&#48;mail&#46;com">fulanitoMail<span>&#64;</span>mail<span>&#46;</span>com</a>&#8221;,</p>
+<p>&#8220;Foto&#8221; : &#8220;FulanitoFoto&#8221;,</p>
+<p>&#8220;Nombre&#8221; : &#8220;Fulanito&#8221;,</p>
+<p>&#8220;UltimaUbicacion&#8221; : &#8220;Bs As&#8221;</p>
+</div></blockquote>
 <p>}</p>
-<p>RESPONSE:</p>
-<p>200 OK</p>
-<p>[{</p>
+</div></blockquote>
+</div>
+<div class="section" id="actualizar-datos-del-usuario">
+<h2>Actualizar datos del usuario<a class="headerlink" href="#actualizar-datos-del-usuario" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Permite al usuario actualizar sus datos, como la clave, la cuota asignada, etc</p>
+<p>URL: /usuarios/nombreUsuario/archivos</p>
+<p>TIPO: POST</p>
+<p>BODY:</p>
+<blockquote>
+<div><p>{</p>
+<p>&#8220;Cuota&#8221; : &#8220;800&#8221;,</p>
+<p>&#8220;Clave&#8221; : &#8220;otraClave&#8221;,</p>
+<p>&#8220;MetaDatos&#8221; : {</p>
+<blockquote>
+<div><p>&#8220;Email&#8221; : &#8220;<a class="reference external" href="mailto:fulanitoMail&#37;&#52;&#48;mail&#46;com">fulanitoMail<span>&#64;</span>mail<span>&#46;</span>com</a>&#8221;,</p>
+<p>&#8220;Foto&#8221; : &#8220;FulanitoFoto&#8221;,</p>
+<p>&#8220;Nombre&#8221; : &#8220;Fulanito&#8221;,</p>
+<p>&#8220;UltimaUbicacion&#8221; : &#8220;Bs As&#8221;</p>
+<p>}</p>
+</div></blockquote>
+<p>}</p>
+</div></blockquote>
+<p>Salida:</p>
+<ul class="simple">
+<li>&#8220;OK&#8221;  &#8220;datos actualizados correctamente&#8221;</li>
+</ul>
+</div>
+<div class="section" id="crear-archivo">
+<h2>Crear archivo<a class="headerlink" href="#crear-archivo" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Permite almacenar los metadatos del archivo en la base de datos</p>
+<p>URL: /usuarios/nombreUsuario/archivos</p>
+<p>TIPO: POST</p>
+<p>BODY:</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>{</dt>
+<dd>&#8220;Directorio&#8221; : &#8221;./documentos/&#8221;,
+&#8220;Etiquetas&#8221; : [ &#8220;Rojo&#8221;, &#8220;Azul&#8221;, &#8220;Colores&#8221; ],
+&#8220;Extension&#8221; : &#8220;txt&#8221;,
+&#8220;Nombre&#8221; : &#8220;colores&#8221;</dd>
+</dl>
+<p>}</p>
+</div></blockquote>
+<p>Salida:</p>
+<ul class="simple">
+<li>&#8220;OK&#8221;  &#8220;Archivo creado correctamente&#8221;</li>
+<li>&#8220;ERROR&#8221; &#8220;No se pudo crear el archivo&#8221;</li>
+</ul>
+</div>
+<div class="section" id="obtener-archivos">
+<h2>Obtener archivos<a class="headerlink" href="#obtener-archivos" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Devuelve los archivos para un determinado usuario</p>
+<p>URL: /usuarios/nombreUsuario/archivos</p>
+<p>TIPO: POST</p>
+<p>Salida:</p>
+<blockquote>
+<div><p>&#8220;OK&#8221;</p>
+<dl class="docutils">
+<dt>[</dt>
+<dd><p class="first">{</p>
 <blockquote>
 <div><p>&#8220;Directorio&#8221; : &#8221;./documentos/&#8221;,</p>
 <p>&#8220;Etiquetas&#8221; : [ &#8220;Rojo&#8221;, &#8220;Azul&#8221;, &#8220;Colores&#8221; ],</p>
@@ -164,18 +189,70 @@
 <p>&#8220;UltimaFechaModificacion&#8221; : &#8220;05/07/2009 06:55 p.m.&#8221;,</p>
 <p>&#8220;UsuarioQueModifico&#8221; : &#8220;Fulanito15&#8221;</p>
 </div></blockquote>
-<p>}]</p>
+<p>}</p>
+<p>.</p>
+<p>.</p>
+<p class="last">.</p>
+</dd>
+</dl>
+<p>]</p>
+</div></blockquote>
 </div>
-<div class="section" id="eliminar-archivo-de-la-papelera">
-<h2>Eliminar archivo de la papelera<a class="headerlink" href="#eliminar-archivo-de-la-papelera" title="Enlazar permanentemente con este título">¶</a></h2>
-<p>URL: /deletedFiles</p>
+<div class="section" id="eliminar-archivos">
+<h2>Eliminar archivos<a class="headerlink" href="#eliminar-archivos" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Permite eliminar un determinado archivo</p>
+<p>URL: /usuarios/nombreUsuario/archivos</p>
 <p>TIPO: DELETE</p>
 <p>BODY:</p>
-<p>{</p>
 <blockquote>
-<div><p>&#8220;Usuario&#8221; : &#8220;fulanito15&#8221;,</p>
-<p>&#8220;Espacio&#8221; : &#8220;50&#8221;,</p>
-<p>&#8220;Metadatos&#8221; : {</p>
+<div><dl class="docutils">
+<dt>{</dt>
+<dd>&#8220;Propietario&#8221; : &#8220;Fulanito&#8221;,
+&#8220;Directorio&#8221; : &#8221;./documentos/&#8221;,
+&#8220;Extension&#8221; : &#8220;txt&#8221;,
+&#8220;Nombre&#8221; : &#8220;colores&#8221;</dd>
+</dl>
+<p>}</p>
+</div></blockquote>
+<p>Salida:</p>
+<ul class="simple">
+<li>&#8220;OK&#8221;  &#8220;Archivo enviado a la papelera&#8221;</li>
+</ul>
+</div>
+<div class="section" id="compartir-archivos">
+<h2>Compartir archivos<a class="headerlink" href="#compartir-archivos" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Permite compartir archivos con una lista de usuarios determinada</p>
+<p>URL: /usuarios/nombreUsuario/archivos/compartir</p>
+<p>TIPO: PUT</p>
+<p>BODY:</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>{</dt>
+<dd>&#8220;Usuarios&#8221; : [&#8220;usuario1&#8221;,&#8221;usuario2&#8221;],
+&#8220;Propietario&#8221; : &#8220;Fulanito&#8221;,
+&#8220;Directorio&#8221; : &#8221;./documentos/&#8221;,
+&#8220;Extension&#8221; : &#8220;txt&#8221;,
+&#8220;Nombre&#8221; : &#8220;colores&#8221;</dd>
+</dl>
+<p>}</p>
+</div></blockquote>
+<p>Salida:</p>
+<ul class="simple">
+<li>&#8220;OK&#8221;  &#8220;El archivo fue compartido&#8221;</li>
+</ul>
+</div>
+<div class="section" id="buscar-por-metadato">
+<h2>Buscar por metadato<a class="headerlink" href="#buscar-por-metadato" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Permite buscar archivos por un determinado metadato</p>
+<p>URL: /usuarios/nombreUsuario/archivos/tipoMetadato/nombreMetadato</p>
+<p>tipoMetadato: (etiquetas,nombre,propietario,extension)</p>
+<p>TIPO: GET</p>
+<p>Salida:</p>
+<blockquote>
+<div><p>&#8220;OK&#8221;
+[</p>
+<blockquote>
+<div><p>{</p>
 <blockquote>
 <div><p>&#8220;Directorio&#8221; : &#8221;./documentos/&#8221;,</p>
 <p>&#8220;Etiquetas&#8221; : [ &#8220;Rojo&#8221;, &#8220;Azul&#8221;, &#8220;Colores&#8221; ],</p>
@@ -186,16 +263,70 @@
 <p>&#8220;UsuarioQueModifico&#8221; : &#8220;Fulanito15&#8221;</p>
 </div></blockquote>
 <p>}</p>
+<p>.</p>
+<p>.</p>
+<p>.</p>
+</div></blockquote>
+<p>]</p>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="actualizar-archivos">
+<h1>Actualizar archivos<a class="headerlink" href="#actualizar-archivos" title="Enlazar permanentemente con este título">¶</a></h1>
+<p>Permite actualizar los metadatos del archivo, segun los datos enviados</p>
+<p>URL: /usuarios/nombreUsuario/archivos/actualizar</p>
+<p>TIPO: PUT</p>
+<p>BODY:</p>
+<blockquote>
+<div><p>{</p>
+<blockquote>
+<div><p>&#8220;Propietario&#8221; : &#8220;Fulanito15&#8221;,</p>
+<p>&#8220;DirectorioOriginal&#8221; : &#8221;./documentos/&#8221;,</p>
+<p>&#8220;ExtensionOriginal&#8221; : &#8220;txt&#8221;,</p>
+<p>&#8220;NombreOriginal&#8221; : &#8220;colores&#8221;,</p>
+<p>&#8220;DirectorioNuevo&#8221; : &#8221;./doc/&#8221;,</p>
+<p>&#8220;ExtensionNuevo&#8221; : &#8220;bat&#8221;,</p>
+<p>&#8220;NombreNuevo&#8221; : &#8220;masColores&#8221;,</p>
+<p>&#8220;Etiquetas&#8221; : [ &#8220;Rojo&#8221;, &#8220;Azul&#8221;, &#8220;Colores&#8221; ],</p>
+<p>&#8220;EtiquetasAgregadas&#8221; : [ &#8220;Azul&#8221; ],</p>
+<p>&#8220;EtiquetasEliminadas&#8221; : [ &#8220;Color&#8221; ],</p>
+<p>&#8220;FechaModificacion&#8221; : &#8220;05/07/2009 06:55 p.m.&#8221;,</p>
+<p>&#8220;UsuarioQueModifico&#8221; : &#8220;Fulanito15&#8221;</p>
 </div></blockquote>
 <p>}</p>
-<p>RESPONSE:</p>
-<p>200 OK &#8220;Archivo eliminado&#8221;</p>
+</div></blockquote>
+<p>Salida:</p>
+<ul class="simple">
+<li>&#8220;OK&#8221; &#8220;Archivo actualizado&#8221;</li>
+</ul>
+</div>
+<div class="section" id="restaurar-archivos">
+<h1>Restaurar archivos<a class="headerlink" href="#restaurar-archivos" title="Enlazar permanentemente con este título">¶</a></h1>
+<p>Permite restaurar los metadatos del archivo, a la version anterior</p>
+<p>URL: /usuarios/nombreUsuario/archivos/restaurar</p>
+<p>TIPO: PUT</p>
+<p>BODY:</p>
+<blockquote>
+<div><p>{</p>
+<blockquote>
+<div><p>&#8220;Directorio&#8221; : &#8221;./documentos/&#8221;,</p>
+<p>&#8220;Extension&#8221; : &#8220;txt&#8221;,</p>
+<p>&#8220;Nombre&#8221; : &#8220;colores&#8221;,</p>
+<p>&#8220;Propietario&#8221; : &#8220;Fulanito15&#8221;,</p>
+<p>&#8220;UltimaFechaModificacion&#8221; : &#8220;05/07/2009 06:55 p.m.&#8221;,</p>
+<p>&#8220;UsuarioQueModifico&#8221; : &#8220;Fulanito15&#8221;</p>
+</div></blockquote>
+<p>}</p>
+</div></blockquote>
+<p>Salida:</p>
+<ul class="simple">
+<li>&#8220;OK&#8221; &#8220;Archivo restaurado&#8221;</li>
+</ul>
 <div class="line-block">
 <div class="line"><br /></div>
 <div class="line"><br /></div>
-<div class="line"><a class="reference internal" href="DocTecnica.html#doctecnica"><em>Volver a la pagina anterior</em></a></div>
-<div class="line"><a class="reference internal" href="index.html#index"><em>Volver a la pagina principal</em></a></div>
-</div>
+<div class="line"><a class="reference internal" href="DocTecnica.html#doctecnica"><span>Volver a la pagina anterior</span></a></div>
+<div class="line"><a class="reference internal" href="index.html#index"><span>Volver a la pagina principal</span></a></div>
 </div>
 </div>
 
@@ -203,9 +334,9 @@
       </div>
     </div>
 
-    <div class="footer">
+    <div class="footer" role="contentinfo">
         &copy; Copyright 2015, Grupo 1 Taller 2.
-      Creado con <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+      Creado con <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
     </div>
   </body>
 </html>

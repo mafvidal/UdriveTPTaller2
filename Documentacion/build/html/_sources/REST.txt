@@ -3,193 +3,328 @@
 Protocolo REST
 ==============
 
-Registrar Usuario
-+++++++++++++++++
+Registrarse
++++++++++++
 
-URL: /users
+Permite al usuario registrarse en el sistema 
+
+URL: /usuarios/nombreUsuario
 
 TIPO: POST
 
 BODY:
 
-{
+	{
 
-	"Usuario" : "fulanito15",
+	"Cuota" : "800",
 
 	"Clave" : "MiClave",
 
-	"Cuota" : 800,
+    	"MetaDatos" : {
+    
+    		"Email" : "fulanitoMail@mail.com",
+    	
+    		"Foto" : "FulanitoFoto",
+    	
+    		"Nombre" : "Fulanito",
+    	
+    		"UltimaUbicacion" : "Bs As"
+    
+    		}
 
-	"Nombre" : "Fulanito",
+	}
 
-	"Email" : "``fulanitoMail@mail.com``",
+Salida:
 
-	"Foto" : "FulanitoFoto",
-
-	"UltimaUbicacion" : "La Pampa"
-
-}
-
-RESPONSE:
-
-200 OK 	"Creacion exitosa"
-	"Usuario existente"
+* "OK" "Usuario creado exitosamente"
+* "ERROR" "Error usuario existente" 
 	 
 Iniciar sesión
 ++++++++++++++
-URL: /login
 
-TIPO: GET
-
-BODY:
-
-{
-
-	"Usuario" : "fulanito15",
-
-	"Clave" : "MiClave",
-}
-
-RESPONSE:
-
-200 OK 	"Inicio existoso"
-401 	"No autorizado"
-
-Agregar archivo
-+++++++++++++++
-
-URL:/files
+URL: /iniciarsesion/nombreUsuario
 
 TIPO: POST
 
 BODY:
 
-{
+	{
 
-	"Usuario" : "fulanito15",
-
-	"Espacio" : "50",
-
-	"Metadatos" : {
-
-		"Directorio" : "./documentos/",
-
-		"Etiquetas" : [ "Rojo", "Azul", "Colores" ],
-
-		"Extension" : "txt",
-
-		"Nombre" : "colores",
-
-		"Propietario" : "Fulanito15",
-
-		"UltimaFechaModificacion" : "05/07/2009 06:55 p.m.",
-
-		"UsuarioQueModifico" : "Fulanito15"
-
+		"Clave" : "MiClave"
 	}
 
-}
+Salida:
 
-RESPONSE:
+* "OK" "Inicio existoso"
+* "ERROR" "Usuario o clave incorrecta"
 
-200 OK 	"Creacion exitosa"
+Obtener datos del usuario
++++++++++++++++++++++++++
 
-Eliminar archivo
-++++++++++++++++
+Retorna los datos del usuario
 
-URL: /files
-
-TIPO: DELETE
-
-BODY:
-
-{
-
-	"Usuario" : "fulanito15",
-
-	"Espacio" : "50",
-
-	"Metadatos" : {
-
-		"Directorio" : "./documentos/",
-
-		"Etiquetas" : [ "Rojo", "Azul", "Colores" ],
-
-		"Extension" : "txt",
-
-		"Nombre" : "colores",
-
-		"Propietario" : "Fulanito15",
-
-		"UltimaFechaModificacion" : "05/07/2009 06:55 p.m.",
-
-		"UsuarioQueModifico" : "Fulanito15"
-
-	}
-
-}
-
-RESPONSE:
-
-200 OK 	"Archivo eliminado"
-
-Ver papelera
-++++++++++++
-
-URL: /deletedFiles
+URL: /usuarios/nombreUsuario
 
 TIPO: GET
 
+Salida:
+
+	"OK"
+
+	{
+    
+    		"Email" : "fulanitoMail@mail.com",
+    	
+    		"Foto" : "FulanitoFoto",
+    	
+    		"Nombre" : "Fulanito",
+    	
+    		"UltimaUbicacion" : "Bs As"
+    
+    	}
+
+
+
+Actualizar datos del usuario
+++++++++++++++++++++++++++++
+
+Permite al usuario actualizar sus datos, como la clave, la cuota asignada, etc
+
+URL: /usuarios/nombreUsuario/archivos
+
+TIPO: POST
+
 BODY:
 
-{
+	{
 
-	"Usuario" : "fulanito15"
+	"Cuota" : "800",
 
-}
+	"Clave" : "otraClave",
 
-RESPONSE:
+    	"MetaDatos" : {
+    
+    		"Email" : "fulanitoMail@mail.com",
+    	
+    		"Foto" : "FulanitoFoto",
+    	
+    		"Nombre" : "Fulanito",
+    	
+    		"UltimaUbicacion" : "Bs As"
+    
+    		}
 
-200 OK 
+	}
 
-[{
+Salida:
 
-		"Directorio" : "./documentos/",
+* "OK" 	"datos actualizados correctamente"
 
-		"Etiquetas" : [ "Rojo", "Azul", "Colores" ],
+Crear archivo
++++++++++++++
 
-		"Extension" : "txt",
+Permite almacenar los metadatos del archivo en la base de datos
 
-		"Nombre" : "colores",
+URL: /usuarios/nombreUsuario/archivos
 
-		"Propietario" : "Fulanito15",
+TIPO: POST
 
-		"UltimaFechaModificacion" : "05/07/2009 06:55 p.m.",
+BODY:
 
-		"UsuarioQueModifico" : "Fulanito15"
+	{
+    	  "Directorio" : "./documentos/",
+    	  "Etiquetas" : [ "Rojo", "Azul", "Colores" ],
+    	  "Extension" : "txt",
+    	  "Nombre" : "colores"
+	}
 
-}]
+Salida:
 
-Eliminar archivo de la papelera
-+++++++++++++++++++++++++++++++
+* "OK" 	"Archivo creado correctamente"
+* "ERROR" "No se pudo crear el archivo" 
 
-URL: /deletedFiles
+
+Obtener archivos
+++++++++++++++++
+
+Devuelve los archivos para un determinado usuario
+
+URL: /usuarios/nombreUsuario/archivos
+
+TIPO: POST
+
+Salida:
+
+	"OK"
+
+	[
+		{
+
+			"Directorio" : "./documentos/",
+
+			"Etiquetas" : [ "Rojo", "Azul", "Colores" ],
+
+			"Extension" : "txt",
+
+			"Nombre" : "colores",
+
+			"Propietario" : "Fulanito15",
+
+			"UltimaFechaModificacion" : "05/07/2009 06:55 p.m.",
+
+			"UsuarioQueModifico" : "Fulanito15"
+
+		}
+
+		.
+
+		.
+
+		.
+	]
+
+Eliminar archivos
++++++++++++++++++
+
+Permite eliminar un determinado archivo
+
+URL: /usuarios/nombreUsuario/archivos
 
 TIPO: DELETE
 
 BODY:
 
-{
+	{
+    	  "Propietario" : "Fulanito",
+    	  "Directorio" : "./documentos/",
+    	  "Extension" : "txt",
+    	  "Nombre" : "colores"
+	}
 
-	"Usuario" : "fulanito15",
+Salida:
 
-	"Espacio" : "50",
+* "OK" 	"Archivo enviado a la papelera"
 
-	"Metadatos" : {
+Compartir archivos
+++++++++++++++++++
 
-		"Directorio" : "./documentos/",
+Permite compartir archivos con una lista de usuarios determinada
+
+URL: /usuarios/nombreUsuario/archivos/compartir
+
+TIPO: PUT
+
+BODY:
+
+	{
+    	  "Usuarios" : ["usuario1","usuario2"],
+    	  "Propietario" : "Fulanito",
+    	  "Directorio" : "./documentos/",
+    	  "Extension" : "txt",
+    	  "Nombre" : "colores"
+	}
+
+Salida:
+
+* "OK" 	"El archivo fue compartido"
+
+Buscar por metadato
++++++++++++++++++++
+
+Permite buscar archivos por un determinado metadato
+
+URL: /usuarios/nombreUsuario/archivos/tipoMetadato/nombreMetadato
+
+tipoMetadato: (etiquetas,nombre,propietario,extension)
+
+TIPO: GET
+
+Salida:
+
+	"OK"
+	[
+		{
+
+			"Directorio" : "./documentos/",
+
+			"Etiquetas" : [ "Rojo", "Azul", "Colores" ],
+
+			"Extension" : "txt",
+
+			"Nombre" : "colores",
+
+			"Propietario" : "Fulanito15",
+
+			"UltimaFechaModificacion" : "05/07/2009 06:55 p.m.",
+
+			"UsuarioQueModifico" : "Fulanito15"
+
+		}
+
+		.
+
+		.
+
+		.
+	]
+
+Actualizar archivos
+===================
+
+Permite actualizar los metadatos del archivo, segun los datos enviados
+
+URL: /usuarios/nombreUsuario/archivos/actualizar
+
+TIPO: PUT
+
+BODY:
+
+	{
+
+		"Propietario" : "Fulanito15",
+
+		"DirectorioOriginal" : "./documentos/",
+
+		"ExtensionOriginal" : "txt",
+
+		"NombreOriginal" : "colores",
+
+		"DirectorioNuevo" : "./doc/",
+
+		"ExtensionNuevo" : "bat",
+
+		"NombreNuevo" : "masColores",
 
 		"Etiquetas" : [ "Rojo", "Azul", "Colores" ],
+
+		"EtiquetasAgregadas" : [ "Azul" ],
+
+		"EtiquetasEliminadas" : [ "Color" ],
+
+		"FechaModificacion" : "05/07/2009 06:55 p.m.",
+
+		"UsuarioQueModifico" : "Fulanito15"
+
+	}
+
+Salida:
+
+* "OK" "Archivo actualizado"
+
+Restaurar archivos
+===================
+
+Permite restaurar los metadatos del archivo, a la version anterior
+
+URL: /usuarios/nombreUsuario/archivos/restaurar
+
+TIPO: PUT
+
+BODY:
+ 
+	{
+
+		"Directorio" : "./documentos/",
 
 		"Extension" : "txt",
 
@@ -203,11 +338,10 @@ BODY:
 
 	}
 
-}
+Salida:
 
-RESPONSE:
+* "OK" "Archivo restaurado"
 
-200 OK "Archivo eliminado"
 
 |
 |

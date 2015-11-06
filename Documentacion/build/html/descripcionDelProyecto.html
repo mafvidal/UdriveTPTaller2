@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Integración continua &mdash; documentación de UdriveTP - 2.5.1</title>
+    <title>Descripción del proyecto &mdash; documentación de UdriveTP - 2.5.1</title>
     
     <link rel="stylesheet" href="_static/scrolls.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -32,17 +32,30 @@
     <div id="content">
       <div class="header">
         <h1 class="heading"><a href="index.html"
-          title="back to the documentation overview"><span>Integración continua</span></a></h1>
+          title="back to the documentation overview"><span>Descripción del proyecto</span></a></h1>
       </div>
       <div class="relnav" role="navigation" aria-label="related navigation">
-        <a href="#">Integración continua</a>
+        <a href="#">Descripción del proyecto</a>
       </div>
       <div id="contentwrapper">
         
-  <div class="section" id="integracion-continua">
-<span id="integracioncontinua"></span><h1>Integración continua<a class="headerlink" href="#integracion-continua" title="Enlazar permanentemente con este título">¶</a></h1>
-<p>La integración del proyecto se realizo mediante el servidor Tavis CI, para ello se vinculo la <a class="reference external" href="https://github.com/mafvidal/UdriveTPTaller2">cuenta del proyecto en GitHub</a> con la <a class="reference external" href="https://travis-ci.org/mafvidal/UdriveTPTaller2/builds">cuenta en Travis CI</a>.</p>
-<p>Luego se configuro el archivo .travis.yml, para que luego de cada commit, Travis CI, ejecute los test del proyecto, y envíe un mail a los integrantes del grupo con el resultado de la corrida de los tests.</p>
+  <div class="section" id="descripcion-del-proyecto">
+<span id="descripciondelproyecto"></span><h1>Descripción del proyecto<a class="headerlink" href="#descripcion-del-proyecto" title="Enlazar permanentemente con este título">¶</a></h1>
+<p>Udrive es una aplicacion de almacenamiento remoto. Esta aplicacion consta de dos componentes:</p>
+<ul class="simple">
+<li>Un servidor, el cual será el responsable del procesamiento, almacenamiento y el</li>
+</ul>
+<p>delivery de las solicitudes de los usuarios.
+* Un cliente, el cual será responsable de visualizar el almacenamiento remoto asociado al
+usuario que se encuentra conectado.</p>
+<p>La comunicacion cliente-servidor se realiza mediante Restful API.</p>
+<p>Udrive permite a cada cliente:</p>
+<ul class="simple">
+<li>Loguearse en el sistema.</li>
+<li>Almacenar sus archivos en un servidor remoto.</li>
+<li>Actualizar sus archivos.</li>
+<li>Compartir los archivos con otros usuarios.</li>
+</ul>
 <div class="line-block">
 <div class="line"><br /></div>
 <div class="line"><br /></div>

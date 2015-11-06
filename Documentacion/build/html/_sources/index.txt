@@ -8,6 +8,7 @@ Documentación Udrive Server
 Índice
 ------
 
+* :ref:`Documentación del proyecto <DocProyecto>`
 * :ref:`Documentación técnica <DocTecnica>`
 * :ref:`Manual de administración <ManAdministracion>`
-* :ref:`Documentación del proyecto <DocProyecto>`
+
