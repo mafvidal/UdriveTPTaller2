@@ -13,7 +13,7 @@ Archivo::Archivo() {
 
 }
 
-bool Archivo::crearArchivo(const string &usuario,const string &json){
+string Archivo::crearArchivo(const string &usuario,const string &json){
 
 	Value datos;
 	Value datosAGuardar;
@@ -47,7 +47,14 @@ bool Archivo::crearArchivo(const string &usuario,const string &json){
 	usuarioAGuardar.agregarArchivo(usuario,hashArchivo);
 	this->guardarMetadatosAUsuarios(usuario,datos,hashArchivo);
 	//Guardo los metadatos del archivo en la base de datos
-	return this->baseDeDatos->guardar(ARCHIVOS,hashArchivo,datosAGuardar.toStyledString());
+	if (this->baseDeDatos->guardar(ARCHIVOS,hashArchivo,datosAGuardar.toStyledString()))
+
+		return hashArchivo;
+
+	else
+
+		return "";
+
 
 
 }

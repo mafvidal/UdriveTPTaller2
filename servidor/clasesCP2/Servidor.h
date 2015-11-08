@@ -13,14 +13,19 @@
 #include "ManejadorUsuario.h"
 #include "AdministradorServidor.h"
 #include <pthread.h>
+#include <fstream>
+#include <map>
+#include <unistd.h>
+
 
 using namespace std;
 
-static const char *s_http_port = "8080";
-
+static const char *s_http_port = "8000";
+static map<string,FILE *> mapa;
 
 class Servidor {
 private:
+
 	bool salir;
 public:
 	friend void ev_handler(struct mg_connection *c, int ev, void *p);

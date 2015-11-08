@@ -1,53 +1,25 @@
-/*
- * Servidor.cpp
- *
- *  Created on: 3 de nov. de 2015
- *      Author: mafv
- */
-
 #include "Servidor.h"
 
 Servidor::Servidor() {
+
 	this->salir=false;
-}
-
-void *tomarConsulta(void *threadid)
-{
-
-	Datos * datos = (Datos *)threadid;
-
-	AdministradorServidor as(datos->c,datos->ev,datos->p);
-	as.administrar();
-
-	//delete datos->p;
-	delete datos;
 
 }
 
 void ev_handler(struct mg_connection *c, int ev, void *p) {
 
-	if (ev == MG_EV_HTTP_REQUEST) {
+	if (ev == MG_EV_HTTP_REQUEST || ev == MG_EV_RECV ) {
 
-		pthread_t threads;
-
-		Datos *datos = new Datos;
-		datos->c= c;
-		datos->ev = ev;
-		//datos->p = new http_message;
-		datos->p = *(struct http_message *)p;
-
-		int resultado = pthread_create(&threads, NULL,tomarConsulta, datos);
-
-		if (resultado){
-			cout << "Error:unable to create thread," << resultado << endl;
-			exit(-1);
-		}
+		AdministradorServidor as(c,ev,*(struct http_message *)p);
+		as.administrar();
 
 	}
 
 }
 
+
 void Servidor::arrancar(){
+
 
 	struct mg_mgr mgr;
 	struct mg_connection *nc;
@@ -56,8 +28,8 @@ void Servidor::arrancar(){
 	nc = mg_bind(&mgr, s_http_port, ev_handler);
 	mg_set_protocol_http_websocket(nc);
 
+	mg_enable_multithreading(nc);
 	while (!this->salir) {
-
 		mg_mgr_poll(&mgr, 1000);
 
 	}

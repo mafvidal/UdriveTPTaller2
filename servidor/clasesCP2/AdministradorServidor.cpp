@@ -6,6 +6,8 @@
  */
 
 #include "AdministradorServidor.h"
+map<string,FILE*> AdministradorServidor::archivoss;
+
 
 AdministradorServidor::AdministradorServidor(struct mg_connection *c, int ev, struct http_message p) {
 
@@ -15,22 +17,108 @@ AdministradorServidor::AdministradorServidor(struct mg_connection *c, int ev, st
 
 }
 
+
 void AdministradorServidor::administrar(){
 
-	if (ev == MG_EV_HTTP_REQUEST) {
+	struct datosArchivo *datos = (struct datosArchivo *) this->c->user_data;
 
-		Mensaje mensaje;
+	if( datos == NULL ){
 
-		this->parsearMensaje(mensaje);
-		string respuesta = this->realizarOperacion(mensaje);
+		if ( ev == MG_EV_RECV ) {
 
-		mg_printf(c, "HTTP/1.0 200 OK\r\nContent-Length: %d\r\n"
+			int req_len = mg_parse_http(this->c->recv_mbuf.buf, this->c->recv_mbuf.len, &hm,1);
+
+			if (req_len < 0 || (req_len == 0 && c->recv_mbuf.len >= MG_MAX_HTTP_REQUEST_SIZE)) {
+
+				c->flags |= MG_F_CLOSE_IMMEDIATELY;
+
+			} else if (req_len == 0) {
+
+			}else{
+
+				this->parsearMensaje();
+
+				if( mensaje.archivoFisico == "POSTusuariosarchivofisico" ){
+
+					/*c->proto_handler = NULL;
+
+					datos = new datosArchivo;
+
+					ManejadorArchivosFisicos maf;
+
+					datos->hashArchivo = maf.obtenerNombreDelArchivo(mensaje.hashArchivo);
+
+					datos->bytes_left = hm.body.len;
+
+					FILE *archivo;
+
+					archivo = fopen (datos->hashArchivo.c_str(), "wb");
+
+					this->archivos[datos->hashArchivo] = archivo;
+
+					c->user_data = (void *) datos;
+
+					mbuf_remove(&c->recv_mbuf, hm.body.p - c->recv_mbuf.buf);*/
+
+					ManejadorArchivosFisicos maf(mensaje.hashArchivo);
+
+					maf.crearArchivoFisico(c,hm);
+
+					this->administrar();
+
+				}else if( mensaje.tipo == "PUTusuariosarchivofisico" ){
+					//cargar datos para actualizar archivo
+				//Creo que esta no va aca
+				}else if( mensaje.tipo == "GETusuariosarchivofisico" ) {
+					//cargar datos para retornar archivo
+				}
+			}
+
+		}else if ( this->ev == MG_EV_HTTP_REQUEST ){
+
+			this->parsearMensaje();
+
+			string respuesta = this->realizarOperacion();
+
+			mg_printf(c, "HTTP/1.0 200 OK\r\nContent-Length: %d\r\n"
 						"Content-Type: application/json\r\n\r\n%s",
 						(int) respuesta.size(), respuesta.c_str());
 
-		//mg_send(c,respuesta.c_str(),(int) respuesta.size());
+		}
 
+	}else if ( this->ev == MG_EV_RECV ){
 
+		ManejadorArchivosFisicos maf;
+
+		maf.cargarArchivo(c);
+
+		/*size_t to_write = datos->bytes_left, written = 0;
+
+		if (c->recv_mbuf.len < to_write)
+
+			to_write = c->recv_mbuf.len;
+
+		FILE * archivo = this->archivoss[datos->hashArchivo];
+
+		written = fwrite(c->recv_mbuf.buf, 1, to_write, archivo);
+
+		mbuf_remove(&c->recv_mbuf, written);
+		datos->bytes_left -= written;
+		if (datos->bytes_left <= 0) {
+
+			mg_printf(c,
+					"HTTP/1.1 200 OK\r\n"
+					"Content-Type: text/plain\r\n"
+					"Connection: close\r\n\r\n"
+					"Written %ld of POST data to a temp file\n\n",
+					(long) ftell(this->archivoss[datos->hashArchivo]));
+
+			fclose(this->archivoss[datos->hashArchivo]);
+			delete datos;
+
+			c->flags |= MG_F_SEND_AND_CLOSE;
+
+		}*/
 
 	}
 
@@ -45,7 +133,7 @@ int AdministradorServidor::sonIguales(const struct mg_str *s1, const struct mg_s
 	return s1->len == s2->len && memcmp(s1->p, s2->p, s2->len) == 0;
 
 }
-void AdministradorServidor::parsearMensaje(struct Mensaje &mensaje){
+void AdministradorServidor::parsearMensaje(){
 
 	char buffer[100];
 	snprintf(buffer, sizeof(buffer), "%.*s",(int) hm.uri.len, hm.uri.p);
@@ -56,7 +144,7 @@ void AdministradorServidor::parsearMensaje(struct Mensaje &mensaje){
 	string archivos = "";
 	string operacion = "";
 	string metadato = "";
-
+	string hashArchivo = "";
 
 	istringstream iss(texto);
 	string palabra;
@@ -69,6 +157,7 @@ void AdministradorServidor::parsearMensaje(struct Mensaje &mensaje){
 		}else if(i==3){
 			archivos = palabra;
 		}else if(i==4){
+			hashArchivo = palabra;
 			operacion = palabra;
 		}else if(i==5){
 			metadato = palabra;
@@ -79,6 +168,8 @@ void AdministradorServidor::parsearMensaje(struct Mensaje &mensaje){
 	mensaje.quien = nombreUsuario;
 	mensaje.tipo = tipo+archivos+operacion;
 	mensaje.metadato = metadato;
+	mensaje.archivoFisico = tipo+archivos;
+	mensaje.hashArchivo = hashArchivo;
 
 }
 string AdministradorServidor::determinarProtocolo(){
@@ -107,7 +198,7 @@ string AdministradorServidor::determinarProtocolo(){
 
 }
 
-string AdministradorServidor::realizarOperacion(const struct Mensaje &mensaje){
+string AdministradorServidor::realizarOperacion(){
 
 	string respuesta;
 	string cuerpo = hm.body.p;

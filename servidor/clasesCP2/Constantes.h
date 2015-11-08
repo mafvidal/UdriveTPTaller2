@@ -30,12 +30,19 @@ struct Mensaje {
   string tipo;
   string quien;
   string metadato;
+  string hashArchivo;
+  string archivoFisico;
 };
 
 struct Datos {
 	struct mg_connection *c;
 	int ev;
 	struct http_message p;
+};
+
+struct datosArchivo {
+	string hashArchivo;
+	size_t bytes_left;
 };
 
 #endif /* CONSTANTES_H_ */

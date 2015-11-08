@@ -15,9 +15,10 @@ string ManejadorArchivos::crearArchivo(const string &nombreUsuario,const string 
 
 	Respuesta respuesta;
 	Archivo archivo;
-	if(archivo.crearArchivo(nombreUsuario,datosDelArchivo)){
+	string hashArchivo = archivo.crearArchivo(nombreUsuario,datosDelArchivo);
+	if(hashArchivo != ""){
 		respuesta.agregarEstado("OK");
-		respuesta.agregarMensaje("Archivo creado correctamente");
+		respuesta.agregarMensaje(hashArchivo);
 
 	}else{
 		respuesta.agregarEstado("ERROR");

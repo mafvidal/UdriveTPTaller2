@@ -28,7 +28,7 @@ public:
 	//Almacena en la base de datos, los metadatos del archivo
 	//El archivo es agregado por primera vez a la base de datos
 	//Retorna si se pudo o no guardar el archivo
-	bool crearArchivo(const string &usuario,const string &json);
+	string crearArchivo(const string &usuario,const string &json);
 	//Elimina el archivo enviandolo a la papelera
 	//Recibe los datos del archivo
 	void eliminarArchivo(const string &json);

@@ -11,6 +11,7 @@
 #include "mongoose.h"
 #include "Servidor.h"
 #include <pthread.h>
+#include "Directorio.h"
 
 using namespace std;
 
@@ -24,6 +25,10 @@ void *arrancarServidor(void *threadid)
 }
 
 int main() {
+
+	//Creo el directorio inicial
+	Directorio directorio;
+	directorio.crearDirectorioPrincipal("./Udrive/");
 
 	bool tengoQueSalir=false;
 	char salir='a';
@@ -46,7 +51,7 @@ int main() {
 
 	ser.detener();
 
-	pthread_exit(NULL);
+	//pthread_exit(NULL);
 
 	return 0;
 }

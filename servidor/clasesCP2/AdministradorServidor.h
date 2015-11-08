@@ -13,25 +13,30 @@
 #include <sstream>
 #include "ManejadorUsuario.h"
 #include "ManejadorArchivos.h"
+#include "ManejadorArchivosFisicos.h"
 #include "ManejadorBuscador.h"
 #include "Constantes.h"
+#include <map>
 
 using namespace std;
 
 class AdministradorServidor {
 private:
+	static map<string,FILE*> archivoss;
 	struct mg_connection *c;
 	int ev;
 	struct http_message hm;
+	struct Mensaje mensaje;
 public:
 	AdministradorServidor(struct mg_connection *c, int ev, struct http_message p);
 	void administrar();
 	virtual ~AdministradorServidor();
 private:
-	void parsearMensaje(struct Mensaje &mensaje);
+	void parsearMensaje();
 	int sonIguales(const struct mg_str *s1, const struct mg_str *s2);
 	string determinarProtocolo();
-	string realizarOperacion(const struct Mensaje &mensaje);
+	string realizarOperacion();
+
 };
 
 #endif /* ADMINISTRADORSERVIDOR_H_ */
