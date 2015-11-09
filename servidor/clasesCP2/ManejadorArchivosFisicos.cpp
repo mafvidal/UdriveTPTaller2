@@ -23,6 +23,29 @@ ManejadorArchivosFisicos::ManejadorArchivosFisicos(){
 
 }
 
+void ManejadorArchivosFisicos::compartir(const string &usuario){
+
+	Value datos;
+	Reader lector;
+
+	lector.parse(this->baseDeDatos->leer(ARCHIVOS,hashArchivo),datos,false);
+
+	Directorio directorio;
+
+	string nombreArchivo = datos["MetaDatos"].get("Nombre","").asString()+"."+datos["MetaDatos"].get("Extension","").asString();
+
+	string rutaOrigen = "./Udrive/"+datos["MetaDatos"].get("Propietario","").asString()+datos["MetaDatos"].get("Directorio","").asString()+nombreArchivo;
+
+	string rutaDestino = directorio.crearDirectorios(usuario+"/"+"Compartidos"+"/"+datos["MetaDatos"].get("Propietario","").asString()+datos["MetaDatos"].get("Directorio","").asString())+nombreArchivo;
+
+	cout<<rutaOrigen<<endl;
+	cout<<rutaDestino<<endl;
+
+	//this->copiaArchivo(rutaOrigen,rutaDestino);
+	//system("copy \"rutaOrigen\" \"rutaDestino\"");
+
+}
+
 void ManejadorArchivosFisicos::crearArchivoFisico(struct mg_connection *c,struct http_message hm){
 
 	struct datosArchivo *datos;
@@ -31,7 +54,7 @@ void ManejadorArchivosFisicos::crearArchivoFisico(struct mg_connection *c,struct
 
 	datos = new datosArchivo;
 
-	datos->hashArchivo = this->obtenerNombreDelArchivo(hashArchivo);
+	datos->hashArchivo = "./Udrive/"+this->hashArchivo;//= this->inicializarEstructura();
 
 	datos->bytes_left = hm.body.len;
 
@@ -44,6 +67,21 @@ void ManejadorArchivosFisicos::crearArchivoFisico(struct mg_connection *c,struct
 	c->user_data = (void *) datos;
 
 	mbuf_remove(&c->recv_mbuf, hm.body.p - c->recv_mbuf.buf);
+
+}
+
+void ManejadorArchivosFisicos::actualizarArchivoFisico(struct mg_connection *c,struct http_message hm){
+
+	Value datos;
+	Reader lector;
+
+	lector.parse(this->baseDeDatos->leer(ARCHIVOS,this->hashArchivo),datos,false);
+
+	string hashAnterior = datos.get("HashVersionAnterior","").asString();
+
+	rename(("./Udrive/"+this->hashArchivo).c_str(),("./Udrive/"+hashAnterior).c_str());
+
+	this->crearArchivoFisico(c,hm);
 
 }
 
@@ -74,7 +112,12 @@ void ManejadorArchivosFisicos::cargarArchivo(struct mg_connection *c){
 				(long) ftell(this->archivos[datos->hashArchivo]));
 
 		fclose(this->archivos[datos->hashArchivo]);
+
+		this->archivos.erase(datos->hashArchivo);
 		delete datos;
+
+
+		c->user_data = NULL;
 
 		c->flags |= MG_F_SEND_AND_CLOSE;
 
@@ -82,7 +125,7 @@ void ManejadorArchivosFisicos::cargarArchivo(struct mg_connection *c){
 
 }
 
-string ManejadorArchivosFisicos::obtenerNombreDelArchivo(const string &hashArchivo){
+string ManejadorArchivosFisicos::inicializarEstructura(){
 
 	Value datos;
 	Reader lector;
@@ -91,11 +134,36 @@ string ManejadorArchivosFisicos::obtenerNombreDelArchivo(const string &hashArchi
 
 	Directorio directorio;
 
-	string rutaCompleta = directorio.crearDirectorios(datos["MetaDatos"].get("Directorio","").asString());
+	string rutaCompleta = directorio.crearDirectorios(datos["MetaDatos"].get("Propietario","").asString()+"/"+datos["MetaDatos"].get("Directorio","").asString());
 
 	return rutaCompleta+datos["MetaDatos"].get("Nombre","").asString()+"."+datos["MetaDatos"].get("Extension","").asString();
 
 }
 
+void ManejadorArchivosFisicos::actualizar(const string &archivoActual,const string &archivoNuevo){
+
+	ifstream source(archivoActual.c_str(), ios::binary);
+	ofstream dest(archivoNuevo.c_str(), ios::binary);
+
+	dest << source.rdbuf();
+
+	source.close();
+	dest.close();
+
+	//Elimino el archivo antiguo
+	remove(archivoActual.c_str());
+
+}
+
 ManejadorArchivosFisicos::~ManejadorArchivosFisicos() {
+}
+string ManejadorArchivosFisicos::convertirAString(const unsigned int &version){
+
+	string hashString;
+	ostringstream convertir;
+	convertir << version;
+	hashString = convertir.str();
+
+	return hashString;
+
 }

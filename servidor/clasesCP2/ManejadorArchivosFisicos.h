@@ -11,11 +11,10 @@
 #include "mongoose.h"
 #include <iostream>
 #include "Constantes.h"
-#include "Archivo.h"
 #include "BaseDeDatos.h"
 #include "json/json.h"
-#include <sys/dir.h>
 #include "Directorio.h"
+#include <stdlib.h>
 #include <map>
 
 using namespace std;
@@ -28,11 +27,16 @@ private:
 	string hashArchivo;
 public:
 	ManejadorArchivosFisicos(const string &hashArchivo);
+	void compartir(const string &usuario);
 	ManejadorArchivosFisicos();
 	void crearArchivoFisico(struct mg_connection *c,struct http_message hm);
+	void actualizarArchivoFisico(struct mg_connection *c,struct http_message hm);
 	void cargarArchivo(struct mg_connection *c);
-	string obtenerNombreDelArchivo(const string &hashArchivo);
+	void actualizar(const string &archivoActual,const string &archivoNuevo);
 	virtual ~ManejadorArchivosFisicos();
+private:
+	string inicializarEstructura();
+	string convertirAString(const unsigned int &version);
 };
 
 #endif /* MANEJADORARCHIVOSFISICOS_H_ */

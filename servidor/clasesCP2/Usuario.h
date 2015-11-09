@@ -12,6 +12,7 @@
 #include "json/json.h"
 #include "Constantes.h"
 #include <iostream>
+#include "Archivo.h"
 
 using namespace Json;
 using namespace std;

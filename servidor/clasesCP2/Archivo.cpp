@@ -34,7 +34,7 @@ string Archivo::crearArchivo(const string &usuario,const string &json){
 	datosAGuardar["Usuarios"] = usuarios;
 	datosAGuardar["Eliminado"] = false;
 
-	metadatos["Propietario"] = datos.get("Propietario","").asString();
+	metadatos["Propietario"] = usuario;
 	metadatos["Nombre"] = datos.get("Nombre","").asString();
 	metadatos["Extension"] = datos.get("Extension","").asString();
 	metadatos["Directorio"] = datos.get("Directorio","").asString();
@@ -54,8 +54,6 @@ string Archivo::crearArchivo(const string &usuario,const string &json){
 	else
 
 		return "";
-
-
 
 }
 
@@ -117,12 +115,13 @@ Value Archivo::obtenerDatos(const string & hashDelArchivo){
 	metadatosNuevos["Etiquetas"] = metadatos["Etiquetas"];
 	metadatosNuevos["UsuarioQueModifico"] = metadatos.get("UsuarioQueModifico","").asString();
 	metadatosNuevos["FechaDeModificacion"] = metadatos.get("FechaDeModificacion","").asString();
+	metadatosNuevos["ID"] = hashDelArchivo;
 
 	return metadatosNuevos;
 
 }
 
-void Archivo::compartir(const string &usuariosACompartir,const string & json){
+string Archivo::compartir(const string &usuariosACompartir,const string & json){
 
 	Usuario usuario;
 	Value usuarios;
@@ -160,21 +159,39 @@ void Archivo::compartir(const string &usuariosACompartir,const string & json){
 
 	this->baseDeDatos->guardar(ARCHIVOS,hashDelArchivo,compartido.toStyledString());
 
+	return hashDelArchivo;
+
 }
 
-void Archivo::actualizar(const string & json){
+string Archivo::actualizar(const string & json){
 
-	Actualizador actualizador(json);
+	try{
 
-	actualizador.actualizarArchivo();
+		Actualizador actualizador(json);
+		return actualizador.actualizarArchivo();
+
+	}catch (ArchivoInexistente e){
+
+		throw e;
+
+	}
 
 }
 
 void Archivo::restaurar(const string & json){
 
-	Restaurador restarador(json);
+	try{
 
-	restarador.restaurarArchivo();
+		Restaurador restarador(json);
+
+		restarador.restaurarArchivo();
+
+	}catch (ArchivoInexistente e){
+
+		throw e;
+
+	}
+
 
 }
 

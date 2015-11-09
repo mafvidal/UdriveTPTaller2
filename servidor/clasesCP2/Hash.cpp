@@ -28,7 +28,7 @@ string Hash::obtenerHashDelArchivo(const string &nombreCompleto){
 	string nombreActual = datos["MetaDatos"].get("Propietario","").asString() + datos["MetaDatos"].get("Directorio","").asString() + datos["MetaDatos"].get("Nombre","").asString() + datos["MetaDatos"].get("Extension","").asString();
 
 	//Busco que no exista una colision con el hash
-	while( nombreActual != nombreCompleto ){
+	while( (nombreActual != nombreCompleto) && (nombreActual != "") ){
 		cout<<"Estoy";
 		hash++;
 		hashDelArchivo = this->convertirAString(hash);
@@ -36,6 +36,10 @@ string Hash::obtenerHashDelArchivo(const string &nombreCompleto){
 		lector.parse(datosDelArchivo,datos,false);
 		nombreActual = datos.get("Usuario","").asString() + datos.get("Directorio","").asString() + datos.get("Nombre","").asString() + datos.get("Extension","").asString();
 
+	}
+
+	if(nombreActual==""){
+		return "";
 	}
 
 	return this->convertirAString(hash);

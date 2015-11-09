@@ -35,8 +35,8 @@ public:
 	//¿?
 	Value obtenerDatos(const string & hashDelArchivo);
 	//Comparte el archivo segun el json, con los usuariosACompartir
-	void compartir(const string &usuariosACompartir,const string & json);
-	void actualizar(const string & json);
+	string compartir(const string &usuariosACompartir,const string & json);
+	string actualizar(const string & json);
 	void restaurar(const string & json);
 	virtual ~Archivo();
 private:

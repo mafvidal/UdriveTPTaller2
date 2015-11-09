@@ -21,8 +21,11 @@ class Directorio {
 public:
 	Directorio();
 	void crearDirectorioPrincipal(string directorioPrincipal);
+	string crearDirectoriosParaActualizacion(string directorios);
 	string crearDirectorios(string directorios);
 	virtual ~Directorio();
+private:
+	string crearDirectorio(string raiz,string directorios);
 };
 
 #endif /* DIRECTORIO_H_ */

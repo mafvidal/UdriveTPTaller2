@@ -179,16 +179,18 @@ Value Usuario::cargarMetadatos(const Value &metadatos){
 void Usuario::cargarArchivos(Value &archivos,const Value &archivosExistentes){
 
 	Reader reader;
-	Value archivo;
+	//Value archivo;
 	Value metadatos;
+	Archivo archivo;
 
 	for ( unsigned int indice = 0; indice < archivosExistentes.size(); ++indice ){
 
 		const string hashArchivo = archivosExistentes[indice].asString();
 		const string datosDelArchivo = this->baseDeDatos->leer(ARCHIVOS,hashArchivo);
-
-		reader.parse(datosDelArchivo,archivo,false);
-		archivos.append(this->getMetadatosArchivo(archivo["MetaDatos"]));
+		//archo.obtenerDatos(hashArchivo);
+		//reader.parse(datosDelArchivo,archivo,false);
+		//archivos.append(this->getMetadatosArchivo(archivo["MetaDatos"]));
+		archivos.append(archivo.obtenerDatos(hashArchivo));
 
 
 	}

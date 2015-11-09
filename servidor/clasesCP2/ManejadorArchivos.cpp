@@ -55,8 +55,7 @@ string ManejadorArchivos::compartirArchivo(const string &datosDelArchivo){
 
 	usuarios = datos["Usuarios"];
 
-	archivo.compartir(usuarios.toStyledString(),datosDelArchivo);
-
+	string hashArchivo = archivo.compartir(usuarios.toStyledString(),datosDelArchivo);
 
 	respuesta.agregarEstado("OK");
 	respuesta.agregarMensaje("El archivo fue compartido");
@@ -70,10 +69,18 @@ string ManejadorArchivos::actualizarArchivo(const string &datosDelArchivo){
 	Respuesta respuesta;
 	Archivo archivo;
 
-	archivo.actualizar(datosDelArchivo);
+	try{
 
-	respuesta.agregarEstado("OK");
-	respuesta.agregarMensaje("Archivo actualizado");
+		string hashArchivo = archivo.actualizar(datosDelArchivo);
+		respuesta.agregarEstado("OK");
+		respuesta.agregarMensaje(hashArchivo);
+
+	}catch (ArchivoInexistente e){
+
+		respuesta.agregarEstado("ERROR");
+		respuesta.agregarMensaje("No existe el archivo a actualizar");
+
+	}
 
 	return respuesta.obtenerRespuesta();
 
@@ -84,10 +91,18 @@ string ManejadorArchivos::restaurarArchivo(const string &datosDelArchivo){
 	Respuesta respuesta;
 	Archivo archivo;
 
-	archivo.restaurar(datosDelArchivo);
+	try{
 
-	respuesta.agregarEstado("OK");
-	respuesta.agregarMensaje("Archivo restaurado");
+		archivo.restaurar(datosDelArchivo);
+		respuesta.agregarEstado("OK");
+		respuesta.agregarMensaje("Archivo restaurado");
+
+	}catch(ArchivoInexistente e){
+
+		respuesta.agregarEstado("ERROR");
+		respuesta.agregarMensaje("El archivo a restaurar no existe");
+
+	}
 
 	return respuesta.obtenerRespuesta();
 

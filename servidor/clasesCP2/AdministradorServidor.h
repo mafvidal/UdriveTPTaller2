@@ -17,6 +17,7 @@
 #include "ManejadorBuscador.h"
 #include "Constantes.h"
 #include <map>
+#include <unistd.h>
 
 using namespace std;
 

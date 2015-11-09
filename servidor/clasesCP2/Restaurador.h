@@ -14,6 +14,7 @@
 #include "json/json.h"
 #include "Hash.h"
 #include "Usuario.h"
+#include "Excepciones.h"
 
 using namespace std;
 using namespace Json;

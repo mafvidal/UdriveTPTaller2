@@ -51,6 +51,8 @@ int main() {
 
 	ser.detener();
 
+	pthread_join(threads,NULL);
+
 	//pthread_exit(NULL);
 
 	return 0;

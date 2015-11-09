@@ -18,11 +18,27 @@ void Directorio::crearDirectorioPrincipal(string directorioPrincipal){
 	
 }
 
+string Directorio::crearDirectoriosParaActualizacion(string directorios){
+
+	return this->crearDirectorio("./Actualizacion/",directorios);
+
+}
+
 string Directorio::crearDirectorios(string directorios){
+
+	return this->crearDirectorio("./Udrive/",directorios);
+
+}
+
+Directorio::~Directorio() {
+	// TODO Auto-generated destructor stub
+}
+
+string Directorio::crearDirectorio(string raiz,string directorios){
 
 	istringstream iss(directorios);
 	string directorio;
-	string ruta="./Udrive/";
+	string ruta=raiz;
 
 	for(unsigned int i = 0; getline(iss, directorio, '/') ; i++){
 		if(directorio != "" ){
@@ -35,8 +51,3 @@ string Directorio::crearDirectorios(string directorios){
 	return ruta;
 
 }
-
-Directorio::~Directorio() {
-	// TODO Auto-generated destructor stub
-}
-

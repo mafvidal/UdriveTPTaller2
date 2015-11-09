@@ -18,6 +18,11 @@ Actualizador::Actualizador(const string &datosAActualizar) {
 
 	this->antiguoHash = hash.obtenerHashDelArchivo(this->propietario+this->directorioOriginal+this->nombreOriginal+this->extensionOriginal);
 
+	if( this->antiguoHash == "" ){
+		ArchivoInexistente e;
+		throw e;
+	}
+
 	if(this->cambionNombre || this->cambioExtension || this->cambioDirectorio){
 
 		this->nuevoHash = hash.obtenerHashNuevo(this->propietario+this->directorioNuevo+this->nombreNuevo+this->extensionNueva);
@@ -34,7 +39,10 @@ Actualizador::Actualizador(const string &datosAActualizar) {
 
 }
 
-void Actualizador::actualizarArchivo(){
+string Actualizador::actualizarArchivo(){
+
+	if (this->antiguoHash =="")
+		return "";
 
 	if(this->cambionNombre || this->cambioExtension || this->cambioDirectorio){
 
@@ -52,6 +60,8 @@ void Actualizador::actualizarArchivo(){
 		this->actualizarUsuariosCompartidos(PROPIETARIO,this->propietario,this->propietario);
 
 		this->actualizarEtiquetas();
+
+		this->actualizarArchivoFisico();
 
 	}else if ( this->etiquetasNuevas.size() > 0 ){
 
@@ -72,6 +82,8 @@ void Actualizador::actualizarArchivo(){
 	this->baseDeDatos->eliminar(ARCHIVOS,this->antiguoHash);
 	this->baseDeDatos->guardar(ARCHIVOS,hashVersionPrevia,antiguoArchivo);
 	this->baseDeDatos->guardar(ARCHIVOS,this->nuevoHash,nuevoArchivo);
+
+	return this->nuevoHash;
 
 }
 
@@ -102,6 +114,19 @@ void Actualizador::cargarDatos(const string &datosAActualizar){
 	this->cambionNombre = !(this->nombreOriginal == this->nombreNuevo);
 	this->cambioExtension = !(this->extensionOriginal == this->extensionNueva);
 	this->cambioDirectorio = !(this->directorioOriginal == this->directorioNuevo);
+
+	/*cout<<"Propietario "<<this->propietario<<endl;
+	cout<<"DirectorioOriginal "<<this->directorioOriginal<<endl;
+	cout<<"NombreOriginal "<<this->nombreOriginal<<endl;
+	cout<<"ExtensionOriginal "<<this->extensionOriginal<<endl;
+	cout<<"NombreNuevo "<<this->nombreNuevo<<endl;
+	cout<<"ExtensionNueva "<<this->extensionNueva<<endl;
+	cout<<"DirectorioNuevo "<<this->directorioNuevo<<endl;
+	cout<<"FechaDeModificacion "<<this->fechaDeModificacion<<endl;
+	cout<<"UsuarioQueModifico "<<this->usuarioQueModifico<<endl;
+	cout<<"Etiquetas "<<this->etiquetas.toStyledString()<<endl;
+	cout<<"EtiquetasNuevas "<<this->etiquetasNuevas.toStyledString()<<endl;
+	cout<<"EtiquetasEliminadas "<<this->etiquetasEliminadas.toStyledString()<<endl;*/
 
 }
 
@@ -309,6 +334,17 @@ string Actualizador::convertirAString(const unsigned int &version){
 	versionString = convertir.str();
 
 	return versionString;
+
+}
+
+void Actualizador::actualizarArchivoFisico(){
+
+	//ManejadorArchivosFisicos archivoFisico;
+
+	string archivoOriginal = "./Udrive/"+this->antiguoHash;
+	string archivoNuevo = "./Udrive/"+this->nuevoHash;
+
+	rename(archivoOriginal.c_str(),archivoNuevo.c_str());
 
 }
 

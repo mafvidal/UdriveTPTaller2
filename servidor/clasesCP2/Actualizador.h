@@ -14,6 +14,8 @@
 #include "json/json.h"
 #include "Hash.h"
 #include "Usuario.h"
+#include "ManejadorArchivosFisicos.h"
+#include "Excepciones.h"
 
 using namespace std;
 using namespace Json;
@@ -43,7 +45,7 @@ private:
 
 public:
 	Actualizador(const string &datosAActualizar);
-	void actualizarArchivo();
+	string actualizarArchivo();
 	virtual ~Actualizador();
 
 private:
@@ -59,6 +61,7 @@ private:
 	string generarAntiguoArchivo();
 	string obtenerHahsPrevio();
 	string convertirAString(const unsigned int &version);
+	void actualizarArchivoFisico();
 };
 
 #endif /* ACTUALIZADOR_H_ */

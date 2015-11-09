@@ -11,6 +11,7 @@
 #include "Archivo.h"
 #include "json/json.h"
 #include "Respuesta.h"
+#include "ManejadorArchivosFisicos.h"
 
 class ManejadorArchivos {
 public:

@@ -12,6 +12,11 @@ Restaurador::Restaurador(const string &datosARestaurar) {
 	this->baseDeDatos = BasedeDatos::obteberInstancia();
 	this->cargarDatos(datosARestaurar);
 
+	if( this->hashVersionActual == "" ){
+		ArchivoInexistente e;
+		throw e;
+	}
+
 }
 
 void Restaurador::restaurarArchivo(){
@@ -35,7 +40,6 @@ void Restaurador::restaurarArchivo(){
 		this->eliminarEtiquetasAgregadas();
 
 	}
-
 
 	const string &nuevoArchivo = this->generarArchivo();
 
@@ -79,6 +83,9 @@ void Restaurador::cargarDatos(const string &datosARestaurar){
 	this->fechaDeModificacion = datos.get("FechaDeModificacion","").asString();
 
 	this->hashVersionActual = hash.obtenerHashDelArchivo(datos.get("Propietario","").asString()+datos.get("Directorio","").asString()+datos.get("Nombre","").asString()+datos.get("Extension","").asString());
+
+	if(this->hashVersionActual == "")
+		return;
 
 	lector.parse(this->baseDeDatos->leer(ARCHIVOS,this->hashVersionActual),this->ultimaVersion,false);
 
