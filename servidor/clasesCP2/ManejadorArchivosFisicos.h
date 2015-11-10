@@ -14,6 +14,7 @@
 #include "BaseDeDatos.h"
 #include "json/json.h"
 #include "Directorio.h"
+#include "Respuesta.h"
 #include <stdlib.h>
 #include <map>
 

@@ -41,6 +41,7 @@ public:
 	void eliminarArchivo(const string &usuario,const string &hashArchivo);
 	void agregarArchivo(const string &usuario,const string &hashArchivo);
 	void enviarALaPapelera(const string &nombreUsuario,const string &hashArchivo);
+	bool existeUsuario(const string &nombreUsuario);
 	virtual ~Usuario();
 private:
 	Value cargarMetadatos(const Value &metadatos);

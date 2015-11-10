@@ -9,15 +9,20 @@ string ManejadorUsuario::generar(const string &nombreUsuario,const string &datos
 
 	Respuesta respuesta;
 	Usuario usuario;
-	if (usuario.registrarse(nombreUsuario,datosUsuario)){
+
+	if ( usuario.registrarse(nombreUsuario,datosUsuario) ){
+
 		respuesta.agregarEstado("OK");
 		respuesta.agregarMensaje("Se registro correctamente el usuario");
-		//return "Se registro correctamente el usuario";
+
 	}else{
+
 		respuesta.agregarEstado("ERROR");
 		respuesta.agregarMensaje("Error usuario existente");
-		//return "Error usuario existente";
+
 	}
+
+
 
 	return respuesta.obtenerRespuesta();
 
@@ -28,14 +33,17 @@ string ManejadorUsuario::iniciarSesion(const string &nombreUsuario,const string 
 
 	Respuesta respuesta;
 	Usuario usuario;
+
 	if (usuario.identificarse(nombreUsuario,datosUsuario)){
-		//return "Inicio existoso";
+
 		respuesta.agregarEstado("OK");
 		respuesta.agregarMensaje("Inicio existoso");
+
 	}else{
-		//return "Usuario o clave incorrecta";
+
 		respuesta.agregarEstado("ERROR");
 		respuesta.agregarMensaje("Usuario o clave incorrecta");
+
 	}
 
 	return respuesta.obtenerRespuesta();
@@ -46,8 +54,11 @@ string ManejadorUsuario::obtenerDatos(const string &nombreUsuario){
 
 	Respuesta respuesta;
 	Usuario usuario;
+	const string &datosUsuario = usuario.obtenerDatos(nombreUsuario);
+
 	respuesta.agregarEstado("OK");
-	respuesta.agregarDatos(usuario.obtenerDatos(nombreUsuario));
+	respuesta.agregarDatos(datosUsuario);
+
 	return respuesta.obtenerRespuesta();
 
 }
@@ -57,18 +68,10 @@ string ManejadorUsuario::actualizarDatos(const string &nombreUsuario,const strin
 	Respuesta respuesta;
 	Usuario usuario;
 
-	if(usuario.actualizarDatos(nombreUsuario,datosUsuario)){
+	usuario.actualizarDatos(nombreUsuario,datosUsuario);
 
-		respuesta.agregarEstado("OK");
-		respuesta.agregarMensaje("datos actualizados correctamente");
-		return "datos actualizados correctamente";
-
-	}else{
-
-		respuesta.agregarEstado("ERROR");
-		respuesta.agregarMensaje("error al actualizar los datos");
-
-	}
+	respuesta.agregarEstado("OK");
+	respuesta.agregarMensaje("datos actualizados correctamente");
 
 	return respuesta.obtenerRespuesta();
 
@@ -78,8 +81,12 @@ string ManejadorUsuario::obtenerArchivos(const string &nombreUsuario){
 
 	Respuesta respuesta;
 	Usuario usuario;
+
+	const string &archivos = usuario.obtenerArchivos(nombreUsuario);
+
 	respuesta.agregarEstado("OK");
-	respuesta.agregarDatos(usuario.obtenerArchivos(nombreUsuario));
+	respuesta.agregarDatos(archivos);
+
 	return respuesta.obtenerRespuesta();
 
 }
@@ -88,8 +95,12 @@ string ManejadorUsuario::obtenerArchivosPapelera(const string &nombreUsuario){
 
 	Respuesta respuesta;
 	Usuario usuario;
+
+	const string &archivosPapelera = usuario.verPapelera(nombreUsuario);
+
 	respuesta.agregarEstado("OK");
-	respuesta.agregarDatos(usuario.verPapelera(nombreUsuario));
+	respuesta.agregarDatos(archivosPapelera);
+
 	return respuesta.obtenerRespuesta();
 
 }

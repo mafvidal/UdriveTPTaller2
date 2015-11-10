@@ -64,17 +64,16 @@ void AdministradorServidor::administrar(){
 
 				string respuesta="Falta...";
 
-				mg_printf(c, "%s",respuesta.c_str());
+				mg_printf(c,"%s",respuesta.c_str());
 				c->flags |= MG_F_SEND_AND_CLOSE;
 
 
 			}else{
 
 				string respuesta = this->realizarOperacion();
-
 				mg_printf(c, "HTTP/1.0 200 OK\r\nContent-Length: %d\r\n"
-							"Content-Type: application/json\r\n\r\n%s",
-							(int) respuesta.size(), respuesta.c_str());
+								"Content-Type: application/json\r\n\r\n%s",
+								(int) respuesta.size(), respuesta.c_str());
 
 			}
 
@@ -169,41 +168,62 @@ string AdministradorServidor::realizarOperacion(){
 	string respuesta;
 	string cuerpo = hm.body.p;
 
+	//Verifico que el usuario que solicita exista
+	Usuario usuario;
+	if( (mensaje.tipo != "POSTusuarios") && (!usuario.existeUsuario(mensaje.quien)) ){
+
+		Respuesta error;
+		error.agregarEstado("ERROR");
+		error.agregarMensaje("El usuario no existe");
+
+		return error.obtenerRespuesta();
+
+	}
+
+	//Registrar usuario
 	if(mensaje.tipo == "POSTusuarios"){
 
 		ManejadorUsuario manejadorUsuario;
 		respuesta = manejadorUsuario.generar(mensaje.quien,cuerpo);
 
+	//Iniciar sesion del usuario
 	}else if(mensaje.tipo == "POSTiniciarsesion"){
 
 		ManejadorUsuario manejadorUsuario;
 		respuesta = manejadorUsuario.iniciarSesion(mensaje.quien,cuerpo);
 
+	//retorna los datos del usuario, email,nombre,ubicacion,foto
 	}else if(mensaje.tipo == "GETusuarios"){
 
 		ManejadorUsuario manejadorUsuario;
 		respuesta = manejadorUsuario.obtenerDatos(mensaje.quien);
 
+	//actualiza los datos del usuario, email,nombre,ubicacion,foto
 	}else if(mensaje.tipo == "PUTusuarios"){
 
 		ManejadorUsuario manejadorUsuario;
 		respuesta = manejadorUsuario.actualizarDatos(mensaje.quien,cuerpo);
 
+	//Retorna los datos de los archivos que posee el usuario,
+	//tanto compartidos como propios
 	}else if(mensaje.tipo == "GETusuariosarchivos"){
 
 		ManejadorUsuario manejadorUsuario;
 		respuesta = manejadorUsuario.obtenerArchivos(mensaje.quien);
 
+	//Elimina el archivo enviandolo a la papelera
 	}else if(mensaje.tipo == "DELETEusuariosarchivos"){
 
 		ManejadorArchivos manejadorArchivos;
 		respuesta = manejadorArchivos.eliminarArchivo(mensaje.quien,cuerpo);
 
+	//Crea el archivo logico
 	}else if(mensaje.tipo == "POSTusuariosarchivos"){
 
 		ManejadorArchivos manejadorArchivos;
 		respuesta = manejadorArchivos.crearArchivo(mensaje.quien,cuerpo);
 
+	//Comparte el archivo recibido con los usuarios recibidos
 	}else if(mensaje.tipo == "PUTusuariosarchivoscompartir"){
 
 		ManejadorArchivos manejadorArchivos;
@@ -229,16 +249,18 @@ string AdministradorServidor::realizarOperacion(){
 		ManejadorBuscador manejadorBuscador;
 		respuesta = manejadorBuscador.buscarPorExtension(mensaje.quien,mensaje.metadato);
 
+	//Actualiza los metadatos del archivo
 	}else if(mensaje.tipo == "PUTusuariosarchivosactualizar"){
 
 		ManejadorArchivos manejadorArchivos;
-		respuesta = manejadorArchivos.actualizarArchivo(cuerpo);
+		respuesta = manejadorArchivos.actualizarArchivo(mensaje.quien,cuerpo);
 
 	}else if(mensaje.tipo == "PUTusuariosarchivosrestaurar"){
 
 		ManejadorArchivos manejadorArchivos;
-		respuesta = manejadorArchivos.restaurarArchivo(cuerpo);
+		respuesta = manejadorArchivos.restaurarArchivo(mensaje.quien,cuerpo);
 
+	//Retorna los archivos que el usuario posee en la papelera
 	}else if(mensaje.tipo == "GETusuariospapelera"){
 
 		ManejadorUsuario manejadorUsuario;

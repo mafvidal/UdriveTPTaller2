@@ -40,7 +40,7 @@ string Buscador::buscarMetadato(const unsigned int &TIPO,const string &metadato)
 
 	Value hashArchivos;
 	Value datosArchivos;
-	Value archivosDeEtiquetas;
+	Value archivosMetadatos(arrayValue);
 	Reader lector;
 	Archivo archivo;
 
@@ -53,10 +53,10 @@ string Buscador::buscarMetadato(const unsigned int &TIPO,const string &metadato)
 
 		const string hash = archivos[indice].asString();
 		//lector.parse(this->baseDeDatos->leer(ARCHIVOS,hash),datosArchivos,false);
-		archivosDeEtiquetas.append(archivo.obtenerDatos(hash));
+		archivosMetadatos.append(archivo.obtenerDatos(hash));
 
 	}
 
-	return archivosDeEtiquetas.toStyledString();
+	return archivosMetadatos.toStyledString();
 
 }

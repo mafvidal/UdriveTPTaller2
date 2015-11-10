@@ -7,14 +7,14 @@
 
 #include "Actualizador.h"
 
-Actualizador::Actualizador(const string &datosAActualizar) {
+Actualizador::Actualizador(const string &usuarioQueEstaModificando,const string &datosAActualizar) {
 
 	Reader lector;
 	Hash hash;
 
 	this->baseDeDatos = BasedeDatos::obteberInstancia();
 
-	this->cargarDatos(datosAActualizar);
+	this->cargarDatos(usuarioQueEstaModificando,datosAActualizar);
 
 	this->antiguoHash = hash.obtenerHashDelArchivo(this->propietario+this->directorioOriginal+this->nombreOriginal+this->extensionOriginal);
 
@@ -91,10 +91,11 @@ Actualizador::~Actualizador() {
 
 }
 
-void Actualizador::cargarDatos(const string &datosAActualizar){
+void Actualizador::cargarDatos(const string &usuarioQueEstaModificando,const string &datosAActualizar){
 
 	Reader lector;
 	Value datos;
+	Fecha fecha;
 
 	lector.parse(datosAActualizar,datos,false);
 
@@ -105,8 +106,8 @@ void Actualizador::cargarDatos(const string &datosAActualizar){
 	this->nombreNuevo = datos.get("NombreNuevo","").asString();
 	this->extensionNueva = datos.get("ExtensionNueva","").asString();
 	this->directorioNuevo = datos.get("DirectorioNuevo","").asString();
-	this->fechaDeModificacion = datos.get("FechaDeModificacion","").asString();
-	this->usuarioQueModifico = datos.get("UsuarioQueModifico","").asString();
+	this->fechaDeModificacion = fecha.obtenerFecha();
+	this->usuarioQueModifico = usuarioQueEstaModificando;
 	this->etiquetas = datos["Etiquetas"];
 	this->etiquetasNuevas = datos["EtiquetasNuevas"];
 	this->etiquetasEliminadas = datos["EtiquetasEliminadas"];
@@ -114,19 +115,6 @@ void Actualizador::cargarDatos(const string &datosAActualizar){
 	this->cambionNombre = !(this->nombreOriginal == this->nombreNuevo);
 	this->cambioExtension = !(this->extensionOriginal == this->extensionNueva);
 	this->cambioDirectorio = !(this->directorioOriginal == this->directorioNuevo);
-
-	/*cout<<"Propietario "<<this->propietario<<endl;
-	cout<<"DirectorioOriginal "<<this->directorioOriginal<<endl;
-	cout<<"NombreOriginal "<<this->nombreOriginal<<endl;
-	cout<<"ExtensionOriginal "<<this->extensionOriginal<<endl;
-	cout<<"NombreNuevo "<<this->nombreNuevo<<endl;
-	cout<<"ExtensionNueva "<<this->extensionNueva<<endl;
-	cout<<"DirectorioNuevo "<<this->directorioNuevo<<endl;
-	cout<<"FechaDeModificacion "<<this->fechaDeModificacion<<endl;
-	cout<<"UsuarioQueModifico "<<this->usuarioQueModifico<<endl;
-	cout<<"Etiquetas "<<this->etiquetas.toStyledString()<<endl;
-	cout<<"EtiquetasNuevas "<<this->etiquetasNuevas.toStyledString()<<endl;
-	cout<<"EtiquetasEliminadas "<<this->etiquetasEliminadas.toStyledString()<<endl;*/
 
 }
 

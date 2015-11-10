@@ -16,15 +16,10 @@ string ManejadorArchivos::crearArchivo(const string &nombreUsuario,const string 
 	Respuesta respuesta;
 	Archivo archivo;
 	string hashArchivo = archivo.crearArchivo(nombreUsuario,datosDelArchivo);
-	if(hashArchivo != ""){
-		respuesta.agregarEstado("OK");
-		respuesta.agregarMensaje(hashArchivo);
 
-	}else{
-		respuesta.agregarEstado("ERROR");
-		respuesta.agregarMensaje("No se pudo crear el archivo");
+	respuesta.agregarEstado("OK");
+	respuesta.agregarMensaje(hashArchivo);
 
-	}
 
 	return respuesta.obtenerRespuesta();
 
@@ -34,10 +29,19 @@ string ManejadorArchivos::eliminarArchivo(const string &nombreUsuario,const stri
 
 	Respuesta respuesta;
 	Archivo archivo;
-	archivo.eliminarArchivo(datosDelArchivo);
+	const string &resultado = archivo.eliminarArchivo(nombreUsuario,datosDelArchivo);
 
-	respuesta.agregarEstado("OK");
-	respuesta.agregarMensaje("Archivo enviado a la papelera");
+	if( resultado == "OK" ){
+
+		respuesta.agregarEstado("OK");
+		respuesta.agregarMensaje("Archivo enviado a la papelera");
+
+	}else if ( resultado == "NoEsPropietario" ){
+
+		respuesta.agregarEstado("ERROR");
+		respuesta.agregarMensaje("Solo el propietario puede eliminar el archivo");
+
+	}
 
 	return respuesta.obtenerRespuesta();
 
@@ -55,25 +59,45 @@ string ManejadorArchivos::compartirArchivo(const string &datosDelArchivo){
 
 	usuarios = datos["Usuarios"];
 
-	string hashArchivo = archivo.compartir(usuarios.toStyledString(),datosDelArchivo);
+	string resultado = archivo.compartir(usuarios.toStyledString(),datosDelArchivo);
 
-	respuesta.agregarEstado("OK");
-	respuesta.agregarMensaje("El archivo fue compartido");
+	if( resultado == "OK" ){
+
+		respuesta.agregarEstado("OK");
+		respuesta.agregarMensaje("El archivo fue compartido");
+
+	}else if ( resultado == "" ){
+
+		respuesta.agregarEstado("ERROR");
+		respuesta.agregarMensaje("El archivo a compartir no existe");
+
+	}else{
+
+		respuesta.agregarEstado("WARNIG");
+		respuesta.agregarMensaje("Los ususarios: "+resultado+" no existen");
+
+	}
+
 
 	return respuesta.obtenerRespuesta();
 
 }
 
-string ManejadorArchivos::actualizarArchivo(const string &datosDelArchivo){
+string ManejadorArchivos::actualizarArchivo(const string &nombreUsuario,const string &datosDelArchivo){
 
 	Respuesta respuesta;
 	Archivo archivo;
 
 	try{
 
-		string hashArchivo = archivo.actualizar(datosDelArchivo);
-		respuesta.agregarEstado("OK");
-		respuesta.agregarMensaje(hashArchivo);
+		string hashArchivo = archivo.actualizar(nombreUsuario,datosDelArchivo);
+
+		if( hashArchivo != "" ){
+
+			respuesta.agregarEstado("OK");
+			respuesta.agregarMensaje(hashArchivo);
+
+		}
 
 	}catch (ArchivoInexistente e){
 
@@ -86,16 +110,27 @@ string ManejadorArchivos::actualizarArchivo(const string &datosDelArchivo){
 
 }
 
-string ManejadorArchivos::restaurarArchivo(const string &datosDelArchivo){
+string ManejadorArchivos::restaurarArchivo(const string &nombreUsuario,const string &datosDelArchivo){
 
 	Respuesta respuesta;
 	Archivo archivo;
 
 	try{
 
-		archivo.restaurar(datosDelArchivo);
-		respuesta.agregarEstado("OK");
-		respuesta.agregarMensaje("Archivo restaurado");
+		const string &resultado = archivo.restaurar(nombreUsuario,datosDelArchivo);
+
+		if( resultado == "OK" ){
+
+			respuesta.agregarEstado("OK");
+			respuesta.agregarMensaje("Archivo restaurado");
+
+		}else if ( resultado == "Version0" ){
+
+			respuesta.agregarEstado("ERROR");
+			respuesta.agregarMensaje("No existe una version del archivo a restaurar");
+
+		}
+
 
 	}catch(ArchivoInexistente e){
 

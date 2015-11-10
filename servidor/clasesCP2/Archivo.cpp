@@ -46,18 +46,15 @@ string Archivo::crearArchivo(const string &usuario,const string &json){
 	Usuario usuarioAGuardar;
 	usuarioAGuardar.agregarArchivo(usuario,hashArchivo);
 	this->guardarMetadatosAUsuarios(usuario,datos,hashArchivo);
+
 	//Guardo los metadatos del archivo en la base de datos
-	if (this->baseDeDatos->guardar(ARCHIVOS,hashArchivo,datosAGuardar.toStyledString()))
+	this->baseDeDatos->guardar(ARCHIVOS,hashArchivo,datosAGuardar.toStyledString());
 
-		return hashArchivo;
-
-	else
-
-		return "";
+	return hashArchivo;
 
 }
 
-void Archivo::eliminarArchivo(const string &json){
+string Archivo::eliminarArchivo(const string &nombreUsuarioEliminador,const string &json){
 
 	Value datos;
 	Value datosAEliminar;
@@ -67,6 +64,9 @@ void Archivo::eliminarArchivo(const string &json){
 	Usuario usuario;
 
 	lector.parse(json,datosAEliminar,false);
+
+	if ( nombreUsuarioEliminador != datosAEliminar.get("Propietario","").asString() )
+		return "NoEsPropietario";
 
 	const string nombre = datosAEliminar.get("Propietario","").asString() + datosAEliminar.get("Directorio","").asString() + datosAEliminar.get("Nombre","").asString() + datosAEliminar.get("Extension","").asString();
 
@@ -91,6 +91,8 @@ void Archivo::eliminarArchivo(const string &json){
 
 	usuario.eliminarArchivo(datosAEliminar.get("Propietario","").asString(),hashArchivo);
 	usuario.enviarALaPapelera(datosAEliminar.get("Propietario","").asString(),hashArchivo);
+
+	return "OK";
 
 }
 
@@ -130,6 +132,7 @@ string Archivo::compartir(const string &usuariosACompartir,const string & json){
 	Value datos;
 	Value datosDelArchivo;
 	Hash hash;
+	string resultado ="";
 
 	lector.parse(json,datos,false);
 
@@ -137,6 +140,9 @@ string Archivo::compartir(const string &usuariosACompartir,const string & json){
 
 	const string hashDelArchivo = hash.obtenerHashDelArchivo(nombreCompleto);
 
+	if( hashDelArchivo == "" ){
+		return "";
+	}
 	//
 	lector.parse(this->baseDeDatos->leer(ARCHIVOS,hashDelArchivo),compartido,false);
 	//compartido = compartido["Usuarios"];
@@ -149,6 +155,13 @@ string Archivo::compartir(const string &usuariosACompartir,const string & json){
 
 		const string nombreUsuario = usuarios[indice].asString();
 
+		if( this->baseDeDatos->leer(USUARIOS,nombreUsuario) =="" ){
+
+			resultado = resultado+nombreUsuario+", ";
+
+			continue;
+		}
+
 		compartido["Usuarios"].append(nombreUsuario);
 
 		usuario.agregarArchivoCompartido(nombreUsuario,hashDelArchivo);
@@ -159,15 +172,18 @@ string Archivo::compartir(const string &usuariosACompartir,const string & json){
 
 	this->baseDeDatos->guardar(ARCHIVOS,hashDelArchivo,compartido.toStyledString());
 
-	return hashDelArchivo;
+	if( resultado == "")
+		return "OK";
+	else
+		return resultado;
 
 }
 
-string Archivo::actualizar(const string & json){
+string Archivo::actualizar(const string & nombreUsuario,const string & json){
 
 	try{
 
-		Actualizador actualizador(json);
+		Actualizador actualizador(nombreUsuario,json);
 		return actualizador.actualizarArchivo();
 
 	}catch (ArchivoInexistente e){
@@ -178,13 +194,19 @@ string Archivo::actualizar(const string & json){
 
 }
 
-void Archivo::restaurar(const string & json){
+string Archivo::restaurar(const string & nombreUsuario,const string & json){
 
 	try{
 
-		Restaurador restarador(json);
+		Restaurador restaurador(nombreUsuario,json);
 
-		restarador.restaurarArchivo();
+		if ( restaurador.version() == 0 ){
+
+			return "Version0";
+
+		}
+
+			restaurador.restaurarArchivo();
 
 	}catch (ArchivoInexistente e){
 
@@ -192,6 +214,7 @@ void Archivo::restaurar(const string & json){
 
 	}
 
+	return "OK";
 
 }
 
@@ -217,7 +240,7 @@ void Archivo::guardarMetadatosAUsuarios(const string &usuario,const Value &datos
 	//Guardo el metadato Extension para el archivo
 	this->guardarMetadato(EXTENSION,usuario,datos.get("Extension","").asString(),hash);
 	//Guardo el metadato Propietario para el archivo
-	this->guardarMetadato(PROPIETARIO,usuario,datos.get("Propietario","").asString(),hash);
+	this->guardarMetadato(PROPIETARIO,usuario,usuario,hash);
 
 	//usuarioAGuardar.agregarArchivo(usuario,hash);
 

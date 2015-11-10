@@ -31,13 +31,13 @@ public:
 	string crearArchivo(const string &usuario,const string &json);
 	//Elimina el archivo enviandolo a la papelera
 	//Recibe los datos del archivo
-	void eliminarArchivo(const string &json);
+	string eliminarArchivo(const string &nombreUsuarioEliminador,const string &json);
 	//¿?
 	Value obtenerDatos(const string & hashDelArchivo);
 	//Comparte el archivo segun el json, con los usuariosACompartir
 	string compartir(const string &usuariosACompartir,const string & json);
-	string actualizar(const string & json);
-	void restaurar(const string & json);
+	string actualizar(const string & nombreUsuario,const string & json);
+	string restaurar(const string & nombreUsuario,const string & json);
 	virtual ~Archivo();
 private:
 	void guardarMetadatosAUsuarios(const string &usuario,const Value &datos,const string &hash);

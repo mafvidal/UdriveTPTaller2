@@ -16,6 +16,7 @@
 #include "Usuario.h"
 #include "ManejadorArchivosFisicos.h"
 #include "Excepciones.h"
+#include "Fecha.h"
 
 using namespace std;
 using namespace Json;
@@ -44,12 +45,12 @@ private:
 	Value datosAnteriores;
 
 public:
-	Actualizador(const string &datosAActualizar);
+	Actualizador(const string &usuarioQueEstaModificando,const string &datosAActualizar);
 	string actualizarArchivo();
 	virtual ~Actualizador();
 
 private:
-	void cargarDatos(const string &datosAActualizar);
+	void cargarDatos(const string &usuarioQueEstaModificando,const string &datosAActualizar);
 	void actualizarHashAUsuarios();
 	void actualizarMetadato(const unsigned int &TIPO, const string &metadato,const string &hashArchivo,const string &usuario);
 	void eliminarMetadato(const unsigned int &TIPO, const string &metadato,const string &hashArchivo,const string &usuario);

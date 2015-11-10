@@ -104,18 +104,16 @@ void ManejadorArchivosFisicos::cargarArchivo(struct mg_connection *c){
 
 	if (datos->bytes_left <= 0) {
 
-		mg_printf(c,
-				"HTTP/1.1 200 OK\r\n"
-				"Content-Type: text/plain\r\n"
-				"Connection: close\r\n\r\n"
-				"Written %ld of POST data to a temp file\n\n",
-				(long) ftell(this->archivos[datos->hashArchivo]));
+		Respuesta respuesta;
+		respuesta.agregarEstado("OK");
+		respuesta.agregarMensaje("Archivo creado correctamente");
+
+		mg_printf(c,"%s",respuesta.obtenerRespuesta().c_str());
 
 		fclose(this->archivos[datos->hashArchivo]);
 
 		this->archivos.erase(datos->hashArchivo);
 		delete datos;
-
 
 		c->user_data = NULL;
 

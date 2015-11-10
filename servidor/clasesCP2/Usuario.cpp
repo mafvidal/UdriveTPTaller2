@@ -20,7 +20,7 @@ bool Usuario::identificarse(const string &usuario,const string &json){
 	Value datosExistentes;
 	const string datosDelUsuario = this->baseDeDatos->leer(USUARIOS,usuario);
 
-	if( datosDelUsuario == "" )
+	if ( datosDelUsuario == "" )
 		return false;
 
 	lector.parse(json,datos,false);
@@ -36,7 +36,6 @@ bool Usuario::registrarse(const string &usuario,const string &json){
 
 	const string datosDelUsuario = this->baseDeDatos->leer(USUARIOS,usuario);
 
-	//Si recibo datos, es porque existe un usuario con ese nombre
 	if( datosDelUsuario != "" )
 		return false;
 
@@ -74,7 +73,6 @@ string Usuario::obtenerDatos(const string &usuario){
 
 }
 
-//Recibe : {Clave,Cuota,Metadatos}
 bool Usuario::actualizarDatos(const string &usuario,const string & json){
 
 	Value datosExistentes;
@@ -82,6 +80,7 @@ bool Usuario::actualizarDatos(const string &usuario,const string & json){
 	Value metadatos;
 	Reader lector;
 	Value archivos(arrayValue);
+
 	const string datosDelUsuario = this->baseDeDatos->leer(USUARIOS,usuario);
 
 	lector.parse(datosDelUsuario,datosExistentes,false);
@@ -98,7 +97,7 @@ bool Usuario::actualizarDatos(const string &usuario,const string & json){
 string Usuario::obtenerArchivos(const string & usuario){
 
 	Value datos;
-	Value archivos;
+	Value archivos(arrayValue);
 	Reader lector;
 
 	const string datosUsuario = this->baseDeDatos->leer(USUARIOS,usuario);
@@ -116,7 +115,7 @@ string Usuario::obtenerArchivos(const string & usuario){
 string Usuario::verPapelera(const string &usuario){
 
 	Value datos;
-	Value archivos;
+	Value archivos(arrayValue);
 	Reader lector;
 
 	const string datosUsuario = this->baseDeDatos->leer(USUARIOS,usuario);
@@ -159,6 +158,12 @@ void Usuario::enviarALaPapelera(const string &nombreUsuario,const string &hashAr
 
 }
 
+bool Usuario::existeUsuario(const string &nombreUsuario){
+
+	return (this->baseDeDatos->leer(USUARIOS,nombreUsuario) != "");
+
+}
+
 Usuario::~Usuario() {
 
 }
@@ -187,11 +192,8 @@ void Usuario::cargarArchivos(Value &archivos,const Value &archivosExistentes){
 
 		const string hashArchivo = archivosExistentes[indice].asString();
 		const string datosDelArchivo = this->baseDeDatos->leer(ARCHIVOS,hashArchivo);
-		//archo.obtenerDatos(hashArchivo);
-		//reader.parse(datosDelArchivo,archivo,false);
-		//archivos.append(this->getMetadatosArchivo(archivo["MetaDatos"]));
-		archivos.append(archivo.obtenerDatos(hashArchivo));
 
+		archivos.append(archivo.obtenerDatos(hashArchivo));
 
 	}
 
@@ -223,8 +225,6 @@ void Usuario::eliminar(const string &usuario,const string &hashArchivo,const str
 	datos[tipo] = archivos;
 
 	this->baseDeDatos->guardar(USUARIOS,usuario,datos.toStyledString());
-
-
 
 }
 

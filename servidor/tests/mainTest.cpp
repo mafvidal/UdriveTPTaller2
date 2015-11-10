@@ -182,7 +182,7 @@ TEST(baseDeDatos, alEliminarUnArchivoElUsuarioDebeTenerloEnlaPapelera) {
 	EXPECT_EQ(0,datosArchivo.size());
 	
 	archivo.crearArchivo("usuarioTest8",cargarJsonArchivo("usuarioTest8"));
-	archivo.eliminarArchivo(cargarJsonArchivoEliminado("usuarioTest8"));
+	archivo.eliminarArchivo("usuarioTest8",cargarJsonArchivoEliminado("usuarioTest8"));
 
 	lector.parse(usuario.verPapelera("usuarioTest8"),datosArchivo,false);
 

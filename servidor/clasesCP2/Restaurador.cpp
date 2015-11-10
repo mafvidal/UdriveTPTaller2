@@ -7,10 +7,10 @@
 
 #include "Restaurador.h"
 
-Restaurador::Restaurador(const string &datosARestaurar) {
+Restaurador::Restaurador(const string &usuarioQueRestaura,const string &datosARestaurar) {
 
 	this->baseDeDatos = BasedeDatos::obteberInstancia();
-	this->cargarDatos(datosARestaurar);
+	this->cargarDatos(usuarioQueRestaura,datosARestaurar);
 
 	if( this->hashVersionActual == "" ){
 		ArchivoInexistente e;
@@ -49,6 +49,12 @@ void Restaurador::restaurarArchivo(){
 
 }
 
+unsigned int Restaurador::version(){
+
+	return this->ultimaVersion["MetaDatos"].get("Version",0).asUInt();
+
+}
+
 Restaurador::~Restaurador() {
 }
 
@@ -70,17 +76,18 @@ void Restaurador::restaurarHashAUsuarios(){
 
 }
 
-void Restaurador::cargarDatos(const string &datosARestaurar){
+void Restaurador::cargarDatos(const string &usuarioQueRestaura,const string &datosARestaurar){
 
 	Reader lector;
 	Value datos;
 	Hash hash;
+	Fecha fecha;
 
 	lector.parse(datosARestaurar,datos,false);
 
 	this->propietario = datos.get("Propietario","").asString();
-	this->usuarioQueModifico = datos.get("UsuarioQueModifico","").asString();
-	this->fechaDeModificacion = datos.get("FechaDeModificacion","").asString();
+	this->usuarioQueModifico = usuarioQueRestaura;//datos.get("UsuarioQueModifico","").asString();
+	this->fechaDeModificacion = fecha.obtenerFecha();//datos.get("FechaDeModificacion","").asString();
 
 	this->hashVersionActual = hash.obtenerHashDelArchivo(datos.get("Propietario","").asString()+datos.get("Directorio","").asString()+datos.get("Nombre","").asString()+datos.get("Extension","").asString());
 
