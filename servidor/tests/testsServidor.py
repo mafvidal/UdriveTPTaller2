@@ -8,7 +8,7 @@ class TestServidor(unittest.TestCase):
 	def test_01registrarUsuarioCorrectamente(self):
 
 		#No le envio los metadatos del usuario, para simplificar el tests
-		registrarUsuarioJson = {'Clave': 'MiClave','Cuota': '100500'}
+		registrarUsuarioJson = {'Clave': 'MiClave','Cuota': 100500}
 		#Registro el usuario
 		salida = requests.post('http://localhost:8000/usuarios/usu1', json=registrarUsuarioJson)
 		salidaJson = salida.json()
@@ -18,7 +18,7 @@ class TestServidor(unittest.TestCase):
 	def test_02iniciarSesionUsuarioCorrectamente(self):
 
 		iniciarSesionJson = {'Clave': 'MiClave'}
-		registrarUsuarioJson = {'Clave': 'MiClave','Cuota': '100500'}
+		registrarUsuarioJson = {'Clave': 'MiClave','Cuota': 100500}
 		#Registro al usuario
 		salida = requests.post('http://localhost:8000/usuarios/usu2', json=registrarUsuarioJson)
 		#Inicio sesion con el usuario
@@ -30,7 +30,7 @@ class TestServidor(unittest.TestCase):
 	def test_03iniciarSesionUsuarioConClaveIncorrectaReciboError(self):
 
 		iniciarSesionJson = {'Clave': 'otraClave'}
-		registrarUsuarioJson = {'Clave': 'MiClave','Cuota': '100500'}
+		registrarUsuarioJson = {'Clave': 'MiClave','Cuota': 100500}
 		#Registro al usuario
 		salida = requests.post('http://localhost:8000/usuarios/usu3', json=registrarUsuarioJson)
 		#Inicio sesion con el usuario
@@ -41,7 +41,7 @@ class TestServidor(unittest.TestCase):
 
 	def test_04registrarUsuarioExistenteReciboQueElUsuarioYaExiste(self):
 
-		registrarUsuarioJson = {'Clave': 'MiClave','Cuota': '100500'}
+		registrarUsuarioJson = {'Clave': 'MiClave','Cuota': 100500}
 		#Registro al usuario
 		salida = requests.post('http://localhost:8000/usuarios/usu1', json=registrarUsuarioJson)
 		salidaJson = salida.json()
@@ -51,7 +51,7 @@ class TestServidor(unittest.TestCase):
 	def test_05ObtenerDatosUsuarioRegistrado(self):
 
 		MetaDatos = {'Email': 'pepe@mail.com','Foto': 'miFoto','Nombre': 'carlos','UltimaUbicacion': 'Bs As'}
-		registrarUsuarioJson = {'Clave': 'MiClave','Cuota': '100500','MetaDatos': MetaDatos }
+		registrarUsuarioJson = {'Clave': 'MiClave','Cuota': 100500,'MetaDatos': MetaDatos }
 		#Registro al usuario
 		salida = requests.post('http://localhost:8000/usuarios/usu5', json=registrarUsuarioJson)
 		#Obtengo los datos del usuario
@@ -66,8 +66,8 @@ class TestServidor(unittest.TestCase):
 		MetaDatos = {'Email': 'pepe@mail.com','Foto': 'miFoto','Nombre': 'carlos','UltimaUbicacion': 'Bs As'}
 		#Metadatos para actualizar
 		MetaDatosActualizados = {'Email': 'pepito@mail.com','Foto': 'otraFoto','Nombre': 'carlos','UltimaUbicacion': 'China'}
-		registrarUsuarioJson = {'Clave': 'MiClave','Cuota': '100500','MetaDatos': MetaDatos }
-		actualizarUsuarioJson = {'Clave': 'otraClave','Cuota': '100500','MetaDatos': MetaDatosActualizados }
+		registrarUsuarioJson = {'Clave': 'MiClave','Cuota': 100500,'MetaDatos': MetaDatos }
+		actualizarUsuarioJson = {'Clave': 'otraClave','Cuota': 100500,'MetaDatos': MetaDatosActualizados }
 		#Registro al usuario
 		salida = requests.post('http://localhost:8000/usuarios/usu6', json=registrarUsuarioJson)
 		#Se actualizan los datos del usuario
@@ -83,7 +83,7 @@ class TestServidor(unittest.TestCase):
 	def test_07AlCrearArchivoElUsuarioDebeTenerlo(self):
 		#Datos del usuario
 		MetaDatos = {'Email': 'pepe@mail.com','Foto': 'miFoto','Nombre': 'carlos','UltimaUbicacion': 'Bs As'}
-		registrarUsuarioJson = {'Clave': 'MiClave','Cuota': '100500','MetaDatos': MetaDatos }
+		registrarUsuarioJson = {'Clave': 'MiClave','Cuota': 100500,'MetaDatos': MetaDatos }
 		#Datos del Archivo
 		archivoJson = {'Propietario': 'usu7','Nombre': 'hola','Extension': 'txt','Directorio': 'documentos/bin','Etiquetas': ['hola','saludo'] }
 		#Registro al usuario
@@ -100,7 +100,7 @@ class TestServidor(unittest.TestCase):
 	def test_08AlEliminarArchivoEsteDebeEstarEnLaPapelera(self):
 		#Datos del usuario
 		MetaDatos = {'Email': 'pepe@mail.com','Foto': 'miFoto','Nombre': 'carlos','UltimaUbicacion': 'Bs As'}
-		registrarUsuarioJson = {'Clave': 'MiClave','Cuota': '100500','MetaDatos': MetaDatos }
+		registrarUsuarioJson = {'Clave': 'MiClave','Cuota': 100500,'MetaDatos': MetaDatos }
 		#Datos del Archivo
 		archivoJson = {'Propietario': 'usu8','Nombre': 'hola','Extension': 'txt','Directorio': 'documentos/bin','Etiquetas': ['hola','saludo'] }
 		#Datos necesarios para eliminar archivo
@@ -121,7 +121,7 @@ class TestServidor(unittest.TestCase):
 	def test_09AlCompartirUnArchivoConOtroUsuarioEsteDebeTenerlo(self):
 		#Datos del usuario
 		MetaDatos = {'Email': 'pepe@mail.com','Foto': 'miFoto','Nombre': 'carlos','UltimaUbicacion': 'Bs As'}
-		registrarUsuarioJson = {'Clave': 'MiClave','Cuota': '100500','MetaDatos': MetaDatos }
+		registrarUsuarioJson = {'Clave': 'MiClave','Cuota': 100500,'MetaDatos': MetaDatos }
 		#Datos del Archivo
 		archivoJson = {'Propietario': 'usu9','Nombre': 'hola','Extension': 'txt','Directorio': 'documentos/bin','Etiquetas': ['hola','saludo'] }
 		#Datos necesarios para compartir archivo
@@ -143,7 +143,7 @@ class TestServidor(unittest.TestCase):
 	def test_10BuscarArchivoPorEtiquetas(self):
 		#Datos del usuario
 		MetaDatos = {'Email': 'pepe@mail.com','Foto': 'miFoto','Nombre': 'carlos','UltimaUbicacion': 'Bs As'}
-		registrarUsuarioJson = {'Clave': 'MiClave','Cuota': '100500','MetaDatos': MetaDatos }
+		registrarUsuarioJson = {'Clave': 'MiClave','Cuota': 100500,'MetaDatos': MetaDatos }
 		#Datos del Archivo
 		archivoJson = {'Propietario': 'usu10','Nombre': 'hola','Extension': 'txt','Directorio': 'documentos/bin','Etiquetas': ['hola','saludo'] }
 		#Registro al usuario
@@ -160,7 +160,7 @@ class TestServidor(unittest.TestCase):
 	def test_11BuscarArchivoPorNombre(self):
 		#Datos del usuario
 		MetaDatos = {'Email': 'pepe@mail.com','Foto': 'miFoto','Nombre': 'carlos','UltimaUbicacion': 'Bs As'}
-		registrarUsuarioJson = {'Clave': 'MiClave','Cuota': '100500','MetaDatos': MetaDatos }
+		registrarUsuarioJson = {'Clave': 'MiClave','Cuota': 100500,'MetaDatos': MetaDatos }
 		#Datos del Archivo
 		archivoJson = {'Propietario': 'usu11','Nombre': 'hola','Extension': 'txt','Directorio': 'documentos/bin','Etiquetas': ['hola','saludo'] }
 		salida = requests.post('http://localhost:8000/usuarios/usu11', json=registrarUsuarioJson)
@@ -175,7 +175,7 @@ class TestServidor(unittest.TestCase):
 	def test_12BuscarArchivoPorPropietario(self):
 		#Datos del usuario
 		MetaDatos = {'Email': 'pepe@mail.com','Foto': 'miFoto','Nombre': 'carlos','UltimaUbicacion': 'Bs As'}
-		registrarUsuarioJson = {'Clave': 'MiClave','Cuota': '100500','MetaDatos': MetaDatos }
+		registrarUsuarioJson = {'Clave': 'MiClave','Cuota': 100500,'MetaDatos': MetaDatos }
 		#Datos del Archivo
 		archivoJson = {'Propietario': 'usu12','Nombre': 'hola','Extension': 'txt','Directorio': 'documentos/bin','Etiquetas': ['hola','saludo'] }
 		salida = requests.post('http://localhost:8000/usuarios/usu12', json=registrarUsuarioJson)
@@ -190,7 +190,7 @@ class TestServidor(unittest.TestCase):
 	def test_13BuscarArchivoPorExtension(self):
 		#Datos del usuario
 		MetaDatos = {'Email': 'pepe@mail.com','Foto': 'miFoto','Nombre': 'carlos','UltimaUbicacion': 'Bs As'}
-		registrarUsuarioJson = {'Clave': 'MiClave','Cuota': '100500','MetaDatos': MetaDatos }
+		registrarUsuarioJson = {'Clave': 'MiClave','Cuota': 100500,'MetaDatos': MetaDatos }
 		#Datos del Archivo
 		archivoJson = {'Propietario': 'usu13','Nombre': 'hola','Extension': 'txt','Directorio': 'documentos/bin','Etiquetas': ['hola','saludo'] }
 		salida = requests.post('http://localhost:8000/usuarios/usu13', json=registrarUsuarioJson)
@@ -205,7 +205,7 @@ class TestServidor(unittest.TestCase):
 	def test_14ActualizarArchivo(self):
 		#Datos del usuario
 		MetaDatos = {'Email': 'pepe@mail.com','Foto': 'miFoto','Nombre': 'carlos','UltimaUbicacion': 'Bs As'}
-		registrarUsuarioJson = {'Clave': 'MiClave','Cuota': '100500','MetaDatos': MetaDatos }
+		registrarUsuarioJson = {'Clave': 'MiClave','Cuota': 100500,'MetaDatos': MetaDatos }
 		#Datos del Archivo
 		archivoJson = {'Propietario': 'usu14','Nombre': 'hola','Extension': 'txt','Directorio': 'documentos/bin','Etiquetas': ['hola','saludo'] }
 		#Datos del Archivo a actualizar
@@ -226,7 +226,7 @@ class TestServidor(unittest.TestCase):
 	def test_15RestaurarArchivo(self):
 		#Datos del usuario
 		MetaDatos = {'Email': 'pepe@mail.com','Foto': 'miFoto','Nombre': 'carlos','UltimaUbicacion': 'Bs As'}
-		registrarUsuarioJson = {'Clave': 'MiClave','Cuota': '100500','MetaDatos': MetaDatos }
+		registrarUsuarioJson = {'Clave': 'MiClave','Cuota': 100500,'MetaDatos': MetaDatos }
 		#Datos del Archivo
 		archivoJson = {'Propietario': 'usu15','Nombre': 'hola','Extension': 'txt','Directorio': 'documentos/bin','Etiquetas': ['hola','saludo'] }
 		#Datos del Archivo a actualizar

@@ -15,11 +15,20 @@ string ManejadorArchivos::crearArchivo(const string &nombreUsuario,const string 
 
 	Respuesta respuesta;
 	Archivo archivo;
-	string hashArchivo = archivo.crearArchivo(nombreUsuario,datosDelArchivo);
 
-	respuesta.agregarEstado("OK");
-	respuesta.agregarMensaje(hashArchivo);
+	try{
 
+		string hashArchivo = archivo.crearArchivo(nombreUsuario,datosDelArchivo);
+
+		respuesta.agregarEstado("OK");
+		respuesta.agregarMensaje(hashArchivo);
+
+	}catch (LimiteDeCuota l){
+
+			respuesta.agregarEstado("ERROR");
+			respuesta.agregarMensaje("El archivo supera el limite de cuota");
+
+	}
 
 	return respuesta.obtenerRespuesta();
 

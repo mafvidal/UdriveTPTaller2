@@ -8,10 +8,7 @@
 #ifndef EXCEPCIONES_H_
 #define EXCEPCIONES_H_
 
-#include <iostream>
-
-using namespace std;
-
 class ArchivoInexistente {};
+class LimiteDeCuota {};
 
 #endif /* EXCEPCIONES_H_ */

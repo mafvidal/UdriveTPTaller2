@@ -21,9 +21,16 @@ string Archivo::crearArchivo(const string &usuario,const string &json){
 	Value usuarios(arrayValue);
 	Reader lector;
 	Hash hash;
-	//Usuario usuarioAGuardar;
+	Usuario usuarioAGuardar;
 
 	lector.parse(json,datos,false);
+
+	if( !usuarioAGuardar.aumentarCuotaUsada(usuario,datos.get("Espacio",0).asUInt()) ){
+
+		LimiteDeCuota l;
+		throw l;
+
+	}
 
 	const string nombreArchivo = usuario + datos.get("Directorio","").asString()+datos.get("Nombre","").asString()+datos.get("Extension","").asString();
 
@@ -35,6 +42,7 @@ string Archivo::crearArchivo(const string &usuario,const string &json){
 	datosAGuardar["Eliminado"] = false;
 
 	metadatos["Propietario"] = usuario;
+	metadatos["Espacio"] = datos.get("Espacio",0).asUInt();
 	metadatos["Nombre"] = datos.get("Nombre","").asString();
 	metadatos["Extension"] = datos.get("Extension","").asString();
 	metadatos["Directorio"] = datos.get("Directorio","").asString();
@@ -43,7 +51,6 @@ string Archivo::crearArchivo(const string &usuario,const string &json){
 
 	datosAGuardar["MetaDatos"] = metadatos;
 
-	Usuario usuarioAGuardar;
 	usuarioAGuardar.agregarArchivo(usuario,hashArchivo);
 	this->guardarMetadatosAUsuarios(usuario,datos,hashArchivo);
 
@@ -76,6 +83,8 @@ string Archivo::eliminarArchivo(const string &nombreUsuarioEliminador,const stri
 
 	lector.parse(datosDelArchivo,datos,false);
 
+	const unsigned int &cuotaAEliminar = datos["MetaDatos"].get("Espacio",0).asUInt();
+
 	datos["Eliminado"] = true;
 
 	this->baseDeDatos->guardar(ARCHIVOS,hashArchivo,datos.toStyledString());
@@ -86,11 +95,13 @@ string Archivo::eliminarArchivo(const string &nombreUsuarioEliminador,const stri
 
 		usuario.eliminarArchivoCompartido(nombreUsuario,hashArchivo);
 		usuario.enviarALaPapelera(nombreUsuario,hashArchivo);
+		usuario.disminuirCuotaUsada(nombreUsuario,cuotaAEliminar);
 
 	}
 
 	usuario.eliminarArchivo(datosAEliminar.get("Propietario","").asString(),hashArchivo);
 	usuario.enviarALaPapelera(datosAEliminar.get("Propietario","").asString(),hashArchivo);
+	usuario.disminuirCuotaUsada(datosAEliminar.get("Propietario","").asString(),cuotaAEliminar);
 
 	return "OK";
 

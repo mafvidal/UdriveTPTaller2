@@ -48,8 +48,8 @@ bool Usuario::registrarse(const string &usuario,const string &json){
 	lector.parse(json,datosACargar,false);
 
 	datosNuevos["Clave"] = datosACargar.get("Clave","").asString();
-	datosNuevos["Cuota"] = datosACargar.get("Cuota","").asString();
-	datosNuevos["CuotaUsada"] = CUOTAINICIAL;
+	datosNuevos["Cuota"] = datosACargar.get("Cuota",0).asUInt();
+	datosNuevos["CuotaUsada"] = 0;
 	datosNuevos["Archivos"] = archivos;
 	datosNuevos["ArchivosCompartidos"] = archivos;
 	datosNuevos["Papelera"] = archivos;
@@ -163,6 +163,38 @@ bool Usuario::existeUsuario(const string &nombreUsuario){
 	return (this->baseDeDatos->leer(USUARIOS,nombreUsuario) != "");
 
 }
+
+bool Usuario::aumentarCuotaUsada(const string &nombreUsuario,const unsigned int cuotaUsada){
+
+	Value datos;
+	Reader lector;
+
+	lector.parse(this->baseDeDatos->leer(USUARIOS,nombreUsuario),datos,false);
+
+	if( datos.get("CuotaUsada",0).asUInt() + cuotaUsada > datos.get("Cuota",0).asUInt() )
+		return false;
+
+	datos["CuotaUsada"] = datos.get("CuotaUsada",0).asUInt() + cuotaUsada;
+
+	this->baseDeDatos->guardar(USUARIOS,nombreUsuario,datos.toStyledString());
+
+	return true;
+
+}
+
+void Usuario::disminuirCuotaUsada(const string &nombreUsuario,const unsigned int cuotaUsada){
+
+	Value datos;
+	Reader lector;
+
+	lector.parse(this->baseDeDatos->leer(USUARIOS,nombreUsuario),datos,false);
+
+	datos["CuotaUsada"] = datos.get("CuotaUsada",0).asUInt() - cuotaUsada;
+
+	this->baseDeDatos->guardar(USUARIOS,nombreUsuario,datos.toStyledString());
+
+}
+
 
 Usuario::~Usuario() {
 

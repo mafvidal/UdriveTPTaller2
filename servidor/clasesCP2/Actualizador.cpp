@@ -1,10 +1,3 @@
-/*
- * Actualizador.cpp
- *
- *  Created on: 22 de oct. de 2015
- *      Author: mafv
- */
-
 #include "Actualizador.h"
 
 Actualizador::Actualizador(const string &usuarioQueEstaModificando,const string &datosAActualizar) {
@@ -40,9 +33,6 @@ Actualizador::Actualizador(const string &usuarioQueEstaModificando,const string 
 }
 
 string Actualizador::actualizarArchivo(){
-
-	if (this->antiguoHash =="")
-		return "";
 
 	if(this->cambionNombre || this->cambioExtension || this->cambioDirectorio){
 
@@ -108,6 +98,7 @@ void Actualizador::cargarDatos(const string &usuarioQueEstaModificando,const str
 	this->directorioNuevo = datos.get("DirectorioNuevo","").asString();
 	this->fechaDeModificacion = fecha.obtenerFecha();
 	this->usuarioQueModifico = usuarioQueEstaModificando;
+	this->espacioNuevo = datos.get("Espacio",0).asUInt();
 	this->etiquetas = datos["Etiquetas"];
 	this->etiquetasNuevas = datos["EtiquetasNuevas"];
 	this->etiquetasEliminadas = datos["EtiquetasEliminadas"];

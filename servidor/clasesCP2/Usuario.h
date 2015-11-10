@@ -42,6 +42,10 @@ public:
 	void agregarArchivo(const string &usuario,const string &hashArchivo);
 	void enviarALaPapelera(const string &nombreUsuario,const string &hashArchivo);
 	bool existeUsuario(const string &nombreUsuario);
+	//Aumenta la cuota usada por el usuario
+	//Si la cuota no se puede aumenta ya que es mayor que el tope retorna false
+	bool aumentarCuotaUsada(const string &nombreUsuario,const unsigned int cuotaUsada);
+	void disminuirCuotaUsada(const string &nombreUsuario,const unsigned int cuotaUsada);
 	virtual ~Usuario();
 private:
 	Value cargarMetadatos(const Value &metadatos);

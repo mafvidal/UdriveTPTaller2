@@ -43,6 +43,7 @@ private:
 	string antiguoHash;
 	Value usuarios;
 	Value datosAnteriores;
+	unsigned int espacioNuevo;
 
 public:
 	Actualizador(const string &usuarioQueEstaModificando,const string &datosAActualizar);

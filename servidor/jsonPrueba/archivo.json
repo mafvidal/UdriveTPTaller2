@@ -1,4 +1,5 @@
 {
+      "Espacion" : 100,
       "Directorio" : "./documentos/",
       "Etiquetas" : [ "Rojo", "Azul", "Colores" ],
       "Extension" : "txt",
