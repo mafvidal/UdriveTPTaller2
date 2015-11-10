@@ -91,6 +91,20 @@ string ManejadorUsuario::obtenerArchivos(const string &nombreUsuario){
 
 }
 
+string ManejadorUsuario::obtenerArchivosCompartidos(const string &nombreUsuario){
+
+	Respuesta respuesta;
+	Usuario usuario;
+
+	const string &archivos = usuario.obtenerArchivosCompartidos(nombreUsuario);
+
+	respuesta.agregarEstado("OK");
+	respuesta.agregarDatos(archivos);
+
+	return respuesta.obtenerRespuesta();
+
+}
+
 string ManejadorUsuario::obtenerArchivosPapelera(const string &nombreUsuario){
 
 	Respuesta respuesta;

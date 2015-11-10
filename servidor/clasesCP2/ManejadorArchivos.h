@@ -21,6 +21,7 @@ public:
 	string compartirArchivo(const string &datosDelArchivo);
 	string actualizarArchivo(const string &nombreUsuario,const string &datosDelArchivo);
 	string restaurarArchivo(const string &nombreUsuario,const string &datosDelArchivo);
+	string recuperarArchivo(const string &nombreUsuario,const string &datosDelArchivo);
 	virtual ~ManejadorArchivos();
 };
 

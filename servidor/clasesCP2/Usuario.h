@@ -32,8 +32,10 @@ public:
 	//Retorna los metadatos del usuario
 	string obtenerDatos(const string &usuario);
 	bool actualizarDatos(const string &usuario,const string & json);
-	//Retorna la lista de archivos compartidos y propios del usuario
+	//Retorna la lista de archivos propios del usuario
 	string obtenerArchivos(const string & usuario);
+	//Retorna la lista de archivos que fueron compartidos con el usuario
+	string obtenerArchivosCompartidos(const string & usuario);
 	//Retorna los archivos que el usuario posee en la papelera
 	string verPapelera(const string &usuario);
 	void eliminarArchivoCompartido(const string &usuario,const string &hashArchivo);
@@ -42,10 +44,13 @@ public:
 	void agregarArchivo(const string &usuario,const string &hashArchivo);
 	void enviarALaPapelera(const string &nombreUsuario,const string &hashArchivo);
 	bool existeUsuario(const string &nombreUsuario);
+	//Elimina el hash del archivo de la papelera
+	void sacarDeLaPapelera(const string &nombreUsuario,const string &hashArchivo);
 	//Aumenta la cuota usada por el usuario
 	//Si la cuota no se puede aumenta ya que es mayor que el tope retorna false
 	bool aumentarCuotaUsada(const string &nombreUsuario,const unsigned int cuotaUsada);
 	void disminuirCuotaUsada(const string &nombreUsuario,const unsigned int cuotaUsada);
+	unsigned int obtenerCuotaDisponible(const string &nombreUsuario);
 	virtual ~Usuario();
 private:
 	Value cargarMetadatos(const Value &metadatos);

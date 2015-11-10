@@ -134,7 +134,7 @@ class TestServidor(unittest.TestCase):
 		#Se comparte el archivo al segundo usuario
 		salida = requests.put('http://localhost:8000/usuarios/usu9/archivos/compartir', json= archivoCompartirJson)
 		#Se obtiene el archivo compartido del segundo usuario
-		salida = requests.get('http://localhost:8000/usuarios/usu9_2/archivos')
+		salida = requests.get('http://localhost:8000/usuarios/usu9_2/archivos/compartidos')
 		salidaJson = salida.json()
 		self.assertEqual("OK", salidaJson["Estado"])
 		self.assertEqual("usu9", salidaJson["Datos"][0]["Propietario"])

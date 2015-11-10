@@ -106,6 +106,25 @@ string Usuario::obtenerArchivos(const string & usuario){
 
 	this->cargarArchivos(archivos,datos["Archivos"]);
 
+	//this->cargarArchivos(archivos,datos["ArchivosCompartidos"]);
+
+	return archivos.toStyledString();
+
+}
+
+string Usuario::obtenerArchivosCompartidos(const string & usuario){
+
+
+	Value datos;
+	Value archivos(arrayValue);
+	Reader lector;
+
+	const string datosUsuario = this->baseDeDatos->leer(USUARIOS,usuario);
+
+	lector.parse(datosUsuario,datos,false);
+
+	//this->cargarArchivos(archivos,datos["Archivos"]);
+
 	this->cargarArchivos(archivos,datos["ArchivosCompartidos"]);
 
 	return archivos.toStyledString();
@@ -164,6 +183,12 @@ bool Usuario::existeUsuario(const string &nombreUsuario){
 
 }
 
+void Usuario::sacarDeLaPapelera(const string &nombreUsuario,const string &hashArchivo){
+
+	this->eliminar(nombreUsuario,hashArchivo,"Papelera");
+
+}
+
 bool Usuario::aumentarCuotaUsada(const string &nombreUsuario,const unsigned int cuotaUsada){
 
 	Value datos;
@@ -195,6 +220,16 @@ void Usuario::disminuirCuotaUsada(const string &nombreUsuario,const unsigned int
 
 }
 
+unsigned int Usuario::obtenerCuotaDisponible(const string &nombreUsuario){
+
+	Value datos;
+	Reader lector;
+
+	lector.parse(this->baseDeDatos->leer(USUARIOS,nombreUsuario),datos,false);
+
+	return datos.get("Cuota",0).asUInt() - datos.get("CuotaUsada",0).asUInt();
+
+}
 
 Usuario::~Usuario() {
 
@@ -225,6 +260,7 @@ void Usuario::cargarArchivos(Value &archivos,const Value &archivosExistentes){
 		const string hashArchivo = archivosExistentes[indice].asString();
 		const string datosDelArchivo = this->baseDeDatos->leer(ARCHIVOS,hashArchivo);
 
+		Value datos = archivo.obtenerDatos(hashArchivo);
 		archivos.append(archivo.obtenerDatos(hashArchivo));
 
 	}

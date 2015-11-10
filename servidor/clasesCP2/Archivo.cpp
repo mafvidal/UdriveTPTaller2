@@ -27,8 +27,7 @@ string Archivo::crearArchivo(const string &usuario,const string &json){
 
 	if( !usuarioAGuardar.aumentarCuotaUsada(usuario,datos.get("Espacio",0).asUInt()) ){
 
-		LimiteDeCuota l;
-		throw l;
+		throw ELimiteDeCuota();
 
 	}
 
@@ -85,6 +84,12 @@ string Archivo::eliminarArchivo(const string &nombreUsuarioEliminador,const stri
 
 	const unsigned int &cuotaAEliminar = datos["MetaDatos"].get("Espacio",0).asUInt();
 
+	if( datos.get("Eliminado",false).asBool() ){
+
+		throw EArchivoYaEliminado();
+
+	}
+
 	datos["Eliminado"] = true;
 
 	this->baseDeDatos->guardar(ARCHIVOS,hashArchivo,datos.toStyledString());
@@ -118,6 +123,10 @@ Value Archivo::obtenerDatos(const string & hashDelArchivo){
 	const string datosDelArchivo = this->baseDeDatos->leer(ARCHIVOS,hashDelArchivo);
 
 	lector.parse(datosDelArchivo,datos);
+
+	//if(datos.get("Eliminado",false).asBool())
+		//return Json::nullValue;
+
 	metadatos = datos["MetaDatos"];
 
 	metadatosNuevos["Propietario"] = metadatos.get("Propietario","").asString();
@@ -197,7 +206,7 @@ string Archivo::actualizar(const string & nombreUsuario,const string & json){
 		Actualizador actualizador(nombreUsuario,json);
 		return actualizador.actualizarArchivo();
 
-	}catch (ArchivoInexistente e){
+	}catch (EArchivoInexistente e){
 
 		throw e;
 
@@ -217,15 +226,68 @@ string Archivo::restaurar(const string & nombreUsuario,const string & json){
 
 		}
 
-			restaurador.restaurarArchivo();
+		restaurador.restaurarArchivo();
 
-	}catch (ArchivoInexistente e){
+	}catch (EArchivoInexistente e){
 
 		throw e;
 
 	}
 
 	return "OK";
+
+}
+
+bool Archivo::recuperarArchivo(const string &nombreUsuarioRecuperador,const string &json){
+
+	Value datos;
+	Value datosARecuperar;
+	Value metadatos;
+	Reader lector;
+	Hash hash;
+	Usuario usuario;
+
+	lector.parse(json,datosARecuperar,false);
+
+	const string nombre = datosARecuperar.get("Propietario","").asString() + datosARecuperar.get("Directorio","").asString() + datosARecuperar.get("Nombre","").asString() + datosARecuperar.get("Extension","").asString();
+
+	string hashArchivo = hash.obtenerHashDelArchivo(nombre);
+
+	string datosDelArchivo = this->baseDeDatos->leer(ARCHIVOS,hashArchivo);
+
+	lector.parse(datosDelArchivo,datos,false);
+
+	const unsigned int &cuotaAgregar = datos["MetaDatos"].get("Espacio",0).asUInt();
+
+	if ( usuario.obtenerCuotaDisponible(nombreUsuarioRecuperador) < cuotaAgregar )
+			return false;
+
+	if( !datos.get("Eliminado",true).asBool() ){
+
+		throw EArchivoExistente();
+
+	}
+
+
+	datos["Eliminado"] = false;
+
+	this->baseDeDatos->guardar(ARCHIVOS,hashArchivo,datos.toStyledString());
+
+	for ( unsigned int indice = 0; indice < datos["Usuarios"].size(); ++indice ){
+
+		const string nombreUsuario = (datos["Usuarios"])[indice].asString();
+
+		usuario.agregarArchivoCompartido(nombreUsuario,hashArchivo);
+		usuario.sacarDeLaPapelera(nombreUsuario,hashArchivo);
+		usuario.aumentarCuotaUsada(nombreUsuario,cuotaAgregar);
+
+	}
+
+	usuario.agregarArchivo(datosARecuperar.get("Propietario","").asString(),hashArchivo);
+	usuario.sacarDeLaPapelera(datosARecuperar.get("Propietario","").asString(),hashArchivo);
+	usuario.aumentarCuotaUsada(datosARecuperar.get("Propietario","").asString(),cuotaAgregar);
+
+	return true;
 
 }
 

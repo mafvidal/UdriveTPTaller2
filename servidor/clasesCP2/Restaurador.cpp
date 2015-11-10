@@ -13,8 +13,9 @@ Restaurador::Restaurador(const string &usuarioQueRestaura,const string &datosARe
 	this->cargarDatos(usuarioQueRestaura,datosARestaurar);
 
 	if( this->hashVersionActual == "" ){
-		ArchivoInexistente e;
-		throw e;
+
+		throw EArchivoInexistente();
+
 	}
 
 }

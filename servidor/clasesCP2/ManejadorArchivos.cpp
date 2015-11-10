@@ -23,7 +23,7 @@ string ManejadorArchivos::crearArchivo(const string &nombreUsuario,const string 
 		respuesta.agregarEstado("OK");
 		respuesta.agregarMensaje(hashArchivo);
 
-	}catch (LimiteDeCuota l){
+	}catch (ELimiteDeCuota l){
 
 			respuesta.agregarEstado("ERROR");
 			respuesta.agregarMensaje("El archivo supera el limite de cuota");
@@ -38,17 +38,27 @@ string ManejadorArchivos::eliminarArchivo(const string &nombreUsuario,const stri
 
 	Respuesta respuesta;
 	Archivo archivo;
-	const string &resultado = archivo.eliminarArchivo(nombreUsuario,datosDelArchivo);
 
-	if( resultado == "OK" ){
+	try{
 
-		respuesta.agregarEstado("OK");
-		respuesta.agregarMensaje("Archivo enviado a la papelera");
+		const string &resultado = archivo.eliminarArchivo(nombreUsuario,datosDelArchivo);
 
-	}else if ( resultado == "NoEsPropietario" ){
+		if( resultado == "OK" ){
+
+			respuesta.agregarEstado("OK");
+			respuesta.agregarMensaje("Archivo enviado a la papelera");
+
+		}else if ( resultado == "NoEsPropietario" ){
+
+			respuesta.agregarEstado("ERROR");
+			respuesta.agregarMensaje("Solo el propietario puede eliminar el archivo");
+
+		}
+
+	}catch(EArchivoYaEliminado e){
 
 		respuesta.agregarEstado("ERROR");
-		respuesta.agregarMensaje("Solo el propietario puede eliminar el archivo");
+		respuesta.agregarMensaje("El archivo ya se encuentra en la papelera");
 
 	}
 
@@ -108,7 +118,7 @@ string ManejadorArchivos::actualizarArchivo(const string &nombreUsuario,const st
 
 		}
 
-	}catch (ArchivoInexistente e){
+	}catch (EArchivoInexistente e){
 
 		respuesta.agregarEstado("ERROR");
 		respuesta.agregarMensaje("No existe el archivo a actualizar");
@@ -141,10 +151,40 @@ string ManejadorArchivos::restaurarArchivo(const string &nombreUsuario,const str
 		}
 
 
-	}catch(ArchivoInexistente e){
+	}catch(EArchivoInexistente e){
 
 		respuesta.agregarEstado("ERROR");
 		respuesta.agregarMensaje("El archivo a restaurar no existe");
+
+	}
+
+	return respuesta.obtenerRespuesta();
+
+}
+
+string ManejadorArchivos::recuperarArchivo(const string &nombreUsuario,const string &datosDelArchivo){
+
+	Respuesta respuesta;
+	Archivo archivo;
+
+	try{
+
+		if( archivo.recuperarArchivo(nombreUsuario,datosDelArchivo) ){
+
+			respuesta.agregarEstado("OK");
+			respuesta.agregarMensaje("Archivo recuperado");
+
+		}else{
+
+			respuesta.agregarEstado("ERROR");
+			respuesta.agregarMensaje("No dispone de espacio suficiente para restaurar el archivo");
+
+		}
+
+	} catch(EArchivoExistente e){
+
+		respuesta.agregarEstado("ERROR");
+		respuesta.agregarMensaje("El archivo no fue eliminado");
 
 	}
 

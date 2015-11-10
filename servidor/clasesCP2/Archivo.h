@@ -1,10 +1,3 @@
-/*
- * Archivo.h
- *
- *  Created on: 23 de oct. de 2015
- *      Author: mafv
- */
-
 #ifndef ARCHIVO_H_
 #define ARCHIVO_H_
 
@@ -32,12 +25,12 @@ public:
 	//Elimina el archivo enviandolo a la papelera
 	//Recibe los datos del archivo
 	string eliminarArchivo(const string &nombreUsuarioEliminador,const string &json);
-	//¿?
 	Value obtenerDatos(const string & hashDelArchivo);
 	//Comparte el archivo segun el json, con los usuariosACompartir
 	string compartir(const string &usuariosACompartir,const string & json);
 	string actualizar(const string & nombreUsuario,const string & json);
 	string restaurar(const string & nombreUsuario,const string & json);
+	bool recuperarArchivo(const string &nombreUsuarioRecuperador,const string &json);
 	virtual ~Archivo();
 private:
 	void guardarMetadatosAUsuarios(const string &usuario,const Value &datos,const string &hash);

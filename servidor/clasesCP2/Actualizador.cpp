@@ -12,8 +12,9 @@ Actualizador::Actualizador(const string &usuarioQueEstaModificando,const string 
 	this->antiguoHash = hash.obtenerHashDelArchivo(this->propietario+this->directorioOriginal+this->nombreOriginal+this->extensionOriginal);
 
 	if( this->antiguoHash == "" ){
-		ArchivoInexistente e;
-		throw e;
+
+		throw EArchivoInexistente();
+
 	}
 
 	if(this->cambionNombre || this->cambioExtension || this->cambioDirectorio){

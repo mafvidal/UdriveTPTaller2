@@ -21,6 +21,7 @@ public:
 	string obtenerDatos(const string &nombreUsuario);
 	string actualizarDatos(const string &nombreUsuario,const string &datosUsuario);
 	string obtenerArchivos(const string &nombreUsuario);
+	string obtenerArchivosCompartidos(const string &nombreUsuario);
 	string obtenerArchivosPapelera(const string &nombreUsuario);
 	virtual ~ManejadorUsuario();
 };

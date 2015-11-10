@@ -8,7 +8,9 @@
 #ifndef EXCEPCIONES_H_
 #define EXCEPCIONES_H_
 
-class ArchivoInexistente {};
-class LimiteDeCuota {};
+class EArchivoInexistente {};
+class ELimiteDeCuota {};
+class EArchivoYaEliminado {};
+class EArchivoExistente {};
 
 #endif /* EXCEPCIONES_H_ */

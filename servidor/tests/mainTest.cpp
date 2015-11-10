@@ -219,8 +219,8 @@ TEST(baseDeDatos, alCompartirUnArchivoConUnUsarioEsteDebeTenerlo) {
 
 	archivo.compartir(usuarios.toStyledString(),cargarJsonArchivo("usuarioTest9"));
 
-	lector.parse(usuario.obtenerArchivos("usuarioTest9_1"),datosArchivo1,false);
-	lector.parse(usuario.obtenerArchivos("usuarioTest9_2"),datosArchivo2,false);
+	lector.parse(usuario.obtenerArchivosCompartidos("usuarioTest9_1"),datosArchivo1,false);
+	lector.parse(usuario.obtenerArchivosCompartidos("usuarioTest9_2"),datosArchivo2,false);
 
 	//El usuario debe tener el archivo
 	EXPECT_EQ(1,datosArchivo1.size());

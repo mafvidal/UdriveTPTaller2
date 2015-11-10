@@ -204,12 +204,17 @@ string AdministradorServidor::realizarOperacion(){
 		ManejadorUsuario manejadorUsuario;
 		respuesta = manejadorUsuario.actualizarDatos(mensaje.quien,cuerpo);
 
-	//Retorna los datos de los archivos que posee el usuario,
-	//tanto compartidos como propios
+	//Retorna los datos de los archivos que posee el usuario, solo los propios,
 	}else if(mensaje.tipo == "GETusuariosarchivos"){
 
 		ManejadorUsuario manejadorUsuario;
 		respuesta = manejadorUsuario.obtenerArchivos(mensaje.quien);
+
+	//Retorna los datos de los archivos que fueron compartidos con el usuario
+	}else if(mensaje.tipo == "GETusuariosarchivoscompartidos"){
+
+		ManejadorUsuario manejadorUsuario;
+		respuesta = manejadorUsuario.obtenerArchivosCompartidos(mensaje.quien);
 
 	//Elimina el archivo enviandolo a la papelera
 	}else if(mensaje.tipo == "DELETEusuariosarchivos"){
@@ -265,6 +270,11 @@ string AdministradorServidor::realizarOperacion(){
 
 		ManejadorUsuario manejadorUsuario;
 		respuesta = manejadorUsuario.obtenerArchivosPapelera(mensaje.quien);
+
+	}else if(mensaje.tipo == "PUTusuariosarchivosrecuperar"){
+
+		ManejadorArchivos manejadorArchivos;
+		respuesta = manejadorArchivos.recuperarArchivo(mensaje.quien,cuerpo);
 
 	}else{
 

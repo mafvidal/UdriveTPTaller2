@@ -53,7 +53,9 @@ string Buscador::buscarMetadato(const unsigned int &TIPO,const string &metadato)
 
 		const string hash = archivos[indice].asString();
 		//lector.parse(this->baseDeDatos->leer(ARCHIVOS,hash),datosArchivos,false);
-		archivosMetadatos.append(archivo.obtenerDatos(hash));
+		Value datos = archivo.obtenerDatos(hash);
+		//if( datos != Json::nullValue )
+		archivosMetadatos.append(datos);
 
 	}
 
