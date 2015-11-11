@@ -7,11 +7,10 @@
 
 #include "ManejadorArchivosFisicos.h"
 
-map<string,FILE*> ManejadorArchivosFisicos::archivos;
-
 ManejadorArchivosFisicos::ManejadorArchivosFisicos(const string &hashArchivo) {
 
 	this->baseDeDatos = BasedeDatos::obteberInstancia();
+	this->controladorActualizacion = ControladorActualizacion::obteberInstanciaControlador();
 
 	this->hashArchivo = hashArchivo;
 
@@ -20,6 +19,7 @@ ManejadorArchivosFisicos::ManejadorArchivosFisicos(const string &hashArchivo) {
 ManejadorArchivosFisicos::ManejadorArchivosFisicos(){
 
 	this->baseDeDatos = BasedeDatos::obteberInstancia();
+	this->controladorActualizacion = ControladorActualizacion::obteberInstanciaControlador();
 
 }
 
@@ -62,7 +62,10 @@ void ManejadorArchivosFisicos::crearArchivoFisico(struct mg_connection *c,struct
 
 	archivo = fopen (datos->hashArchivo.c_str(), "wb");
 
-	this->archivos[datos->hashArchivo] = archivo;
+	//Si otro usuario esta actualizando el mismo archivo espera a que finalice la actualizacion
+	while(this->controladorActualizacion->seEstaActualizandoElArchivo(datos->hashArchivo,archivo)){
+		sleep(5);
+	}
 
 	c->user_data = (void *) datos;
 
@@ -95,7 +98,7 @@ void ManejadorArchivosFisicos::cargarArchivo(struct mg_connection *c){
 
 		to_write = c->recv_mbuf.len;
 
-	FILE * archivo = this->archivos[datos->hashArchivo];
+	FILE * archivo = this->controladorActualizacion->obtenerArchivo(datos->hashArchivo);//this->archivos[datos->hashArchivo];
 
 	written = fwrite(c->recv_mbuf.buf, 1, to_write, archivo);
 
@@ -108,11 +111,17 @@ void ManejadorArchivosFisicos::cargarArchivo(struct mg_connection *c){
 		respuesta.agregarEstado("OK");
 		respuesta.agregarMensaje("Archivo creado correctamente");
 
-		mg_printf(c,"%s",respuesta.obtenerRespuesta().c_str());
+		const string &z=respuesta.obtenerRespuesta();
 
-		fclose(this->archivos[datos->hashArchivo]);
+		mg_printf(c, "HTTP/1.0 200 OK\r\nContent-Length: %d\r\n"
+					"Content-Type: application/json\r\n\r\n%s",
+					(int) z.size(), z.c_str());
 
-		this->archivos.erase(datos->hashArchivo);
+		//fclose(this->archivos[datos->hashArchivo]);
+		fclose(archivo);
+
+		this->controladorActualizacion->archivoActualizado(datos->hashArchivo);
+		//this->archivos.erase(datos->hashArchivo);
 		delete datos;
 
 		c->user_data = NULL;

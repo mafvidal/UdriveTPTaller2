@@ -16,7 +16,9 @@
 #include "Directorio.h"
 #include "Respuesta.h"
 #include "Usuario.h"
+#include "ControladorActualizacion.h"
 #include <stdlib.h>
+#include <fcntl.h>
 #include <map>
 
 using namespace std;
@@ -24,8 +26,9 @@ using namespace Json;
 
 class ManejadorArchivosFisicos {
 private:
-	static map<string,FILE*> archivos;
+	//static map<string,FILE*> archivos;
 	BasedeDatos *baseDeDatos;
+	ControladorActualizacion * controladorActualizacion;
 	string hashArchivo;
 public:
 	ManejadorArchivosFisicos(const string &hashArchivo);
