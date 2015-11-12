@@ -59,6 +59,7 @@ private:
 	void restaurarEtiquetas();
 	void eliminarEtiquetasAgregadas();
 	string generarArchivo();
+	void restaurarArchivoFisico();
 };
 
 #endif /* RESTAURADOR_H_ */

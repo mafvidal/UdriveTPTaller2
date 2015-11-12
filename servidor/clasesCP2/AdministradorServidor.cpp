@@ -39,19 +39,56 @@ void AdministradorServidor::administrar(){
 
 				if( mensaje.archivoFisico == "POSTusuariosarchivofisico" ){
 
-					ManejadorArchivosFisicos maf(mensaje.hashArchivo);
+					try{
 
-					maf.crearArchivoFisico(c,hm);
+						ManejadorArchivosFisicos archivoFisico(mensaje.hashArchivo);
 
-					this->administrar();
+						archivoFisico.crearArchivoFisico(c,hm);
+
+						this->administrar();
+
+					}catch ( EArchivoInexistente &e ){
+
+						this->cerrar();
+						/*Respuesta respuesta;
+						respuesta.agregarEstado("ERROR");
+						respuesta.agregarMensaje("El archivo no existe");
+
+						const string &error=respuesta.obtenerRespuesta();
+
+						mg_printf(c, "HTTP/1.0 200 OK\r\nContent-Length: %d\r\n"
+									"Content-Type: application/json\r\n\r\n%s",
+									(int) error.size(), error.c_str());*/
+
+					}
+
+
 
 				}else if( mensaje.archivoFisico == "PUTusuariosarchivofisico" ){
 
-					ManejadorArchivosFisicos archivoFisico(mensaje.hashArchivo);
+					try{
 
-					archivoFisico.actualizarArchivoFisico(c,hm);
+						ManejadorArchivosFisicos archivoFisico(mensaje.hashArchivo);
 
-					this->administrar();
+						archivoFisico.actualizarArchivoFisico(c,hm);
+
+						this->administrar();
+
+					}catch ( EArchivoInexistente &e ){
+
+						this->cerrar();
+						/*Respuesta respuesta;
+						respuesta.agregarEstado("ERROR");
+						respuesta.agregarMensaje("El archivo no existe");
+
+						const string &error=respuesta.obtenerRespuesta();
+
+						mg_printf(c, "HTTP/1.0 200 OK\r\nContent-Length: %d\r\n"
+									"Content-Type: application/json\r\n\r\n%s",
+									(int) error.size(), error.c_str());*/
+
+					}
+
 
 				}
 			}
@@ -285,3 +322,18 @@ string AdministradorServidor::realizarOperacion(){
 	return respuesta;
 
 }
+
+void AdministradorServidor::cerrar(){
+
+	Respuesta respuesta;
+	respuesta.agregarEstado("ERROR");
+	respuesta.agregarMensaje("El archivo no existe");
+
+	const string &error=respuesta.obtenerRespuesta();
+
+	mg_printf(c, "HTTP/1.0 200 OK\r\nContent-Length: %d\r\n"
+				"Content-Type: application/json\r\n\r\n%s",
+				(int) error.size(), error.c_str());
+
+}
+

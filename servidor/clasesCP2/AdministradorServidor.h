@@ -37,6 +37,7 @@ private:
 	int sonIguales(const struct mg_str *s1, const struct mg_str *s2);
 	string determinarProtocolo();
 	string realizarOperacion();
+	void cerrar();
 
 };
 

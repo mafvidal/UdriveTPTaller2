@@ -44,6 +44,8 @@ void Restaurador::restaurarArchivo(){
 
 	const string &nuevoArchivo = this->generarArchivo();
 
+	this->restaurarArchivoFisico();
+
 	this->baseDeDatos->eliminar(ARCHIVOS,this->hashVersionActual);
 	this->baseDeDatos->eliminar(ARCHIVOS,this->hashVersionPrevia);
 	this->baseDeDatos->guardar(ARCHIVOS,this->hashVersionARestaurar,nuevoArchivo);
@@ -243,5 +245,30 @@ string Restaurador::generarArchivo(){
 	nuevoArchivo["HashVersionAnterior"] = this->hashVersionAnterior;
 
 	return nuevoArchivo.toStyledString();
+
+}
+
+
+void Restaurador::restaurarArchivoFisico(){
+
+	string archivoEliminar = "./Udrive/"+this->hashVersionActual;
+	string archivoPrevio = "./Udrive/"+this->hashVersionPrevia;
+	string archivoRestaurar = "./Udrive/"+this->hashVersionARestaurar;
+
+	FILE * archivo = fopen(archivoPrevio.c_str(),"rb");
+
+	if (archivo == NULL && errno == ENOENT){
+
+		rename(archivoEliminar.c_str(),archivoRestaurar.c_str());
+		return ;
+
+	}else {
+
+		fclose(archivo);
+		remove(archivoEliminar.c_str());
+		rename(archivoPrevio.c_str(),archivoRestaurar.c_str());
+		return ;
+
+	}
 
 }

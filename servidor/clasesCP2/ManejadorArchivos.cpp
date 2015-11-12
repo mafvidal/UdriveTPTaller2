@@ -23,7 +23,7 @@ string ManejadorArchivos::crearArchivo(const string &nombreUsuario,const string 
 		respuesta.agregarEstado("OK");
 		respuesta.agregarMensaje(hashArchivo);
 
-	}catch (ELimiteDeCuota l){
+	}catch (ELimiteDeCuota &l){
 
 			respuesta.agregarEstado("ERROR");
 			respuesta.agregarMensaje("El archivo supera el limite de cuota");
@@ -55,7 +55,7 @@ string ManejadorArchivos::eliminarArchivo(const string &nombreUsuario,const stri
 
 		}
 
-	}catch(EArchivoYaEliminado e){
+	}catch(EArchivoYaEliminado &e){
 
 		respuesta.agregarEstado("ERROR");
 		respuesta.agregarMensaje("El archivo ya se encuentra en la papelera");
@@ -118,7 +118,7 @@ string ManejadorArchivos::actualizarArchivo(const string &nombreUsuario,const st
 
 		}
 
-	}catch (EArchivoInexistente e){
+	}catch (EArchivoInexistente &e){
 
 		respuesta.agregarEstado("ERROR");
 		respuesta.agregarMensaje("No existe el archivo a actualizar");
@@ -151,7 +151,7 @@ string ManejadorArchivos::restaurarArchivo(const string &nombreUsuario,const str
 		}
 
 
-	}catch(EArchivoInexistente e){
+	}catch(EArchivoInexistente &e){
 
 		respuesta.agregarEstado("ERROR");
 		respuesta.agregarMensaje("El archivo a restaurar no existe");
@@ -181,7 +181,7 @@ string ManejadorArchivos::recuperarArchivo(const string &nombreUsuario,const str
 
 		}
 
-	} catch(EArchivoExistente e){
+	} catch(EArchivoExistente &e){
 
 		respuesta.agregarEstado("ERROR");
 		respuesta.agregarMensaje("El archivo no fue eliminado");

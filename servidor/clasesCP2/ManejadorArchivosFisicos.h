@@ -17,6 +17,7 @@
 #include "Respuesta.h"
 #include "Usuario.h"
 #include "ControladorActualizacion.h"
+#include "Excepciones.h"
 #include <stdlib.h>
 #include <fcntl.h>
 #include <map>

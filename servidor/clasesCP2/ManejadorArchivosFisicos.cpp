@@ -14,6 +14,9 @@ ManejadorArchivosFisicos::ManejadorArchivosFisicos(const string &hashArchivo) {
 
 	this->hashArchivo = hashArchivo;
 
+	if( this->baseDeDatos->leer(ARCHIVOS,this->hashArchivo) == "" )
+		throw EArchivoInexistente();
+
 }
 
 ManejadorArchivosFisicos::ManejadorArchivosFisicos(){
@@ -81,6 +84,8 @@ void ManejadorArchivosFisicos::actualizarArchivoFisico(struct mg_connection *c,s
 	lector.parse(this->baseDeDatos->leer(ARCHIVOS,this->hashArchivo),datos,false);
 
 	string hashAnterior = datos.get("HashVersionAnterior","").asString();
+
+	//cout<<this->baseDeDatos->leer(ARCHIVOS,hashAnterior)<<endl;
 
 	rename(("./Udrive/"+this->hashArchivo).c_str(),("./Udrive/"+hashAnterior).c_str());
 
