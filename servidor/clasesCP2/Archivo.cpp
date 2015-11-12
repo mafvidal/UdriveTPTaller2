@@ -94,6 +94,8 @@ string Archivo::eliminarArchivo(const string &nombreUsuarioEliminador,const stri
 
 	this->baseDeDatos->guardar(ARCHIVOS,hashArchivo,datos.toStyledString());
 
+	//cout<<datos.toStyledString()<<endl;
+
 	for ( unsigned int indice = 0; indice < datos["Usuarios"].size(); ++indice ){
 
 		const string nombreUsuario = (datos["Usuarios"])[indice].asString();

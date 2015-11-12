@@ -315,7 +315,10 @@ string AdministradorServidor::realizarOperacion(){
 
 	}else{
 
-		respuesta="ERROR";
+		Respuesta error;
+		error.agregarEstado("ERROR");
+		error.agregarMensaje("URL incorrecta");
+		respuesta=error.obtenerRespuesta();
 
 	}
 
