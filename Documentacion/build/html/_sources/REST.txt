@@ -700,6 +700,63 @@ Permite al usuario descargar un determinado archivo.
 		"Mensaje": "El archivo no se pudo abrir"
 	}
 
+Subir foto del usuario (fisicamente)
+++++++++++++++++++++++++++++++++++++
+
+Permite al usuario subir su foto.
+
+**URL**: /usuarios/nombreUsuario/foto
+
+**TIPO**: POST
+
+**BODY**:
+
+* Foto del usuario
+
+**Salida**:
+
+*Si se guardo la foto exitosamente*:
+
+.. code-block:: json
+
+	{
+		"Estado": "OK",
+		"Mensaje": "Archivo creado correctamente"
+	}
+
+*Si el usuario no existe*:
+
+.. code-block:: json
+
+	{
+		"Estado": "ERROR",
+		"Mensaje": "El usuario no existe"
+	}
+
+Descargar foto del usuario (fisicamente)
+++++++++++++++++++++++++++++++++++++++++
+
+Permite al usuario descargar su foto.
+
+**URL**: /usuarios/nombreUsuario/foto
+
+**TIPO**: GET
+
+**Salida**:
+
+*Si la foto existe*:
+
+* La foto del usuario.
+
+*Si el usuario no guardo una foto*:
+
+.. code-block:: json
+
+	{
+		"Estado": "ERROR",
+		"Mensaje": "El archivo no existe"
+	}
+
 
 
 |

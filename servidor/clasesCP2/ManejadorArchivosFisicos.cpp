@@ -12,9 +12,9 @@ ManejadorArchivosFisicos::ManejadorArchivosFisicos(const string &hashArchivo) {
 	this->baseDeDatos = BasedeDatos::obteberInstancia();
 	this->controladorActualizacion = ControladorActualizacion::obteberInstanciaControlador();
 
-	this->hashArchivo = hashArchivo;
+	this->IDArchivo = hashArchivo;
 
-	if( this->baseDeDatos->leer(ARCHIVOS,this->hashArchivo) == "" )
+	if( this->baseDeDatos->leer(ARCHIVOS,this->IDArchivo) == "" )
 		throw EArchivoInexistente();
 
 }
@@ -26,29 +26,6 @@ ManejadorArchivosFisicos::ManejadorArchivosFisicos(){
 
 }
 
-void ManejadorArchivosFisicos::compartir(const string &usuario){
-
-	Value datos;
-	Reader lector;
-
-	lector.parse(this->baseDeDatos->leer(ARCHIVOS,hashArchivo),datos,false);
-
-	Directorio directorio;
-
-	string nombreArchivo = datos["MetaDatos"].get("Nombre","").asString()+"."+datos["MetaDatos"].get("Extension","").asString();
-
-	string rutaOrigen = "./Udrive/"+datos["MetaDatos"].get("Propietario","").asString()+datos["MetaDatos"].get("Directorio","").asString()+nombreArchivo;
-
-	string rutaDestino = directorio.crearDirectorios(usuario+"/"+"Compartidos"+"/"+datos["MetaDatos"].get("Propietario","").asString()+datos["MetaDatos"].get("Directorio","").asString())+nombreArchivo;
-
-	cout<<rutaOrigen<<endl;
-	cout<<rutaDestino<<endl;
-
-	//this->copiaArchivo(rutaOrigen,rutaDestino);
-	//system("copy \"rutaOrigen\" \"rutaDestino\"");
-
-}
-
 void ManejadorArchivosFisicos::crearArchivoFisico(struct mg_connection *c,struct http_message hm){
 
 	struct datosArchivo *datos;
@@ -57,7 +34,7 @@ void ManejadorArchivosFisicos::crearArchivoFisico(struct mg_connection *c,struct
 
 	datos = new datosArchivo;
 
-	datos->hashArchivo = "./Udrive/"+this->hashArchivo;//= this->inicializarEstructura();
+	datos->hashArchivo = "./Udrive/"+this->IDArchivo;//= this->inicializarEstructura();
 
 	datos->bytes_left = hm.body.len;
 
@@ -81,13 +58,27 @@ void ManejadorArchivosFisicos::actualizarArchivoFisico(struct mg_connection *c,s
 	Value datos;
 	Reader lector;
 
-	lector.parse(this->baseDeDatos->leer(ARCHIVOS,this->hashArchivo),datos,false);
+	lector.parse(this->baseDeDatos->leer(ARCHIVOS,this->IDArchivo),datos,false);
 
 	string hashAnterior = datos.get("HashVersionAnterior","").asString();
 
 	//cout<<this->baseDeDatos->leer(ARCHIVOS,hashAnterior)<<endl;
 
-	rename(("./Udrive/"+this->hashArchivo).c_str(),("./Udrive/"+hashAnterior).c_str());
+	rename(("./Udrive/"+this->IDArchivo).c_str(),("./Udrive/"+hashAnterior).c_str());
+
+	this->crearArchivoFisico(c,hm);
+
+}
+
+void ManejadorArchivosFisicos::guardarFoto(struct mg_connection *c,struct http_message hm,const string &usuario){
+
+	this->IDArchivo = usuario;
+
+	if( this->baseDeDatos->leer(USUARIOS,this->IDArchivo) == "" )
+			throw EUsuarioInexistente();
+
+	Value datos;
+	Reader lector;
 
 	this->crearArchivoFisico(c,hm);
 
@@ -142,7 +133,7 @@ string ManejadorArchivosFisicos::inicializarEstructura(){
 	Value datos;
 	Reader lector;
 
-	lector.parse(this->baseDeDatos->leer(ARCHIVOS,hashArchivo),datos,false);
+	lector.parse(this->baseDeDatos->leer(ARCHIVOS,this->IDArchivo),datos,false);
 
 	Directorio directorio;
 
@@ -166,6 +157,46 @@ void ManejadorArchivosFisicos::actualizar(const string &archivoActual,const stri
 	remove(archivoActual.c_str());
 
 }
+
+void ManejadorArchivosFisicos::enviarArchivo(struct mg_connection *c,const string &IDArchivo){
+
+	string ruta = "Udrive/"+IDArchivo;
+
+	ifstream archivo(ruta, std::ifstream::binary);
+
+	if( archivo ){
+
+		archivo.seekg (0, archivo.end);
+		int length = archivo.tellg();
+		archivo.seekg (0, archivo.beg);
+
+		char * buffer = new char [length];
+
+		archivo.read (buffer,length);
+
+		mg_send(c,buffer,length);
+
+		c->flags |= MG_F_SEND_AND_CLOSE;
+
+		delete [] buffer;
+
+		archivo.close();
+
+	} else{
+
+		Respuesta respuesta;
+		respuesta.agregarEstado("ERROR");
+		respuesta.agregarMensaje("El archivo no existe");
+		const string &error = respuesta.obtenerRespuesta();
+		mg_printf(c, "HTTP/1.0 200 OK\r\nContent-Length: %d\r\n"
+					"Content-Type: application/json\r\n\r\n%s",
+					(int) error.size(), error.c_str());
+
+	}
+
+}
+
+
 
 ManejadorArchivosFisicos::~ManejadorArchivosFisicos() {
 }

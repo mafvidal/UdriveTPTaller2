@@ -66,6 +66,8 @@
 <li><a class="reference internal" href="#agregar-archivo-fisicamente">Agregar archivo (Fisicamente)</a></li>
 <li><a class="reference internal" href="#actualizar-archivo-fisicamente">Actualizar archivo (fisicamente)</a></li>
 <li><a class="reference internal" href="#descargar-archivo-fisicamente">Descargar archivo (fisicamente)</a></li>
+<li><a class="reference internal" href="#subir-foto-del-usuario-fisicamente">Subir foto del usuario (fisicamente)</a></li>
+<li><a class="reference internal" href="#descargar-foto-del-usuario-fisicamente">Descargar foto del usuario (fisicamente)</a></li>
 </ul>
 </li>
 </ul>
@@ -597,6 +599,49 @@
 <div class="highlight-json"><div class="highlight"><pre><span class="p">{</span>
         <span class="nt">&quot;Estado&quot;</span><span class="p">:</span> <span class="s2">&quot;ERROR&quot;</span><span class="p">,</span>
         <span class="nt">&quot;Mensaje&quot;</span><span class="p">:</span> <span class="s2">&quot;El archivo no se pudo abrir&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="subir-foto-del-usuario-fisicamente">
+<h2>Subir foto del usuario (fisicamente)<a class="headerlink" href="#subir-foto-del-usuario-fisicamente" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Permite al usuario subir su foto.</p>
+<p><strong>URL</strong>: /usuarios/nombreUsuario/foto</p>
+<p><strong>TIPO</strong>: POST</p>
+<p><strong>BODY</strong>:</p>
+<ul class="simple">
+<li>Foto del usuario</li>
+</ul>
+<p><strong>Salida</strong>:</p>
+<p><em>Si se guardo la foto exitosamente</em>:</p>
+<div class="highlight-json"><div class="highlight"><pre><span class="p">{</span>
+        <span class="nt">&quot;Estado&quot;</span><span class="p">:</span> <span class="s2">&quot;OK&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;Mensaje&quot;</span><span class="p">:</span> <span class="s2">&quot;Archivo creado correctamente&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><em>Si el usuario no existe</em>:</p>
+<div class="highlight-json"><div class="highlight"><pre><span class="p">{</span>
+        <span class="nt">&quot;Estado&quot;</span><span class="p">:</span> <span class="s2">&quot;ERROR&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;Mensaje&quot;</span><span class="p">:</span> <span class="s2">&quot;El usuario no existe&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="descargar-foto-del-usuario-fisicamente">
+<h2>Descargar foto del usuario (fisicamente)<a class="headerlink" href="#descargar-foto-del-usuario-fisicamente" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Permite al usuario descargar su foto.</p>
+<p><strong>URL</strong>: /usuarios/nombreUsuario/foto</p>
+<p><strong>TIPO</strong>: GET</p>
+<p><strong>Salida</strong>:</p>
+<p><em>Si la foto existe</em>:</p>
+<ul class="simple">
+<li>La foto del usuario.</li>
+</ul>
+<p><em>Si el usuario no guardo una foto</em>:</p>
+<div class="highlight-json"><div class="highlight"><pre><span class="p">{</span>
+        <span class="nt">&quot;Estado&quot;</span><span class="p">:</span> <span class="s2">&quot;ERROR&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;Mensaje&quot;</span><span class="p">:</span> <span class="s2">&quot;El archivo no existe&quot;</span>
 <span class="p">}</span>
 </pre></div>
 </div>

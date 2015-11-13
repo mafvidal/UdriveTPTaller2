@@ -36,7 +36,7 @@ void AdministradorServidor::administrar(){
 			}else{
 
 				this->parsearMensaje();
-
+				//Crea el archivo
 				if( mensaje.archivoFisico == "POSTusuariosarchivofisico" ){
 
 					try{
@@ -52,7 +52,7 @@ void AdministradorServidor::administrar(){
 						this->cerrar();
 
 					}
-
+				//Actualiza el archivo
 				}else if( mensaje.archivoFisico == "PUTusuariosarchivofisico" ){
 
 					try{
@@ -68,50 +68,42 @@ void AdministradorServidor::administrar(){
 						this->cerrar();
 
 					}
+				//Guarda el la foto del usuario
+				}else if( mensaje.archivoFisico == "POSTusuariosfoto" ){
 
+					try{
+
+						ManejadorArchivosFisicos archivoFisico;
+
+						archivoFisico.guardarFoto(c,hm,mensaje.quien);
+
+						this->administrar();
+
+					}catch ( EUsuarioInexistente &e ){
+
+						this->cerrar();
+
+					}
 
 				}
+
 			}
 
 		}else if ( this->ev == MG_EV_HTTP_REQUEST ){
 
 			this->parsearMensaje();
-
+			//Se solicita un archivo
 			if ( mensaje.archivoFisico == "GETusuariosarchivofisico" ){
 
-				string ruta = "Udrive/"+mensaje.hashArchivo;
+				ManejadorArchivosFisicos archivoFisico;
 
-				ifstream archivo(ruta, std::ifstream::binary);
+				archivoFisico.enviarArchivo(c,mensaje.hashArchivo);
+			//Se solicita la foto del usuario
+			}else if ( mensaje.archivoFisico == "GETusuariosfoto" ){
 
-				if( archivo ){
+				ManejadorArchivosFisicos archivoFisico;
 
-					archivo.seekg (0, archivo.end);
-					int length = archivo.tellg();
-					archivo.seekg (0, archivo.beg);
-
-					char * buffer = new char [length];
-
-					archivo.read (buffer,length);
-
-					mg_send(c,buffer,length);
-
-					c->flags |= MG_F_SEND_AND_CLOSE;
-
-					delete [] buffer;
-
-					archivo.close();
-
-				} else{
-
-					Respuesta respuesta;
-					respuesta.agregarEstado("ERROR");
-					respuesta.agregarMensaje("El archivo no se pudo abrir");
-					const string &error = respuesta.obtenerRespuesta();
-					mg_printf(c, "HTTP/1.0 200 OK\r\nContent-Length: %d\r\n"
-								"Content-Type: application/json\r\n\r\n%s",
-								(int) error.size(), error.c_str());
-
-				}
+				archivoFisico.enviarArchivo(c,mensaje.quien);
 
 			}else{
 

@@ -12,5 +12,6 @@ class EArchivoInexistente {};
 class ELimiteDeCuota {};
 class EArchivoYaEliminado {};
 class EArchivoExistente {};
+class EUsuarioInexistente {};
 
 #endif /* EXCEPCIONES_H_ */

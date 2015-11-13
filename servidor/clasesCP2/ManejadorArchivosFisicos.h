@@ -30,15 +30,16 @@ private:
 	//static map<string,FILE*> archivos;
 	BasedeDatos *baseDeDatos;
 	ControladorActualizacion * controladorActualizacion;
-	string hashArchivo;
+	string IDArchivo;
 public:
 	ManejadorArchivosFisicos(const string &hashArchivo);
-	void compartir(const string &usuario);
 	ManejadorArchivosFisicos();
 	void crearArchivoFisico(struct mg_connection *c,struct http_message hm);
 	void actualizarArchivoFisico(struct mg_connection *c,struct http_message hm);
+	void guardarFoto(struct mg_connection *c,struct http_message hm,const string &usuario);
 	void cargarArchivo(struct mg_connection *c);
 	void actualizar(const string &archivoActual,const string &archivoNuevo);
+	void enviarArchivo(struct mg_connection *c,const string &IDArchivo);
 	virtual ~ManejadorArchivosFisicos();
 private:
 	string inicializarEstructura();
