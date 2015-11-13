@@ -66,6 +66,7 @@
 <li><a class="reference internal" href="#agregar-archivo-fisicamente">Agregar archivo (Fisicamente)</a></li>
 <li><a class="reference internal" href="#actualizar-archivo-fisicamente">Actualizar archivo (fisicamente)</a></li>
 <li><a class="reference internal" href="#descargar-archivo-fisicamente">Descargar archivo (fisicamente)</a></li>
+<li><a class="reference internal" href="#descargar-version-del-archivo-fisicamente">Descargar version del archivo (fisicamente)</a></li>
 <li><a class="reference internal" href="#subir-foto-del-usuario-fisicamente">Subir foto del usuario (fisicamente)</a></li>
 <li><a class="reference internal" href="#descargar-foto-del-usuario-fisicamente">Descargar foto del usuario (fisicamente)</a></li>
 </ul>
@@ -432,7 +433,7 @@
 <p><em>Si el archivo fue restaurado con exito</em></p>
 <div class="highlight-json"><div class="highlight"><pre><span class="p">{</span>
         <span class="nt">&quot;Estado&quot;</span><span class="p">:</span> <span class="s2">&quot;OK&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;Mensaje&quot;</span><span class="p">:</span> <span class="s2">&quot;Archivo restaurado&quot;</span>
+        <span class="nt">&quot;Mensaje&quot;</span><span class="p">:</span> <span class="s2">&quot;IDArchivo&quot;</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -588,12 +589,34 @@
 <div class="section" id="descargar-archivo-fisicamente">
 <h2>Descargar archivo (fisicamente)<a class="headerlink" href="#descargar-archivo-fisicamente" title="Enlazar permanentemente con este título">¶</a></h2>
 <p>Permite al usuario descargar un determinado archivo.</p>
-<p><strong>URL</strong>: /usuarios/nombreUsuario/archivofisico/IDArchivo</p>
+<p><strong>URL</strong>: /usuarios/nombreUsuario/archivofisico/IDArchivo/</p>
 <p><strong>TIPO</strong>: GET</p>
 <p><strong>Salida</strong>:</p>
 <p><em>Si el archivo existe</em>:</p>
 <ul class="simple">
 <li>El archivo fisico.</li>
+</ul>
+<p><em>Si el archivo no existe</em>:</p>
+<div class="highlight-json"><div class="highlight"><pre><span class="p">{</span>
+        <span class="nt">&quot;Estado&quot;</span><span class="p">:</span> <span class="s2">&quot;ERROR&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;Mensaje&quot;</span><span class="p">:</span> <span class="s2">&quot;El archivo no se pudo abrir&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="descargar-version-del-archivo-fisicamente">
+<h2>Descargar version del archivo (fisicamente)<a class="headerlink" href="#descargar-version-del-archivo-fisicamente" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Permite al usuario descargar un determinado archivo.</p>
+<p><strong>URL</strong>: /usuarios/nombreUsuario/archivofisico/IDArchivo/NumeroDeVersion</p>
+<p><strong>TIPO</strong>: GET</p>
+<p><strong>Salida</strong>:</p>
+<p><em>Si el archivo existe</em>:</p>
+<ul class="simple">
+<li>El archivo fisico.</li>
+</ul>
+<p><em>Si la version no existe</em>:</p>
+<ul class="simple">
+<li>retorna la version actual del archivo.</li>
 </ul>
 <p><em>Si el archivo no existe</em>:</p>
 <div class="highlight-json"><div class="highlight"><pre><span class="p">{</span>
