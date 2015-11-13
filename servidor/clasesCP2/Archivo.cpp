@@ -31,9 +31,9 @@ string Archivo::crearArchivo(const string &usuario,const string &json){
 
 	}
 
-	const string nombreArchivo = usuario + datos.get("Directorio","").asString()+datos.get("Nombre","").asString()+datos.get("Extension","").asString();
+	const string &nombreArchivo = usuario + datos.get("Directorio","").asString()+datos.get("Nombre","").asString()+datos.get("Extension","").asString();
 
-	const string hashArchivo = hash.obtenerHashNuevo(nombreArchivo);
+	const string &hashArchivo = hash.obtenerHashNuevo(nombreArchivo);
 
 	//usuarios.append(usuario);
 
@@ -122,7 +122,7 @@ Value Archivo::obtenerDatos(const string & hashDelArchivo){
 	Value metadatosNuevos;
 	Reader lector;
 
-	const string datosDelArchivo = this->baseDeDatos->leer(ARCHIVOS,hashDelArchivo);
+	const string &datosDelArchivo = this->baseDeDatos->leer(ARCHIVOS,hashDelArchivo);
 
 	lector.parse(datosDelArchivo,datos);
 
@@ -228,15 +228,13 @@ string Archivo::restaurar(const string & nombreUsuario,const string & json){
 
 		}
 
-		restaurador.restaurarArchivo();
+		return restaurador.restaurarArchivo();
 
 	}catch (EArchivoInexistente e){
 
 		throw e;
 
 	}
-
-	return "OK";
 
 }
 

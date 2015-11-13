@@ -138,12 +138,12 @@ string ManejadorArchivos::restaurarArchivo(const string &nombreUsuario,const str
 
 		const string &resultado = archivo.restaurar(nombreUsuario,datosDelArchivo);
 
-		if( resultado == "OK" ){
+		if( resultado != "Version0" ){
 
 			respuesta.agregarEstado("OK");
-			respuesta.agregarMensaje("Archivo restaurado");
+			respuesta.agregarMensaje(resultado);
 
-		}else if ( resultado == "Version0" ){
+		}else {
 
 			respuesta.agregarEstado("ERROR");
 			respuesta.agregarMensaje("No existe una version del archivo a restaurar");

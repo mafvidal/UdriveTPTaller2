@@ -20,7 +20,7 @@ Restaurador::Restaurador(const string &usuarioQueRestaura,const string &datosARe
 
 }
 
-void Restaurador::restaurarArchivo(){
+string Restaurador::restaurarArchivo(){
 
 	this->restaurarHashAUsuarios();
 	this->restaurarMetadato(NOMBRE,this->nombre,this->hashVersionARestaurar,this->propietario);
@@ -49,6 +49,8 @@ void Restaurador::restaurarArchivo(){
 	this->baseDeDatos->eliminar(ARCHIVOS,this->hashVersionActual);
 	this->baseDeDatos->eliminar(ARCHIVOS,this->hashVersionPrevia);
 	this->baseDeDatos->guardar(ARCHIVOS,this->hashVersionARestaurar,nuevoArchivo);
+
+	return this->hashVersionARestaurar;
 
 }
 

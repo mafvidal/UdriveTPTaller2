@@ -32,6 +32,7 @@ struct Mensaje {
   string metadato;
   string hashArchivo;
   string archivoFisico;
+  int version;
 };
 
 struct Datos {

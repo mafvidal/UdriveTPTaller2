@@ -39,11 +39,12 @@ public:
 	void guardarFoto(struct mg_connection *c,struct http_message hm,const string &usuario);
 	void cargarArchivo(struct mg_connection *c);
 	void actualizar(const string &archivoActual,const string &archivoNuevo);
-	void enviarArchivo(struct mg_connection *c,const string &IDArchivo);
+	void enviarArchivo(struct mg_connection *c,const string &IDArchivo,const int &version);
 	virtual ~ManejadorArchivosFisicos();
 private:
 	string inicializarEstructura();
 	string convertirAString(const unsigned int &version);
+	void obtenerID(const string &IDArchivo,const int &version);
 };
 
 #endif /* MANEJADORARCHIVOSFISICOS_H_ */

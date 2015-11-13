@@ -81,7 +81,15 @@ void AdministradorServidor::administrar(){
 
 					}catch ( EUsuarioInexistente &e ){
 
-						this->cerrar();
+						Respuesta respuesta;
+						respuesta.agregarEstado("ERROR");
+						respuesta.agregarMensaje("El Usuario no existe");
+
+						const string &error=respuesta.obtenerRespuesta();
+
+						mg_printf(c, "HTTP/1.0 200 OK\r\nContent-Length: %d\r\n"
+									"Content-Type: application/json\r\n\r\n%s",
+									(int) error.size(), error.c_str());
 
 					}
 
@@ -97,13 +105,14 @@ void AdministradorServidor::administrar(){
 
 				ManejadorArchivosFisicos archivoFisico;
 
-				archivoFisico.enviarArchivo(c,mensaje.hashArchivo);
+				archivoFisico.enviarArchivo(c,mensaje.hashArchivo,mensaje.version);
+
 			//Se solicita la foto del usuario
 			}else if ( mensaje.archivoFisico == "GETusuariosfoto" ){
 
 				ManejadorArchivosFisicos archivoFisico;
 
-				archivoFisico.enviarArchivo(c,mensaje.quien);
+				archivoFisico.enviarArchivo(c,mensaje.quien,-1);
 
 			}else{
 
@@ -147,6 +156,7 @@ void AdministradorServidor::parsearMensaje(){
 	string operacion = "";
 	string metadato = "";
 	string hashArchivo = "";
+	int version = -1;
 
 	istringstream iss(texto);
 	string palabra;
@@ -163,6 +173,8 @@ void AdministradorServidor::parsearMensaje(){
 			operacion = palabra;
 		}else if(i==5){
 			metadato = palabra;
+			if( archivos == "archivofisico" )
+				version = atoi( palabra.c_str() );
 		}
 
 	}
@@ -170,8 +182,9 @@ void AdministradorServidor::parsearMensaje(){
 	mensaje.quien = nombreUsuario;
 	mensaje.tipo = tipo+archivos+operacion;
 	mensaje.metadato = metadato;
-	mensaje.archivoFisico = tipo+archivos+metadato;
+	mensaje.archivoFisico = tipo+archivos;//+metadato;
 	mensaje.hashArchivo = hashArchivo;
+	mensaje.version = version;
 
 }
 
@@ -254,7 +267,6 @@ string AdministradorServidor::realizarOperacion(){
 		ManejadorUsuario manejadorUsuario;
 		respuesta = manejadorUsuario.obtenerArchivosCompartidos(mensaje.quien);
 
-	//Elimina el archivo enviandolo a la papelera
 	}else if(mensaje.tipo == "DELETEusuariosarchivos"){
 
 		ManejadorArchivos manejadorArchivos;

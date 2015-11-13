@@ -47,7 +47,7 @@ private:
 
 public:
 	Restaurador(const string &usuarioQueRestaura,const string &datosARestaurar);
-	void restaurarArchivo();
+	string restaurarArchivo();
 	unsigned int version();
 	virtual ~Restaurador();
 private:

@@ -158,9 +158,11 @@ void ManejadorArchivosFisicos::actualizar(const string &archivoActual,const stri
 
 }
 
-void ManejadorArchivosFisicos::enviarArchivo(struct mg_connection *c,const string &IDArchivo){
+void ManejadorArchivosFisicos::enviarArchivo(struct mg_connection *c,const string &IDArchivo,const int &version){
 
-	string ruta = "Udrive/"+IDArchivo;
+	this->obtenerID(IDArchivo,version);
+
+	string ruta = "Udrive/"+this->IDArchivo;
 
 	ifstream archivo(ruta, std::ifstream::binary);
 
@@ -200,6 +202,7 @@ void ManejadorArchivosFisicos::enviarArchivo(struct mg_connection *c,const strin
 
 ManejadorArchivosFisicos::~ManejadorArchivosFisicos() {
 }
+
 string ManejadorArchivosFisicos::convertirAString(const unsigned int &version){
 
 	string hashString;
@@ -210,3 +213,40 @@ string ManejadorArchivosFisicos::convertirAString(const unsigned int &version){
 	return hashString;
 
 }
+
+void ManejadorArchivosFisicos::obtenerID(const string &IDArchivo,const int &version){
+
+	if ( version < 0 ){
+
+		this->IDArchivo = IDArchivo;
+		return;
+
+	}
+
+	Reader lector;
+	Value datos;
+
+	lector.parse(this->baseDeDatos->leer(ARCHIVOS,IDArchivo),datos,false);
+
+	const int &versionActual = datos["MetaDatos"].get("Version",0).asUInt();
+
+	//Si la version no existe retorna la ultima version del archivo
+	if ( version > versionActual ){
+
+		this->IDArchivo = IDArchivo;
+		return;
+
+	}
+
+	for(int i=versionActual;i>version;i--){
+
+		string hashAnterior = datos.get("HashVersionAnterior","").asString();
+		lector.parse(this->baseDeDatos->leer(ARCHIVOS,hashAnterior),datos,false);
+
+		this->IDArchivo = hashAnterior;
+
+	}
+
+}
+
+

@@ -269,7 +269,7 @@ string Actualizador::generarNuevoArchivo(const string &hashVersionPrevia){
 	metadatos["Extension"] = this->extensionNueva;
 	metadatos["Directorio"] = this->directorioNuevo;
 	metadatos["Etiquetas"] = this->etiquetas;
-	metadatos["Version"] = this->datosAnteriores.get("Version",0).asUInt()+1;
+	metadatos["Version"] = this->datosAnteriores["MetaDatos"].get("Version",0).asUInt()+1;
 	metadatos["UsuarioQueModifico"] = this->usuarioQueModifico;
 	metadatos["FechaDeModificacion"] = this->fechaDeModificacion;
 	nuevoArchivo["MetaDatos"] = metadatos;
@@ -301,7 +301,7 @@ string Actualizador::obtenerHahsPrevio(){
 
 	Hash hash;
 
-	const string &versionPrevia = this->convertirAString(this->datosAnteriores.get("Version",0).asUInt());
+	const string &versionPrevia = this->convertirAString(this->datosAnteriores["MetaDatos"].get("Version",0).asUInt());
 	return hash.obtenerHashNuevo(this->propietario+this->directorioOriginal+this->nombreOriginal+this->extensionOriginal+versionPrevia);
 
 }

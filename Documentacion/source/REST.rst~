@@ -473,7 +473,7 @@ Recibe un json, con el directorio, extension, nombre y propietario del archivo.
 
 	{
 		"Estado": "OK",
-		"Mensaje": "Archivo restaurado"
+		"Mensaje": "IDArchivo"
 	}
 
 *Si el archivo no existe*
@@ -681,7 +681,7 @@ Descargar archivo (fisicamente)
 
 Permite al usuario descargar un determinado archivo.
 
-**URL**: /usuarios/nombreUsuario/archivofisico/IDArchivo
+**URL**: /usuarios/nombreUsuario/archivofisico/IDArchivo/
 
 **TIPO**: GET
 
@@ -699,6 +699,35 @@ Permite al usuario descargar un determinado archivo.
 		"Estado": "ERROR",
 		"Mensaje": "El archivo no se pudo abrir"
 	}
+
+Descargar version del archivo (fisicamente)
++++++++++++++++++++++++++++++++++++++++++++
+
+Permite al usuario descargar un determinado archivo.
+
+**URL**: /usuarios/nombreUsuario/archivofisico/IDArchivo/NumeroDeVersion
+
+**TIPO**: GET
+
+**Salida**:
+
+*Si el archivo existe*:
+
+* El archivo fisico.
+
+*Si la version no existe*:
+
+* retorna la version actual del archivo.
+
+*Si el archivo no existe*:
+
+.. code-block:: json
+
+	{
+		"Estado": "ERROR",
+		"Mensaje": "El archivo no se pudo abrir"
+	}
+
 
 Subir foto del usuario (fisicamente)
 ++++++++++++++++++++++++++++++++++++
@@ -736,34 +765,25 @@ Permite al usuario subir su foto.
 Descargar foto del usuario (fisicamente)
 ++++++++++++++++++++++++++++++++++++++++
 
-Permite al usuario descargar un determinado archivo.
+Permite al usuario descargar su foto.
 
 **URL**: /usuarios/nombreUsuario/foto
 
-**TIPO**: POST
-
-**BODY**:
-
-* Foto del usuario
+**TIPO**: GET
 
 **Salida**:
 
-*Si se guardo la foto exitosamente*:
+*Si la foto existe*:
 
-.. code-block:: json
+* La foto del usuario.
 
-	{
-		"Estado": "OK",
-		"Mensaje": "Archivo creado correctamente"
-	}
-
-*Si el usuario no existe*:
+*Si el usuario no guardo una foto*:
 
 .. code-block:: json
 
 	{
 		"Estado": "ERROR",
-		"Mensaje": "El usuario no existe"
+		"Mensaje": "El archivo no existe"
 	}
 
 
