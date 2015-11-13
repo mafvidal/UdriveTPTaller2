@@ -58,7 +58,7 @@ class TestServidor(unittest.TestCase):
 		salida = requests.get('http://localhost:8000/usuarios/usu5')
 		salidaJson = salida.json()
 		self.assertEqual("OK", salidaJson["Estado"])
-		self.assertEqual("pepe@mail.com", salidaJson["Datos"]["Email"])
+		self.assertEqual("pepe@mail.com", salidaJson["Email"])
 
 	def test_06ActualizarDatosUsuario(self):
 	
@@ -76,9 +76,9 @@ class TestServidor(unittest.TestCase):
 		salida = requests.get('http://localhost:8000/usuarios/usu6')
 		salidaJson = salida.json()
 		self.assertEqual("OK", salidaJson["Estado"])
-		self.assertEqual("pepito@mail.com", salidaJson["Datos"]["Email"])
-		self.assertEqual("otraFoto", salidaJson["Datos"]["Foto"])
-		self.assertEqual("China", salidaJson["Datos"]["UltimaUbicacion"])
+		self.assertEqual("pepito@mail.com", salidaJson["Email"])
+		self.assertEqual("otraFoto", salidaJson["Foto"])
+		self.assertEqual("China", salidaJson["UltimaUbicacion"])
 
 	def test_07AlCrearArchivoElUsuarioDebeTenerlo(self):
 		#Datos del usuario
@@ -94,8 +94,8 @@ class TestServidor(unittest.TestCase):
 		salida = requests.get('http://localhost:8000/usuarios/usu7/archivos')
 		salidaJson = salida.json()
 		self.assertEqual("OK", salidaJson["Estado"])
-		self.assertEqual("usu7", salidaJson["Datos"][0]["Propietario"])
-		self.assertEqual("hola", salidaJson["Datos"][0]["Nombre"])
+		self.assertEqual("usu7", salidaJson["Archivos"][0]["Propietario"])
+		self.assertEqual("hola", salidaJson["Archivos"][0]["Nombre"])
 
 	def test_08AlEliminarArchivoEsteDebeEstarEnLaPapelera(self):
 		#Datos del usuario
@@ -115,8 +115,8 @@ class TestServidor(unittest.TestCase):
 		salida = requests.get('http://localhost:8000/usuarios/usu8/papelera')
 		salidaJson = salida.json()
 		self.assertEqual("OK", salidaJson["Estado"])
-		self.assertEqual("usu8", salidaJson["Datos"][0]["Propietario"])
-		self.assertEqual("hola", salidaJson["Datos"][0]["Nombre"])
+		self.assertEqual("usu8", salidaJson["Archivos"][0]["Propietario"])
+		self.assertEqual("hola", salidaJson["Archivos"][0]["Nombre"])
 
 	def test_09AlCompartirUnArchivoConOtroUsuarioEsteDebeTenerlo(self):
 		#Datos del usuario
@@ -137,8 +137,8 @@ class TestServidor(unittest.TestCase):
 		salida = requests.get('http://localhost:8000/usuarios/usu9_2/archivos/compartidos')
 		salidaJson = salida.json()
 		self.assertEqual("OK", salidaJson["Estado"])
-		self.assertEqual("usu9", salidaJson["Datos"][0]["Propietario"])
-		self.assertEqual("hola", salidaJson["Datos"][0]["Nombre"])
+		self.assertEqual("usu9", salidaJson["Archivos"][0]["Propietario"])
+		self.assertEqual("hola", salidaJson["Archivos"][0]["Nombre"])
 
 	def test_10BuscarArchivoPorEtiquetas(self):
 		#Datos del usuario
@@ -154,8 +154,8 @@ class TestServidor(unittest.TestCase):
 		salida = requests.get('http://localhost:8000/usuarios/usu10/archivos/etiquetas/saludo')
 		salidaJson = salida.json()
 		self.assertEqual("OK", salidaJson["Estado"])
-		self.assertEqual("usu10", salidaJson["Datos"][0]["Propietario"])
-		self.assertEqual("hola", salidaJson["Datos"][0]["Nombre"])
+		self.assertEqual("usu10", salidaJson["Archivos"][0]["Propietario"])
+		self.assertEqual("hola", salidaJson["Archivos"][0]["Nombre"])
 
 	def test_11BuscarArchivoPorNombre(self):
 		#Datos del usuario
@@ -169,8 +169,8 @@ class TestServidor(unittest.TestCase):
 		salida = requests.get('http://localhost:8000/usuarios/usu11/archivos/nombre/hola')
 		salidaJson = salida.json()
 		self.assertEqual("OK", salidaJson["Estado"])
-		self.assertEqual("usu11", salidaJson["Datos"][0]["Propietario"])
-		self.assertEqual("hola", salidaJson["Datos"][0]["Nombre"])
+		self.assertEqual("usu11", salidaJson["Archivos"][0]["Propietario"])
+		self.assertEqual("hola", salidaJson["Archivos"][0]["Nombre"])
 
 	def test_12BuscarArchivoPorPropietario(self):
 		#Datos del usuario
@@ -184,8 +184,8 @@ class TestServidor(unittest.TestCase):
 		salida = requests.get('http://localhost:8000/usuarios/usu12/archivos/propietario/usu12')
 		salidaJson = salida.json()
 		self.assertEqual("OK", salidaJson["Estado"])
-		self.assertEqual("usu12", salidaJson["Datos"][0]["Propietario"])
-		self.assertEqual("hola", salidaJson["Datos"][0]["Nombre"])
+		self.assertEqual("usu12", salidaJson["Archivos"][0]["Propietario"])
+		self.assertEqual("hola", salidaJson["Archivos"][0]["Nombre"])
 
 	def test_13BuscarArchivoPorExtension(self):
 		#Datos del usuario
@@ -199,8 +199,8 @@ class TestServidor(unittest.TestCase):
 		salida = requests.get('http://localhost:8000/usuarios/usu13/archivos/extension/txt')
 		salidaJson = salida.json()
 		self.assertEqual("OK", salidaJson["Estado"])
-		self.assertEqual("usu13", salidaJson["Datos"][0]["Propietario"])
-		self.assertEqual("hola", salidaJson["Datos"][0]["Nombre"])
+		self.assertEqual("usu13", salidaJson["Archivos"][0]["Propietario"])
+		self.assertEqual("hola", salidaJson["Archivos"][0]["Nombre"])
 
 	def test_14ActualizarArchivo(self):
 		#Datos del usuario
@@ -221,7 +221,7 @@ class TestServidor(unittest.TestCase):
 		salidaJson = salida.json()
 		self.assertEqual("OK", salidaJson["Estado"])
 		#Verifico que se actualizo el nombre
-		self.assertEqual("saludo", archivoActualizadoJson["Datos"][0]["Nombre"])
+		self.assertEqual("saludo", archivoActualizadoJson["Archivos"][0]["Nombre"])
 
 	def test_15RestaurarArchivo(self):
 		#Datos del usuario
@@ -247,7 +247,7 @@ class TestServidor(unittest.TestCase):
 		self.assertEqual("OK", salidaJson["Estado"])
 		self.assertEqual("Archivo restaurado", salidaJson["Mensaje"])
 		#Verifico que se actualizo el nombre
-		self.assertEqual("hola", archivoRestauradoJson["Datos"][0]["Nombre"])
+		self.assertEqual("hola", archivoRestauradoJson["Archivos"][0]["Nombre"])
 
 
 

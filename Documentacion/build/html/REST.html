@@ -65,6 +65,7 @@
 </li>
 <li><a class="reference internal" href="#agregar-archivo-fisicamente">Agregar archivo (Fisicamente)</a></li>
 <li><a class="reference internal" href="#actualizar-archivo-fisicamente">Actualizar archivo (fisicamente)</a></li>
+<li><a class="reference internal" href="#descargar-archivo-fisicamente">Descargar archivo (fisicamente)</a></li>
 </ul>
 </li>
 </ul>
@@ -157,12 +158,10 @@
 <p><strong>TIPO</strong>: GET</p>
 <p><strong>Salida</strong>:</p>
 <div class="highlight-json"><div class="highlight"><pre><span class="p">{</span>
-        <span class="nt">&quot;Datos&quot;</span><span class="p">:</span> <span class="p">{</span>
         <span class="nt">&quot;Email&quot;</span><span class="p">:</span> <span class="s2">&quot;miMail@mail.com&quot;</span><span class="p">,</span>
         <span class="nt">&quot;Foto&quot;</span><span class="p">:</span> <span class="s2">&quot;miFoto&quot;</span><span class="p">,</span>
         <span class="nt">&quot;Nombre&quot;</span><span class="p">:</span> <span class="s2">&quot;Fulanito&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;UltimaUbicacion&quot;</span><span class="p">:</span> <span class="s2">&quot;Bs As&quot;</span>
-        <span class="p">},</span>
+        <span class="nt">&quot;UltimaUbicacion&quot;</span><span class="p">:</span> <span class="s2">&quot;Bs As&quot;</span><span class="p">,</span>
         <span class="nt">&quot;Estado&quot;</span><span class="p">:</span> <span class="s2">&quot;OK&quot;</span>
 <span class="p">}</span>
 </pre></div>
@@ -234,7 +233,7 @@
 <p><strong>TIPO</strong>: GET</p>
 <p><strong>Salida</strong>:</p>
 <div class="highlight-json"><div class="highlight"><pre><span class="p">{</span>
-        <span class="nt">&quot;Datos&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="nt">&quot;Archivos&quot;</span><span class="p">:</span> <span class="p">[</span>
                 <span class="p">{</span>
                         <span class="nt">&quot;Directorio&quot;</span><span class="p">:</span> <span class="s2">&quot;/documentos/mae/&quot;</span><span class="p">,</span>
                         <span class="nt">&quot;Etiquetas&quot;</span><span class="p">:</span> <span class="p">[</span> <span class="s2">&quot;Rojo&quot;</span><span class="p">,</span> <span class="s2">&quot;Azul&quot;</span><span class="p">,</span> <span class="s2">&quot;Colores&quot;</span> <span class="p">],</span>
@@ -270,7 +269,7 @@
 <p><strong>TIPO</strong>: GET</p>
 <p><strong>Salida</strong>:</p>
 <div class="highlight-json"><div class="highlight"><pre><span class="p">{</span>
-        <span class="nt">&quot;Datos&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="nt">&quot;Archivos&quot;</span><span class="p">:</span> <span class="p">[</span>
                 <span class="p">{</span>
                         <span class="nt">&quot;Directorio&quot;</span><span class="p">:</span> <span class="s2">&quot;/doc/&quot;</span><span class="p">,</span>
                         <span class="nt">&quot;Etiquetas&quot;</span><span class="p">:</span> <span class="p">[</span> <span class="s2">&quot;Rojo&quot;</span><span class="p">,</span> <span class="s2">&quot;Marron&quot;</span><span class="p">,</span> <span class="s2">&quot;Colores&quot;</span> <span class="p">],</span>
@@ -326,7 +325,7 @@
 <p><strong>TIPO</strong>: GET</p>
 <p><strong>Salida</strong>:</p>
 <div class="highlight-json"><div class="highlight"><pre><span class="p">{</span>
-        <span class="nt">&quot;Datos&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="nt">&quot;Archivos&quot;</span><span class="p">:</span> <span class="p">[</span>
                 <span class="p">{</span>
                         <span class="nt">&quot;Directorio&quot;</span><span class="p">:</span> <span class="s2">&quot;/doc/&quot;</span><span class="p">,</span>
                         <span class="nt">&quot;Etiquetas&quot;</span><span class="p">:</span> <span class="p">[</span> <span class="s2">&quot;Rojo&quot;</span><span class="p">,</span> <span class="s2">&quot;Marron&quot;</span><span class="p">,</span> <span class="s2">&quot;Colores&quot;</span> <span class="p">],</span>
@@ -519,7 +518,7 @@
 <h3><em>Para todas las busquedas por metadatos la salida es la siguiente</em><a class="headerlink" href="#para-todas-las-busquedas-por-metadatos-la-salida-es-la-siguiente" title="Enlazar permanentemente con este título">¶</a></h3>
 <p><strong>Salida</strong>:</p>
 <div class="highlight-json"><div class="highlight"><pre><span class="p">{</span>
-        <span class="nt">&quot;Datos&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="nt">&quot;Archivos&quot;</span><span class="p">:</span> <span class="p">[</span>
                 <span class="p">{</span>
                         <span class="nt">&quot;Directorio&quot;</span><span class="p">:</span> <span class="s2">&quot;/documentos/mae/&quot;</span><span class="p">,</span>
                         <span class="nt">&quot;Etiquetas&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Rojo&quot;</span><span class="p">,</span><span class="s2">&quot;Azul&quot;</span><span class="p">,</span><span class="s2">&quot;Colores&quot;</span><span class="p">],</span>
@@ -580,6 +579,24 @@
 <div class="highlight-json"><div class="highlight"><pre><span class="p">{</span>
         <span class="nt">&quot;Estado&quot;</span><span class="p">:</span> <span class="s2">&quot;ERROR&quot;</span><span class="p">,</span>
         <span class="nt">&quot;Mensaje&quot;</span><span class="p">:</span> <span class="s2">&quot;El archivo no existe&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="descargar-archivo-fisicamente">
+<h2>Descargar archivo (fisicamente)<a class="headerlink" href="#descargar-archivo-fisicamente" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Permite al usuario descargar un determinado archivo.</p>
+<p><strong>URL</strong>: /usuarios/nombreUsuario/archivofisico/IDArchivo</p>
+<p><strong>TIPO</strong>: GET</p>
+<p><strong>Salida</strong>:</p>
+<p><em>Si el archivo existe</em>:</p>
+<ul class="simple">
+<li>El archivo fisico.</li>
+</ul>
+<p><em>Si el archivo no existe</em>:</p>
+<div class="highlight-json"><div class="highlight"><pre><span class="p">{</span>
+        <span class="nt">&quot;Estado&quot;</span><span class="p">:</span> <span class="s2">&quot;ERROR&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;Mensaje&quot;</span><span class="p">:</span> <span class="s2">&quot;El archivo no se pudo abrir&quot;</span>
 <span class="p">}</span>
 </pre></div>
 </div>

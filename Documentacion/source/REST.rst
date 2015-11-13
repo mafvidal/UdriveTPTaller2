@@ -122,12 +122,10 @@ Retorna los datos del usuario
 .. code-block:: json
 
 	{
-		"Datos": {
 		"Email": "miMail@mail.com",
 		"Foto": "miFoto",
 		"Nombre": "Fulanito",
-		"UltimaUbicacion": "Bs As"
-		},
+		"UltimaUbicacion": "Bs As",
 		"Estado": "OK"
 	}
 
@@ -224,7 +222,7 @@ Devuelve solo los metadatos de los archivos, de los cuales el usuario es propiet
 .. code-block:: json
 
 	{
-		"Datos": [
+		"Archivos": [
 			{
 				"Directorio": "/documentos/mae/",
 				"Etiquetas": [ "Rojo", "Azul", "Colores" ],
@@ -265,7 +263,7 @@ Devuelve solo los metadatos de los archivos, los cuales fueron compartidos con e
 .. code-block:: json
 
 	{
-		"Datos": [
+		"Archivos": [
 			{
 				"Directorio": "/doc/",
 				"Etiquetas": [ "Rojo", "Marron", "Colores" ],
@@ -338,7 +336,7 @@ Retorna los metadatos de los archivos que se encuentran en la papelera.
 .. code-block:: json
 
 	{
-		"Datos": [
+		"Archivos": [
 			{
 				"Directorio": "/doc/",
 				"Etiquetas": [ "Rojo", "Marron", "Colores" ],
@@ -596,7 +594,7 @@ Permite buscar los archivos que poseen extension indicada
 .. code-block:: json
 
 	{
-		"Datos": [
+		"Archivos": [
 			{
 				"Directorio": "/documentos/mae/",
 				"Etiquetas": ["Rojo","Azul","Colores"],
@@ -676,6 +674,30 @@ Archivo a actualizar
 	{
 		"Estado": "ERROR",
 		"Mensaje": "El archivo no existe"
+	}
+
+Descargar archivo (fisicamente)
++++++++++++++++++++++++++++++++
+
+Permite al usuario descargar un determinado archivo.
+
+**URL**: /usuarios/nombreUsuario/archivofisico/IDArchivo
+
+**TIPO**: GET
+
+**Salida**:
+
+*Si el archivo existe*:
+
+* El archivo fisico.
+
+*Si el archivo no existe*:
+
+.. code-block:: json
+
+	{
+		"Estado": "ERROR",
+		"Mensaje": "El archivo no se pudo abrir"
 	}
 
 

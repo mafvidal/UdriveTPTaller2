@@ -13,7 +13,9 @@ Respuesta::Respuesta() {
 
 void Respuesta::agregarEstado(const string &estado){
 
-	this->respuesta["Estado"] = estado;
+	this->estado = estado;
+
+	//this->respuesta["Estado"] = estado;
 
 }
 void Respuesta::agregarDatos(const string &datos){
@@ -23,15 +25,32 @@ void Respuesta::agregarDatos(const string &datos){
 
 	lector.parse(datos,json,false);
 
-	this->respuesta["Datos"] = json;
+	if ( !json.isArray() ){
+
+		this->respuesta = json;
+
+	}else{
+
+		Value salida;
+
+		this->respuesta["Archivos"] = json;
+
+	}
 
 }
 void Respuesta::agregarMensaje(const string &mensaje){
 
-	this->respuesta["Mensaje"] = mensaje;
+	this->mensaje = mensaje;
+
+	//this->respuesta["Mensaje"] = mensaje;
 
 }
 string Respuesta::obtenerRespuesta(){
+
+	if ( this->mensaje != "" )
+		this->respuesta["Mensaje"] = this->mensaje;
+	if ( this->estado != "" )
+		this->respuesta["Estado"] = this->estado;
 
 	return respuesta.toStyledString();
 

@@ -50,19 +50,8 @@ void AdministradorServidor::administrar(){
 					}catch ( EArchivoInexistente &e ){
 
 						this->cerrar();
-						/*Respuesta respuesta;
-						respuesta.agregarEstado("ERROR");
-						respuesta.agregarMensaje("El archivo no existe");
-
-						const string &error=respuesta.obtenerRespuesta();
-
-						mg_printf(c, "HTTP/1.0 200 OK\r\nContent-Length: %d\r\n"
-									"Content-Type: application/json\r\n\r\n%s",
-									(int) error.size(), error.c_str());*/
 
 					}
-
-
 
 				}else if( mensaje.archivoFisico == "PUTusuariosarchivofisico" ){
 
@@ -77,15 +66,6 @@ void AdministradorServidor::administrar(){
 					}catch ( EArchivoInexistente &e ){
 
 						this->cerrar();
-						/*Respuesta respuesta;
-						respuesta.agregarEstado("ERROR");
-						respuesta.agregarMensaje("El archivo no existe");
-
-						const string &error=respuesta.obtenerRespuesta();
-
-						mg_printf(c, "HTTP/1.0 200 OK\r\nContent-Length: %d\r\n"
-									"Content-Type: application/json\r\n\r\n%s",
-									(int) error.size(), error.c_str());*/
 
 					}
 
@@ -99,11 +79,39 @@ void AdministradorServidor::administrar(){
 
 			if ( mensaje.archivoFisico == "GETusuariosarchivofisico" ){
 
-				string respuesta="Falta...";
+				string ruta = "Udrive/"+mensaje.hashArchivo;
 
-				mg_printf(c,"%s",respuesta.c_str());
-				c->flags |= MG_F_SEND_AND_CLOSE;
+				ifstream archivo(ruta, std::ifstream::binary);
 
+				if( archivo ){
+
+					archivo.seekg (0, archivo.end);
+					int length = archivo.tellg();
+					archivo.seekg (0, archivo.beg);
+
+					char * buffer = new char [length];
+
+					archivo.read (buffer,length);
+
+					mg_send(c,buffer,length);
+
+					c->flags |= MG_F_SEND_AND_CLOSE;
+
+					delete [] buffer;
+
+					archivo.close();
+
+				} else{
+
+					Respuesta respuesta;
+					respuesta.agregarEstado("ERROR");
+					respuesta.agregarMensaje("El archivo no se pudo abrir");
+					const string &error = respuesta.obtenerRespuesta();
+					mg_printf(c, "HTTP/1.0 200 OK\r\nContent-Length: %d\r\n"
+								"Content-Type: application/json\r\n\r\n%s",
+								(int) error.size(), error.c_str());
+
+				}
 
 			}else{
 
@@ -174,6 +182,7 @@ void AdministradorServidor::parsearMensaje(){
 	mensaje.hashArchivo = hashArchivo;
 
 }
+
 string AdministradorServidor::determinarProtocolo(){
 
 	if (this->sonIguales(&hm.method, &s_put_method)){

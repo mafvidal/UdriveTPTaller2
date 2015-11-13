@@ -17,6 +17,8 @@ using namespace Json;
 class Respuesta {
 private:
 	Value respuesta;
+	string estado;
+	string mensaje;
 public:
 	Respuesta();
 	void agregarEstado(const string &estado);
