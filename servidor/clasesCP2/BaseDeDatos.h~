@@ -24,7 +24,6 @@ using namespace rocksdb;
 
 class BasedeDatos {
 private:
-	static mutex mtx2;
 	mutex mtx;
 	DB* db;
 	Status estado;

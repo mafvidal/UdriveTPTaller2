@@ -13,12 +13,10 @@ mutex BasedeDatos::mtx2;
 BasedeDatos * BasedeDatos::obteberInstancia(){
 
 	if( unicaInstancia == NULL ){
-		mtx2.lock();
-		if( unicaInstancia == NULL ){
-			unicaInstancia = new BasedeDatos();
-			atexit(&destruirInstancia);
-		}
-		mtx2.unlock();
+
+		unicaInstancia = new BasedeDatos();
+		atexit(&destruirInstancia);
+
 	}
 	return unicaInstancia;
 

@@ -26,6 +26,8 @@ void *arrancarServidor(void *threadid)
 
 int main() {
 
+	BasedeDatos *baseDeDatos = BasedeDatos::obteberInstancia();
+
 	//Creo el directorio inicial
 	Directorio directorio;
 	directorio.crearDirectorioPrincipal("./Udrive/");
