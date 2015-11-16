@@ -248,7 +248,25 @@ class TestServidor(unittest.TestCase):
 		#Verifico que se actualizo el nombre
 		self.assertEqual("hola", archivoRestauradoJson["Archivos"][0]["Nombre"])
 
+	def test_16CrearArchivoFisico(self):
 
+		MetaDatos = {'Email': 'pepe@mail.com','Foto': 'miFoto','Nombre': 'carlos','UltimaUbicacion': 'Bs As'}
+		registrarUsuarioJson = {'Clave': 'MiClave','Cuota': 100500,'MetaDatos': MetaDatos }
+		#Datos del Archivo
+		archivoJson = {'Propietario': 'usu16','Nombre': 'hola','Extension': 'txt','Directorio': 'documentos/bin','Etiquetas': ['hola','saludo'] }
+		#Registramos al usuario y agregamos el archivo logico
+		salida = requests.post('http://localhost:8000/usuarios/usu16', json=registrarUsuarioJson)
+		salida = requests.post('http://localhost:8000/usuarios/usu16/archivos', json=archivoJson)
+		salidaJson = salida.json()
+		#Obtengo el ID del archivo
+		idArchivo = salidaJson["Mensaje"]
+		#Abro el archivo
+		files = {'file': open('mainTest.cpp')}
+		#Envio el archivo fisico
+		salida = requests.post('http://localhost:8000/usuarios/usu16/archivofisico/'+idArchivo, files=files)
+		salidaJson = salida.json()
+		self.assertEqual("OK", salidaJson["Estado"])
+		self.assertEqual("Archivo creado correctamente", salidaJson["Mensaje"])
 
 if __name__ == '__main__':
 

@@ -131,21 +131,6 @@ void ManejadorArchivosFisicos::cargarArchivo(struct mg_connection *c){
 
 }
 
-string ManejadorArchivosFisicos::inicializarEstructura(){
-
-	Value datos;
-	Reader lector;
-
-	lector.parse(this->baseDeDatos->leer(ARCHIVOS,this->IDArchivo),datos,false);
-
-	Directorio directorio;
-
-	string rutaCompleta = directorio.crearDirectorios(datos["MetaDatos"].get("Propietario","").asString()+"/"+datos["MetaDatos"].get("Directorio","").asString());
-
-	return rutaCompleta+datos["MetaDatos"].get("Nombre","").asString()+"."+datos["MetaDatos"].get("Extension","").asString();
-
-}
-
 void ManejadorArchivosFisicos::actualizar(const string &archivoActual,const string &archivoNuevo){
 
 	ifstream source(archivoActual.c_str(), ios::binary);

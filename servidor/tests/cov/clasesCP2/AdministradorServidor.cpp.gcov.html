@@ -1,0 +1,495 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - coverage.info - clasesCP2/AdministradorServidor.cpp</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">clasesCP2</a> - AdministradorServidor.cpp<span style="font-size: 80%;"> (source / <a href="AdministradorServidor.cpp.func-sort-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">coverage.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">156</td>
+            <td class="headerCovTableEntry">207</td>
+            <td class="headerCovTableEntryMed">75.4 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2015-11-16 13:56:42</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">9</td>
+            <td class="headerCovTableEntry">11</td>
+            <td class="headerCovTableEntryMed">81.8 %</td>
+          </tr>
+          <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : /*</a>
+<span class="lineNum">       2 </span>            :  * AdministradorServidor.cpp
+<span class="lineNum">       3 </span>            :  *
+<span class="lineNum">       4 </span>            :  *  Created on: 3 de nov. de 2015
+<span class="lineNum">       5 </span>            :  *      Author: mafv
+<span class="lineNum">       6 </span>            :  */
+<span class="lineNum">       7 </span>            : 
+<a name="8"><span class="lineNum">       8 </span>            : #include &quot;AdministradorServidor.h&quot;</a>
+<span class="lineNum">       9 </span>            : 
+<span class="lineNum">      10 </span><span class="lineCov">        101 : AdministradorServidor::AdministradorServidor(struct mg_connection *c, int ev, struct http_message p) {</span>
+<span class="lineNum">      11 </span>            : 
+<span class="lineNum">      12 </span><span class="lineCov">        101 :         this-&gt;c = c;</span>
+<span class="lineNum">      13 </span><span class="lineCov">        101 :         this-&gt;ev = ev;</span>
+<span class="lineNum">      14 </span><span class="lineCov">        101 :         this-&gt;hm = p;</span>
+<span class="lineNum">      15 </span><span class="lineCov">        101 :         this-&gt;log = Log::obteberInstanciaLog();</span>
+<span class="lineNum">      16 </span>            : 
+<a name="17"><span class="lineNum">      17 </span><span class="lineCov">        101 : }</span></a>
+<span class="lineNum">      18 </span>            : 
+<span class="lineNum">      19 </span><span class="lineCov">        102 : void AdministradorServidor::administrar(){</span>
+<span class="lineNum">      20 </span>            : 
+<span class="lineNum">      21 </span><span class="lineCov">        102 :         struct datosArchivo *datos = (struct datosArchivo *) this-&gt;c-&gt;user_data;</span>
+<span class="lineNum">      22 </span>            : 
+<span class="lineNum">      23 </span><span class="lineCov">        102 :         if( datos == NULL ){</span>
+<span class="lineNum">      24 </span>            : 
+<span class="lineNum">      25 </span><span class="lineCov">         93 :                 if ( ev == MG_EV_RECV ) {</span>
+<span class="lineNum">      26 </span>            : 
+<span class="lineNum">      27 </span><span class="lineCov">         47 :                         int req_len = mg_parse_http(this-&gt;c-&gt;recv_mbuf.buf, this-&gt;c-&gt;recv_mbuf.len, &amp;hm,1);</span>
+<span class="lineNum">      28 </span>            : 
+<span class="lineNum">      29 </span><span class="lineCov">         47 :                         if (req_len &lt; 0 || (req_len == 0 &amp;&amp; c-&gt;recv_mbuf.len &gt;= MG_MAX_HTTP_REQUEST_SIZE)) {</span>
+<span class="lineNum">      30 </span>            : 
+<span class="lineNum">      31 </span><span class="lineNoCov">          0 :                                 c-&gt;flags |= MG_F_CLOSE_IMMEDIATELY;</span>
+<span class="lineNum">      32 </span>            : 
+<span class="lineNum">      33 </span><span class="lineCov">         47 :                         } else if (req_len == 0) {</span>
+<span class="lineNum">      34 </span>            : 
+<span class="lineNum">      35 </span>            :                         }else{
+<span class="lineNum">      36 </span>            : 
+<span class="lineNum">      37 </span><span class="lineCov">         47 :                                 this-&gt;parsearMensaje();</span>
+<span class="lineNum">      38 </span>            : 
+<span class="lineNum">      39 </span><span class="lineCov">         47 :                                 this-&gt;log-&gt;info(&quot;Procesando solicitud del cliente&quot;);</span>
+<span class="lineNum">      40 </span>            : 
+<span class="lineNum">      41 </span>            :                                 //Crea el archivo
+<span class="lineNum">      42 </span><span class="lineCov">         47 :                                 if( mensaje.archivoFisico == &quot;POSTusuariosarchivofisico&quot; ){</span>
+<span class="lineNum">      43 </span>            : 
+<span class="lineNum">      44 </span><span class="lineCov">          1 :                                         this-&gt;log-&gt;debug(&quot;Creando archivo&quot;);</span>
+<span class="lineNum">      45 </span>            : 
+<span class="lineNum">      46 </span>            :                                         try{
+<span class="lineNum">      47 </span>            : 
+<span class="lineNum">      48 </span><span class="lineCov">          1 :                                                 ManejadorArchivosFisicos archivoFisico(mensaje.hashArchivo);</span>
+<span class="lineNum">      49 </span>            : 
+<span class="lineNum">      50 </span><span class="lineCov">          1 :                                                 archivoFisico.crearArchivoFisico(c,hm);</span>
+<span class="lineNum">      51 </span>            : 
+<span class="lineNum">      52 </span><span class="lineCov">          1 :                                                 this-&gt;administrar();</span>
+<span class="lineNum">      53 </span>            : 
+<span class="lineNum">      54 </span><span class="lineNoCov">          0 :                                         }catch ( EArchivoInexistente &amp;e ){</span>
+<span class="lineNum">      55 </span>            : 
+<span class="lineNum">      56 </span><span class="lineNoCov">          0 :                                                 this-&gt;log-&gt;warn(&quot;El archivo solicitado no existe&quot;);</span>
+<span class="lineNum">      57 </span>            : 
+<span class="lineNum">      58 </span><span class="lineNoCov">          0 :                                                 this-&gt;cerrar();</span>
+<span class="lineNum">      59 </span>            : 
+<span class="lineNum">      60 </span>            :                                         }
+<span class="lineNum">      61 </span>            :                                 //Actualiza el archivo
+<span class="lineNum">      62 </span><span class="lineCov">         46 :                                 }else if( mensaje.archivoFisico == &quot;PUTusuariosarchivofisico&quot; ){</span>
+<span class="lineNum">      63 </span>            : 
+<span class="lineNum">      64 </span><span class="lineNoCov">          0 :                                         this-&gt;log-&gt;debug(&quot;Actualizando archivo&quot;);</span>
+<span class="lineNum">      65 </span>            : 
+<span class="lineNum">      66 </span>            :                                         try{
+<span class="lineNum">      67 </span>            : 
+<span class="lineNum">      68 </span><span class="lineNoCov">          0 :                                                 ManejadorArchivosFisicos archivoFisico(mensaje.hashArchivo);</span>
+<span class="lineNum">      69 </span>            : 
+<span class="lineNum">      70 </span><span class="lineNoCov">          0 :                                                 archivoFisico.actualizarArchivoFisico(c,hm);</span>
+<span class="lineNum">      71 </span>            : 
+<span class="lineNum">      72 </span><span class="lineNoCov">          0 :                                                 this-&gt;administrar();</span>
+<span class="lineNum">      73 </span>            : 
+<span class="lineNum">      74 </span><span class="lineNoCov">          0 :                                         }catch ( EArchivoInexistente &amp;e ){</span>
+<span class="lineNum">      75 </span>            : 
+<span class="lineNum">      76 </span><span class="lineNoCov">          0 :                                                 this-&gt;log-&gt;warn(&quot;El archivo solicitado no existe&quot;);</span>
+<span class="lineNum">      77 </span>            : 
+<span class="lineNum">      78 </span><span class="lineNoCov">          0 :                                                 this-&gt;cerrar();</span>
+<span class="lineNum">      79 </span>            : 
+<span class="lineNum">      80 </span>            :                                         }
+<span class="lineNum">      81 </span>            :                                 //Guarda el la foto del usuario
+<span class="lineNum">      82 </span><span class="lineCov">         46 :                                 }else if( mensaje.archivoFisico == &quot;POSTusuariosfoto&quot; ){</span>
+<span class="lineNum">      83 </span>            : 
+<span class="lineNum">      84 </span><span class="lineNoCov">          0 :                                         this-&gt;log-&gt;debug(&quot;Cargar foto del usuario&quot;);</span>
+<span class="lineNum">      85 </span>            : 
+<span class="lineNum">      86 </span>            :                                         try{
+<span class="lineNum">      87 </span>            : 
+<span class="lineNum">      88 </span><span class="lineNoCov">          0 :                                                 ManejadorArchivosFisicos archivoFisico;</span>
+<span class="lineNum">      89 </span>            : 
+<span class="lineNum">      90 </span><span class="lineNoCov">          0 :                                                 archivoFisico.guardarFoto(c,hm,mensaje.quien);</span>
+<span class="lineNum">      91 </span>            : 
+<span class="lineNum">      92 </span><span class="lineNoCov">          0 :                                                 this-&gt;administrar();</span>
+<span class="lineNum">      93 </span>            : 
+<span class="lineNum">      94 </span><span class="lineNoCov">          0 :                                         }catch ( EUsuarioInexistente &amp;e ){</span>
+<span class="lineNum">      95 </span>            : 
+<span class="lineNum">      96 </span><span class="lineNoCov">          0 :                                                 this-&gt;log-&gt;warn(&quot;El usuario no existe: &quot;+mensaje.quien);</span>
+<span class="lineNum">      97 </span>            : 
+<span class="lineNum">      98 </span><span class="lineNoCov">          0 :                                                 Respuesta respuesta;</span>
+<span class="lineNum">      99 </span><span class="lineNoCov">          0 :                                                 respuesta.agregarEstado(&quot;ERROR&quot;);</span>
+<span class="lineNum">     100 </span><span class="lineNoCov">          0 :                                                 respuesta.agregarMensaje(&quot;El Usuario no existe&quot;);</span>
+<span class="lineNum">     101 </span>            : 
+<span class="lineNum">     102 </span><span class="lineNoCov">          0 :                                                 const string &amp;error=respuesta.obtenerRespuesta();</span>
+<span class="lineNum">     103 </span>            : 
+<span class="lineNum">     104 </span>            :                                                 mg_printf(c, &quot;HTTP/1.0 200 OK\r\nContent-Length: %d\r\n&quot;
+<span class="lineNum">     105 </span>            :                                                                         &quot;Content-Type: application/json\r\n\r\n%s&quot;,
+<span class="lineNum">     106 </span><span class="lineNoCov">          0 :                                                                         (int) error.size(), error.c_str());</span>
+<span class="lineNum">     107 </span>            : 
+<span class="lineNum">     108 </span>            :                                         }
+<span class="lineNum">     109 </span>            : 
+<span class="lineNum">     110 </span>            :                                 }
+<span class="lineNum">     111 </span>            : 
+<span class="lineNum">     112 </span>            :                         }
+<span class="lineNum">     113 </span>            : 
+<span class="lineNum">     114 </span><span class="lineCov">         46 :                 }else if ( this-&gt;ev == MG_EV_HTTP_REQUEST ){</span>
+<span class="lineNum">     115 </span>            : 
+<span class="lineNum">     116 </span><span class="lineCov">         46 :                         this-&gt;parsearMensaje();</span>
+<span class="lineNum">     117 </span>            : 
+<span class="lineNum">     118 </span><span class="lineCov">         46 :                         this-&gt;log-&gt;info(&quot;Procesando solicitud del cliente&quot;);</span>
+<span class="lineNum">     119 </span>            : 
+<span class="lineNum">     120 </span>            :                         //Se solicita un archivo
+<span class="lineNum">     121 </span><span class="lineCov">         46 :                         if ( mensaje.archivoFisico == &quot;GETusuariosarchivofisico&quot; ){</span>
+<span class="lineNum">     122 </span>            : 
+<span class="lineNum">     123 </span><span class="lineNoCov">          0 :                                 this-&gt;log-&gt;debug(&quot;Solicitud de archivo&quot;);</span>
+<span class="lineNum">     124 </span>            : 
+<span class="lineNum">     125 </span><span class="lineNoCov">          0 :                                 ManejadorArchivosFisicos archivoFisico;</span>
+<span class="lineNum">     126 </span>            : 
+<span class="lineNum">     127 </span><span class="lineNoCov">          0 :                                 archivoFisico.enviarArchivo(c,mensaje.hashArchivo,mensaje.version);</span>
+<span class="lineNum">     128 </span>            : 
+<span class="lineNum">     129 </span>            :                         //Se solicita la foto del usuario
+<span class="lineNum">     130 </span><span class="lineCov">         46 :                         }else if ( mensaje.archivoFisico == &quot;GETusuariosfoto&quot; ){</span>
+<span class="lineNum">     131 </span>            : 
+<span class="lineNum">     132 </span><span class="lineNoCov">          0 :                                 this-&gt;log-&gt;debug(&quot;Solicitud de foto&quot;);</span>
+<span class="lineNum">     133 </span>            : 
+<span class="lineNum">     134 </span><span class="lineNoCov">          0 :                                 ManejadorArchivosFisicos archivoFisico;</span>
+<span class="lineNum">     135 </span>            : 
+<span class="lineNum">     136 </span><span class="lineNoCov">          0 :                                 archivoFisico.enviarArchivo(c,mensaje.quien,-1);</span>
+<span class="lineNum">     137 </span>            : 
+<span class="lineNum">     138 </span>            :                         }else{
+<span class="lineNum">     139 </span>            : 
+<span class="lineNum">     140 </span><span class="lineCov">         46 :                                 string respuesta = this-&gt;realizarOperacion();</span>
+<span class="lineNum">     141 </span>            :                                 mg_printf(c, &quot;HTTP/1.0 200 OK\r\nContent-Length: %d\r\n&quot;
+<span class="lineNum">     142 </span>            :                                                                 &quot;Content-Type: application/json\r\n\r\n%s&quot;,
+<span class="lineNum">     143 </span><span class="lineCov">         46 :                                                                 (int) respuesta.size(), respuesta.c_str());</span>
+<span class="lineNum">     144 </span>            : 
+<span class="lineNum">     145 </span>            :                         }
+<span class="lineNum">     146 </span>            : 
+<span class="lineNum">     147 </span>            :                 }
+<span class="lineNum">     148 </span>            : 
+<span class="lineNum">     149 </span><span class="lineCov">          9 :         }else if ( this-&gt;ev == MG_EV_RECV ){</span>
+<span class="lineNum">     150 </span>            : 
+<span class="lineNum">     151 </span><span class="lineCov">          9 :                 ManejadorArchivosFisicos archivoFisico;</span>
+<span class="lineNum">     152 </span>            : 
+<span class="lineNum">     153 </span><span class="lineCov">          9 :                 archivoFisico.cargarArchivo(c);</span>
+<span class="lineNum">     154 </span>            : 
+<span class="lineNum">     155 </span>            :         }
+<span class="lineNum">     156 </span>            : 
+<a name="157"><span class="lineNum">     157 </span><span class="lineCov">        102 : }</span></a>
+<span class="lineNum">     158 </span>            : 
+<span class="lineNum">     159 </span><span class="lineCov">        101 : AdministradorServidor::~AdministradorServidor() {</span>
+<span class="lineNum">     160 </span><span class="lineCov">        101 : }</span>
+<a name="161"><span class="lineNum">     161 </span>            : </a>
+<span class="lineNum">     162 </span>            : 
+<span class="lineNum">     163 </span><span class="lineCov">        239 : int AdministradorServidor::sonIguales(const struct mg_str *s1, const struct mg_str *s2){</span>
+<span class="lineNum">     164 </span>            : 
+<span class="lineNum">     165 </span><span class="lineCov">        239 :         return s1-&gt;len == s2-&gt;len &amp;&amp; memcmp(s1-&gt;p, s2-&gt;p, s2-&gt;len) == 0;</span>
+<a name="166"><span class="lineNum">     166 </span>            : </a>
+<span class="lineNum">     167 </span>            : }
+<span class="lineNum">     168 </span><span class="lineCov">         93 : void AdministradorServidor::parsearMensaje(){</span>
+<span class="lineNum">     169 </span>            : 
+<span class="lineNum">     170 </span><span class="lineCov">         93 :         string URL;</span>
+<span class="lineNum">     171 </span><span class="lineCov">       2157 :         for(size_t i=0;i&lt;hm.uri.len;i++){</span>
+<span class="lineNum">     172 </span><span class="lineCov">       2064 :                 URL = URL+ hm.uri.p[i];</span>
+<span class="lineNum">     173 </span>            :         }
+<span class="lineNum">     174 </span>            : 
+<span class="lineNum">     175 </span><span class="lineCov">         93 :         this-&gt;log-&gt;debug(&quot;URL: &quot;+URL);</span>
+<span class="lineNum">     176 </span>            : 
+<span class="lineNum">     177 </span><span class="lineCov">        186 :         string tipo = &quot;&quot;;</span>
+<span class="lineNum">     178 </span><span class="lineCov">        186 :         string nombreUsuario = &quot;&quot;;</span>
+<span class="lineNum">     179 </span><span class="lineCov">        186 :         string archivos = &quot;&quot;;</span>
+<span class="lineNum">     180 </span><span class="lineCov">        186 :         string operacion = &quot;&quot;;</span>
+<span class="lineNum">     181 </span><span class="lineCov">        186 :         string metadato = &quot;&quot;;</span>
+<span class="lineNum">     182 </span><span class="lineCov">        186 :         string hashArchivo = &quot;&quot;;</span>
+<span class="lineNum">     183 </span><span class="lineCov">         93 :         int version = -1;</span>
+<span class="lineNum">     184 </span>            : 
+<span class="lineNum">     185 </span><span class="lineCov">        186 :         istringstream iss(URL);</span>
+<span class="lineNum">     186 </span><span class="lineCov">        186 :         string palabra;</span>
+<span class="lineNum">     187 </span>            : 
+<span class="lineNum">     188 </span><span class="lineCov">        448 :         for(unsigned int i = 0; getline(iss, palabra, '/') ; i++){</span>
+<span class="lineNum">     189 </span><span class="lineCov">        355 :                 if(i==1){</span>
+<span class="lineNum">     190 </span><span class="lineCov">         93 :                         tipo = this-&gt;determinarProtocolo()+palabra;</span>
+<span class="lineNum">     191 </span><span class="lineCov">        262 :                 }else if(i==2){</span>
+<span class="lineNum">     192 </span><span class="lineCov">         93 :                         nombreUsuario = palabra;</span>
+<span class="lineNum">     193 </span><span class="lineCov">        169 :                 }else if(i==3){</span>
+<span class="lineNum">     194 </span><span class="lineCov">         49 :                         archivos = palabra;</span>
+<span class="lineNum">     195 </span><span class="lineCov">        120 :                 }else if(i==4){</span>
+<span class="lineNum">     196 </span><span class="lineCov">         19 :                         hashArchivo = palabra;</span>
+<span class="lineNum">     197 </span><span class="lineCov">         19 :                         operacion = palabra;</span>
+<span class="lineNum">     198 </span><span class="lineCov">        101 :                 }else if(i==5){</span>
+<span class="lineNum">     199 </span><span class="lineCov">          8 :                         metadato = palabra;</span>
+<span class="lineNum">     200 </span><span class="lineCov">          8 :                         if( archivos == &quot;archivofisico&quot; )</span>
+<span class="lineNum">     201 </span><span class="lineNoCov">          0 :                                 version = atoi( palabra.c_str() );</span>
+<span class="lineNum">     202 </span>            :                 }
+<span class="lineNum">     203 </span>            : 
+<span class="lineNum">     204 </span>            :         }
+<span class="lineNum">     205 </span>            : 
+<span class="lineNum">     206 </span><span class="lineCov">         93 :         mensaje.quien = nombreUsuario;</span>
+<span class="lineNum">     207 </span><span class="lineCov">         93 :         mensaje.tipo = tipo+archivos+operacion;</span>
+<span class="lineNum">     208 </span><span class="lineCov">         93 :         mensaje.metadato = metadato;</span>
+<span class="lineNum">     209 </span><span class="lineCov">         93 :         mensaje.archivoFisico = tipo+archivos;//+metadato;</span>
+<span class="lineNum">     210 </span><span class="lineCov">         93 :         mensaje.hashArchivo = hashArchivo;</span>
+<span class="lineNum">     211 </span><span class="lineCov">        186 :         mensaje.version = version;</span>
+<span class="lineNum">     212 </span>            : 
+<a name="213"><span class="lineNum">     213 </span><span class="lineCov">         93 : }</span></a>
+<span class="lineNum">     214 </span>            : 
+<span class="lineNum">     215 </span><span class="lineCov">         93 : string AdministradorServidor::determinarProtocolo(){</span>
+<span class="lineNum">     216 </span>            : 
+<span class="lineNum">     217 </span><span class="lineCov">         93 :         if (this-&gt;sonIguales(&amp;hm.method, &amp;s_put_method)){</span>
+<span class="lineNum">     218 </span><span class="lineCov">         10 :                 this-&gt;log-&gt;debug(&quot;Tipo de operacion: PUT&quot;);</span>
+<span class="lineNum">     219 </span><span class="lineCov">         10 :                 return &quot;PUT&quot;;</span>
+<span class="lineNum">     220 </span>            : 
+<span class="lineNum">     221 </span><span class="lineCov">         83 :         }else if(this-&gt;sonIguales(&amp;hm.method, &amp;s_get_method)){</span>
+<span class="lineNum">     222 </span><span class="lineCov">         22 :                 this-&gt;log-&gt;debug(&quot;Tipo de operacion: GET&quot;);</span>
+<span class="lineNum">     223 </span><span class="lineCov">         22 :                 return &quot;GET&quot;;</span>
+<span class="lineNum">     224 </span>            : 
+<span class="lineNum">     225 </span><span class="lineCov">         61 :         }else if(this-&gt;sonIguales(&amp;hm.method, &amp;s_post_method)){</span>
+<span class="lineNum">     226 </span><span class="lineCov">         59 :                 this-&gt;log-&gt;debug(&quot;Tipo de operacion: POST&quot;);</span>
+<span class="lineNum">     227 </span><span class="lineCov">         59 :                 return &quot;POST&quot;;</span>
+<span class="lineNum">     228 </span>            : 
+<span class="lineNum">     229 </span><span class="lineCov">          2 :         }else if(this-&gt;sonIguales(&amp;hm.method, &amp;s_delele_method)){</span>
+<span class="lineNum">     230 </span><span class="lineCov">          2 :                 this-&gt;log-&gt;debug(&quot;Tipo de operacion: DELETE&quot;);</span>
+<span class="lineNum">     231 </span><span class="lineCov">          2 :                 return &quot;DELETE&quot;;</span>
+<span class="lineNum">     232 </span>            : 
+<span class="lineNum">     233 </span>            :         }else{
+<span class="lineNum">     234 </span><span class="lineNoCov">          0 :                 this-&gt;log-&gt;warn(&quot;Tipo de operacion inexistente&quot;);</span>
+<span class="lineNum">     235 </span><span class="lineNoCov">          0 :                 return &quot;ERROR&quot;;</span>
+<span class="lineNum">     236 </span>            : 
+<span class="lineNum">     237 </span>            :         }
+<span class="lineNum">     238 </span>            : 
+<a name="239"><span class="lineNum">     239 </span>            : }</a>
+<span class="lineNum">     240 </span>            : 
+<span class="lineNum">     241 </span><span class="lineCov">         46 : string AdministradorServidor::realizarOperacion(){</span>
+<span class="lineNum">     242 </span>            : 
+<span class="lineNum">     243 </span><span class="lineCov">         46 :         string respuesta;</span>
+<span class="lineNum">     244 </span><span class="lineCov">         92 :         string cuerpo = hm.body.p;</span>
+<span class="lineNum">     245 </span>            : 
+<span class="lineNum">     246 </span><span class="lineCov">         46 :         this-&gt;log-&gt;info(&quot;Procesando solicitud del cliente&quot;);</span>
+<span class="lineNum">     247 </span>            : 
+<span class="lineNum">     248 </span>            :         //Verifico que el usuario que solicita exista
+<span class="lineNum">     249 </span><span class="lineCov">         92 :         Usuario usuario;</span>
+<span class="lineNum">     250 </span><span class="lineCov">         46 :         if( (mensaje.tipo != &quot;POSTusuarios&quot;) &amp;&amp; (!usuario.existeUsuario(mensaje.quien)) ){</span>
+<span class="lineNum">     251 </span>            : 
+<span class="lineNum">     252 </span><span class="lineNoCov">          0 :                 this-&gt;log-&gt;warn(&quot;Usuario inexistente: &quot;+mensaje.quien);</span>
+<span class="lineNum">     253 </span>            : 
+<span class="lineNum">     254 </span><span class="lineNoCov">          0 :                 Respuesta error;</span>
+<span class="lineNum">     255 </span><span class="lineNoCov">          0 :                 error.agregarEstado(&quot;ERROR&quot;);</span>
+<span class="lineNum">     256 </span><span class="lineNoCov">          0 :                 error.agregarMensaje(&quot;El usuario no existe&quot;);</span>
+<span class="lineNum">     257 </span>            : 
+<span class="lineNum">     258 </span><span class="lineNoCov">          0 :                 return error.obtenerRespuesta();</span>
+<span class="lineNum">     259 </span>            : 
+<span class="lineNum">     260 </span>            :         }
+<span class="lineNum">     261 </span>            : 
+<span class="lineNum">     262 </span>            :         //Registrar usuario
+<span class="lineNum">     263 </span><span class="lineCov">         46 :         if(mensaje.tipo == &quot;POSTusuarios&quot;){</span>
+<span class="lineNum">     264 </span>            : 
+<span class="lineNum">     265 </span><span class="lineCov">         17 :                 this-&gt;log-&gt;debug(&quot;Registrando nuevo usuario&quot;);</span>
+<span class="lineNum">     266 </span>            : 
+<span class="lineNum">     267 </span><span class="lineCov">         17 :                 ManejadorUsuario manejadorUsuario;</span>
+<span class="lineNum">     268 </span><span class="lineCov">         17 :                 respuesta = manejadorUsuario.generar(mensaje.quien,cuerpo);</span>
+<span class="lineNum">     269 </span>            : 
+<span class="lineNum">     270 </span>            :         //Iniciar sesion del usuario
+<span class="lineNum">     271 </span><span class="lineCov">         29 :         }else if(mensaje.tipo == &quot;POSTiniciarsesion&quot;){</span>
+<span class="lineNum">     272 </span>            : 
+<span class="lineNum">     273 </span><span class="lineCov">          2 :                 this-&gt;log-&gt;debug(&quot;Inicio de sesion&quot;);</span>
+<span class="lineNum">     274 </span>            : 
+<span class="lineNum">     275 </span><span class="lineCov">          2 :                 ManejadorUsuario manejadorUsuario;</span>
+<span class="lineNum">     276 </span><span class="lineCov">          2 :                 respuesta = manejadorUsuario.iniciarSesion(mensaje.quien,cuerpo);</span>
+<span class="lineNum">     277 </span>            : 
+<span class="lineNum">     278 </span>            :         //retorna los datos del usuario, email,nombre,ubicacion,foto
+<span class="lineNum">     279 </span><span class="lineCov">         27 :         }else if(mensaje.tipo == &quot;GETusuarios&quot;){</span>
+<span class="lineNum">     280 </span>            : 
+<span class="lineNum">     281 </span><span class="lineCov">          2 :                 this-&gt;log-&gt;debug(&quot;Solicitud de datos del usuario&quot;);</span>
+<span class="lineNum">     282 </span>            : 
+<span class="lineNum">     283 </span><span class="lineCov">          2 :                 ManejadorUsuario manejadorUsuario;</span>
+<span class="lineNum">     284 </span><span class="lineCov">          2 :                 respuesta = manejadorUsuario.obtenerDatos(mensaje.quien);</span>
+<span class="lineNum">     285 </span>            : 
+<span class="lineNum">     286 </span>            :         //actualiza los datos del usuario, email,nombre,ubicacion,foto
+<span class="lineNum">     287 </span><span class="lineCov">         25 :         }else if(mensaje.tipo == &quot;PUTusuarios&quot;){</span>
+<span class="lineNum">     288 </span>            : 
+<span class="lineNum">     289 </span><span class="lineCov">          1 :                 this-&gt;log-&gt;debug(&quot;Actualizacion de datos del usuario&quot;);</span>
+<span class="lineNum">     290 </span>            : 
+<span class="lineNum">     291 </span><span class="lineCov">          1 :                 ManejadorUsuario manejadorUsuario;</span>
+<span class="lineNum">     292 </span><span class="lineCov">          1 :                 respuesta = manejadorUsuario.actualizarDatos(mensaje.quien,cuerpo);</span>
+<span class="lineNum">     293 </span>            : 
+<span class="lineNum">     294 </span>            :         //Retorna los datos de los archivos que posee el usuario, solo los propios,
+<span class="lineNum">     295 </span><span class="lineCov">         24 :         }else if(mensaje.tipo == &quot;GETusuariosarchivos&quot;){</span>
+<span class="lineNum">     296 </span>            : 
+<span class="lineNum">     297 </span><span class="lineCov">          3 :                 this-&gt;log-&gt;debug(&quot;Solicitud de metadatos de los archivos del usuario&quot;);</span>
+<span class="lineNum">     298 </span>            : 
+<span class="lineNum">     299 </span><span class="lineCov">          3 :                 ManejadorUsuario manejadorUsuario;</span>
+<span class="lineNum">     300 </span><span class="lineCov">          3 :                 respuesta = manejadorUsuario.obtenerArchivos(mensaje.quien);</span>
+<span class="lineNum">     301 </span>            : 
+<span class="lineNum">     302 </span>            :         //Retorna los datos de los archivos que fueron compartidos con el usuario
+<span class="lineNum">     303 </span><span class="lineCov">         21 :         }else if(mensaje.tipo == &quot;GETusuariosarchivoscompartidos&quot;){</span>
+<span class="lineNum">     304 </span>            : 
+<span class="lineNum">     305 </span><span class="lineCov">          1 :                 this-&gt;log-&gt;debug(&quot;Solicitud de metadatos de los archivos compartidos con el usuario&quot;);</span>
+<span class="lineNum">     306 </span>            : 
+<span class="lineNum">     307 </span><span class="lineCov">          1 :                 ManejadorUsuario manejadorUsuario;</span>
+<span class="lineNum">     308 </span><span class="lineCov">          1 :                 respuesta = manejadorUsuario.obtenerArchivosCompartidos(mensaje.quien);</span>
+<span class="lineNum">     309 </span>            : 
+<span class="lineNum">     310 </span><span class="lineCov">         20 :         }else if(mensaje.tipo == &quot;DELETEusuariosarchivos&quot;){</span>
+<span class="lineNum">     311 </span>            : 
+<span class="lineNum">     312 </span><span class="lineCov">          1 :                 this-&gt;log-&gt;debug(&quot;Eliminando archivos&quot;);</span>
+<span class="lineNum">     313 </span>            : 
+<span class="lineNum">     314 </span><span class="lineCov">          1 :                 ManejadorArchivos manejadorArchivos;</span>
+<span class="lineNum">     315 </span><span class="lineCov">          1 :                 respuesta = manejadorArchivos.eliminarArchivo(mensaje.quien,cuerpo);</span>
+<span class="lineNum">     316 </span>            : 
+<span class="lineNum">     317 </span>            :         //Crea el archivo logico
+<span class="lineNum">     318 </span><span class="lineCov">         19 :         }else if(mensaje.tipo == &quot;POSTusuariosarchivos&quot;){</span>
+<span class="lineNum">     319 </span>            : 
+<span class="lineNum">     320 </span><span class="lineCov">         10 :                 this-&gt;log-&gt;debug(&quot;Cargando metadatos de nuevo archivo&quot;);</span>
+<span class="lineNum">     321 </span>            : 
+<span class="lineNum">     322 </span><span class="lineCov">         10 :                 ManejadorArchivos manejadorArchivos;</span>
+<span class="lineNum">     323 </span><span class="lineCov">         10 :                 respuesta = manejadorArchivos.crearArchivo(mensaje.quien,cuerpo);</span>
+<span class="lineNum">     324 </span>            : 
+<span class="lineNum">     325 </span>            :         //Comparte el archivo recibido con los usuarios recibidos
+<span class="lineNum">     326 </span><span class="lineCov">          9 :         }else if(mensaje.tipo == &quot;PUTusuariosarchivoscompartir&quot;){</span>
+<span class="lineNum">     327 </span>            : 
+<span class="lineNum">     328 </span><span class="lineCov">          1 :                 this-&gt;log-&gt;debug(&quot;Compartiendo archivo&quot;);</span>
+<span class="lineNum">     329 </span>            : 
+<span class="lineNum">     330 </span><span class="lineCov">          1 :                 ManejadorArchivos manejadorArchivos;</span>
+<span class="lineNum">     331 </span><span class="lineCov">          1 :                 respuesta = manejadorArchivos.compartirArchivo(cuerpo);</span>
+<span class="lineNum">     332 </span>            : 
+<span class="lineNum">     333 </span><span class="lineCov">          8 :         }else if(mensaje.tipo == &quot;GETusuariosarchivosetiquetas&quot;){</span>
+<span class="lineNum">     334 </span>            : 
+<span class="lineNum">     335 </span><span class="lineCov">          1 :                 this-&gt;log-&gt;debug(&quot;Buscando archivos por etiquetas&quot;);</span>
+<span class="lineNum">     336 </span>            : 
+<span class="lineNum">     337 </span><span class="lineCov">          1 :                 ManejadorBuscador manejadorBuscador;</span>
+<span class="lineNum">     338 </span><span class="lineCov">          1 :                 respuesta = manejadorBuscador.buscarPorEtiquetas(mensaje.quien,mensaje.metadato);</span>
+<span class="lineNum">     339 </span>            : 
+<span class="lineNum">     340 </span><span class="lineCov">          7 :         }else if(mensaje.tipo == &quot;GETusuariosarchivosnombre&quot;){</span>
+<span class="lineNum">     341 </span>            : 
+<span class="lineNum">     342 </span><span class="lineCov">          1 :                 this-&gt;log-&gt;debug(&quot;Buscando archivos por nombre&quot;);</span>
+<span class="lineNum">     343 </span>            : 
+<span class="lineNum">     344 </span><span class="lineCov">          1 :                 ManejadorBuscador manejadorBuscador;</span>
+<span class="lineNum">     345 </span><span class="lineCov">          1 :                 respuesta = manejadorBuscador.buscarPorNombre(mensaje.quien,mensaje.metadato);</span>
+<span class="lineNum">     346 </span>            : 
+<span class="lineNum">     347 </span><span class="lineCov">          6 :         }else if(mensaje.tipo == &quot;GETusuariosarchivospropietario&quot;){</span>
+<span class="lineNum">     348 </span>            : 
+<span class="lineNum">     349 </span><span class="lineCov">          1 :                 this-&gt;log-&gt;debug(&quot;Buscando archivos por propietario&quot;);</span>
+<span class="lineNum">     350 </span>            : 
+<span class="lineNum">     351 </span><span class="lineCov">          1 :                 ManejadorBuscador manejadorBuscador;</span>
+<span class="lineNum">     352 </span><span class="lineCov">          1 :                 respuesta = manejadorBuscador.buscarPorPropietario(mensaje.quien,mensaje.metadato);</span>
+<span class="lineNum">     353 </span>            : 
+<span class="lineNum">     354 </span><span class="lineCov">          5 :         }else if(mensaje.tipo == &quot;GETusuariosarchivosextension&quot;){</span>
+<span class="lineNum">     355 </span>            : 
+<span class="lineNum">     356 </span><span class="lineCov">          1 :                 this-&gt;log-&gt;debug(&quot;Buscando archivos por extension&quot;);</span>
+<span class="lineNum">     357 </span>            : 
+<span class="lineNum">     358 </span><span class="lineCov">          1 :                 ManejadorBuscador manejadorBuscador;</span>
+<span class="lineNum">     359 </span><span class="lineCov">          1 :                 respuesta = manejadorBuscador.buscarPorExtension(mensaje.quien,mensaje.metadato);</span>
+<span class="lineNum">     360 </span>            : 
+<span class="lineNum">     361 </span>            :         //Actualiza los metadatos del archivo
+<span class="lineNum">     362 </span><span class="lineCov">          4 :         }else if(mensaje.tipo == &quot;PUTusuariosarchivosactualizar&quot;){</span>
+<span class="lineNum">     363 </span>            : 
+<span class="lineNum">     364 </span><span class="lineCov">          2 :                 this-&gt;log-&gt;debug(&quot;Actualizando metadatos del archivo&quot;);</span>
+<span class="lineNum">     365 </span>            : 
+<span class="lineNum">     366 </span><span class="lineCov">          2 :                 ManejadorArchivos manejadorArchivos;</span>
+<span class="lineNum">     367 </span><span class="lineCov">          2 :                 respuesta = manejadorArchivos.actualizarArchivo(mensaje.quien,cuerpo);</span>
+<span class="lineNum">     368 </span>            : 
+<span class="lineNum">     369 </span><span class="lineCov">          2 :         }else if(mensaje.tipo == &quot;PUTusuariosarchivosrestaurar&quot;){</span>
+<span class="lineNum">     370 </span>            : 
+<span class="lineNum">     371 </span><span class="lineCov">          1 :                 this-&gt;log-&gt;debug(&quot;Restaurando archivo&quot;);</span>
+<span class="lineNum">     372 </span>            : 
+<span class="lineNum">     373 </span><span class="lineCov">          1 :                 ManejadorArchivos manejadorArchivos;</span>
+<span class="lineNum">     374 </span><span class="lineCov">          1 :                 respuesta = manejadorArchivos.restaurarArchivo(mensaje.quien,cuerpo);</span>
+<span class="lineNum">     375 </span>            : 
+<span class="lineNum">     376 </span>            :         //Retorna los archivos que el usuario posee en la papelera
+<span class="lineNum">     377 </span><span class="lineCov">          1 :         }else if(mensaje.tipo == &quot;GETusuariospapelera&quot;){</span>
+<span class="lineNum">     378 </span>            : 
+<span class="lineNum">     379 </span><span class="lineCov">          1 :                 this-&gt;log-&gt;debug(&quot;Buscando archivos en la papelera&quot;);</span>
+<span class="lineNum">     380 </span>            : 
+<span class="lineNum">     381 </span><span class="lineCov">          1 :                 ManejadorUsuario manejadorUsuario;</span>
+<span class="lineNum">     382 </span><span class="lineCov">          1 :                 respuesta = manejadorUsuario.obtenerArchivosPapelera(mensaje.quien);</span>
+<span class="lineNum">     383 </span>            : 
+<span class="lineNum">     384 </span><span class="lineNoCov">          0 :         }else if(mensaje.tipo == &quot;PUTusuariosarchivosrecuperar&quot;){</span>
+<span class="lineNum">     385 </span>            : 
+<span class="lineNum">     386 </span><span class="lineNoCov">          0 :                 this-&gt;log-&gt;debug(&quot;Recuperando archivo de la papelera&quot;);</span>
+<span class="lineNum">     387 </span>            : 
+<span class="lineNum">     388 </span><span class="lineNoCov">          0 :                 ManejadorArchivos manejadorArchivos;</span>
+<span class="lineNum">     389 </span><span class="lineNoCov">          0 :                 respuesta = manejadorArchivos.recuperarArchivo(mensaje.quien,cuerpo);</span>
+<span class="lineNum">     390 </span>            : 
+<span class="lineNum">     391 </span>            :         }else{
+<span class="lineNum">     392 </span>            : 
+<span class="lineNum">     393 </span><span class="lineNoCov">          0 :                 this-&gt;log-&gt;warn(&quot;URL incorrecta: &quot;+mensaje.tipo);</span>
+<span class="lineNum">     394 </span>            : 
+<span class="lineNum">     395 </span><span class="lineNoCov">          0 :                 Respuesta error;</span>
+<span class="lineNum">     396 </span><span class="lineNoCov">          0 :                 error.agregarEstado(&quot;ERROR&quot;);</span>
+<span class="lineNum">     397 </span><span class="lineNoCov">          0 :                 error.agregarMensaje(&quot;URL incorrecta&quot;);</span>
+<span class="lineNum">     398 </span><span class="lineNoCov">          0 :                 respuesta=error.obtenerRespuesta();</span>
+<span class="lineNum">     399 </span>            : 
+<span class="lineNum">     400 </span>            :         }
+<span class="lineNum">     401 </span>            : 
+<span class="lineNum">     402 </span><span class="lineCov">         92 :         return respuesta;</span>
+<span class="lineNum">     403 </span>            : 
+<a name="404"><span class="lineNum">     404 </span>            : }</a>
+<span class="lineNum">     405 </span>            : 
+<span class="lineNum">     406 </span><span class="lineNoCov">          0 : void AdministradorServidor::cerrar(){</span>
+<span class="lineNum">     407 </span>            : 
+<span class="lineNum">     408 </span><span class="lineNoCov">          0 :         Respuesta respuesta;</span>
+<span class="lineNum">     409 </span><span class="lineNoCov">          0 :         respuesta.agregarEstado(&quot;ERROR&quot;);</span>
+<span class="lineNum">     410 </span><span class="lineNoCov">          0 :         respuesta.agregarMensaje(&quot;El archivo no existe&quot;);</span>
+<span class="lineNum">     411 </span>            : 
+<span class="lineNum">     412 </span><span class="lineNoCov">          0 :         const string &amp;error=respuesta.obtenerRespuesta();</span>
+<span class="lineNum">     413 </span>            : 
+<span class="lineNum">     414 </span>            :         mg_printf(c, &quot;HTTP/1.0 200 OK\r\nContent-Length: %d\r\n&quot;
+<span class="lineNum">     415 </span>            :                                 &quot;Content-Type: application/json\r\n\r\n%s&quot;,
+<a name="416"><span class="lineNum">     416 </span><span class="lineNoCov">          0 :                                 (int) error.size(), error.c_str());</span></a>
+<span class="lineNum">     417 </span>            : 
+<span class="lineNum">     418 </span><span class="lineCov">          6 : }</span>
+<span class="lineNum">     419 </span>            : 
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.11</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

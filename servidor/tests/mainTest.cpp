@@ -228,6 +228,73 @@ TEST(baseDeDatos, alCompartirUnArchivoConUnUsarioEsteDebeTenerlo) {
 
 }
 
+TEST(baseDeDatos, alEliminarUnArchivoYRecuperarloElUsuarioDebeTenerlo) {
+
+	Usuario usuario;
+	Archivo archivo;
+	Reader  lector;
+	Value datosArchivo;
+
+	usuario.registrarse("usuarioTest10",cargarJsonUsuario());
+
+	archivo.crearArchivo("usuarioTest10",cargarJsonArchivo("usuarioTest10"));
+
+	archivo.eliminarArchivo("usuarioTest10",cargarJsonArchivoEliminado("usuarioTest10"));
+
+	//Primero verifico que no tenga el archivo eliminado
+	lector.parse(usuario.obtenerArchivos("usuarioTest10"),datosArchivo,false);
+
+	EXPECT_EQ(0,datosArchivo.size());
+
+	//Recupero el archivo de la papelera
+	archivo.recuperarArchivo("usuarioTest10",cargarJsonArchivo("usuarioTest10"));
+	
+	lector.parse(usuario.obtenerArchivos("usuarioTest10"),datosArchivo,false);
+
+	//Verifico que vuelva a tener el archivo
+	EXPECT_EQ(1,datosArchivo.size());
+
+}
+
+TEST(baseDeDatos, alEliminarUnArchivoCompartidoLosDemasUsuarioDebenTenerloEnLaPapelera) {
+
+	Usuario usuario;
+	Archivo archivo;
+	Reader  lector;
+	Value datosArchivo;	
+	Value datosArchivo1;
+	Value datosArchivo2;
+	Value usuarios;
+
+	usuarios.append("usuarioTest11_1");
+	usuarios.append("usuarioTest11_2");
+
+	usuario.registrarse("usuarioTest11",cargarJsonUsuario());
+	usuario.registrarse("usuarioTest11_1",cargarJsonUsuario());
+	usuario.registrarse("usuarioTest11_2",cargarJsonUsuario());
+
+	//Primero verifico que no tenga archivos
+	//lector.parse(usuario.obtenerArchivos("usuarioTest9_1"),datosArchivo1,false);
+	//lector.parse(usuario.obtenerArchivos("usuarioTest9_2"),datosArchivo2,false);
+
+	//EXPECT_EQ(0,datosArchivo1.size());
+	//EXPECT_EQ(0,datosArchivo2.size());
+	
+	archivo.crearArchivo("usuarioTest11",cargarJsonArchivo("usuarioTest11"));
+
+	archivo.compartir(usuarios.toStyledString(),cargarJsonArchivo("usuarioTest11"));
+
+	archivo.eliminarArchivo("usuarioTest11",cargarJsonArchivoEliminado("usuarioTest11"));
+
+	lector.parse(usuario.verPapelera("usuarioTest11_1"),datosArchivo1,false);
+	lector.parse(usuario.verPapelera("usuarioTest11_2"),datosArchivo2,false);
+
+	//El usuario debe tener el archivo en la papelera
+	EXPECT_EQ(1,datosArchivo1.size());
+	EXPECT_EQ(1,datosArchivo2.size());
+
+}
+
 int main(int argc, char* argv[]) {
 	testing::InitGoogleTest(&argc, argv);
   	return RUN_ALL_TESTS();

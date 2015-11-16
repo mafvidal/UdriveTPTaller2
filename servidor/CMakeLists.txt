@@ -23,7 +23,7 @@ set_target_properties(rocksdb PROPERTIES IMPORTED_LOCATION ${PROJECT_SOURCE_DIR}
 target_link_libraries(servidor rocksdb pthread rt snappy gflags z bz2)
 
 
-set(CMAKE_CXX_FLAGS "-std=c++11  -fprofile-arcs -ftest-coverage ${CMAKE_CXX_FLAGS}")
+set(CMAKE_CXX_FLAGS "-std=c++11  -fprofile-arcs -ftest-coverage  -g -O0 --coverage ${CMAKE_CXX_FLAGS}")
 set(CMAKE_C_FLAGS "-DMG_ENABLE_THREADS")
 
 #Se agrega el subdirectorio tests que tendra los tests a correr

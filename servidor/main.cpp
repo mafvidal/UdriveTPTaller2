@@ -11,7 +11,6 @@
 #include "mongoose.h"
 #include "Servidor.h"
 #include <pthread.h>
-#include "Directorio.h"
 #include "Log.h"
 
 using namespace std;
@@ -51,9 +50,8 @@ int main(int argc, char *argv[]) {
 
 	log->info("Inicia servidor");
 
-	//Creo el directorio inicial
-	Directorio directorio;
-	directorio.crearDirectorioPrincipal("./Udrive/");
+	//Creo el directorio para almacenar archivos
+	mkdir("./Udrive/", S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
 
 	bool tengoQueSalir=false;
 	char salir='a';

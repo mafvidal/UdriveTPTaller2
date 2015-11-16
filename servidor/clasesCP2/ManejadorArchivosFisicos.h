@@ -13,7 +13,6 @@
 #include "Constantes.h"
 #include "BaseDeDatos.h"
 #include "json/json.h"
-#include "Directorio.h"
 #include "Respuesta.h"
 #include "Usuario.h"
 #include "ControladorActualizacion.h"
@@ -43,7 +42,6 @@ public:
 	void enviarArchivo(struct mg_connection *c,const string &IDArchivo,const int &version);
 	virtual ~ManejadorArchivosFisicos();
 private:
-	string inicializarEstructura();
 	string convertirAString(const unsigned int &version);
 	void obtenerID(const string &IDArchivo,const int &version);
 };
