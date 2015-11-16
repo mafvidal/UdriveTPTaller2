@@ -42,9 +42,21 @@
           <h3>Tabla de Contenidos</h3>
           <ul>
 <li><a class="reference internal" href="#">Cronograma</a><ul>
-<li><a class="reference internal" href="#primer-checkpoint">Primer checkpoint</a></li>
-<li><a class="reference internal" href="#segundo-checkpoint">Segundo checkpoint</a></li>
-<li><a class="reference internal" href="#tareas-a-futuro">Tareas a futuro</a></li>
+<li><a class="reference internal" href="#primer-checkpoint">Primer checkpoint</a><ul>
+<li><a class="reference internal" href="#servidor"><strong>Servidor</strong></a></li>
+<li><a class="reference internal" href="#cliente"><strong>Cliente</strong></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#segundo-checkpoint">Segundo checkpoint</a><ul>
+<li><a class="reference internal" href="#id2"><strong>Servidor</strong></a></li>
+<li><a class="reference internal" href="#id3"><strong>Cliente</strong></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#tercer-checkpoint">Tercer checkpoint</a><ul>
+<li><a class="reference internal" href="#id4"><strong>Servidor</strong></a></li>
+<li><a class="reference internal" href="#id5"><strong>Cliente</strong></a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -55,25 +67,86 @@
 <span id="id1"></span><h1>Cronograma<a class="headerlink" href="#cronograma" title="Enlazar permanentemente con este título">¶</a></h1>
 <div class="section" id="primer-checkpoint">
 <h2>Primer checkpoint<a class="headerlink" href="#primer-checkpoint" title="Enlazar permanentemente con este título">¶</a></h2>
-<p>Para el primer checpoint se desarrollo en el servidor la base de datos, y se testeo su funcionamiento, también se desarrollaron las características básicas de la comunicación del servidor.
-Para el cliente, se desarrollo una interfaz gráfica, para loquearse y poder ver los archivos disponibles</p>
+<p>Para el primer checkpoint se desarrollaron las siguientes tareas:</p>
+<div class="section" id="servidor">
+<h3><strong>Servidor</strong><a class="headerlink" href="#servidor" title="Enlazar permanentemente con este título">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li>Se configuro GitHub y Travis CI, para realizar la integración continua.</li>
+<li>Se desarrollo la base de datos, para el servidor en rocksdb.</li>
+<li>Se programaron tests para analizar el funcionamiento de la base de datos.</li>
+<li>Se desarrollo la comunicación inicial del servidor, mediante Mongoose.</li>
+<li>Se desplegó el servidor en Docker.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="cliente">
+<h3><strong>Cliente</strong><a class="headerlink" href="#cliente" title="Enlazar permanentemente con este título">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li>Se inicio con el desarrollo del cliente en Java utilizando el SDK de Android.</li>
+<li>Se realizo la interfaz gráfica para el menú de inicio.</li>
+<li>Se realizo la interfaz gráfica para el menú de archivos.</li>
+</ul>
+</div></blockquote>
+</div>
 </div>
 <div class="section" id="segundo-checkpoint">
 <h2>Segundo checkpoint<a class="headerlink" href="#segundo-checkpoint" title="Enlazar permanentemente con este título">¶</a></h2>
-<p>Para el segundo chekcpoint se desarrollo la REST API en el servidor, y se la testeo, en cuanto a la base de datos, se la modularizo, dividiéndola en clases mas pequeñas.</p>
-</div>
-<div class="section" id="tareas-a-futuro">
-<h2>Tareas a futuro<a class="headerlink" href="#tareas-a-futuro" title="Enlazar permanentemente con este título">¶</a></h2>
-<ul class="simple">
-<li>Realizar integración servidor-cliente</li>
-<li>Desarrollar sistema de log para el servidor</li>
-<li>Completar interfaz gráfica para el cliente</li>
+<p>Para el segundo checkpoint se desarrollaron las siguientes tareas:</p>
+<div class="section" id="id2">
+<h3><strong>Servidor</strong><a class="headerlink" href="#id2" title="Enlazar permanentemente con este título">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li>Se modularizo la base de datos, dividiéndola en clases mas pequeñas.</li>
+<li>Se agrego que se puedan actualizar y restaurar los meta-datos de los archivos.</li>
+<li>Se desarrollo la REST API del servidor, para los distintas consultas de meta-datos.</li>
+<li>Se realizaron tests en python, para probar la REST API del servidor.</li>
 </ul>
+</div></blockquote>
+</div>
+<div class="section" id="id3">
+<h3><strong>Cliente</strong><a class="headerlink" href="#id3" title="Enlazar permanentemente con este título">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li>Se realizaron mejoras en el aspecto visual del cliente</li>
+</ul>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="tercer-checkpoint">
+<h2>Tercer checkpoint<a class="headerlink" href="#tercer-checkpoint" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Para el tercer checkpoint se desarrollaron las siguientes tareas:</p>
+<div class="section" id="id4">
+<h3><strong>Servidor</strong><a class="headerlink" href="#id4" title="Enlazar permanentemente con este título">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li>Se desarrollo la REST API del servidor, para el envío y descarga de archivos.</li>
+<li>Se realizaron tests en python, para probar la REST API del servidor.</li>
+<li>Se realizo la code coverage del proyecto.</li>
+<li>Se agrego que se puedan descargar un archivo por una determinada versión.</li>
+<li>Se agrego el sistema de Log al servidor.</li>
+<li>Se agrego al servidor la posibilidad de enviar y recuperar archivos de la papelera.</li>
+<li>Se completo la documentación del servidor.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="id5">
+<h3><strong>Cliente</strong><a class="headerlink" href="#id5" title="Enlazar permanentemente con este título">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li>Se desarrollo la interfaz gráfica para el menú de configuración.</li>
+<li>Se agrego enviar y descargar archivos desde el servidor.</li>
+<li>Se agrego registrar usuarios en el servidor.</li>
+<li>Se agrego compartir archivos con otros usuarios.</li>
+</ul>
+</div></blockquote>
 <div class="line-block">
 <div class="line"><br /></div>
 <div class="line"><br /></div>
 <div class="line"><a class="reference internal" href="DocProyecto.html#docproyecto"><span>Volver a la pagina anterior</span></a></div>
 <div class="line"><a class="reference internal" href="index.html#index"><span>Volver a la pagina principal</span></a></div>
+</div>
 </div>
 </div>
 </div>

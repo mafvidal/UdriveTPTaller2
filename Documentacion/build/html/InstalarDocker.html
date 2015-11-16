@@ -41,23 +41,24 @@
         
   <div class="section" id="instalar-docker">
 <span id="instalardocker"></span><h1>Instalar Docker<a class="headerlink" href="#instalar-docker" title="Enlazar permanentemente con este título">¶</a></h1>
+<p>La siguiente es una gia para instalar docker en ubuntu, para instalarlo en otro sistema operativo, consulte la pagina de <a class="reference external" href="https://docs.docker.com/v1.8/installation/">docker</a></p>
 <p>Para instalar Docker primero debe tener instalado curl, para comprobar si curl esta instalado ejecute el siguiente comando en la terminal:</p>
-<ul class="simple">
-<li>which curl</li>
-</ul>
+<div class="highlight-shell"><div class="highlight"><pre>which curl
+</pre></div>
+</div>
 <p>Si luego de ejecutar el comando anterior, no aparece el directorio donde tiene instalado curl, deberá ejecutar los siguientes comandos, en la terminal, para la instalación de curl:</p>
-<ul class="simple">
-<li>sudo apt-get update</li>
-<li>sudo apt-get install curl</li>
-</ul>
+<div class="highlight-shell"><div class="highlight"><pre>sudo apt-get update
+sudo apt-get install curl
+</pre></div>
+</div>
 <p>Para instalar Docker, deberá ejecutar el siguiente comando en la terminal:</p>
-<ul class="simple">
-<li>curl -sSL <code class="docutils literal"><span class="pre">https://get.docker.com/</span></code> | sh</li>
-</ul>
+<div class="highlight-shell"><div class="highlight"><pre>curl -sSL https://get.docker.com/ <span class="p">|</span> sh
+</pre></div>
+</div>
 <p>Puede comprobar si Docker se instalo correctamente ejecutando el siguiente comando en la terminal:</p>
-<ul class="simple">
-<li>sudo docker run hello-world</li>
-</ul>
+<div class="highlight-shell"><div class="highlight"><pre>sudo docker run hello-world
+</pre></div>
+</div>
 <div class="line-block">
 <div class="line"><br /></div>
 <div class="line"><br /></div>

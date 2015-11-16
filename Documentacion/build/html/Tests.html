@@ -41,45 +41,47 @@
         
   <div class="section" id="correr-pruebas">
 <span id="tests"></span><h1>Correr Pruebas<a class="headerlink" href="#correr-pruebas" title="Enlazar permanentemente con este título">¶</a></h1>
-<p>Para correr cualquier tests primero debe eliminar las base de datos generada por tests anteriores.</p>
+<p><strong>Para correr cualquier test primero debe eliminar las base de datos generada por los tests anteriores.</strong></p>
 <p>Para correr los tests de la base de datos, debe acceder al directorio del servidor, ejecutando el siguiente comando:</p>
-<ul class="simple">
-<li>cd UdriveTPTaller2/servidor</li>
-</ul>
+<div class="highlight-shell"><div class="highlight"><pre><span class="nb">cd </span>UdriveTPTaller2/servidor
+</pre></div>
+</div>
 <p>Si el servidor no fue compilado deberá ejecutar los siguientes comandos:</p>
-<ul class="simple">
-<li>mkdir build</li>
-<li>cmake ..</li>
-<li>make</li>
-</ul>
+<div class="highlight-shell"><div class="highlight"><pre>mkdir build
+<span class="nb">cd </span>build
+cmake ..
+make
+</pre></div>
+</div>
 <p>Finalmente ejecute los tests mediante los siguientes comandos:</p>
-<ul class="simple">
-<li>cd tests</li>
-<li>./tests</li>
-</ul>
+<div class="highlight-shell"><div class="highlight"><pre><span class="nb">cd </span>tests
+./tests
+</pre></div>
+</div>
 <p>Para correr los test rest, debe acceder al directorio del servidor, ejecutando el siguiente comando:</p>
-<ul class="simple">
-<li>cd UdriveTPTaller2/servidor</li>
-</ul>
+<div class="highlight-shell"><div class="highlight"><pre><span class="nb">cd </span>UdriveTPTaller2/servidor
+</pre></div>
+</div>
 <p>Si el servidor no fue compilado deberá ejecutar los siguientes comandos:</p>
-<ul class="simple">
-<li>mkdir build</li>
-<li>cmake ..</li>
-<li>make</li>
-</ul>
+<div class="highlight-shell"><div class="highlight"><pre>mkdir build
+<span class="nb">cd </span>build
+cmake ..
+make
+</pre></div>
+</div>
 <p>Luego ejecute el servidor, mediante el siguiente comando:</p>
-<ul class="simple">
-<li>./servidor</li>
-</ul>
+<div class="highlight-shell"><div class="highlight"><pre>./servidor
+</pre></div>
+</div>
 <p>Despues debe ir a la carpeta donde se encuentra el archivo de test, en la carpeta tests, ejecutando los siguientes comandos:</p>
-<ul class="simple">
-<li>cd ..</li>
-<li>cd tests</li>
-</ul>
+<div class="highlight-shell"><div class="highlight"><pre><span class="nb">cd</span> ..
+<span class="nb">cd </span>tests
+</pre></div>
+</div>
 <p>Finalmente corra los tests con el siguiente comando:</p>
-<ul class="simple">
-<li>python testsServidor.py</li>
-</ul>
+<div class="highlight-shell"><div class="highlight"><pre>python testsServidor.py
+</pre></div>
+</div>
 <div class="line-block">
 <div class="line"><br /></div>
 <div class="line"><br /></div>

@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Documentación de clases &mdash; documentación de UdriveTP - 2.5.1</title>
+    
+    <link rel="stylesheet" href="_static/scrolls.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/print.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '2.5.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <script type="text/javascript" src="_static/theme_extras.js"></script>
+    <link rel="top" title="documentación de UdriveTP - 2.5.1" href="index.html" /> 
+  </head>
+  <body role="document">
+    <div id="content">
+      <div class="header">
+        <h1 class="heading"><a href="index.html"
+          title="back to the documentation overview"><span>Documentación de clases</span></a></h1>
+      </div>
+      <div class="relnav" role="navigation" aria-label="related navigation">
+        <a href="#">Documentación de clases</a>
+      </div>
+      <div id="contentwrapper">
+        
+  <div class="section" id="documentacion-de-clases">
+<span id="docclases"></span><h1>Documentación de clases<a class="headerlink" href="#documentacion-de-clases" title="Enlazar permanentemente con este título">¶</a></h1>
+<p><strong>A continuación se muestra el diagrama general de clases para el servidor:</strong></p>
+<div class="figure align-center">
+<img alt="_images/diagramaGeneral.png" src="_images/diagramaGeneral.png" />
+</div>
+<p>Para el manejo de la base de datos, se creo la clase <strong>BaseDeDatos</strong> la cual se encarga de manejar la librería RocksDB, y esta desarrollada según el patrón singleton.</p>
+<p>Esta clase, crea una familias de columnas, dividida en; <em>usuarios</em>, <em>archivos</em>, <em>etiquetas</em>, <em>nombre</em>, <em>propietario</em> y <em>extensión</em>. Donde cada una almacena sus propias claves y valores. Las columnas usuarios, y archivos, almacenan la información de los mismos, mientras que etiquetas, nombre, propietario, extensión, almacenan los meta-datos que contienen los archivos.</p>
+<p>Las clases <strong>archivo</strong>, <strong>usuario</strong>, <strong>buscador</strong>, <strong>actualizador</strong> y <strong>restaurador</strong> se encargan de serializar/deserializar la información, e interactuar con la clase <strong>BaseDeDatos</strong> para consulta o almacenamiento de información.</p>
+<p>Para el manejo de la comunicación con el cliente se creo la clase <strong>Servidor</strong>, la cual es la encargada de escuchar nuevas conexiones de clientes, al escuchar una conexión crea un hilo, a traves de la librería mongoose, y atiende la consulta mediante la clase <strong>AdministradorServidor</strong>. Esta clase, se encarga de parsear la <em>URL</em>, y administrar el pedido del cliente, para ello utiliza las distintas clases; <strong>ManejadorUsuarios</strong>, <strong>ManejadorBuscador</strong>, <strong>ManejadorArchivos</strong>, <strong>ManejadorArchivosFisicos</strong>, los cuales funcionan como una interfaz entre el servidor y la base de datos.</p>
+<p>Finalmente, se tiene la clase <strong>ControladorActualizacion</strong>, la cual esta desarrollada según el patrón singleton, y es la encargada que mas de un usuario no actualice a la vez el mismo archivo físico.</p>
+<p><strong>El siguiente diagrama de secuencia muestra como se registra un usuario en el sistema:</strong></p>
+<div class="figure align-center">
+<img alt="_images/registrarUsuario.png" src="_images/registrarUsuario.png" />
+</div>
+<div class="line-block">
+<div class="line"><br /></div>
+<div class="line"><br /></div>
+<div class="line"><a class="reference internal" href="DocTecnica.html#doctecnica"><span>Volver a la pagina anterior</span></a></div>
+<div class="line"><a class="reference internal" href="index.html#index"><span>Volver a la pagina principal</span></a></div>
+</div>
+</div>
+
+
+      </div>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2015, Grupo 1 Taller 2.
+      Creado con <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+    </div>
+  </body>
+</html>

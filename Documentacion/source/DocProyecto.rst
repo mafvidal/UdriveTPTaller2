@@ -7,6 +7,7 @@ Documentación del proyecto
 * :ref:`Cronograma <cronograma>`
 * :ref:`Integración continua <IntegracionContinua>`
 * :ref:`División de tareas <DivTareas>`
+* :ref:`Control de versiones y workflow <ControlVersionesWorkflow>`
 * :ref:`Tickets <Tickets>`
 |
 |

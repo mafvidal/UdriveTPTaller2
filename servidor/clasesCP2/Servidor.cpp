@@ -34,7 +34,7 @@ void Servidor::arrancar(){
 		this->log->error("Error al conectarse al puerto 8000");
 
 		cout << "Error al conectarse al puerto " << s_http_port <<endl;
-		cout << "Presione culquier tecla y enter para salir" << endl;
+		cout << "Presione cualquier tecla y enter para salir" << endl;
 
 		return;
 

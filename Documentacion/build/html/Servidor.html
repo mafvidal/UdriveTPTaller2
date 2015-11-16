@@ -42,20 +42,42 @@
   <div class="section" id="ejecutar-servidor">
 <span id="servidor"></span><h1>Ejecutar servidor<a class="headerlink" href="#ejecutar-servidor" title="Enlazar permanentemente con este título">¶</a></h1>
 <p>Debe acceder al directorio del servidor, ejecutando el siguiente comando:</p>
-<ul class="simple">
-<li>cd UdriveTPTaller2/servidor</li>
-</ul>
+<div class="highlight-shell"><div class="highlight"><pre><span class="nb">cd </span>UdriveTPTaller2/servidor
+</pre></div>
+</div>
 <p>Para compilar el proyecto deberá ejecutar los siguientes comandos:</p>
-<ul class="simple">
-<li>mkdir build</li>
-<li>cmake ..</li>
-<li>make</li>
-</ul>
+<div class="highlight-shell"><div class="highlight"><pre>mkdir build
+<span class="nb">cd </span>build
+cmake ..
+make
+</pre></div>
+</div>
 <p>Finalmente ejecute el servidor mediante el siguiente comando:</p>
-<ul class="simple">
-<li>./servidor</li>
-</ul>
-<p>Para finalizar el servidor precione la tecla &#8220;q&#8221; y enter</p>
+<div class="highlight-shell"><div class="highlight"><pre>./servidor
+</pre></div>
+</div>
+<p><strong>Para finalizar el servidor precione la tecla &#8220;q&#8221; y enter</strong></p>
+<p>Si desea guardar algun tipo de dato correspondiente al log:</p>
+<p>Log Error:</p>
+<div class="highlight-shell"><div class="highlight"><pre>./servidor e
+</pre></div>
+</div>
+<p>Log Info:</p>
+<div class="highlight-shell"><div class="highlight"><pre>./servidor i
+</pre></div>
+</div>
+<p>Log Warn:</p>
+<div class="highlight-shell"><div class="highlight"><pre>./servidor w
+</pre></div>
+</div>
+<p>Log Debug:</p>
+<div class="highlight-shell"><div class="highlight"><pre>./servidor d
+</pre></div>
+</div>
+<p>Log Trace:</p>
+<div class="highlight-shell"><div class="highlight"><pre>./servidor t
+</pre></div>
+</div>
 <div class="line-block">
 <div class="line"><br /></div>
 <div class="line"><br /></div>

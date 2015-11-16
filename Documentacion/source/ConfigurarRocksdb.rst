@@ -5,11 +5,16 @@ Configurar Rocksdb
 
 Para compilar Rocksdb deberá acceder, a través de la terminal, a la carpeta donde se encuentra la biblioteca Rocksdb:
 
-* servidor/bibliotecas/rocksdb
+.. code-block:: shell
+
+	servidor/bibliotecas/rocksdb
 
 Y ejecutar el siguiente comando en la terminal: 
 
-* make ``static_lib``
+.. code-block:: shell
+
+	make static_lib
+
 |
 |
 | :ref:`Volver a la pagina anterior <Configuracion>`

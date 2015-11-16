@@ -1,0 +1,69 @@
+.. _RABusquedas:
+
+
+API REST Busquedas
+==================
+
+Buscar por metadato
++++++++++++++++++++
+
+Buscar por etiquetas
+--------------------
+
+Permite buscar los archivos por una determinada etiqueta
+
+**URL**: /usuarios/nombreUsuario/archivos/etiquetas/nombreDeLaEtiqueta
+
+**TIPO**: GET
+
+Buscar por propietario
+----------------------
+
+Permite buscar los archivos que pertenecen al propietario indicado
+
+**URL**: /usuarios/nombreUsuario/archivos/propietario/nombreDelPropietario
+
+**TIPO**: GET
+
+Buscar por nombre
+-----------------
+
+Permite buscar los archivos que poseen el nombre indicado
+
+**URL**: /usuarios/nombreUsuario/archivos/nombre/nombreDelArchivo
+
+**TIPO**: GET
+
+Buscar por extension
+--------------------
+
+Permite buscar los archivos que poseen extension indicada
+
+**URL**: /usuarios/nombreUsuario/archivos/nombre/extensionDelArchivo
+
+**TIPO**: GET
+
+*Para todas las busquedas por metadatos la salida es la siguiente*
+------------------------------------------------------------------
+
+**Salida**:
+
+.. code-block:: json
+
+	{
+		"Archivos": [
+			{
+				"Directorio": "/documentos/mae/",
+				"Etiquetas": ["Rojo","Azul","Colores"],
+				"Extension": "pdf",
+				"FechaDeModificacion": "11/12/15 02:35:32 PM",
+				"ID": "4106985908",
+				"Nombre": "tp",
+				"Propietario": "pepe1",
+				"UsuarioQueModifico": "pepe1",
+				"Version": 0
+			}
+		],
+		"Estado": "OK"
+	}
+

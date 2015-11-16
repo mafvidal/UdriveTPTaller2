@@ -43,27 +43,27 @@
 <span id="servidordocker"></span><h1>Ejecutar el servidor en Docker<a class="headerlink" href="#ejecutar-el-servidor-en-docker" title="Enlazar permanentemente con este título">¶</a></h1>
 <p>Para ejecutar el servidor en Docker, debe <a class="reference internal" href="InstalarDocker.html#instalardocker"><span>instalar Docker</span></a></p>
 <p>Una vez instalado Docker, deberá descargar la imagen que contiene el servidor, ejecutando el siguiente comando en la terminal:</p>
-<ul class="simple">
-<li>docker pull mafvidal/tp:v5</li>
-</ul>
+<div class="highlight-shell"><div class="highlight"><pre>docker pull mafvidal/tp:v5
+</pre></div>
+</div>
 <p>Luego deberá ejecutar la imagen mediante el siguiente comando:</p>
-<ul class="simple">
-<li>docker run -it mafvidal/tp:v5</li>
-</ul>
+<div class="highlight-shell"><div class="highlight"><pre>docker run -it mafvidal/tp:v5
+</pre></div>
+</div>
 <p>Debe acceder al directorio que contiene el ejecutable del servidor, ejecutando el siguiente comando:</p>
-<ul class="simple">
-<li>cd home/proyectoTaller2/UdriveTPTaller2/servidor/build</li>
-</ul>
+<div class="highlight-shell"><div class="highlight"><pre><span class="nb">cd </span>home/proyectoTaller2/UdriveTPTaller2/servidor/build
+</pre></div>
+</div>
 <p>Finalmente, ejecute el servidor mediante el siguiente comando:</p>
-<ul class="simple">
-<li>./servidor</li>
-</ul>
-<p>Para salir del servidor presione la tecla q y enter</p>
+<div class="highlight-shell"><div class="highlight"><pre>./servidor
+</pre></div>
+</div>
+<p><strong>Para salir del servidor presione la tecla q y enter</strong></p>
 <p>Si desea correr los test deberá ejecutar los siguientes comandos:</p>
-<ul class="simple">
-<li>cd home/proyectoTaller2/UdriveTPTaller2/servidor/build/tests</li>
-<li>./test</li>
-</ul>
+<div class="highlight-shell"><div class="highlight"><pre><span class="nb">cd </span>home/proyectoTaller2/UdriveTPTaller2/servidor/build/tests
+./tests
+</pre></div>
+</div>
 <div class="line-block">
 <div class="line"><br /></div>
 <div class="line"><br /></div>

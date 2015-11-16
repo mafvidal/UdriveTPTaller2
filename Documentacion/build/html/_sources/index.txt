@@ -10,5 +10,6 @@ Documentación Udrive Server
 
 * :ref:`Documentación del proyecto <DocProyecto>`
 * :ref:`Documentación técnica <DocTecnica>`
-* :ref:`Manual de administración <ManAdministracion>`
+* :ref:`Documentación de administración <ManAdministracion>`
+* :ref:`Manual de Usuario del Cliente <ManUsuarioCliente>`
 

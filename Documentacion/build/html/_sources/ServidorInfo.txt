@@ -3,7 +3,7 @@
 Información del servidor
 ========================
 
-El servido fue desarrollado en C/C++, y utilizando el control de versiones `GitHub <https://github.com/mafvidal/UdriveTPTaller2>`_.
+El servido fue desarrollado en C/C++, en un sistema operativo ubuntu 15.04 de 64 bits, y utilizando el control de versiones `GitHub <https://github.com/mafvidal/UdriveTPTaller2>`_.
 
 Para el servidor HTTP se utilizo la biblioteca `Mongoose <https://code.google.com/p/mongoose/>`_.
 

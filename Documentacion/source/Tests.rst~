@@ -3,6 +3,8 @@
 Correr Pruebas
 ==============
 
+Para correr cualquier tests primero debe eliminar las base de datos generada por tests anteriores.
+
 Para correr los tests de la base de datos, debe acceder al directorio del servidor, ejecutando el siguiente comando:
 
 * cd UdriveTPTaller2/servidor

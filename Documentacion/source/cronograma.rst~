@@ -6,20 +6,66 @@ Cronograma
 Primer checkpoint
 -----------------
 
-Para el primer checpoint se desarrollo en el servidor la base de datos, y se testeo su funcionamiento, también se desarrollaron las características básicas de la comunicación del servidor.
-Para el cliente, se desarrollo una interfaz gráfica, para loquearse y poder ver los archivos disponibles
+Para el primer checkpoint se desarrollaron las siguientes tareas:
+
+**Servidor**
+++++++++++++
+
+	* Se configuro GitHub y Travis CI, para realizar la integración continua.
+	* Se desarrollo la base de datos, para el servidor en rocksdb.
+	* Se programaron tests para analizar el funcionamiento de la base de datos.
+	* Se desarrollo la comunicación inicial del servidor, mediante Mongoose.
+	* Se desplegó el servidor en Docker.
+
+**Cliente**
++++++++++++
+
+	* Se inicio con el desarrollo del cliente en Java utilizando el SDK de Android.
+	* Se realizo la interfaz gráfica para el menú de inicio.
+	* Se realizo la interfaz gráfica para el menú de archivos.
 
 Segundo checkpoint
 ------------------
 
-Para el segundo chekcpoint se desarrollo la REST API en el servidor, y se la testeo, en cuanto a la base de datos, se la modularizo, dividiéndola en clases mas pequeñas.
+Para el segundo checkpoint se desarrollaron las siguientes tareas:
 
-Tareas a futuro
----------------
+**Servidor**
+++++++++++++
 
-* Realizar integración servidor-cliente
-* Desarrollar sistema de log para el servidor
-* Completar interfaz gráfica para el cliente
+	* Se modularizo la base de datos, dividiéndola en clases mas pequeñas.
+	* Se agrego que se puedan actualizar y restaurar los meta-datos de los archivos.
+	* Se desarrollo la REST API del servidor, para los distintas consultas de meta-datos.
+	* Se realizaron tests en python, para probar la REST API del servidor.
+
+**Cliente**
++++++++++++
+
+	* Se realizaron mejoras en el aspecto visual del cliente
+
+Tercer checkpoint
+-----------------
+
+Para el tercer checkpoint se desarrollaron las siguientes tareas:
+
+**Servidor**
+++++++++++++
+
+	* Se desarrollo la REST API del servidor, para el envio y descarga de archivos.
+	* Se realizaron tests en python, para probar la REST API del servidor.
+	* Se realizo la code coverage del proyecto.
+	* Se agrego que se puedan descargar un archivo por una determinada versión.
+	* Se agrego el sistema de Log al servidor.
+	* Se agrego al servidor la posibilidad de enviar y recuperar archivos de la papelera.
+	* Se completo la documentación del servidor.
+
+**Cliente**
++++++++++++
+
+	* Se desarrollo la interfaz gráfica para el menú de configuración.
+	* Se agrego enviar y descargar archivos desde el servidor.
+	* Se agrego registrar usuarios en el servidor.
+	* Se agrego compartir archivos con otros usuarios.
+
 |
 |
 | :ref:`Volver a la pagina anterior <DocProyecto>`

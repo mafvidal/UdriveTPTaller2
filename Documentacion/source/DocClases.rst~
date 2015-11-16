@@ -1,0 +1,25 @@
+.. _DocClases:
+
+Documentación de clases
+=======================
+
+A continuación se muestra el diagrama general de clases para el servidor:
+
+.. figure::  imagenes/diagramaGeneral.png
+   :align:   center
+
+
+Para el manejo de la base de datos, se creo la clase **BaseDeDatos** la cual se encarga de manejar la librería RocksDB, y esta desarrollada según el patrón singleton.
+
+Esta clase, crea una familias de columnas, dividida en; *usuarios*, *archivos*, *etiquetas*, *nombre*, *propietario* y *extensión*. Donde cada una almacena sus propias claves y valores. Las columnas usuarios, y archivos, almacenan la información de los mismos, mientras que etiquetas, nombre, propietario, extensión, almacenan los meta-datos que contienen los archivos.
+
+Las clases **archivo**, **usuario**, **buscador**, **actualizador** y **restaurador** se encargan de serializar/deserializar la información, e interactuar con la clase **BaseDeDatos** para consulta o almacenamiento de información.
+
+Para el manejo de la comunicación con el cliente se creo la clase **Servidor**, la cual es la encargada de escuchar nuevas conexiones de clientes, al escuchar una conexión crea un hilo, a traves de la librería mongoose, y atiende la consulta mediante la clase **AdministradorServidor**. Esta clase, se encarga de parsear la *URL*, y administrar el pedido del cliente, para ello utiliza las distintas clases; **ManejadorUsuarios**, **ManejadorBuscador**, **ManejadorArchivos**, **ManejadorArchivosFisicos**, los cuales funcionan como una interfaz entre el servidor y la base de datos.
+
+Finalmente, se tiene la clase **ControladorActualizacion**, la cual esta desarrollada según el patrón singleton, y es la encargada que mas de un usuario no actualice a la vez el mismo archivo físico.
+
+|
+|
+| :ref:`Volver a la pagina anterior <DocTecnica>`
+| :ref:`Volver a la pagina principal <index>`

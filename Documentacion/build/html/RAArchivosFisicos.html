@@ -1,0 +1,205 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>API REST Archivos Fisicos &mdash; documentación de UdriveTP - 2.5.1</title>
+    
+    <link rel="stylesheet" href="_static/scrolls.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/print.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '2.5.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <script type="text/javascript" src="_static/theme_extras.js"></script>
+    <link rel="top" title="documentación de UdriveTP - 2.5.1" href="index.html" /> 
+  </head>
+  <body role="document">
+    <div id="content">
+      <div class="header">
+        <h1 class="heading"><a href="index.html"
+          title="back to the documentation overview"><span>API REST Archivos Fisicos</span></a></h1>
+      </div>
+      <div class="relnav" role="navigation" aria-label="related navigation">
+        <a href="#">API REST Archivos Fisicos</a>
+      </div>
+      <div id="contentwrapper">
+        <div id="toc" role="navigation" aria-label="table of contents navigation">
+          <h3>Tabla de Contenidos</h3>
+          <ul>
+<li><a class="reference internal" href="#">API REST Archivos Fisicos</a><ul>
+<li><a class="reference internal" href="#agregar-archivo">Agregar archivo</a></li>
+<li><a class="reference internal" href="#actualizar-archivo">Actualizar archivo</a></li>
+<li><a class="reference internal" href="#descargar-archivo">Descargar archivo</a></li>
+<li><a class="reference internal" href="#descargar-version-del-archivo">Descargar version del archivo</a></li>
+<li><a class="reference internal" href="#subir-foto-del-usuario">Subir foto del usuario</a></li>
+<li><a class="reference internal" href="#descargar-foto-del-usuario">Descargar foto del usuario</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+        
+  <div class="section" id="api-rest-archivos-fisicos">
+<span id="raarchivosfisicos"></span><h1>API REST Archivos Fisicos<a class="headerlink" href="#api-rest-archivos-fisicos" title="Enlazar permanentemente con este título">¶</a></h1>
+<div class="section" id="agregar-archivo">
+<h2>Agregar archivo<a class="headerlink" href="#agregar-archivo" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Permite agregar un archivo fisicamente, la URL debe incluir la ID recibida al crear el archivo.</p>
+<p><strong>URL</strong>: /usuarios/nombreUsuario/archivofisico/IDArchivo</p>
+<p><strong>TIPO</strong>: POST</p>
+<p><strong>BODY</strong>:</p>
+<p>Archivo a guardar</p>
+<p><strong>Salida</strong>:</p>
+<p><em>Si se guardo el archivo exitosamente</em>:</p>
+<div class="highlight-json"><div class="highlight"><pre><span class="p">{</span>
+        <span class="nt">&quot;Estado&quot;</span><span class="p">:</span> <span class="s2">&quot;OK&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;Mensaje&quot;</span><span class="p">:</span> <span class="s2">&quot;Archivo creado correctamente&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><em>Si la ID no pertenece a un archivo</em>:</p>
+<div class="highlight-json"><div class="highlight"><pre><span class="p">{</span>
+        <span class="nt">&quot;Estado&quot;</span><span class="p">:</span> <span class="s2">&quot;ERROR&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;Mensaje&quot;</span><span class="p">:</span> <span class="s2">&quot;El archivo no existe&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="actualizar-archivo">
+<h2>Actualizar archivo<a class="headerlink" href="#actualizar-archivo" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Permite actuaizar un archivo fisicamente, la URL debe incluir la ID recibida al actualizar el archivo.</p>
+<p><strong>URL</strong>: /usuarios/nombreUsuario/archivofisico/IDArchivo</p>
+<p><strong>TIPO</strong>: PUT</p>
+<p><strong>BODY</strong>:</p>
+<p>Archivo a actualizar</p>
+<p><strong>Salida</strong>:</p>
+<p><em>Si se guardo el archivo exitosamente</em>:</p>
+<div class="highlight-json"><div class="highlight"><pre><span class="p">{</span>
+        <span class="nt">&quot;Estado&quot;</span><span class="p">:</span> <span class="s2">&quot;OK&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;Mensaje&quot;</span><span class="p">:</span> <span class="s2">&quot;Archivo creado correctamente&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><em>Si la ID no pertenece a un archivo</em>:</p>
+<div class="highlight-json"><div class="highlight"><pre><span class="p">{</span>
+        <span class="nt">&quot;Estado&quot;</span><span class="p">:</span> <span class="s2">&quot;ERROR&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;Mensaje&quot;</span><span class="p">:</span> <span class="s2">&quot;El archivo no existe&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="descargar-archivo">
+<h2>Descargar archivo<a class="headerlink" href="#descargar-archivo" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Permite al usuario descargar un determinado archivo.</p>
+<p><strong>URL</strong>: /usuarios/nombreUsuario/archivofisico/IDArchivo/</p>
+<p><strong>TIPO</strong>: GET</p>
+<p><strong>Salida</strong>:</p>
+<p><em>Si el archivo existe</em>:</p>
+<ul class="simple">
+<li>El archivo fisico.</li>
+</ul>
+<p><em>Si el archivo no existe</em>:</p>
+<div class="highlight-json"><div class="highlight"><pre><span class="p">{</span>
+        <span class="nt">&quot;Estado&quot;</span><span class="p">:</span> <span class="s2">&quot;ERROR&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;Mensaje&quot;</span><span class="p">:</span> <span class="s2">&quot;El archivo no se pudo abrir&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="descargar-version-del-archivo">
+<h2>Descargar version del archivo<a class="headerlink" href="#descargar-version-del-archivo" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Permite al usuario descargar un determinado archivo.</p>
+<p><strong>URL</strong>: /usuarios/nombreUsuario/archivofisico/IDArchivo/NumeroDeVersion</p>
+<p><strong>TIPO</strong>: GET</p>
+<p><strong>Salida</strong>:</p>
+<p><em>Si el archivo existe</em>:</p>
+<ul class="simple">
+<li>El archivo fisico.</li>
+</ul>
+<p><em>Si la version no existe</em>:</p>
+<ul class="simple">
+<li>retorna la version actual del archivo.</li>
+</ul>
+<p><em>Si el archivo no existe</em>:</p>
+<div class="highlight-json"><div class="highlight"><pre><span class="p">{</span>
+        <span class="nt">&quot;Estado&quot;</span><span class="p">:</span> <span class="s2">&quot;ERROR&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;Mensaje&quot;</span><span class="p">:</span> <span class="s2">&quot;El archivo no se pudo abrir&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="subir-foto-del-usuario">
+<h2>Subir foto del usuario<a class="headerlink" href="#subir-foto-del-usuario" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Permite al usuario subir su foto.</p>
+<p><strong>URL</strong>: /usuarios/nombreUsuario/foto</p>
+<p><strong>TIPO</strong>: POST</p>
+<p><strong>BODY</strong>:</p>
+<ul class="simple">
+<li>Foto del usuario</li>
+</ul>
+<p><strong>Salida</strong>:</p>
+<p><em>Si se guardo la foto exitosamente</em>:</p>
+<div class="highlight-json"><div class="highlight"><pre><span class="p">{</span>
+        <span class="nt">&quot;Estado&quot;</span><span class="p">:</span> <span class="s2">&quot;OK&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;Mensaje&quot;</span><span class="p">:</span> <span class="s2">&quot;Archivo creado correctamente&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><em>Si el usuario no existe</em>:</p>
+<div class="highlight-json"><div class="highlight"><pre><span class="p">{</span>
+        <span class="nt">&quot;Estado&quot;</span><span class="p">:</span> <span class="s2">&quot;ERROR&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;Mensaje&quot;</span><span class="p">:</span> <span class="s2">&quot;El usuario no existe&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="descargar-foto-del-usuario">
+<h2>Descargar foto del usuario<a class="headerlink" href="#descargar-foto-del-usuario" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>Permite al usuario descargar su foto.</p>
+<p><strong>URL</strong>: /usuarios/nombreUsuario/foto</p>
+<p><strong>TIPO</strong>: GET</p>
+<p><strong>Salida</strong>:</p>
+<p><em>Si la foto existe</em>:</p>
+<ul class="simple">
+<li>La foto del usuario.</li>
+</ul>
+<p><em>Si el usuario no guardo una foto</em>:</p>
+<div class="highlight-json"><div class="highlight"><pre><span class="p">{</span>
+        <span class="nt">&quot;Estado&quot;</span><span class="p">:</span> <span class="s2">&quot;ERROR&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;Mensaje&quot;</span><span class="p">:</span> <span class="s2">&quot;El archivo no existe&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line"><br /></div>
+<div class="line"><br /></div>
+<div class="line"><a class="reference internal" href="REST.html#rest"><span>Volver a la pagina anterior</span></a></div>
+<div class="line"><a class="reference internal" href="index.html#index"><span>Volver a la pagina principal</span></a></div>
+</div>
+</div>
+</div>
+
+
+      </div>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2015, Grupo 1 Taller 2.
+      Creado con <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+    </div>
+  </body>
+</html>

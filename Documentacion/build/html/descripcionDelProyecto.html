@@ -41,20 +41,31 @@
         
   <div class="section" id="descripcion-del-proyecto">
 <span id="descripciondelproyecto"></span><h1>Descripción del proyecto<a class="headerlink" href="#descripcion-del-proyecto" title="Enlazar permanentemente con este título">¶</a></h1>
-<p>Udrive es una aplicacion de almacenamiento remoto. Esta aplicacion consta de dos componentes:</p>
+<p>Este proyecto se desarrollo para la materia Taller de Programación II.</p>
+<p>El mismo consiste en desarrollar una aplicación cliente-servidor para el almacenamiento remoto de archivos.</p>
+<p>Esta aplicación consta de dos componentes:</p>
 <ul class="simple">
-<li>Un servidor, el cual será el responsable del procesamiento, almacenamiento y el</li>
+<li>Un servidor, el cual será el responsable del procesamiento, almacenamiento y el delivery de las solicitudes de los usuarios.</li>
+<li>Un cliente, el cual será responsable de visualizar el almacenamiento remoto asociado al usuario que se encuentra conectado.</li>
 </ul>
-<p>delivery de las solicitudes de los usuarios.
-* Un cliente, el cual será responsable de visualizar el almacenamiento remoto asociado al
-usuario que se encuentra conectado.</p>
-<p>La comunicacion cliente-servidor se realiza mediante Restful API.</p>
-<p>Udrive permite a cada cliente:</p>
+<p>La comunicación cliente-servidor se realiza mediante Restful API.</p>
+<p>Esta aplicación permite a cada cliente:</p>
 <ul class="simple">
 <li>Loguearse en el sistema.</li>
 <li>Almacenar sus archivos en un servidor remoto.</li>
 <li>Actualizar sus archivos.</li>
 <li>Compartir los archivos con otros usuarios.</li>
+<li>Descargar sus archivos.</li>
+</ul>
+<p>Para el desarrollo, se debió cumplir con las siguientes restricciones:</p>
+<ul class="simple">
+<li>Desarrollar el servidor en C/C++.</li>
+<li>Desarrollar el cliente en Java utilizando el SDK de Android.</li>
+<li>Desarrollar el proyecto mediante integración continua, utilizando <a class="reference external" href="https://github.com/">GitHub</a> y <a class="reference external" href="https://travis-ci.org/">Travis CI</a></li>
+<li>Desplegar el servidor en <a class="reference external" href="https://www.docker.com/">Docker</a></li>
+<li>Realizar para el servidor pruebas unitarias, y tener un code coverage mayor al 71%.</li>
+<li>Utilizar como base de datos, para el servidor, <a class="reference external" href="http://rocksdb.org/">RocksDB</a></li>
+<li>Realizar la documentación del proyecto con <a class="reference external" href="http://sphinx-doc.org/">Sphinx</a></li>
 </ul>
 <div class="line-block">
 <div class="line"><br /></div>
