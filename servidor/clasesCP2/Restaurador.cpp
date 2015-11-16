@@ -9,6 +9,7 @@
 
 Restaurador::Restaurador(const string &usuarioQueRestaura,const string &datosARestaurar) {
 
+	this->log = Log::obteberInstanciaLog();
 	this->baseDeDatos = BasedeDatos::obteberInstancia();
 	this->cargarDatos(usuarioQueRestaura,datosARestaurar);
 
@@ -117,9 +118,14 @@ void Restaurador::cargarDatos(const string &usuarioQueRestaura,const string &dat
 	this->hashVersionAnterior = datos.get("HashVersionAnterior","").asString();
 	this->hashVersionARestaurar = hash.obtenerHashNuevo(this->propietario+this->directorio+this->nombre+this->extension);
 
+	this->log->trace("El usuario: "+usuarioQueRestaura+" restaura el archivo: "+this->hashVersionActual);
+	this->log->trace("Se modifica el ID del archivo: "+this->hashVersionActual+" por: "+this->hashVersionARestaurar);
+
 }
 
 void Restaurador::restaurarMetadato(const unsigned int &TIPO, const string &metadato,const string &hashArchivo,const string &usuario){
+
+	this->log->trace("Se restaura el metadato: "+metadato+" del archivo: "+hashArchivo+" del usuario: "+usuario);
 
 	Reader lector;
 	Value datos;
@@ -142,6 +148,8 @@ void Restaurador::restaurarMetadato(const unsigned int &TIPO, const string &meta
 }
 
 void Restaurador::eliminarMetadato(const unsigned int &TIPO, const string &metadato,const string &hashArchivo,const string &usuario){
+
+	this->log->trace("Se elimina el metadato: "+metadato+" del archivo: "+hashArchivo+" del usuario: "+usuario);
 
 	Reader lector;
 	Value datos;

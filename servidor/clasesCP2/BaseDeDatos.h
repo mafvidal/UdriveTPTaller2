@@ -18,12 +18,14 @@
 #include <assert.h>
 #include <list>
 #include <mutex>
+#include "Log.h"
 
 using namespace std;
 using namespace rocksdb;
 
 class BasedeDatos {
 private:
+	Log *log;
 	static mutex mtx2;
 	mutex mtx;
 	DB* db;

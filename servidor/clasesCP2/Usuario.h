@@ -1,10 +1,3 @@
-/*
- * Usuario.h
- *
- *  Created on: 23 de oct. de 2015
- *      Author: mafv
- */
-
 #ifndef USUARIO_H_
 #define USUARIO_H_
 
@@ -13,12 +6,14 @@
 #include "Constantes.h"
 #include <iostream>
 #include "Archivo.h"
+#include "Log.h"
 
 using namespace Json;
 using namespace std;
 
 class Usuario {
 private:
+	Log *log;
 	BasedeDatos *baseDeDatos;
 public:
 	Usuario();

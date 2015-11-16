@@ -12,8 +12,11 @@
 #include "json/json.h"
 #include "Respuesta.h"
 #include "ManejadorArchivosFisicos.h"
+#include "Log.h"
 
 class ManejadorArchivos {
+private:
+	Log *log;
 public:
 	ManejadorArchivos();
 	string crearArchivo(const string &nombreUsuario,const string &datosDelArchivo);

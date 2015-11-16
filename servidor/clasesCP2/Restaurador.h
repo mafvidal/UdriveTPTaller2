@@ -16,12 +16,14 @@
 #include "Usuario.h"
 #include "Excepciones.h"
 #include "Fecha.h"
+#include "Log.h"
 
 using namespace std;
 using namespace Json;
 
 class Restaurador {
 private:
+	Log *log;
 	BasedeDatos *baseDeDatos;
 	Value ultimaVersion;
 	//La version que existe y voy a eliminar

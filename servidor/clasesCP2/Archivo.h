@@ -8,6 +8,7 @@
 #include "Restaurador.h"
 #include "Hash.h"
 #include "Usuario.h"
+#include "Log.h"
 #include <iostream>
 
 using namespace Json;
@@ -16,6 +17,7 @@ using namespace std;
 class Archivo {
 private:
 	BasedeDatos *baseDeDatos;
+	Log *log;
 public:
 	Archivo();
 	//Almacena en la base de datos, los metadatos del archivo

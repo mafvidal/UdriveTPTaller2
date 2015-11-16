@@ -18,6 +18,7 @@
 #include "Usuario.h"
 #include "ControladorActualizacion.h"
 #include "Excepciones.h"
+#include "Log.h"
 #include <stdlib.h>
 #include <fcntl.h>
 #include <map>
@@ -27,7 +28,7 @@ using namespace Json;
 
 class ManejadorArchivosFisicos {
 private:
-	//static map<string,FILE*> archivos;
+	Log *log;
 	BasedeDatos *baseDeDatos;
 	ControladorActualizacion * controladorActualizacion;
 	string IDArchivo;

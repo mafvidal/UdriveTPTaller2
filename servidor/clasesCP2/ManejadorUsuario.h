@@ -4,6 +4,7 @@
 #include "Usuario.h"
 #include "json/json.h"
 #include "Respuesta.h"
+#include "Log.h"
 
 /*
  * Clase encargada de administrar usuarios,
@@ -11,6 +12,8 @@
  *
  * */
 class ManejadorUsuario {
+private:
+	Log * log;
 public:
 	ManejadorUsuario();
 	//Genera un usuario, registrandolo en el sistema

@@ -25,6 +25,7 @@ static const struct mg_str s_put_method = MG_STR("PUT");
 static const struct mg_str s_get_method = MG_STR("GET");
 static const struct mg_str s_post_method = MG_STR("POST");
 static const struct mg_str s_delele_method = MG_STR("DELETE");
+static const char *s_http_port = "8000";
 
 struct Mensaje {
   string tipo;

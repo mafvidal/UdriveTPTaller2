@@ -13,6 +13,7 @@
 #include "Constantes.h"
 #include "Hash.h"
 #include "Archivo.h"
+#include "Log.h"
 #include <iostream>
 
 using namespace Json;
@@ -20,6 +21,7 @@ using namespace std;
 
 class Buscador {
 private:
+	Log *log;
 	BasedeDatos *baseDeDatos;
 public:
 	Buscador();

@@ -3,6 +3,8 @@
 
 ManejadorUsuario::ManejadorUsuario() {
 
+	this->log = Log::obteberInstanciaLog();
+
 }
 
 string ManejadorUsuario::generar(const string &nombreUsuario,const string &datosUsuario){
@@ -15,14 +17,16 @@ string ManejadorUsuario::generar(const string &nombreUsuario,const string &datos
 		respuesta.agregarEstado("OK");
 		respuesta.agregarMensaje("Se registro correctamente el usuario");
 
+		this->log->debug("Se registro correctamente el usuario: "+nombreUsuario);
+
 	}else{
 
 		respuesta.agregarEstado("ERROR");
 		respuesta.agregarMensaje("Error usuario existente");
 
+		this->log->warn("Ya existe un usuario registrado con el nombre: "+nombreUsuario);
+
 	}
-
-
 
 	return respuesta.obtenerRespuesta();
 
@@ -39,10 +43,14 @@ string ManejadorUsuario::iniciarSesion(const string &nombreUsuario,const string 
 		respuesta.agregarEstado("OK");
 		respuesta.agregarMensaje("Inicio existoso");
 
+		this->log->debug("El usuario: "+nombreUsuario+" inicio sesion exitosamente");
+
 	}else{
 
 		respuesta.agregarEstado("ERROR");
 		respuesta.agregarMensaje("Usuario o clave incorrecta");
+
+		this->log->warn("El usuario o la clave son incorrectas");
 
 	}
 

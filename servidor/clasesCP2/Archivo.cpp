@@ -10,6 +10,7 @@
 Archivo::Archivo() {
 
 	this->baseDeDatos = BasedeDatos::obteberInstancia();
+	this->log = Log::obteberInstanciaLog();
 
 }
 
@@ -35,7 +36,7 @@ string Archivo::crearArchivo(const string &usuario,const string &json){
 
 	const string &hashArchivo = hash.obtenerHashNuevo(nombreArchivo);
 
-	//usuarios.append(usuario);
+	this->log->trace("Se agrega los metadatos del archivo con ID: "+nombreArchivo+" y hash: "+hashArchivo);
 
 	datosAGuardar["Usuarios"] = usuarios;
 	datosAGuardar["Eliminado"] = false;
@@ -78,6 +79,8 @@ string Archivo::eliminarArchivo(const string &nombreUsuarioEliminador,const stri
 
 	string hashArchivo = hash.obtenerHashDelArchivo(nombre);
 
+	this->log->trace("Se eliminan los metadatos del archivo con ID: "+nombre+" y hash: "+hashArchivo);
+
 	string datosDelArchivo = this->baseDeDatos->leer(ARCHIVOS,hashArchivo);
 
 	lector.parse(datosDelArchivo,datos,false);
@@ -116,7 +119,6 @@ string Archivo::eliminarArchivo(const string &nombreUsuarioEliminador,const stri
 
 Value Archivo::obtenerDatos(const string & hashDelArchivo){
 
-
 	Value datos;
 	Value metadatos;
 	Value metadatosNuevos;
@@ -125,9 +127,6 @@ Value Archivo::obtenerDatos(const string & hashDelArchivo){
 	const string &datosDelArchivo = this->baseDeDatos->leer(ARCHIVOS,hashDelArchivo);
 
 	lector.parse(datosDelArchivo,datos);
-
-	//if(datos.get("Eliminado",false).asBool())
-		//return Json::nullValue;
 
 	metadatos = datos["MetaDatos"];
 
@@ -165,9 +164,8 @@ string Archivo::compartir(const string &usuariosACompartir,const string & json){
 	if( hashDelArchivo == "" ){
 		return "";
 	}
-	//
+
 	lector.parse(this->baseDeDatos->leer(ARCHIVOS,hashDelArchivo),compartido,false);
-	//compartido = compartido["Usuarios"];
 
 	lector.parse(usuariosACompartir,usuarios);
 
@@ -178,6 +176,8 @@ string Archivo::compartir(const string &usuariosACompartir,const string & json){
 		const string nombreUsuario = usuarios[indice].asString();
 
 		if( this->baseDeDatos->leer(USUARIOS,nombreUsuario) =="" ){
+
+			this->log->warn("El usuario: "+nombreUsuario+" que se desea compartir el archivo: "+hashDelArchivo+" no existe");
 
 			resultado = resultado+nombreUsuario+", ";
 

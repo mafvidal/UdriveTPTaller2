@@ -12,6 +12,7 @@
 #include "Servidor.h"
 #include <pthread.h>
 #include "Directorio.h"
+#include "Log.h"
 
 using namespace std;
 
@@ -20,13 +21,35 @@ void *arrancarServidor(void *threadid)
 {
 
 	((Servidor*)threadid)->arrancar();
-	//ser.arrancar();
 
 }
 
-int main() {
+int main(int argc, char *argv[]) {
+
+	Log * log = Log::obteberInstanciaLog();
+
+	for (int i=0;i<argc;i++){
+
+		if ( *argv[i] == 'e' )
+			log->inicializarError();
+
+		if ( *argv[i] == 'd' )
+			log->inicializarDebug();
+
+		if ( *argv[i] == 'i' )
+			log->inicializarInfo();
+
+		if ( *argv[i] == 't' )
+			log->inicializarTrace();
+
+		if ( *argv[i] == 'w' )
+			log->inicializarWarn();
+
+	}
 
 	BasedeDatos *baseDeDatos = BasedeDatos::obteberInstancia();
+
+	log->info("Inicia servidor");
 
 	//Creo el directorio inicial
 	Directorio directorio;
@@ -39,7 +62,8 @@ int main() {
 
 	int resultado = pthread_create(&threads, NULL,arrancarServidor, &ser);
  	if (resultado){
-		cout << "Error:unable to create thread," << resultado << endl;
+		log->error( "No se pudo crear el hilo para el servidor" );
+ 		log->info( "Finaliza el servidor" );
 		exit(-1);
      	}
 
@@ -55,7 +79,8 @@ int main() {
 
 	pthread_join(threads,NULL);
 
-	//pthread_exit(NULL);
+	log->info( "Finaliza el servidor" );
 
 	return 0;
+
 }

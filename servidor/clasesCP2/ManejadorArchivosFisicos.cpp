@@ -11,6 +11,7 @@ ManejadorArchivosFisicos::ManejadorArchivosFisicos(const string &hashArchivo) {
 
 	this->baseDeDatos = BasedeDatos::obteberInstancia();
 	this->controladorActualizacion = ControladorActualizacion::obteberInstanciaControlador();
+	this->log = Log::obteberInstanciaLog();
 
 	this->IDArchivo = hashArchivo;
 
@@ -23,6 +24,7 @@ ManejadorArchivosFisicos::ManejadorArchivosFisicos(){
 
 	this->baseDeDatos = BasedeDatos::obteberInstancia();
 	this->controladorActualizacion = ControladorActualizacion::obteberInstanciaControlador();
+	this->log = Log::obteberInstanciaLog();
 
 }
 
@@ -62,9 +64,9 @@ void ManejadorArchivosFisicos::actualizarArchivoFisico(struct mg_connection *c,s
 
 	string hashAnterior = datos.get("HashVersionAnterior","").asString();
 
-	//cout<<this->baseDeDatos->leer(ARCHIVOS,hashAnterior)<<endl;
-
 	rename(("./Udrive/"+this->IDArchivo).c_str(),("./Udrive/"+hashAnterior).c_str());
+
+	this->log->debug("Renombrado archivo: "+this->IDArchivo+" por: "+hashAnterior);
 
 	this->crearArchivoFisico(c,hm);
 
@@ -113,11 +115,12 @@ void ManejadorArchivosFisicos::cargarArchivo(struct mg_connection *c){
 					"Content-Type: application/json\r\n\r\n%s",
 					(int) z.size(), z.c_str());
 
-		//fclose(this->archivos[datos->hashArchivo]);
+		this->log->debug("Se guardo archivo: "+datos->hashArchivo);
+
 		fclose(archivo);
 
 		this->controladorActualizacion->archivoActualizado(datos->hashArchivo);
-		//this->archivos.erase(datos->hashArchivo);
+
 		delete datos;
 
 		c->user_data = NULL;
@@ -176,6 +179,8 @@ void ManejadorArchivosFisicos::enviarArchivo(struct mg_connection *c,const strin
 
 		archivo.read (buffer,length);
 
+		this->log->debug("Se envia al cliente el archivo: "+this->IDArchivo);
+
 		mg_send(c,buffer,length);
 
 		c->flags |= MG_F_SEND_AND_CLOSE;
@@ -185,6 +190,8 @@ void ManejadorArchivosFisicos::enviarArchivo(struct mg_connection *c,const strin
 		archivo.close();
 
 	} else{
+
+		this->log->warn("No existe el archivo: "+this->IDArchivo+", solicitado por el cliente");
 
 		Respuesta respuesta;
 		respuesta.agregarEstado("ERROR");
@@ -233,6 +240,8 @@ void ManejadorArchivosFisicos::obtenerID(const string &IDArchivo,const int &vers
 	//Si la version no existe retorna la ultima version del archivo
 	if ( version > versionActual ){
 
+		this->log->warn("No existe la version: "+this->convertirAString(version)+" del archivo: "+IDArchivo+" solicitado por el cliente");
+
 		this->IDArchivo = IDArchivo;
 		return;
 
@@ -246,6 +255,8 @@ void ManejadorArchivosFisicos::obtenerID(const string &IDArchivo,const int &vers
 		this->IDArchivo = hashAnterior;
 
 	}
+
+	this->log->debug("Se envia al usuario la version: "+this->convertirAString(version)+" del archivo: "+IDArchivo);
 
 }
 

@@ -10,6 +10,7 @@
 Buscador::Buscador() {
 
 	this->baseDeDatos = BasedeDatos::obteberInstancia();
+	this->log = Log::obteberInstanciaLog();
 
 }
 string Buscador::buscarPorEtiqueta(const string &usuario,const string &etiqueta){
@@ -52,6 +53,9 @@ string Buscador::buscarMetadato(const unsigned int &TIPO,const string &metadato)
 	for ( unsigned int indice = 0; indice < archivos.size(); ++indice ){
 
 		const string hash = archivos[indice].asString();
+
+		this->log->debug("Agregado el archivo: "+hash+" a la busqueda");
+
 		//lector.parse(this->baseDeDatos->leer(ARCHIVOS,hash),datosArchivos,false);
 		Value datos = archivo.obtenerDatos(hash);
 		//if( datos != Json::nullValue )

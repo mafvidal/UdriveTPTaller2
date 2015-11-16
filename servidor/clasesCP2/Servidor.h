@@ -16,16 +16,15 @@
 #include <fstream>
 #include <map>
 #include <unistd.h>
-
+#include "Log.h"
 
 using namespace std;
 
-static const char *s_http_port = "8000";
 static map<string,FILE *> mapa;
 
 class Servidor {
 private:
-
+	Log *log;
 	bool salir;
 public:
 	friend void ev_handler(struct mg_connection *c, int ev, void *p);
@@ -33,6 +32,7 @@ public:
 	Servidor();
 	void arrancar();
 	void detener();
+	bool ok();
 	virtual ~Servidor();
 };
 

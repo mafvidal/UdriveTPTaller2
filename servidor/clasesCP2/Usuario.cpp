@@ -1,15 +1,9 @@
-/*
- * Usuario.cpp
- *
- *  Created on: 23 de oct. de 2015
- *      Author: mafv
- */
-
 #include "Usuario.h"
 
 Usuario::Usuario() {
 
 	this->baseDeDatos = BasedeDatos::obteberInstancia();
+	this->log = Log::obteberInstanciaLog();
 
 }
 
@@ -27,6 +21,8 @@ bool Usuario::identificarse(const string &usuario,const string &json){
 	lector.parse(datosDelUsuario,datosExistentes,false);
 
 	const string &clave=datos.get("Clave","").asString();
+
+	this->log->trace("El usuario: "+usuario+" se identifica con la clave: "+clave);
 
 	return ( clave == datosExistentes.get("Clave","").asString() );
 
@@ -55,6 +51,8 @@ bool Usuario::registrarse(const string &usuario,const string &json){
 	datosNuevos["Papelera"] = archivos;
 	datosNuevos["MetaDatos"] = this->cargarMetadatos(datosACargar["MetaDatos"]);
 
+	this->log->trace("Se registra el usuario: "+usuario+" con clave: "+datosACargar.get("Clave","").asString());
+
 	return this->baseDeDatos->guardar(USUARIOS,usuario,datosNuevos.toStyledString());
 
 }
@@ -66,6 +64,8 @@ string Usuario::obtenerDatos(const string &usuario){
 	Reader lector;
 
 	const string datosDelUsuario = this->baseDeDatos->leer(USUARIOS,usuario);
+
+	this->log->debug("El usuario: "+usuario+" solicita sus datos");
 
 	lector.parse(datosDelUsuario,datos,false);
 
@@ -85,6 +85,8 @@ bool Usuario::actualizarDatos(const string &usuario,const string & json){
 
 	lector.parse(datosDelUsuario,datosExistentes,false);
 	lector.parse(json,datosNuevos,false);
+
+	this->log->trace("El usuario: "+usuario+", modifica la clave: "+datosExistentes.get("Clave","").asString()+" por: "+datosNuevos.get("Clave","").asString());
 
 	datosExistentes["Clave"] = datosNuevos["Clave"];
 	datosExistentes["Cuota"] = datosNuevos["Cuota"];
@@ -106,8 +108,6 @@ string Usuario::obtenerArchivos(const string & usuario){
 
 	this->cargarArchivos(archivos,datos["Archivos"]);
 
-	//this->cargarArchivos(archivos,datos["ArchivosCompartidos"]);
-
 	return archivos.toStyledString();
 
 }
@@ -122,8 +122,6 @@ string Usuario::obtenerArchivosCompartidos(const string & usuario){
 	const string datosUsuario = this->baseDeDatos->leer(USUARIOS,usuario);
 
 	lector.parse(datosUsuario,datos,false);
-
-	//this->cargarArchivos(archivos,datos["Archivos"]);
 
 	this->cargarArchivos(archivos,datos["ArchivosCompartidos"]);
 
@@ -149,11 +147,15 @@ string Usuario::verPapelera(const string &usuario){
 
 void Usuario::eliminarArchivoCompartido(const string &usuario,const string &hashArchivo){
 
+	this->log->trace("Se elimina al usuario: "+usuario+" el archivo compartido: "+hashArchivo);
+
 	this->eliminar(usuario,hashArchivo,"ArchivosCompartidos");
 
 }
 
 void Usuario::agregarArchivoCompartido(const string &usuario,const string &hashArchivo){
+
+	this->log->trace("Se agregar al usuario: "+usuario+" el archivo compartido: "+hashArchivo);
 
 	this->agregar(usuario,hashArchivo,"ArchivosCompartidos");
 
@@ -161,17 +163,23 @@ void Usuario::agregarArchivoCompartido(const string &usuario,const string &hashA
 
 void Usuario::eliminarArchivo(const string &usuario,const string &hashArchivo){
 
+	this->log->trace("Se elimina al usuario: "+usuario+" el archivo: "+hashArchivo);
+
 	this->eliminar(usuario,hashArchivo,"Archivos");
 
 }
 
 void Usuario::agregarArchivo(const string &usuario,const string &hashArchivo){
 
+	this->log->trace("Se agrega al usuario: "+usuario+" el archivo: "+hashArchivo);
+
 	this->agregar(usuario,hashArchivo,"Archivos");
 
 }
 
 void Usuario::enviarALaPapelera(const string &nombreUsuario,const string &hashArchivo){
+
+	this->log->trace("Se envia a la papelera el archivo: "+hashArchivo+" del usuario: "+nombreUsuario);
 
 	this->agregar(nombreUsuario,hashArchivo,"Papelera");
 
@@ -184,6 +192,8 @@ bool Usuario::existeUsuario(const string &nombreUsuario){
 }
 
 void Usuario::sacarDeLaPapelera(const string &nombreUsuario,const string &hashArchivo){
+
+	this->log->trace("Se quita de la papelera el archivo: "+hashArchivo+" del usuario: "+nombreUsuario);
 
 	this->eliminar(nombreUsuario,hashArchivo,"Papelera");
 
@@ -251,7 +261,6 @@ Value Usuario::cargarMetadatos(const Value &metadatos){
 void Usuario::cargarArchivos(Value &archivos,const Value &archivosExistentes){
 
 	Reader reader;
-	//Value archivo;
 	Value metadatos;
 	Archivo archivo;
 
@@ -306,6 +315,8 @@ void Usuario::agregar(const string &usuario,const string &hashArchivo,const stri
 	lector.parse(datosDelUsuario,datos,false);
 
 	datos[tipo].append(hashArchivo);
+
+	this->log->trace("El archivo: "+hashArchivo+" del usuario: "+usuario+" se agregar a "+tipo);
 
 	this->baseDeDatos->guardar(USUARIOS,usuario,datos.toStyledString());
 

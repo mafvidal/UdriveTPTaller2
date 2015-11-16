@@ -17,12 +17,14 @@
 #include "ManejadorArchivosFisicos.h"
 #include "Excepciones.h"
 #include "Fecha.h"
+#include "Log.h"
 
 using namespace std;
 using namespace Json;
 
 class Actualizador {
 private:
+	Log *log;
 	BasedeDatos *baseDeDatos;
 	string propietario;
 	string directorioOriginal;

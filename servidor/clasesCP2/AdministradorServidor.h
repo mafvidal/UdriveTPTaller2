@@ -1,10 +1,3 @@
-/*
- * AdministradorServidor.h
- *
- *  Created on: 3 de nov. de 2015
- *      Author: mafv
- */
-
 #ifndef ADMINISTRADORSERVIDOR_H_
 #define ADMINISTRADORSERVIDOR_H_
 
@@ -16,6 +9,7 @@
 #include "ManejadorArchivosFisicos.h"
 #include "ManejadorBuscador.h"
 #include "Constantes.h"
+#include "Log.h"
 #include <map>
 #include <unistd.h>
 
@@ -23,7 +17,7 @@ using namespace std;
 
 class AdministradorServidor {
 private:
-	static map<string,FILE*> archivoss;
+	Log *log;
 	struct mg_connection *c;
 	int ev;
 	struct http_message hm;

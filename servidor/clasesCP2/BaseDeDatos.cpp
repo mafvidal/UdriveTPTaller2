@@ -28,6 +28,9 @@ bool BasedeDatos::guardar(const int TIPO,const string &clave,const string &valor
 
 	this->mtx.lock();
 
+	this->log->debug("Se guardan datos en la base de datos");
+	this->log->trace("Se guardan datos: "+valor+" del con clave: "+clave+" en la base de datos");
+
 	WriteBatch batch;
 	batch.Put(handles[TIPO], Slice(clave), Slice(valor));
 
@@ -42,6 +45,9 @@ const string BasedeDatos::leer(const int TIPO,const string &clave){
 
 	string datosExistente;
 	
+	this->log->debug("Se leen datos en la base de datos");
+	this->log->trace("Se leen datos: "+clave+" de la base de datos");
+
 	estado = db->Get(ReadOptions(), handles[TIPO], Slice(clave), &datosExistente);
 
 	return datosExistente;
@@ -52,6 +58,9 @@ bool BasedeDatos::eliminar(const int TIPO,const string &clave){
 
 	this->mtx.lock();
 
+	this->log->debug("Se eliminan datos en la base de datos");
+	this->log->trace("Se eliminan datos: "+clave+" de la base de datos");
+
 	WriteBatch batch;
 	batch.Delete(handles[TIPO], Slice(clave));
 	estado = db->Write(WriteOptions(), &batch);
@@ -61,6 +70,8 @@ bool BasedeDatos::eliminar(const int TIPO,const string &clave){
 }
 
 BasedeDatos::~BasedeDatos() {
+
+	this->log->debug("Se cierra la base de datos");
 
 	for (auto handle : handles) {
 		delete handle;
@@ -73,15 +84,28 @@ BasedeDatos::~BasedeDatos() {
 
 BasedeDatos::BasedeDatos() {
 
-	dirPath = "testdb/";
+	this->log = Log::obteberInstanciaLog();
+
+	dirPath = "./testdb/";
+
+	this->log->info("Abriendo base de datos en "+dirPath);
+
 	Options opciones;
 	opciones.create_if_missing = true;
 	opciones.error_if_exists = true;
 	estado = DB::Open(opciones,dirPath, &db);
-	if(estado.ok())
+
+	if(estado.ok()){
+
+		this->log->debug("Creando la base de datos");
 		this->inicializarColumnas();
-	
+
+	}
+
+	this->log->debug("La base de datos ya existe, cargando datos");
 	this->cargarColumnas();
+
+
 
 }
 void BasedeDatos::destruirInstancia(){
@@ -99,12 +123,47 @@ void BasedeDatos::inicializarColumnas(){
 	ColumnFamilyHandle* propietario;
 
 	estado = db->CreateColumnFamily(ColumnFamilyOptions(),"USUARIOS", &usuarios);
-	estado = db->CreateColumnFamily(ColumnFamilyOptions(),"ARCHIVOS", &archivos);
-	estado = db->CreateColumnFamily(ColumnFamilyOptions(),"ETIQUETAS", &etiquetas);
-	estado = db->CreateColumnFamily(ColumnFamilyOptions(),"NOMBRE", &nombre);
-	estado = db->CreateColumnFamily(ColumnFamilyOptions(),"EXTENSION", &extension);
-	estado = db->CreateColumnFamily(ColumnFamilyOptions(),"PROPIETARIO", &propietario);
+	if( !estado.ok() ){
 
+		this->log->error("La base de datos no se pudo cargar");
+		exit(-1);
+
+	}
+	estado = db->CreateColumnFamily(ColumnFamilyOptions(),"ARCHIVOS", &archivos);
+	if( !estado.ok() ){
+
+		this->log->error("La base de datos no se pudo cargar");
+		exit(-1);
+
+	}
+	estado = db->CreateColumnFamily(ColumnFamilyOptions(),"ETIQUETAS", &etiquetas);
+	if( !estado.ok() ){
+
+		this->log->error("La base de datos no se pudo cargar");
+		exit(-1);
+
+	}
+	estado = db->CreateColumnFamily(ColumnFamilyOptions(),"NOMBRE", &nombre);
+	if( !estado.ok() ){
+
+		this->log->error("La base de datos no se pudo cargar");
+		exit(-1);
+
+	}
+	estado = db->CreateColumnFamily(ColumnFamilyOptions(),"EXTENSION", &extension);
+	if( !estado.ok() ){
+
+		this->log->error("La base de datos no se pudo cargar");
+		exit(-1);
+
+	}
+	estado = db->CreateColumnFamily(ColumnFamilyOptions(),"PROPIETARIO", &propietario);
+	if( !estado.ok() ){
+
+		this->log->error("La base de datos no se pudo cargar");
+		exit(-1);
+
+	}
 	delete usuarios;
 	delete archivos;
 	delete etiquetas;
@@ -130,5 +189,12 @@ void BasedeDatos::cargarColumnas(){
 	column_families.push_back(ColumnFamilyDescriptor("PROPIETARIO", ColumnFamilyOptions()));
 
 	estado = DB::Open(DBOptions(), dirPath, column_families, &handles, &db);
+
+	if( !estado.ok() ){
+
+		this->log->error("La base de datos no se pudo cargar");
+		exit(-1);
+
+	}
 
 }

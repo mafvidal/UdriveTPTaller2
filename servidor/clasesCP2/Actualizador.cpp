@@ -5,6 +5,8 @@ Actualizador::Actualizador(const string &usuarioQueEstaModificando,const string 
 	Reader lector;
 	Hash hash;
 
+	this->log = Log::obteberInstanciaLog();
+
 	this->baseDeDatos = BasedeDatos::obteberInstancia();
 
 	this->cargarDatos(usuarioQueEstaModificando,datosAActualizar);
@@ -20,6 +22,8 @@ Actualizador::Actualizador(const string &usuarioQueEstaModificando,const string 
 	if(this->cambionNombre || this->cambioExtension || this->cambioDirectorio){
 
 		this->nuevoHash = hash.obtenerHashNuevo(this->propietario+this->directorioNuevo+this->nombreNuevo+this->extensionNueva);
+
+		this->log->trace("Se modifica la ID del archivo: "+this->antiguoHash+" por: "+this->nuevoHash);
 
 	}else{
 
@@ -108,6 +112,10 @@ void Actualizador::cargarDatos(const string &usuarioQueEstaModificando,const str
 	this->cambioExtension = !(this->extensionOriginal == this->extensionNueva);
 	this->cambioDirectorio = !(this->directorioOriginal == this->directorioNuevo);
 
+	this->log->trace("Se modifica el nombre: "+this->nombreOriginal+" por: "+this->nombreNuevo);
+	this->log->trace("Se modifica la extension: "+this->extensionOriginal+" por: "+this->extensionNueva);
+	this->log->trace("Se modifica el directorio: "+this->directorioOriginal+" por: "+this->directorioNuevo);
+
 }
 
 
@@ -131,6 +139,8 @@ void Actualizador::actualizarHashAUsuarios(){
 
 void Actualizador::actualizarMetadato(const unsigned int &TIPO, const string &metadato,const string &hashArchivo,const string &usuario){
 
+	this->log->trace("Se actualiza el metadato: "+metadato+" del archivo: "+hashArchivo+" del usuario: "+usuario);
+
 	Reader lector;
 	Value datos;
 
@@ -152,6 +162,8 @@ void Actualizador::actualizarMetadato(const unsigned int &TIPO, const string &me
 }
 
 void Actualizador::eliminarMetadato(const unsigned int &TIPO, const string &metadato,const string &hashArchivo,const string &usuario){
+
+	this->log->trace("Se elimina el metadato: "+metadato+" del archivo: "+hashArchivo+" del usuario: "+usuario);
 
 	Reader lector;
 	Value datos;

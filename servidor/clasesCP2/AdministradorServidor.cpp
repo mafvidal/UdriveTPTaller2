@@ -6,14 +6,13 @@
  */
 
 #include "AdministradorServidor.h"
-map<string,FILE*> AdministradorServidor::archivoss;
-
 
 AdministradorServidor::AdministradorServidor(struct mg_connection *c, int ev, struct http_message p) {
 
 	this->c = c;
 	this->ev = ev;
 	this->hm = p;
+	this->log = Log::obteberInstanciaLog();
 
 }
 
@@ -36,8 +35,13 @@ void AdministradorServidor::administrar(){
 			}else{
 
 				this->parsearMensaje();
+
+				this->log->info("Procesando solicitud del cliente");
+
 				//Crea el archivo
 				if( mensaje.archivoFisico == "POSTusuariosarchivofisico" ){
+
+					this->log->debug("Creando archivo");
 
 					try{
 
@@ -49,11 +53,15 @@ void AdministradorServidor::administrar(){
 
 					}catch ( EArchivoInexistente &e ){
 
+						this->log->warn("El archivo solicitado no existe");
+
 						this->cerrar();
 
 					}
 				//Actualiza el archivo
 				}else if( mensaje.archivoFisico == "PUTusuariosarchivofisico" ){
+
+					this->log->debug("Actualizando archivo");
 
 					try{
 
@@ -65,11 +73,15 @@ void AdministradorServidor::administrar(){
 
 					}catch ( EArchivoInexistente &e ){
 
+						this->log->warn("El archivo solicitado no existe");
+
 						this->cerrar();
 
 					}
 				//Guarda el la foto del usuario
 				}else if( mensaje.archivoFisico == "POSTusuariosfoto" ){
+
+					this->log->debug("Cargar foto del usuario");
 
 					try{
 
@@ -80,6 +92,8 @@ void AdministradorServidor::administrar(){
 						this->administrar();
 
 					}catch ( EUsuarioInexistente &e ){
+
+						this->log->warn("El usuario no existe: "+mensaje.quien);
 
 						Respuesta respuesta;
 						respuesta.agregarEstado("ERROR");
@@ -100,8 +114,13 @@ void AdministradorServidor::administrar(){
 		}else if ( this->ev == MG_EV_HTTP_REQUEST ){
 
 			this->parsearMensaje();
+
+			this->log->info("Procesando solicitud del cliente");
+
 			//Se solicita un archivo
 			if ( mensaje.archivoFisico == "GETusuariosarchivofisico" ){
+
+				this->log->debug("Solicitud de archivo");
 
 				ManejadorArchivosFisicos archivoFisico;
 
@@ -109,6 +128,8 @@ void AdministradorServidor::administrar(){
 
 			//Se solicita la foto del usuario
 			}else if ( mensaje.archivoFisico == "GETusuariosfoto" ){
+
+				this->log->debug("Solicitud de foto");
 
 				ManejadorArchivosFisicos archivoFisico;
 
@@ -151,6 +172,8 @@ void AdministradorServidor::parsearMensaje(){
 		URL = URL+ hm.uri.p[i];
 	}
 
+	this->log->debug("URL: "+URL);
+
 	string tipo = "";
 	string nombreUsuario = "";
 	string archivos = "";
@@ -192,23 +215,23 @@ void AdministradorServidor::parsearMensaje(){
 string AdministradorServidor::determinarProtocolo(){
 
 	if (this->sonIguales(&hm.method, &s_put_method)){
-
+		this->log->debug("Tipo de operacion: PUT");
 		return "PUT";
 
 	}else if(this->sonIguales(&hm.method, &s_get_method)){
-
+		this->log->debug("Tipo de operacion: GET");
 		return "GET";
 
 	}else if(this->sonIguales(&hm.method, &s_post_method)){
-
+		this->log->debug("Tipo de operacion: POST");
 		return "POST";
 
 	}else if(this->sonIguales(&hm.method, &s_delele_method)){
-
+		this->log->debug("Tipo de operacion: DELETE");
 		return "DELETE";
 
 	}else{
-
+		this->log->warn("Tipo de operacion inexistente");
 		return "ERROR";
 
 	}
@@ -220,9 +243,13 @@ string AdministradorServidor::realizarOperacion(){
 	string respuesta;
 	string cuerpo = hm.body.p;
 
+	this->log->info("Procesando solicitud del cliente");
+
 	//Verifico que el usuario que solicita exista
 	Usuario usuario;
 	if( (mensaje.tipo != "POSTusuarios") && (!usuario.existeUsuario(mensaje.quien)) ){
+
+		this->log->warn("Usuario inexistente: "+mensaje.quien);
 
 		Respuesta error;
 		error.agregarEstado("ERROR");
@@ -235,11 +262,15 @@ string AdministradorServidor::realizarOperacion(){
 	//Registrar usuario
 	if(mensaje.tipo == "POSTusuarios"){
 
+		this->log->debug("Registrando nuevo usuario");
+
 		ManejadorUsuario manejadorUsuario;
 		respuesta = manejadorUsuario.generar(mensaje.quien,cuerpo);
 
 	//Iniciar sesion del usuario
 	}else if(mensaje.tipo == "POSTiniciarsesion"){
+
+		this->log->debug("Inicio de sesion");
 
 		ManejadorUsuario manejadorUsuario;
 		respuesta = manejadorUsuario.iniciarSesion(mensaje.quien,cuerpo);
@@ -247,11 +278,15 @@ string AdministradorServidor::realizarOperacion(){
 	//retorna los datos del usuario, email,nombre,ubicacion,foto
 	}else if(mensaje.tipo == "GETusuarios"){
 
+		this->log->debug("Solicitud de datos del usuario");
+
 		ManejadorUsuario manejadorUsuario;
 		respuesta = manejadorUsuario.obtenerDatos(mensaje.quien);
 
 	//actualiza los datos del usuario, email,nombre,ubicacion,foto
 	}else if(mensaje.tipo == "PUTusuarios"){
+
+		this->log->debug("Actualizacion de datos del usuario");
 
 		ManejadorUsuario manejadorUsuario;
 		respuesta = manejadorUsuario.actualizarDatos(mensaje.quien,cuerpo);
@@ -259,16 +294,22 @@ string AdministradorServidor::realizarOperacion(){
 	//Retorna los datos de los archivos que posee el usuario, solo los propios,
 	}else if(mensaje.tipo == "GETusuariosarchivos"){
 
+		this->log->debug("Solicitud de metadatos de los archivos del usuario");
+
 		ManejadorUsuario manejadorUsuario;
 		respuesta = manejadorUsuario.obtenerArchivos(mensaje.quien);
 
 	//Retorna los datos de los archivos que fueron compartidos con el usuario
 	}else if(mensaje.tipo == "GETusuariosarchivoscompartidos"){
 
+		this->log->debug("Solicitud de metadatos de los archivos compartidos con el usuario");
+
 		ManejadorUsuario manejadorUsuario;
 		respuesta = manejadorUsuario.obtenerArchivosCompartidos(mensaje.quien);
 
 	}else if(mensaje.tipo == "DELETEusuariosarchivos"){
+
+		this->log->debug("Eliminando archivos");
 
 		ManejadorArchivos manejadorArchivos;
 		respuesta = manejadorArchivos.eliminarArchivo(mensaje.quien,cuerpo);
@@ -276,31 +317,43 @@ string AdministradorServidor::realizarOperacion(){
 	//Crea el archivo logico
 	}else if(mensaje.tipo == "POSTusuariosarchivos"){
 
+		this->log->debug("Cargando metadatos de nuevo archivo");
+
 		ManejadorArchivos manejadorArchivos;
 		respuesta = manejadorArchivos.crearArchivo(mensaje.quien,cuerpo);
 
 	//Comparte el archivo recibido con los usuarios recibidos
 	}else if(mensaje.tipo == "PUTusuariosarchivoscompartir"){
 
+		this->log->debug("Compartiendo archivo");
+
 		ManejadorArchivos manejadorArchivos;
 		respuesta = manejadorArchivos.compartirArchivo(cuerpo);
 
 	}else if(mensaje.tipo == "GETusuariosarchivosetiquetas"){
+
+		this->log->debug("Buscando archivos por etiquetas");
 
 		ManejadorBuscador manejadorBuscador;
 		respuesta = manejadorBuscador.buscarPorEtiquetas(mensaje.quien,mensaje.metadato);
 
 	}else if(mensaje.tipo == "GETusuariosarchivosnombre"){
 
+		this->log->debug("Buscando archivos por nombre");
+
 		ManejadorBuscador manejadorBuscador;
 		respuesta = manejadorBuscador.buscarPorNombre(mensaje.quien,mensaje.metadato);
 
 	}else if(mensaje.tipo == "GETusuariosarchivospropietario"){
 
+		this->log->debug("Buscando archivos por propietario");
+
 		ManejadorBuscador manejadorBuscador;
 		respuesta = manejadorBuscador.buscarPorPropietario(mensaje.quien,mensaje.metadato);
 
 	}else if(mensaje.tipo == "GETusuariosarchivosextension"){
+
+		this->log->debug("Buscando archivos por extension");
 
 		ManejadorBuscador manejadorBuscador;
 		respuesta = manejadorBuscador.buscarPorExtension(mensaje.quien,mensaje.metadato);
@@ -308,10 +361,14 @@ string AdministradorServidor::realizarOperacion(){
 	//Actualiza los metadatos del archivo
 	}else if(mensaje.tipo == "PUTusuariosarchivosactualizar"){
 
+		this->log->debug("Actualizando metadatos del archivo");
+
 		ManejadorArchivos manejadorArchivos;
 		respuesta = manejadorArchivos.actualizarArchivo(mensaje.quien,cuerpo);
 
 	}else if(mensaje.tipo == "PUTusuariosarchivosrestaurar"){
+
+		this->log->debug("Restaurando archivo");
 
 		ManejadorArchivos manejadorArchivos;
 		respuesta = manejadorArchivos.restaurarArchivo(mensaje.quien,cuerpo);
@@ -319,15 +376,21 @@ string AdministradorServidor::realizarOperacion(){
 	//Retorna los archivos que el usuario posee en la papelera
 	}else if(mensaje.tipo == "GETusuariospapelera"){
 
+		this->log->debug("Buscando archivos en la papelera");
+
 		ManejadorUsuario manejadorUsuario;
 		respuesta = manejadorUsuario.obtenerArchivosPapelera(mensaje.quien);
 
 	}else if(mensaje.tipo == "PUTusuariosarchivosrecuperar"){
 
+		this->log->debug("Recuperando archivo de la papelera");
+
 		ManejadorArchivos manejadorArchivos;
 		respuesta = manejadorArchivos.recuperarArchivo(mensaje.quien,cuerpo);
 
 	}else{
+
+		this->log->warn("URL incorrecta: "+mensaje.tipo);
 
 		Respuesta error;
 		error.agregarEstado("ERROR");
