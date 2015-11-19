@@ -1,6 +1,6 @@
 
 # UdriveTPTaller2
-##Descripcion
+##Descripción
 
 Este proyecto se desarrollo para la materia Taller de Programación II.
 
