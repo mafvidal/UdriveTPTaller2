@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['leer',['leer',['../class_basede_datos.html#a17cbf4c51ea948b82d00e184fc723df3',1,'BasedeDatos']]]
+  ['manejadorarchivosfisicos',['ManejadorArchivosFisicos',['../class_manejador_archivos_fisicos.html#ad5fa1be3bc4a1b8e19f16cb34fd87bb6',1,'ManejadorArchivosFisicos::ManejadorArchivosFisicos(const string &amp;hashArchivo)'],['../class_manejador_archivos_fisicos.html#af52540b8e4610658a2007ffe9624021e',1,'ManejadorArchivosFisicos::ManejadorArchivosFisicos()']]]
 ];

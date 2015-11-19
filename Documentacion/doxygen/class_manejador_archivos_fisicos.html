@@ -90,13 +90,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="contents">
 
 <p><code>#include &lt;<a class="el" href="_manejador_archivos_fisicos_8h_source.html">ManejadorArchivosFisicos.h</a>&gt;</code></p>
-<div class="dynheader">
-Collaboration diagram for ManejadorArchivosFisicos:</div>
-<div class="dyncontent">
-<div class="center"><img src="class_manejador_archivos_fisicos__coll__graph.png" border="0" usemap="#_manejador_archivos_fisicos_coll__map" alt="Collaboration graph"/></div>
-<map name="_manejador_archivos_fisicos_coll__map" id="_manejador_archivos_fisicos_coll__map">
-</map>
-</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -116,12 +109,9 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:abffbe52f5aff1699ff2e947a5780afae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7b57537a3de27dc88d0d5f23ab96e04b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_manejador_archivos_fisicos.html#a7b57537a3de27dc88d0d5f23ab96e04b">enviarArchivo</a> (struct mg_connection *c, const string &amp;IDArchivo, const int &amp;version)</td></tr>
 <tr class="separator:a7b57537a3de27dc88d0d5f23ab96e04b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afedc3a1816cf55b9aa240d5daef00974"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_manejador_archivos_fisicos.html#afedc3a1816cf55b9aa240d5daef00974">~ManejadorArchivosFisicos</a> ()</td></tr>
-<tr class="separator:afedc3a1816cf55b9aa240d5daef00974"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p>Definition at line <a class="el" href="_manejador_archivos_fisicos_8h_source.html#l00028">28</a> of file <a class="el" href="_manejador_archivos_fisicos_8h_source.html">ManejadorArchivosFisicos.h</a>.</p>
+<div class="textblock"><p>Clase encargada de actualizar, crear y enviar los archivos fisicos del cliente </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="ad5fa1be3bc4a1b8e19f16cb34fd87bb6"></a>
 <div class="memitem">
@@ -136,17 +126,7 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Definition at line <a class="el" href="_manejador_archivos_fisicos_8cpp_source.html#l00010">10</a> of file <a class="el" href="_manejador_archivos_fisicos_8cpp_source.html">ManejadorArchivosFisicos.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="class_manejador_archivos_fisicos_ad5fa1be3bc4a1b8e19f16cb34fd87bb6_cgraph.png" border="0" usemap="#class_manejador_archivos_fisicos_ad5fa1be3bc4a1b8e19f16cb34fd87bb6_cgraph" alt=""/></div>
-<map name="class_manejador_archivos_fisicos_ad5fa1be3bc4a1b8e19f16cb34fd87bb6_cgraph" id="class_manejador_archivos_fisicos_ad5fa1be3bc4a1b8e19f16cb34fd87bb6_cgraph">
-<area shape="rect" id="node2" href="class_basede_datos.html#a1b298e4f9d6adde1e9ab574e617c1194" title="BasedeDatos::obteberInstancia" alt="" coords="236,5,441,32"/><area shape="rect" id="node3" href="class_controlador_actualizacion.html#a8d4085c857a565f7e051add538d54757" title="ControladorActualizacion\l::obteberInstanciaControlador" alt="" coords="242,57,435,98"/><area shape="rect" id="node4" href="class_log.html#af73823079e45413e37638485347f4403" title="Log::obteberInstanciaLog" alt="" coords="255,123,423,149"/><area shape="rect" id="node5" href="class_basede_datos.html#a17cbf4c51ea948b82d00e184fc723df3" title="BasedeDatos::leer" alt="" coords="273,173,404,200"/><area shape="rect" id="node6" href="class_log.html#a3b533efb43050cfa7311778f2ac01fe6" title="Log::debug" alt="" coords="489,148,576,175"/><area shape="rect" id="node8" href="class_log.html#a547c2f323be357e3c6e1b30131755083" title="Log::trace" alt="" coords="493,199,573,225"/><area shape="rect" id="node7" href="class_fecha.html#ad0e99c3947b9c8f4306c6bef4473a79f" title="Fecha::obtenerFecha" alt="" coords="624,173,769,200"/></map>
-</div>
-</p>
+<p>Inicializa los datos necesarios para crear el archivo fisico, y verifica el hashArchivo  hashArchivo ID del archivo logico que se relaciona con el fisico. </p>
 
 </div>
 </div>
@@ -162,42 +142,7 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Definition at line <a class="el" href="_manejador_archivos_fisicos_8cpp_source.html#l00023">23</a> of file <a class="el" href="_manejador_archivos_fisicos_8cpp_source.html">ManejadorArchivosFisicos.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="class_manejador_archivos_fisicos_af52540b8e4610658a2007ffe9624021e_cgraph.png" border="0" usemap="#class_manejador_archivos_fisicos_af52540b8e4610658a2007ffe9624021e_cgraph" alt=""/></div>
-<map name="class_manejador_archivos_fisicos_af52540b8e4610658a2007ffe9624021e_cgraph" id="class_manejador_archivos_fisicos_af52540b8e4610658a2007ffe9624021e_cgraph">
-<area shape="rect" id="node2" href="class_basede_datos.html#a1b298e4f9d6adde1e9ab574e617c1194" title="BasedeDatos::obteberInstancia" alt="" coords="236,5,441,32"/><area shape="rect" id="node3" href="class_controlador_actualizacion.html#a8d4085c857a565f7e051add538d54757" title="ControladorActualizacion\l::obteberInstanciaControlador" alt="" coords="242,57,435,98"/><area shape="rect" id="node4" href="class_log.html#af73823079e45413e37638485347f4403" title="Log::obteberInstanciaLog" alt="" coords="255,123,423,149"/></map>
-</div>
-</p>
-
-</div>
-</div>
-<a class="anchor" id="afedc3a1816cf55b9aa240d5daef00974"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">ManejadorArchivosFisicos::~ManejadorArchivosFisicos </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Definition at line <a class="el" href="_manejador_archivos_fisicos_8cpp_source.html#l00195">195</a> of file <a class="el" href="_manejador_archivos_fisicos_8cpp_source.html">ManejadorArchivosFisicos.cpp</a>.</p>
+<p>Inicializa los datos necesarios para crear el archivo fisico </p>
 
 </div>
 </div>
@@ -225,8 +170,7 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Definition at line <a class="el" href="_manejador_archivos_fisicos_8cpp_source.html#l00134">134</a> of file <a class="el" href="_manejador_archivos_fisicos_8cpp_source.html">ManejadorArchivosFisicos.cpp</a>.</p>
+<p>Metodo que permite actualizar el nombre del archivo  archivoActual id del archivo actual.  archivoActual id del archivo que reemplaza al actual. </p>
 
 </div>
 </div>
@@ -253,26 +197,7 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Definition at line <a class="el" href="_manejador_archivos_fisicos_8cpp_source.html#l00058">58</a> of file <a class="el" href="_manejador_archivos_fisicos_8cpp_source.html">ManejadorArchivosFisicos.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="class_manejador_archivos_fisicos_ac89d009945007c4c5f3e1488434879d6_cgraph.png" border="0" usemap="#class_manejador_archivos_fisicos_ac89d009945007c4c5f3e1488434879d6_cgraph" alt=""/></div>
-<map name="class_manejador_archivos_fisicos_ac89d009945007c4c5f3e1488434879d6_cgraph" id="class_manejador_archivos_fisicos_ac89d009945007c4c5f3e1488434879d6_cgraph">
-<area shape="rect" id="node2" href="class_basede_datos.html#a17cbf4c51ea948b82d00e184fc723df3" title="BasedeDatos::leer" alt="" coords="250,56,381,83"/><area shape="rect" id="node3" href="class_log.html#a3b533efb43050cfa7311778f2ac01fe6" title="Log::debug" alt="" coords="509,5,595,32"/><area shape="rect" id="node6" href="class_manejador_archivos_fisicos.html#ac8f94264787cbdc6b37d21eaa92ff6a1" title="ManejadorArchivosFisicos\l::crearArchivoFisico" alt="" coords="228,107,403,149"/><area shape="rect" id="node5" href="class_log.html#a547c2f323be357e3c6e1b30131755083" title="Log::trace" alt="" coords="512,56,592,83"/><area shape="rect" id="node4" href="class_fecha.html#ad0e99c3947b9c8f4306c6bef4473a79f" title="Fecha::obtenerFecha" alt="" coords="701,31,847,57"/><area shape="rect" id="node7" href="class_controlador_actualizacion.html#a085006d8cdd2c8d095a1ce8097d57fd2" title="ControladorActualizacion\l::seEstaActualizandoElArchivo" alt="" coords="451,107,653,149"/></map>
-</div>
-</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="class_manejador_archivos_fisicos_ac89d009945007c4c5f3e1488434879d6_icgraph.png" border="0" usemap="#class_manejador_archivos_fisicos_ac89d009945007c4c5f3e1488434879d6_icgraph" alt=""/></div>
-<map name="class_manejador_archivos_fisicos_ac89d009945007c4c5f3e1488434879d6_icgraph" id="class_manejador_archivos_fisicos_ac89d009945007c4c5f3e1488434879d6_icgraph">
-<area shape="rect" id="node2" href="class_administrador_servidor.html#a2bec43b2baeec01aeee06190a3ddce3c" title="AdministradorServidor\l::administrar" alt="" coords="228,5,379,47"/><area shape="rect" id="node3" href="_servidor_8cpp.html#ab4bb4b8ac28d6cb008893b3060687142" title="ev_handler" alt="" coords="427,13,512,39"/></map>
-</div>
-</p>
+<p>Permite actualizar el archivo fisico  struct mg_connection *c datos de la conexion.  struct http_message hm datos del archivo. </p>
 
 </div>
 </div>
@@ -289,26 +214,7 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Definition at line <a class="el" href="_manejador_archivos_fisicos_8cpp_source.html#l00089">89</a> of file <a class="el" href="_manejador_archivos_fisicos_8cpp_source.html">ManejadorArchivosFisicos.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="class_manejador_archivos_fisicos_a90121b5124669cedd13f510a42bea964_cgraph.png" border="0" usemap="#class_manejador_archivos_fisicos_a90121b5124669cedd13f510a42bea964_cgraph" alt=""/></div>
-<map name="class_manejador_archivos_fisicos_a90121b5124669cedd13f510a42bea964_cgraph" id="class_manejador_archivos_fisicos_a90121b5124669cedd13f510a42bea964_cgraph">
-<area shape="rect" id="node2" href="class_controlador_actualizacion.html#a538a3ab78a384e2ef9a40d6fd8aee93b" title="ControladorActualizacion\l::obtenerArchivo" alt="" coords="244,5,411,47"/><area shape="rect" id="node3" href="class_respuesta.html#a7ceacbce77799c8d925b7e6366bfe843" title="Respuesta::agregarEstado" alt="" coords="239,71,416,98"/><area shape="rect" id="node4" href="class_respuesta.html#ae498cdffda54bb858937acdb091f269c" title="Respuesta::agregarMensaje" alt="" coords="235,122,420,149"/><area shape="rect" id="node5" href="class_respuesta.html#a451dd1599a35b960ce3c09281b743b99" title="Respuesta::obtenerRespuesta" alt="" coords="228,173,427,199"/><area shape="rect" id="node6" href="class_log.html#a3b533efb43050cfa7311778f2ac01fe6" title="Log::debug" alt="" coords="284,223,371,250"/><area shape="rect" id="node8" href="class_controlador_actualizacion.html#a4489de12b183aa02ab663f65226c7d44" title="ControladorActualizacion\l::archivoActualizado" alt="" coords="244,275,411,316"/><area shape="rect" id="node7" href="class_fecha.html#ad0e99c3947b9c8f4306c6bef4473a79f" title="Fecha::obtenerFecha" alt="" coords="475,223,620,250"/></map>
-</div>
-</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="class_manejador_archivos_fisicos_a90121b5124669cedd13f510a42bea964_icgraph.png" border="0" usemap="#class_manejador_archivos_fisicos_a90121b5124669cedd13f510a42bea964_icgraph" alt=""/></div>
-<map name="class_manejador_archivos_fisicos_a90121b5124669cedd13f510a42bea964_icgraph" id="class_manejador_archivos_fisicos_a90121b5124669cedd13f510a42bea964_icgraph">
-<area shape="rect" id="node2" href="class_administrador_servidor.html#a2bec43b2baeec01aeee06190a3ddce3c" title="AdministradorServidor\l::administrar" alt="" coords="228,5,379,47"/><area shape="rect" id="node3" href="_servidor_8cpp.html#ab4bb4b8ac28d6cb008893b3060687142" title="ev_handler" alt="" coords="427,13,512,39"/></map>
-</div>
-</p>
+<p>Metodo intermedio para almacenar los datos del archivo fisico  struct mg_connection *c datos de la conexion. </p>
 
 </div>
 </div>
@@ -335,26 +241,7 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Definition at line <a class="el" href="_manejador_archivos_fisicos_8cpp_source.html#l00031">31</a> of file <a class="el" href="_manejador_archivos_fisicos_8cpp_source.html">ManejadorArchivosFisicos.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="class_manejador_archivos_fisicos_ac8f94264787cbdc6b37d21eaa92ff6a1_cgraph.png" border="0" usemap="#class_manejador_archivos_fisicos_ac8f94264787cbdc6b37d21eaa92ff6a1_cgraph" alt=""/></div>
-<map name="class_manejador_archivos_fisicos_ac8f94264787cbdc6b37d21eaa92ff6a1_cgraph" id="class_manejador_archivos_fisicos_ac8f94264787cbdc6b37d21eaa92ff6a1_cgraph">
-<area shape="rect" id="node2" href="class_controlador_actualizacion.html#a085006d8cdd2c8d095a1ce8097d57fd2" title="ControladorActualizacion\l::seEstaActualizandoElArchivo" alt="" coords="228,5,431,47"/></map>
-</div>
-</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="class_manejador_archivos_fisicos_ac8f94264787cbdc6b37d21eaa92ff6a1_icgraph.png" border="0" usemap="#class_manejador_archivos_fisicos_ac8f94264787cbdc6b37d21eaa92ff6a1_icgraph" alt=""/></div>
-<map name="class_manejador_archivos_fisicos_ac8f94264787cbdc6b37d21eaa92ff6a1_icgraph" id="class_manejador_archivos_fisicos_ac8f94264787cbdc6b37d21eaa92ff6a1_icgraph">
-<area shape="rect" id="node2" href="class_administrador_servidor.html#a2bec43b2baeec01aeee06190a3ddce3c" title="AdministradorServidor\l::administrar" alt="" coords="451,26,601,67"/><area shape="rect" id="node4" href="class_manejador_archivos_fisicos.html#ac89d009945007c4c5f3e1488434879d6" title="ManejadorArchivosFisicos\l::actualizarArchivoFisico" alt="" coords="228,26,403,67"/><area shape="rect" id="node5" href="class_manejador_archivos_fisicos.html#a20de2b9e2c15a0960f4cff3c0f791704" title="ManejadorArchivosFisicos\l::guardarFoto" alt="" coords="228,91,403,132"/><area shape="rect" id="node3" href="_servidor_8cpp.html#ab4bb4b8ac28d6cb008893b3060687142" title="ev_handler" alt="" coords="649,33,735,60"/></map>
-</div>
-</p>
+<p>Permite crear archivos fisicos  struct mg_connection *c datos de la conexion.  struct http_message hm datos del archivo. </p>
 
 </div>
 </div>
@@ -387,26 +274,7 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Definition at line <a class="el" href="_manejador_archivos_fisicos_8cpp_source.html#l00149">149</a> of file <a class="el" href="_manejador_archivos_fisicos_8cpp_source.html">ManejadorArchivosFisicos.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="class_manejador_archivos_fisicos_a7b57537a3de27dc88d0d5f23ab96e04b_cgraph.png" border="0" usemap="#class_manejador_archivos_fisicos_a7b57537a3de27dc88d0d5f23ab96e04b_cgraph" alt=""/></div>
-<map name="class_manejador_archivos_fisicos_a7b57537a3de27dc88d0d5f23ab96e04b_cgraph" id="class_manejador_archivos_fisicos_a7b57537a3de27dc88d0d5f23ab96e04b_cgraph">
-<area shape="rect" id="node2" href="class_log.html#a3b533efb43050cfa7311778f2ac01fe6" title="Log::debug" alt="" coords="284,5,371,32"/><area shape="rect" id="node4" href="class_log.html#ad09c72b31da2043bd7c2c0d963c53db5" title="Log::warn" alt="" coords="288,56,367,83"/><area shape="rect" id="node5" href="class_respuesta.html#a7ceacbce77799c8d925b7e6366bfe843" title="Respuesta::agregarEstado" alt="" coords="239,107,416,133"/><area shape="rect" id="node6" href="class_respuesta.html#ae498cdffda54bb858937acdb091f269c" title="Respuesta::agregarMensaje" alt="" coords="235,157,420,184"/><area shape="rect" id="node7" href="class_respuesta.html#a451dd1599a35b960ce3c09281b743b99" title="Respuesta::obtenerRespuesta" alt="" coords="228,208,427,235"/><area shape="rect" id="node3" href="class_fecha.html#ad0e99c3947b9c8f4306c6bef4473a79f" title="Fecha::obtenerFecha" alt="" coords="475,31,620,57"/></map>
-</div>
-</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="class_manejador_archivos_fisicos_a7b57537a3de27dc88d0d5f23ab96e04b_icgraph.png" border="0" usemap="#class_manejador_archivos_fisicos_a7b57537a3de27dc88d0d5f23ab96e04b_icgraph" alt=""/></div>
-<map name="class_manejador_archivos_fisicos_a7b57537a3de27dc88d0d5f23ab96e04b_icgraph" id="class_manejador_archivos_fisicos_a7b57537a3de27dc88d0d5f23ab96e04b_icgraph">
-<area shape="rect" id="node2" href="class_administrador_servidor.html#a2bec43b2baeec01aeee06190a3ddce3c" title="AdministradorServidor\l::administrar" alt="" coords="228,5,379,47"/><area shape="rect" id="node3" href="_servidor_8cpp.html#ab4bb4b8ac28d6cb008893b3060687142" title="ev_handler" alt="" coords="427,13,512,39"/></map>
-</div>
-</p>
+<p>Metodo que permite enviar los archivo al usuario  struct mg_connection *c datos de la conexion.  IDArchivo id del archivo pedido por el cliente.  version numero de la version del archivo que desea el cliente. </p>
 
 </div>
 </div>
@@ -439,37 +307,17 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Definition at line <a class="el" href="_manejador_archivos_fisicos_8cpp_source.html#l00075">75</a> of file <a class="el" href="_manejador_archivos_fisicos_8cpp_source.html">ManejadorArchivosFisicos.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="class_manejador_archivos_fisicos_a20de2b9e2c15a0960f4cff3c0f791704_cgraph.png" border="0" usemap="#class_manejador_archivos_fisicos_a20de2b9e2c15a0960f4cff3c0f791704_cgraph" alt=""/></div>
-<map name="class_manejador_archivos_fisicos_a20de2b9e2c15a0960f4cff3c0f791704_cgraph" id="class_manejador_archivos_fisicos_a20de2b9e2c15a0960f4cff3c0f791704_cgraph">
-<area shape="rect" id="node2" href="class_basede_datos.html#a17cbf4c51ea948b82d00e184fc723df3" title="BasedeDatos::leer" alt="" coords="250,56,381,83"/><area shape="rect" id="node6" href="class_manejador_archivos_fisicos.html#ac8f94264787cbdc6b37d21eaa92ff6a1" title="ManejadorArchivosFisicos\l::crearArchivoFisico" alt="" coords="228,107,403,149"/><area shape="rect" id="node3" href="class_log.html#a3b533efb43050cfa7311778f2ac01fe6" title="Log::debug" alt="" coords="509,5,595,32"/><area shape="rect" id="node5" href="class_log.html#a547c2f323be357e3c6e1b30131755083" title="Log::trace" alt="" coords="512,56,592,83"/><area shape="rect" id="node4" href="class_fecha.html#ad0e99c3947b9c8f4306c6bef4473a79f" title="Fecha::obtenerFecha" alt="" coords="701,31,847,57"/><area shape="rect" id="node7" href="class_controlador_actualizacion.html#a085006d8cdd2c8d095a1ce8097d57fd2" title="ControladorActualizacion\l::seEstaActualizandoElArchivo" alt="" coords="451,107,653,149"/></map>
-</div>
-</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="class_manejador_archivos_fisicos_a20de2b9e2c15a0960f4cff3c0f791704_icgraph.png" border="0" usemap="#class_manejador_archivos_fisicos_a20de2b9e2c15a0960f4cff3c0f791704_icgraph" alt=""/></div>
-<map name="class_manejador_archivos_fisicos_a20de2b9e2c15a0960f4cff3c0f791704_icgraph" id="class_manejador_archivos_fisicos_a20de2b9e2c15a0960f4cff3c0f791704_icgraph">
-<area shape="rect" id="node2" href="class_administrador_servidor.html#a2bec43b2baeec01aeee06190a3ddce3c" title="AdministradorServidor\l::administrar" alt="" coords="228,5,379,47"/><area shape="rect" id="node3" href="_servidor_8cpp.html#ab4bb4b8ac28d6cb008893b3060687142" title="ev_handler" alt="" coords="427,13,512,39"/></map>
-</div>
-</p>
+<p>Guarda la foto del usuario  struct mg_connection *c datos de la conexion.  struct http_message hm datos del archivo.  usuario nombre del usuario al que pertenece la foto. </p>
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following files:<ul>
+<hr/>The documentation for this class was generated from the following file:<ul>
 <li><a class="el" href="_manejador_archivos_fisicos_8h_source.html">ManejadorArchivosFisicos.h</a></li>
-<li><a class="el" href="_manejador_archivos_fisicos_8cpp_source.html">ManejadorArchivosFisicos.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Nov 19 2015 01:56:49 for My Project by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Nov 19 2015 15:43:42 for My Project by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>

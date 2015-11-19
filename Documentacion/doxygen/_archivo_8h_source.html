@@ -61,7 +61,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow2" class="tabs2">
     <ul class="tablist">
       <li><a href="files.html"><span>File&#160;List</span></a></li>
-      <li><a href="globals.html"><span>File&#160;Members</span></a></li>
     </ul>
   </div>
 </div><!-- top -->
@@ -84,66 +83,53 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">Archivo.h</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="_archivo_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef ARCHIVO_H_</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef ARCHIVO_H_</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define ARCHIVO_H_</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;</div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_base_de_datos_8h.html">BaseDeDatos.h</a>&quot;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;BaseDeDatos.h&quot;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;json/json.h&quot;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_constantes_8h.html">Constantes.h</a>&quot;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_actualizador_8h.html">Actualizador.h</a>&quot;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_restaurador_8h.html">Restaurador.h</a>&quot;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_hash_8h.html">Hash.h</a>&quot;</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_usuario_8h.html">Usuario.h</a>&quot;</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_log_8h.html">Log.h</a>&quot;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &quot;Constantes.h&quot;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &quot;Actualizador.h&quot;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &quot;Restaurador.h&quot;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &quot;Hash.h&quot;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &quot;Usuario.h&quot;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &quot;Log.h&quot;</span></div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;iostream&gt;</span></div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;</div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">using namespace </span><a class="code" href="namespace_json.html">Json</a>;</div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">using namespace </span><a class="code" href="namespacestd.html">std</a>;</div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;</div>
-<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="class_archivo.html">   17</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_archivo.html">Archivo</a> {</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <a class="code" href="class_basede_datos.html">BasedeDatos</a> *baseDeDatos;</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <a class="code" href="class_log.html">Log</a> *log;</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <a class="code" href="class_archivo.html">Archivo</a>();</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="comment">//Almacena en la base de datos, los metadatos del archivo</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="comment">//El archivo es agregado por primera vez a la base de datos</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="comment">//Retorna si se pudo o no guardar el archivo</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keywordtype">string</span> crearArchivo(<span class="keyword">const</span> <span class="keywordtype">string</span> &amp;usuario,<span class="keyword">const</span> <span class="keywordtype">string</span> &amp;json);</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="comment">//Elimina el archivo enviandolo a la papelera</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="comment">//Recibe los datos del archivo</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keywordtype">string</span> eliminarArchivo(<span class="keyword">const</span> <span class="keywordtype">string</span> &amp;nombreUsuarioEliminador,<span class="keyword">const</span> <span class="keywordtype">string</span> &amp;json);</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    Value obtenerDatos(<span class="keyword">const</span> <span class="keywordtype">string</span> &amp; hashDelArchivo);</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="comment">//Comparte el archivo segun el json, con los usuariosACompartir</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keywordtype">string</span> compartir(<span class="keyword">const</span> <span class="keywordtype">string</span> &amp;usuariosACompartir,<span class="keyword">const</span> <span class="keywordtype">string</span> &amp; json);</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keywordtype">string</span> actualizar(<span class="keyword">const</span> <span class="keywordtype">string</span> &amp; nombreUsuario,<span class="keyword">const</span> <span class="keywordtype">string</span> &amp; json);</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keywordtype">string</span> restaurar(<span class="keyword">const</span> <span class="keywordtype">string</span> &amp; nombreUsuario,<span class="keyword">const</span> <span class="keywordtype">string</span> &amp; json);</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keywordtype">bool</span> recuperarArchivo(<span class="keyword">const</span> <span class="keywordtype">string</span> &amp;nombreUsuarioRecuperador,<span class="keyword">const</span> <span class="keywordtype">string</span> &amp;json);</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keyword">virtual</span> ~<a class="code" href="class_archivo.html">Archivo</a>();</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keywordtype">void</span> guardarMetadatosAUsuarios(<span class="keyword">const</span> <span class="keywordtype">string</span> &amp;usuario,<span class="keyword">const</span> Value &amp;datos,<span class="keyword">const</span> <span class="keywordtype">string</span> &amp;hash);</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keywordtype">void</span> guardarMetadato(<span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> &amp;TIPO,<span class="keyword">const</span> <span class="keywordtype">string</span> &amp;usuario,<span class="keyword">const</span> <span class="keywordtype">string</span> &amp;metadato,<span class="keyword">const</span> <span class="keywordtype">string</span> &amp; hashArchivo);</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keywordtype">string</span> obtenerMetadatos(<span class="keyword">const</span> Value &amp;metadatos);</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keywordtype">string</span> convertirAString(<span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> &amp;valor);</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;};</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* ARCHIVO_H_ */</span><span class="preprocessor"></span></div>
-<div class="ttc" id="_constantes_8h_html"><div class="ttname"><a href="_constantes_8h.html">Constantes.h</a></div></div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="class_archivo.html">   21</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_archivo.html">Archivo</a> {</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <a class="code" href="class_basede_datos.html">BasedeDatos</a> *baseDeDatos;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <a class="code" href="class_log.html">Log</a> *log;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <a class="code" href="class_archivo.html">Archivo</a>();</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keywordtype">string</span> crearArchivo(<span class="keyword">const</span> <span class="keywordtype">string</span> &amp;usuario,<span class="keyword">const</span> <span class="keywordtype">string</span> &amp;json);</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keywordtype">string</span> eliminarArchivo(<span class="keyword">const</span> <span class="keywordtype">string</span> &amp;nombreUsuarioEliminador,<span class="keyword">const</span> <span class="keywordtype">string</span> &amp;json);</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    Value obtenerDatos(<span class="keyword">const</span> <span class="keywordtype">string</span> &amp; hashDelArchivo);</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keywordtype">string</span> compartir(<span class="keyword">const</span> <span class="keywordtype">string</span> &amp;usuariosACompartir,<span class="keyword">const</span> <span class="keywordtype">string</span> &amp; json);</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keywordtype">string</span> actualizar(<span class="keyword">const</span> <span class="keywordtype">string</span> &amp; nombreUsuario,<span class="keyword">const</span> <span class="keywordtype">string</span> &amp; json);</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keywordtype">string</span> restaurar(<span class="keyword">const</span> <span class="keywordtype">string</span> &amp; nombreUsuario,<span class="keyword">const</span> <span class="keywordtype">string</span> &amp; json);</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keywordtype">bool</span> recuperarArchivo(<span class="keyword">const</span> <span class="keywordtype">string</span> &amp;nombreUsuarioRecuperador,<span class="keyword">const</span> <span class="keywordtype">string</span> &amp;json);</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keyword">virtual</span> ~<a class="code" href="class_archivo.html">Archivo</a>();</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keywordtype">void</span> guardarMetadatosAUsuarios(<span class="keyword">const</span> <span class="keywordtype">string</span> &amp;usuario,<span class="keyword">const</span> Value &amp;datos,<span class="keyword">const</span> <span class="keywordtype">string</span> &amp;hash);</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keywordtype">void</span> guardarMetadato(<span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> &amp;TIPO,<span class="keyword">const</span> <span class="keywordtype">string</span> &amp;usuario,<span class="keyword">const</span> <span class="keywordtype">string</span> &amp;metadato,<span class="keyword">const</span> <span class="keywordtype">string</span> &amp; hashArchivo);</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keywordtype">string</span> obtenerMetadatos(<span class="keyword">const</span> Value &amp;metadatos);</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keywordtype">string</span> convertirAString(<span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> &amp;valor);</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;};</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* ARCHIVO_H_ */</span><span class="preprocessor"></span></div>
 <div class="ttc" id="namespacestd_html"><div class="ttname"><a href="namespacestd.html">std</a></div></div>
-<div class="ttc" id="_log_8h_html"><div class="ttname"><a href="_log_8h.html">Log.h</a></div></div>
-<div class="ttc" id="class_basede_datos_html"><div class="ttname"><a href="class_basede_datos.html">BasedeDatos</a></div><div class="ttdef"><b>Definition:</b> <a href="_base_de_datos_8h_source.html#l00026">BaseDeDatos.h:26</a></div></div>
+<div class="ttc" id="class_basede_datos_html"><div class="ttname"><a href="class_basede_datos.html">BasedeDatos</a></div><div class="ttdef"><b>Definition:</b> BaseDeDatos.h:29</div></div>
 <div class="ttc" id="namespace_json_html"><div class="ttname"><a href="namespace_json.html">Json</a></div></div>
-<div class="ttc" id="_restaurador_8h_html"><div class="ttname"><a href="_restaurador_8h.html">Restaurador.h</a></div></div>
-<div class="ttc" id="_usuario_8h_html"><div class="ttname"><a href="_usuario_8h.html">Usuario.h</a></div></div>
-<div class="ttc" id="_base_de_datos_8h_html"><div class="ttname"><a href="_base_de_datos_8h.html">BaseDeDatos.h</a></div></div>
-<div class="ttc" id="class_log_html"><div class="ttname"><a href="class_log.html">Log</a></div><div class="ttdef"><b>Definition:</b> <a href="_log_8h_source.html#l00018">Log.h:18</a></div></div>
-<div class="ttc" id="class_archivo_html"><div class="ttname"><a href="class_archivo.html">Archivo</a></div><div class="ttdef"><b>Definition:</b> <a href="_archivo_8h_source.html#l00017">Archivo.h:17</a></div></div>
-<div class="ttc" id="_hash_8h_html"><div class="ttname"><a href="_hash_8h.html">Hash.h</a></div></div>
-<div class="ttc" id="_actualizador_8h_html"><div class="ttname"><a href="_actualizador_8h.html">Actualizador.h</a></div></div>
+<div class="ttc" id="class_log_html"><div class="ttname"><a href="class_log.html">Log</a></div><div class="ttdef"><b>Definition:</b> Log.h:21</div></div>
+<div class="ttc" id="class_archivo_html"><div class="ttname"><a href="class_archivo.html">Archivo</a></div><div class="ttdef"><b>Definition:</b> Archivo.h:21</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Nov 19 2015 01:56:48 for My Project by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Nov 19 2015 15:43:41 for My Project by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>

@@ -1,6 +1,0 @@
-<map id="ManejadorBuscador::buscarPorNombre" name="ManejadorBuscador::buscarPorNombre">
-<area shape="rect" id="node2" href="$class_respuesta.html#a7ceacbce77799c8d925b7e6366bfe843" title="Respuesta::agregarEstado" alt="" coords="209,5,387,32"/>
-<area shape="rect" id="node3" href="$class_respuesta.html#a66b6a2841d52848310134a16295ade28" title="Respuesta::agregarDatos" alt="" coords="213,56,383,83"/>
-<area shape="rect" id="node4" href="$class_buscador.html#a46ac890fee8e76d134f7ed5fe0c22c78" title="Buscador::buscarPorNombre" alt="" coords="203,107,393,133"/>
-<area shape="rect" id="node5" href="$class_respuesta.html#a451dd1599a35b960ce3c09281b743b99" title="Respuesta::obtenerRespuesta" alt="" coords="199,157,397,184"/>
-</map>

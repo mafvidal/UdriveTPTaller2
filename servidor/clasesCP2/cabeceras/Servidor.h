@@ -22,6 +22,9 @@ using namespace std;
 
 static map<string,FILE *> mapa;
 
+/*
+* Clase encargada de escuchar nuevos clientes
+*/
 class Servidor {
 private:
 	Log *log;
@@ -30,8 +33,17 @@ public:
 	friend void ev_handler(struct mg_connection *c, int ev, void *p);
 	friend void *tomarConsulta(void *threadid);
 	Servidor();
+	/*
+	* Arranca el servidor
+	*/
 	void arrancar();
+	/*
+	* Detiene el servidor
+	*/
 	void detener();
+	/*
+	* Retorna si el servidor se esta ejecuntando o no
+	*/
 	bool ok();
 	virtual ~Servidor();
 };

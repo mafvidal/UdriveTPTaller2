@@ -21,6 +21,9 @@
 using namespace std;
 using namespace Json;
 
+/**
+* Clase encargada de restaurar los archivos a su version anterior
+*/
 class Restaurador {
 private:
 	Log *log;
@@ -48,8 +51,21 @@ private:
 	Value usuarios;
 
 public:
+	/**
+	* Inicializa los datos a restaurar
+	* @params usuarioQueRestaura El usuario que restaura el archivo.
+	* @params datosARestaurar Los datos para identificar el archivo a restaurar.
+	*/
 	Restaurador(const string &usuarioQueRestaura,const string &datosARestaurar);
+	/**
+	* Restaura el archivo
+	* @return retorna si se pudo o no restaurar el archivo
+	*/
 	string restaurarArchivo();
+	/**
+	* Metodo para obtenener la version del archivo
+	* @return retorna la version actual del archivo
+	*/
 	unsigned int version();
 	virtual ~Restaurador();
 private:

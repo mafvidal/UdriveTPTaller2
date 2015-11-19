@@ -22,6 +22,9 @@
 using namespace std;
 using namespace Json;
 
+/**
+* Clase encargada de actualizar los metadatos del archivo
+*/
 class Actualizador {
 private:
 	Log *log;
@@ -49,6 +52,9 @@ private:
 
 public:
 	Actualizador(const string &usuarioQueEstaModificando,const string &datosAActualizar);
+	/**
+	* Metodo encargado de actualizar el archivo
+	*/
 	string actualizarArchivo();
 	virtual ~Actualizador();
 

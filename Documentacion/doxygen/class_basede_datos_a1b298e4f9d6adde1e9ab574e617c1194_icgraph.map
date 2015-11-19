@@ -1,9 +1,0 @@
-<map id="BasedeDatos::obteberInstancia" name="BasedeDatos::obteberInstancia">
-<area shape="rect" id="node2" href="$class_actualizador.html#ac206f566469108784ba91edf01c1be46" title="Actualizador::Actualizador" alt="" coords="263,5,437,32"/>
-<area shape="rect" id="node3" href="$class_archivo.html#a0adea0477e973c3e90c34b487d39b8e6" title="Archivo::Archivo" alt="" coords="291,56,409,83"/>
-<area shape="rect" id="node4" href="$class_buscador.html#a3719fa2d8c8b3356b1d15d6716b287ef" title="Buscador::Buscador" alt="" coords="280,107,420,133"/>
-<area shape="rect" id="node5" href="$class_hash.html#af482880ad75b67a09d2dcb5e86244d80" title="Hash::Hash" alt="" coords="304,157,396,184"/>
-<area shape="rect" id="node6" href="$class_manejador_archivos_fisicos.html#ad5fa1be3bc4a1b8e19f16cb34fd87bb6" title="ManejadorArchivosFisicos\l::ManejadorArchivosFisicos" alt="" coords="259,209,441,250"/>
-<area shape="rect" id="node7" href="$class_restaurador.html#a2adc4fd6a681bdb006cc9182b7f08042" title="Restaurador::Restaurador" alt="" coords="264,275,436,301"/>
-<area shape="rect" id="node8" href="$class_usuario.html#aa85a5371a098dfba5449140d9b8a472f" title="Usuario::Usuario" alt="" coords="290,325,410,352"/>
-</map>

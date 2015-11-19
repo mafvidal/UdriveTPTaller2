@@ -61,7 +61,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow2" class="tabs2">
     <ul class="tablist">
       <li><a href="files.html"><span>File&#160;List</span></a></li>
-      <li><a href="globals.html"><span>File&#160;Members</span></a></li>
     </ul>
   </div>
 </div><!-- top -->
@@ -84,7 +83,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">Actualizador.h</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="_actualizador_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">/*</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">/*</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment"> * Actualizador.h</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment"> *</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment"> *  Created on: 22 de oct. de 2015</span></div>
@@ -95,83 +94,75 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#define ACTUALIZADOR_H_</span></div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;</div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;iostream&gt;</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_base_de_datos_8h.html">BaseDeDatos.h</a>&quot;</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_constantes_8h.html">Constantes.h</a>&quot;</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &quot;BaseDeDatos.h&quot;</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &quot;Constantes.h&quot;</span></div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &quot;json/json.h&quot;</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_hash_8h.html">Hash.h</a>&quot;</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_usuario_8h.html">Usuario.h</a>&quot;</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_manejador_archivos_fisicos_8h.html">ManejadorArchivosFisicos.h</a>&quot;</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_excepciones_8h.html">Excepciones.h</a>&quot;</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_fecha_8h.html">Fecha.h</a>&quot;</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_log_8h.html">Log.h</a>&quot;</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &quot;Hash.h&quot;</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &quot;Usuario.h&quot;</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#include &quot;ManejadorArchivosFisicos.h&quot;</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#include &quot;Excepciones.h&quot;</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#include &quot;Fecha.h&quot;</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#include &quot;Log.h&quot;</span></div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">using namespace </span><a class="code" href="namespacestd.html">std</a>;</div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">using namespace </span><a class="code" href="namespace_json.html">Json</a>;</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;</div>
-<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="class_actualizador.html">   25</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_actualizador.html">Actualizador</a> {</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <a class="code" href="class_log.html">Log</a> *log;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <a class="code" href="class_basede_datos.html">BasedeDatos</a> *baseDeDatos;</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keywordtype">string</span> propietario;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keywordtype">string</span> directorioOriginal;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keywordtype">string</span> nombreOriginal;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keywordtype">string</span> extensionOriginal;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keywordtype">string</span> nombreNuevo;</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keywordtype">string</span> extensionNueva;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keywordtype">string</span> directorioNuevo;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keywordtype">string</span> fechaDeModificacion;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keywordtype">string</span> usuarioQueModifico;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    Value etiquetas;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    Value etiquetasNuevas;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    Value etiquetasEliminadas;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keywordtype">bool</span> cambionNombre;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keywordtype">bool</span> cambioExtension;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keywordtype">bool</span> cambioDirectorio;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keywordtype">string</span> nuevoHash;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keywordtype">string</span> antiguoHash;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    Value usuarios;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    Value datosAnteriores;</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> espacioNuevo;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <a class="code" href="class_actualizador.html">Actualizador</a>(<span class="keyword">const</span> <span class="keywordtype">string</span> &amp;usuarioQueEstaModificando,<span class="keyword">const</span> <span class="keywordtype">string</span> &amp;datosAActualizar);</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keywordtype">string</span> actualizarArchivo();</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keyword">virtual</span> ~<a class="code" href="class_actualizador.html">Actualizador</a>();</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keywordtype">void</span> cargarDatos(<span class="keyword">const</span> <span class="keywordtype">string</span> &amp;usuarioQueEstaModificando,<span class="keyword">const</span> <span class="keywordtype">string</span> &amp;datosAActualizar);</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keywordtype">void</span> actualizarHashAUsuarios();</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keywordtype">void</span> actualizarMetadato(<span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> &amp;TIPO, <span class="keyword">const</span> <span class="keywordtype">string</span> &amp;metadato,<span class="keyword">const</span> <span class="keywordtype">string</span> &amp;hashArchivo,<span class="keyword">const</span> <span class="keywordtype">string</span> &amp;usuario);</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keywordtype">void</span> eliminarMetadato(<span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> &amp;TIPO, <span class="keyword">const</span> <span class="keywordtype">string</span> &amp;metadato,<span class="keyword">const</span> <span class="keywordtype">string</span> &amp;hashArchivo,<span class="keyword">const</span> <span class="keywordtype">string</span> &amp;usuario);</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keywordtype">void</span> actualizarEtiquetas();</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keywordtype">void</span> actualizarEtiquetasNuevas();</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keywordtype">void</span> actualizarEtiquetasEliminadas();</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keywordtype">void</span> actualizarUsuariosCompartidos(<span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> &amp;TIPO, <span class="keyword">const</span> <span class="keywordtype">string</span> &amp;metadatoGuardar,<span class="keyword">const</span> <span class="keywordtype">string</span> &amp;metadatoEliminar);</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keywordtype">string</span> generarNuevoArchivo(<span class="keyword">const</span> <span class="keywordtype">string</span> &amp;hashVersionPrevia);</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keywordtype">string</span> generarAntiguoArchivo();</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keywordtype">string</span> obtenerHahsPrevio();</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keywordtype">string</span> convertirAString(<span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> &amp;version);</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keywordtype">void</span> actualizarArchivoFisico();</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;};</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* ACTUALIZADOR_H_ */</span><span class="preprocessor"></span></div>
-<div class="ttc" id="_constantes_8h_html"><div class="ttname"><a href="_constantes_8h.html">Constantes.h</a></div></div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="class_actualizador.html">   28</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_actualizador.html">Actualizador</a> {</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <a class="code" href="class_log.html">Log</a> *log;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <a class="code" href="class_basede_datos.html">BasedeDatos</a> *baseDeDatos;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keywordtype">string</span> propietario;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keywordtype">string</span> directorioOriginal;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keywordtype">string</span> nombreOriginal;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keywordtype">string</span> extensionOriginal;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keywordtype">string</span> nombreNuevo;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keywordtype">string</span> extensionNueva;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keywordtype">string</span> directorioNuevo;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keywordtype">string</span> fechaDeModificacion;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keywordtype">string</span> usuarioQueModifico;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    Value etiquetas;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    Value etiquetasNuevas;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    Value etiquetasEliminadas;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keywordtype">bool</span> cambionNombre;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keywordtype">bool</span> cambioExtension;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keywordtype">bool</span> cambioDirectorio;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keywordtype">string</span> nuevoHash;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keywordtype">string</span> antiguoHash;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    Value usuarios;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    Value datosAnteriores;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> espacioNuevo;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <a class="code" href="class_actualizador.html">Actualizador</a>(<span class="keyword">const</span> <span class="keywordtype">string</span> &amp;usuarioQueEstaModificando,<span class="keyword">const</span> <span class="keywordtype">string</span> &amp;datosAActualizar);</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keywordtype">string</span> actualizarArchivo();</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keyword">virtual</span> ~<a class="code" href="class_actualizador.html">Actualizador</a>();</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keywordtype">void</span> cargarDatos(<span class="keyword">const</span> <span class="keywordtype">string</span> &amp;usuarioQueEstaModificando,<span class="keyword">const</span> <span class="keywordtype">string</span> &amp;datosAActualizar);</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keywordtype">void</span> actualizarHashAUsuarios();</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keywordtype">void</span> actualizarMetadato(<span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> &amp;TIPO, <span class="keyword">const</span> <span class="keywordtype">string</span> &amp;metadato,<span class="keyword">const</span> <span class="keywordtype">string</span> &amp;hashArchivo,<span class="keyword">const</span> <span class="keywordtype">string</span> &amp;usuario);</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keywordtype">void</span> eliminarMetadato(<span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> &amp;TIPO, <span class="keyword">const</span> <span class="keywordtype">string</span> &amp;metadato,<span class="keyword">const</span> <span class="keywordtype">string</span> &amp;hashArchivo,<span class="keyword">const</span> <span class="keywordtype">string</span> &amp;usuario);</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keywordtype">void</span> actualizarEtiquetas();</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keywordtype">void</span> actualizarEtiquetasNuevas();</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keywordtype">void</span> actualizarEtiquetasEliminadas();</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keywordtype">void</span> actualizarUsuariosCompartidos(<span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> &amp;TIPO, <span class="keyword">const</span> <span class="keywordtype">string</span> &amp;metadatoGuardar,<span class="keyword">const</span> <span class="keywordtype">string</span> &amp;metadatoEliminar);</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keywordtype">string</span> generarNuevoArchivo(<span class="keyword">const</span> <span class="keywordtype">string</span> &amp;hashVersionPrevia);</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keywordtype">string</span> generarAntiguoArchivo();</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keywordtype">string</span> obtenerHahsPrevio();</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keywordtype">string</span> convertirAString(<span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> &amp;version);</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keywordtype">void</span> actualizarArchivoFisico();</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;};</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* ACTUALIZADOR_H_ */</span><span class="preprocessor"></span></div>
 <div class="ttc" id="namespacestd_html"><div class="ttname"><a href="namespacestd.html">std</a></div></div>
-<div class="ttc" id="_log_8h_html"><div class="ttname"><a href="_log_8h.html">Log.h</a></div></div>
-<div class="ttc" id="class_basede_datos_html"><div class="ttname"><a href="class_basede_datos.html">BasedeDatos</a></div><div class="ttdef"><b>Definition:</b> <a href="_base_de_datos_8h_source.html#l00026">BaseDeDatos.h:26</a></div></div>
+<div class="ttc" id="class_basede_datos_html"><div class="ttname"><a href="class_basede_datos.html">BasedeDatos</a></div><div class="ttdef"><b>Definition:</b> BaseDeDatos.h:29</div></div>
 <div class="ttc" id="namespace_json_html"><div class="ttname"><a href="namespace_json.html">Json</a></div></div>
-<div class="ttc" id="_manejador_archivos_fisicos_8h_html"><div class="ttname"><a href="_manejador_archivos_fisicos_8h.html">ManejadorArchivosFisicos.h</a></div></div>
-<div class="ttc" id="_usuario_8h_html"><div class="ttname"><a href="_usuario_8h.html">Usuario.h</a></div></div>
-<div class="ttc" id="_excepciones_8h_html"><div class="ttname"><a href="_excepciones_8h.html">Excepciones.h</a></div></div>
-<div class="ttc" id="_base_de_datos_8h_html"><div class="ttname"><a href="_base_de_datos_8h.html">BaseDeDatos.h</a></div></div>
-<div class="ttc" id="class_log_html"><div class="ttname"><a href="class_log.html">Log</a></div><div class="ttdef"><b>Definition:</b> <a href="_log_8h_source.html#l00018">Log.h:18</a></div></div>
-<div class="ttc" id="_fecha_8h_html"><div class="ttname"><a href="_fecha_8h.html">Fecha.h</a></div></div>
-<div class="ttc" id="_hash_8h_html"><div class="ttname"><a href="_hash_8h.html">Hash.h</a></div></div>
-<div class="ttc" id="class_actualizador_html"><div class="ttname"><a href="class_actualizador.html">Actualizador</a></div><div class="ttdef"><b>Definition:</b> <a href="_actualizador_8h_source.html#l00025">Actualizador.h:25</a></div></div>
+<div class="ttc" id="class_log_html"><div class="ttname"><a href="class_log.html">Log</a></div><div class="ttdef"><b>Definition:</b> Log.h:21</div></div>
+<div class="ttc" id="class_actualizador_html"><div class="ttname"><a href="class_actualizador.html">Actualizador</a></div><div class="ttdef"><b>Definition:</b> Actualizador.h:28</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Nov 19 2015 01:56:48 for My Project by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Nov 19 2015 15:43:41 for My Project by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>

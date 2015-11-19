@@ -17,13 +17,21 @@
 using namespace Json;
 using namespace std;
 
+/**
+* Clase que permite calcular el hash de un archivo
+*/
 class Hash {
 private:
 	BasedeDatos *baseDeDatos;
 public:
 	Hash();
+	/**
+	* Obtine el hash del archivo existente
+	*/
 	string obtenerHashDelArchivo(const string &nombreCompleto);
-	//Obtiene un hash que no es utilizado en la base de datos
+	/**
+	* Obtine el hash de un archivo nuevo
+	*/
 	string obtenerHashNuevo(const string &nombreCompleto);
 	virtual ~Hash();
 private:

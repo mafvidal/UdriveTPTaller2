@@ -1,8 +1,0 @@
-<map id="ManejadorArchivosFisicos::guardarFoto" name="ManejadorArchivosFisicos::guardarFoto">
-<area shape="rect" id="node2" href="$class_basede_datos.html#a17cbf4c51ea948b82d00e184fc723df3" title="BasedeDatos::leer" alt="" coords="250,56,381,83"/>
-<area shape="rect" id="node6" href="$class_manejador_archivos_fisicos.html#ac8f94264787cbdc6b37d21eaa92ff6a1" title="ManejadorArchivosFisicos\l::crearArchivoFisico" alt="" coords="228,107,403,149"/>
-<area shape="rect" id="node3" href="$class_log.html#a3b533efb43050cfa7311778f2ac01fe6" title="Log::debug" alt="" coords="509,5,595,32"/>
-<area shape="rect" id="node5" href="$class_log.html#a547c2f323be357e3c6e1b30131755083" title="Log::trace" alt="" coords="512,56,592,83"/>
-<area shape="rect" id="node4" href="$class_fecha.html#ad0e99c3947b9c8f4306c6bef4473a79f" title="Fecha::obtenerFecha" alt="" coords="701,31,847,57"/>
-<area shape="rect" id="node7" href="$class_controlador_actualizacion.html#a085006d8cdd2c8d095a1ce8097d57fd2" title="ControladorActualizacion\l::seEstaActualizandoElArchivo" alt="" coords="451,107,653,149"/>
-</map>

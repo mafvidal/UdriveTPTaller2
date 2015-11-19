@@ -15,6 +15,9 @@
 
 using namespace std;
 
+/**
+* Clase encarga de realizar los pedidos que llegan al servidor
+*/
 class AdministradorServidor {
 private:
 	Log *log;
@@ -24,6 +27,9 @@ private:
 	struct Mensaje mensaje;
 public:
 	AdministradorServidor(struct mg_connection *c, int ev, struct http_message p);
+	/**
+	* Administra el pedido del servidor
+	*/
 	void administrar();
 	virtual ~AdministradorServidor();
 private:

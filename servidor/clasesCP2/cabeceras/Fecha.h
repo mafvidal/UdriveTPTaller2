@@ -13,6 +13,9 @@
 
 using namespace std;
 
+/**
+* Clase simple que entrega la fecha actual
+*/
 class Fecha {
 public:
 	string obtenerFecha();

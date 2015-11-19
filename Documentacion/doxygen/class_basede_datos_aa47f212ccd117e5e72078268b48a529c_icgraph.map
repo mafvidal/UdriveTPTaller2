@@ -1,8 +1,0 @@
-<map id="BasedeDatos::eliminar" name="BasedeDatos::eliminar">
-<area shape="rect" id="node2" href="$class_actualizador.html#a65ff783a8b3765a7076a1e9304707a1d" title="Actualizador::actualizar\lArchivo" alt="" coords="227,8,385,49"/>
-<area shape="rect" id="node5" href="$class_restaurador.html#a645628ea8334730a7023298a566b592e" title="Restaurador::restaurarArchivo" alt="" coords="208,74,404,101"/>
-<area shape="rect" id="node3" href="$class_archivo.html#a747b3af39ee0d985549dbd3b3a357d15" title="Archivo::actualizar" alt="" coords="452,14,583,41"/>
-<area shape="rect" id="node4" href="$class_manejador_archivos.html#a008c68df3664411505d7ce81b3b1bd96" title="ManejadorArchivos::\lactualizarArchivo" alt="" coords="631,5,772,47"/>
-<area shape="rect" id="node6" href="$class_archivo.html#a5bcf097725e3e59b65fc68410c7f5e26" title="Archivo::restaurar" alt="" coords="455,75,580,102"/>
-<area shape="rect" id="node7" href="$class_manejador_archivos.html#a7028b534d5c142793c993364aef9ecf3" title="ManejadorArchivos::\lrestaurarArchivo" alt="" coords="631,71,772,112"/>
-</map>

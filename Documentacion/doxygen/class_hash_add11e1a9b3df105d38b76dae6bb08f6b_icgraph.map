@@ -1,9 +1,0 @@
-<map id="Hash::obtenerHashDelArchivo" name="Hash::obtenerHashDelArchivo">
-<area shape="rect" id="node2" href="$class_actualizador.html#ac206f566469108784ba91edf01c1be46" title="Actualizador::Actualizador" alt="" coords="252,5,427,32"/>
-<area shape="rect" id="node3" href="$class_archivo.html#aa45af276daa90b43f39730e5b86711f3" title="Archivo::eliminarArchivo" alt="" coords="258,56,421,83"/>
-<area shape="rect" id="node5" href="$class_archivo.html#a746a0a3a3bda547fef6d1c4167307613" title="Archivo::compartir" alt="" coords="275,107,403,133"/>
-<area shape="rect" id="node7" href="$class_archivo.html#ab0e30da7fa6529cc8c9d43b35b3f60bb" title="Archivo::recuperarArchivo" alt="" coords="253,164,425,191"/>
-<area shape="rect" id="node4" href="$class_manejador_archivos.html#a3df3d4f5f50ce56b32938e6a174c0776" title="ManejadorArchivos::\leliminarArchivo" alt="" coords="475,34,616,75"/>
-<area shape="rect" id="node6" href="$class_manejador_archivos.html#a514d1cb885cc710b5cbb2a9dfd3d2a59" title="ManejadorArchivos::\lcompartirArchivo" alt="" coords="475,99,616,141"/>
-<area shape="rect" id="node8" href="$class_manejador_archivos.html#a45c476654bdc2fe7c4e5cce1f7a7d5ba" title="ManejadorArchivos::\lrecuperarArchivo" alt="" coords="475,165,616,206"/>
-</map>

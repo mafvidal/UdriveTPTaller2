@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['usuario',['Usuario',['../class_usuario.html#aa85a5371a098dfba5449140d9b8a472f',1,'Usuario']]]
+  ['warn',['warn',['../class_log.html#ad09c72b31da2043bd7c2c0d963c53db5',1,'Log']]]
 ];

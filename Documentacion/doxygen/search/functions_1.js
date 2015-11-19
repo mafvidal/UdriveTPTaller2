@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['buscador',['Buscador',['../class_buscador.html#a3719fa2d8c8b3356b1d15d6716b287ef',1,'Buscador']]],
   ['buscarporetiqueta',['buscarPorEtiqueta',['../class_buscador.html#a92cc75075bceb6e8b701b5026ddb0d23',1,'Buscador']]],
   ['buscarporetiquetas',['buscarPorEtiquetas',['../class_manejador_buscador.html#a44bfec454ba134b46746e41cdf253a07',1,'ManejadorBuscador']]],
   ['buscarporextension',['buscarPorExtension',['../class_buscador.html#aa6728cbc5748f55aaa67532652a77ed4',1,'Buscador::buscarPorExtension()'],['../class_manejador_buscador.html#ad2b39ec52bcd37ef411569dbee822b01',1,'ManejadorBuscador::buscarPorExtension()']]],

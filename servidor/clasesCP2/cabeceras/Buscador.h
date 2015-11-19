@@ -19,15 +19,42 @@
 using namespace Json;
 using namespace std;
 
+/**
+* Clase que permite buscar archivos en la base de datos, segun sus metadatos
+*/
 class Buscador {
 private:
 	Log *log;
 	BasedeDatos *baseDeDatos;
 public:
 	Buscador();
+	/**
+	* Busca el archivo en la base de datos por su etiqueta
+	* @params usuario que desea realizar la busqueda.
+	* @params etiqueta etiqueta a buscar.
+	* @return retorna la lista de archivos que coincide con la etiqueta
+	*/
 	string buscarPorEtiqueta(const string &usuario,const string &etiqueta);
+	/**
+	* Busca el archivo en la base de datos por su propietario
+	* @params usuario que desea realizar la busqueda.
+	* @params propietario propietario a buscar.
+	* @return retorna la lista de archivos que coincide con el propietario.
+	*/
 	string buscarPorPropietario(const string &usuario,const string &propietario);
+	/**
+	* Busca el archivo en la base de datos por su nombre
+	* @params usuario que desea realizar la busqueda.
+	* @params nombre nombre a buscar.
+	* @return retorna la lista de archivos que coincide con el nombre.
+	*/
 	string buscarPorNombre(const string &usuario,const string &nombre);
+	/**
+	* Busca el archivo en la base de datos por su extension
+	* @params usuario que desea realizar la busqueda.
+	* @params extension extension a buscar.
+	* @return retorna la lista de archivos que coincide con el extension.
+	*/
 	string buscarPorExtension(const string &usuario,const string &extension);
 	virtual ~Buscador();
 private:

@@ -1,7 +1,11 @@
 var searchData=
 [
-  ['manejadorarchivos',['ManejadorArchivos',['../class_manejador_archivos.html#aee641a833b6faefd3adaf7d22a44ee1c',1,'ManejadorArchivos']]],
-  ['manejadorarchivosfisicos',['ManejadorArchivosFisicos',['../class_manejador_archivos_fisicos.html#ad5fa1be3bc4a1b8e19f16cb34fd87bb6',1,'ManejadorArchivosFisicos::ManejadorArchivosFisicos(const string &amp;hashArchivo)'],['../class_manejador_archivos_fisicos.html#af52540b8e4610658a2007ffe9624021e',1,'ManejadorArchivosFisicos::ManejadorArchivosFisicos()']]],
-  ['manejadorbuscador',['ManejadorBuscador',['../class_manejador_buscador.html#aebcc3cbde0a5559a20b3095bc3cf8645',1,'ManejadorBuscador']]],
-  ['manejadorusuario',['ManejadorUsuario',['../class_manejador_usuario.html#adc7deeac6174b1cb7ea144c3edd18798',1,'ManejadorUsuario']]]
+  ['obtenerarchivos',['obtenerArchivos',['../class_manejador_usuario.html#ad0557b12794be3e73c01aaafa18e2e75',1,'ManejadorUsuario::obtenerArchivos()'],['../class_usuario.html#a5489845ccd84c75b45e086a315ff6bc8',1,'Usuario::obtenerArchivos()']]],
+  ['obtenerarchivoscompartidos',['obtenerArchivosCompartidos',['../class_manejador_usuario.html#a4784669eb8bbf88198f83816f040c214',1,'ManejadorUsuario::obtenerArchivosCompartidos()'],['../class_usuario.html#a3f09258491a8497f1a86d769f5c86b42',1,'Usuario::obtenerArchivosCompartidos()']]],
+  ['obtenerarchivospapelera',['obtenerArchivosPapelera',['../class_manejador_usuario.html#a680c72c4d31b347948ad30f97ad52d86',1,'ManejadorUsuario']]],
+  ['obtenercuotadisponible',['obtenerCuotaDisponible',['../class_usuario.html#a7df17bdb1a72590bdff199503a38332a',1,'Usuario']]],
+  ['obtenerdatos',['obtenerDatos',['../class_archivo.html#ad988cecd4f8222c0ac40ec850a24d778',1,'Archivo::obtenerDatos()'],['../class_manejador_usuario.html#a619a56daaa4cd03f77818568598edc57',1,'ManejadorUsuario::obtenerDatos()'],['../class_usuario.html#a4f4129b929bd866175d69305764abd15',1,'Usuario::obtenerDatos()']]],
+  ['obtenerhashdelarchivo',['obtenerHashDelArchivo',['../class_hash.html#add11e1a9b3df105d38b76dae6bb08f6b',1,'Hash']]],
+  ['obtenerhashnuevo',['obtenerHashNuevo',['../class_hash.html#aa4354e656ec528392c2632811c84e72e',1,'Hash']]],
+  ['obtenerrespuesta',['obtenerRespuesta',['../class_respuesta.html#a451dd1599a35b960ce3c09281b743b99',1,'Respuesta']]]
 ];

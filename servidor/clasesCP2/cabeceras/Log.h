@@ -15,6 +15,9 @@
 
 using namespace std;
 
+/**
+* Clase encargada de generar el log del sistema
+*/
 class Log {
 private:
 	mutex mtx;
@@ -38,10 +41,25 @@ public:
 	void inicializarInfo();
 	void inicializarDebug();
 	void inicializarTrace();
+	/**
+	* Almacena los mensajes de error
+	*/
 	void error(const string &mensaje);
+	/**
+	* Almacena los mensajes de warning
+	*/
 	void warn(const string &mensaje);
+	/**
+	* Almacena los mensajes de informacion
+	*/
 	void info(const string &mensaje);
+	/**
+	* Almacena los mensajes de debug
+	*/
 	void debug(const string &mensaje);
+	/**
+	* Almacena los mensajes de trace
+	*/
 	void trace(const string &mensaje);
 	virtual ~Log();
 private:

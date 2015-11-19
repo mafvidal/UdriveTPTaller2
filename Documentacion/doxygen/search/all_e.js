@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['quien',['quien',['../struct_mensaje.html#a76fc6a7cdac78217d5ef69636a85b487',1,'Mensaje']]]
+  ['trace',['trace',['../class_log.html#a547c2f323be357e3c6e1b30131755083',1,'Log']]]
 ];

@@ -1,7 +1,0 @@
-<map id="ControladorActualizacion::seEstaActualizandoElArchivo" name="ControladorActualizacion::seEstaActualizandoElArchivo">
-<area shape="rect" id="node2" href="$class_manejador_archivos_fisicos.html#ac8f94264787cbdc6b37d21eaa92ff6a1" title="ManejadorArchivosFisicos\l::crearArchivoFisico" alt="" coords="256,26,431,67"/>
-<area shape="rect" id="node3" href="$class_administrador_servidor.html#a2bec43b2baeec01aeee06190a3ddce3c" title="AdministradorServidor\l::administrar" alt="" coords="701,26,852,67"/>
-<area shape="rect" id="node5" href="$class_manejador_archivos_fisicos.html#ac89d009945007c4c5f3e1488434879d6" title="ManejadorArchivosFisicos\l::actualizarArchivoFisico" alt="" coords="479,26,653,67"/>
-<area shape="rect" id="node6" href="$class_manejador_archivos_fisicos.html#a20de2b9e2c15a0960f4cff3c0f791704" title="ManejadorArchivosFisicos\l::guardarFoto" alt="" coords="479,91,653,132"/>
-<area shape="rect" id="node4" href="$_servidor_8cpp.html#ab4bb4b8ac28d6cb008893b3060687142" title="ev_handler" alt="" coords="900,33,985,60"/>
-</map>

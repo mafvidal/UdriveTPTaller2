@@ -1,5 +1,0 @@
-<map id="ManejadorArchivosFisicos::ManejadorArchivosFisicos" name="ManejadorArchivosFisicos::ManejadorArchivosFisicos">
-<area shape="rect" id="node2" href="$class_basede_datos.html#a1b298e4f9d6adde1e9ab574e617c1194" title="BasedeDatos::obteberInstancia" alt="" coords="236,5,441,32"/>
-<area shape="rect" id="node3" href="$class_controlador_actualizacion.html#a8d4085c857a565f7e051add538d54757" title="ControladorActualizacion\l::obteberInstanciaControlador" alt="" coords="242,57,435,98"/>
-<area shape="rect" id="node4" href="$class_log.html#af73823079e45413e37638485347f4403" title="Log::obteberInstanciaLog" alt="" coords="255,123,423,149"/>
-</map>
