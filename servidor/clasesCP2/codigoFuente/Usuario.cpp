@@ -267,9 +267,7 @@ void Usuario::cargarArchivos(Value &archivos,const Value &archivosExistentes){
 	for ( unsigned int indice = 0; indice < archivosExistentes.size(); ++indice ){
 
 		const string hashArchivo = archivosExistentes[indice].asString();
-		const string datosDelArchivo = this->baseDeDatos->leer(ARCHIVOS,hashArchivo);
 
-		Value datos = archivo.obtenerDatos(hashArchivo);
 		archivos.append(archivo.obtenerDatos(hashArchivo));
 
 	}

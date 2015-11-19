@@ -32,7 +32,6 @@ public:
 	virtual ~Buscador();
 private:
 	string buscarMetadato(const unsigned int &TIPO,const string &metadato);
-	Value obtenerDatos(const string & hashDelArchivo);
 };
 
 #endif /* BUSCADOR_H_ */

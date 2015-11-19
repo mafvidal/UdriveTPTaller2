@@ -49,13 +49,45 @@ string Buscador::buscarMetadato(const unsigned int &TIPO,const string &metadato)
 
 		this->log->debug("Agregado el archivo: "+hash+" a la busqueda");
 
-		//lector.parse(this->baseDeDatos->leer(ARCHIVOS,hash),datosArchivos,false);
-		Value datos = archivo.obtenerDatos(hash);
-		//if( datos != Json::nullValue )
+		Value datos = this->obtenerDatos(hash);
+
+		if ( datos == nullValue )
+			continue;
+
 		archivosMetadatos.append(datos);
 
 	}
 
 	return archivosMetadatos.toStyledString();
+
+}
+
+Value Buscador::obtenerDatos(const string & hashDelArchivo){
+
+	Value datos;
+	Value metadatos;
+	Value metadatosNuevos;
+	Reader lector;
+
+	const string &datosDelArchivo = this->baseDeDatos->leer(ARCHIVOS,hashDelArchivo);
+
+	lector.parse(datosDelArchivo,datos);
+
+	if( datos.get("Eliminado",false).asBool() )
+		return nullValue;
+
+	metadatos = datos["MetaDatos"];
+
+	metadatosNuevos["Propietario"] = metadatos.get("Propietario","").asString();
+	metadatosNuevos["Nombre"] = metadatos.get("Nombre","").asString();
+	metadatosNuevos["Extension"] = metadatos.get("Extension","").asString();
+	metadatosNuevos["Directorio"] = metadatos.get("Directorio","").asString();
+	metadatosNuevos["Version"] = metadatos.get("Version",0).asUInt();
+	metadatosNuevos["Etiquetas"] = metadatos["Etiquetas"];
+	metadatosNuevos["UsuarioQueModifico"] = metadatos.get("UsuarioQueModifico","").asString();
+	metadatosNuevos["FechaDeModificacion"] = metadatos.get("FechaDeModificacion","").asString();
+	metadatosNuevos["ID"] = hashDelArchivo;
+
+	return metadatosNuevos;
 
 }
