@@ -3,10 +3,11 @@
 Documentación de clases
 =======================
 
-**A continuación se muestra el diagrama general de clases para el servidor:**
+**A continuación se muestra el diagrama para el manejo de la base de datos:**
 
-.. figure::  imagenes/diagramaGeneral.png
-   :align:   center
+.. figure::  imagenes/baseDeDatos.png
+	:align: center
+
 
 
 Para el manejo de la base de datos, se creo la clase **BaseDeDatos** la cual se encarga de manejar la librería RocksDB, y esta desarrollada según el patrón singleton.
@@ -15,14 +16,28 @@ Esta clase, crea una familias de columnas, dividida en; *usuarios*, *archivos*, 
 
 Las clases **archivo**, **usuario**, **buscador**, **actualizador** y **restaurador** se encargan de serializar/deserializar la información, e interactuar con la clase **BaseDeDatos** para consulta o almacenamiento de información.
 
+**A continuación se muestra el diagrama para la comunicacion del servidor:**
+
+.. figure::  imagenes/servidor.png
+    :width: 650px
+    :align: center
+    :height: 600px
+    :alt: alternate text
+    :figclass: align-center
+
+
 Para el manejo de la comunicación con el cliente se creo la clase **Servidor**, la cual es la encargada de escuchar nuevas conexiones de clientes, al escuchar una conexión crea un hilo, a traves de la librería mongoose, y atiende la consulta mediante la clase **AdministradorServidor**. Esta clase, se encarga de parsear la *URL*, y administrar el pedido del cliente, para ello utiliza las distintas clases; **ManejadorUsuarios**, **ManejadorBuscador**, **ManejadorArchivos**, **ManejadorArchivosFisicos**, los cuales funcionan como una interfaz entre el servidor y la base de datos.
 
 Finalmente, se tiene la clase **ControladorActualizacion**, la cual esta desarrollada según el patrón singleton, y es la encargada que mas de un usuario no actualice a la vez el mismo archivo físico.
 
-**El siguiente diagrama de secuencia muestra como se registra un usuario en el sistema:**
+**Finalmente se muestra un diagrama de actividades, al registrar un usuario:**
 
 .. figure::  imagenes/registrarUsuario.png
-   :align:   center
+    :width: 650px
+    :align: center
+    :height: 600px
+    :alt: alternate text
+    :figclass: align-center
 
 |
 |

@@ -1,0 +1,7 @@
+<map id="Usuario::registrarse" name="Usuario::registrarse">
+<area shape="rect" id="node2" href="$class_basede_datos.html#a17cbf4c51ea948b82d00e184fc723df3" title="BasedeDatos::leer" alt="" coords="200,56,331,83"/>
+<area shape="rect" id="node5" href="$class_log.html#a547c2f323be357e3c6e1b30131755083" title="Log::trace" alt="" coords="393,56,473,83"/>
+<area shape="rect" id="node6" href="$class_basede_datos.html#a9006355f6e15dc37236aad7bc7d2dbe7" title="BasedeDatos::guardar" alt="" coords="189,5,341,32"/>
+<area shape="rect" id="node3" href="$class_log.html#a3b533efb43050cfa7311778f2ac01fe6" title="Log::debug" alt="" coords="389,5,476,32"/>
+<area shape="rect" id="node4" href="$class_fecha.html#ad0e99c3947b9c8f4306c6bef4473a79f" title="Fecha::obtenerFecha" alt="" coords="524,31,669,57"/>
+</map>

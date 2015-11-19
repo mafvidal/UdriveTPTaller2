@@ -1,0 +1,6 @@
+<map id="Usuario::aumentarCuotaUsada" name="Usuario::aumentarCuotaUsada">
+<area shape="rect" id="node2" href="$class_archivo.html#a54874a2670cd5856680a4380eddef4ec" title="Archivo::crearArchivo" alt="" coords="269,17,415,43"/>
+<area shape="rect" id="node4" href="$class_archivo.html#ab0e30da7fa6529cc8c9d43b35b3f60bb" title="Archivo::recuperarArchivo" alt="" coords="256,71,428,98"/>
+<area shape="rect" id="node3" href="$class_manejador_archivos.html#af146a7644e5980a9a89cfdfb4e92e42c" title="ManejadorArchivos::\lcrearArchivo" alt="" coords="476,5,617,47"/>
+<area shape="rect" id="node5" href="$class_manejador_archivos.html#a45c476654bdc2fe7c4e5cce1f7a7d5ba" title="ManejadorArchivos::\lrecuperarArchivo" alt="" coords="476,71,617,112"/>
+</map>

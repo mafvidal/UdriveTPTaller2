@@ -1,0 +1,9 @@
+<map id="Archivo::restaurar" name="Archivo::restaurar">
+<area shape="rect" id="node2" href="$class_restaurador.html#afd329e56006bfade1b5500d939b3f074" title="Restaurador::version" alt="" coords="205,5,348,32"/>
+<area shape="rect" id="node3" href="$class_restaurador.html#a645628ea8334730a7023298a566b592e" title="Restaurador::restaurarArchivo" alt="" coords="179,56,375,83"/>
+<area shape="rect" id="node4" href="$class_basede_datos.html#aa47f212ccd117e5e72078268b48a529c" title="BasedeDatos::eliminar" alt="" coords="423,31,577,57"/>
+<area shape="rect" id="node8" href="$class_basede_datos.html#a9006355f6e15dc37236aad7bc7d2dbe7" title="BasedeDatos::guardar" alt="" coords="424,81,576,108"/>
+<area shape="rect" id="node5" href="$class_log.html#a3b533efb43050cfa7311778f2ac01fe6" title="Log::debug" alt="" coords="625,31,712,57"/>
+<area shape="rect" id="node7" href="$class_log.html#a547c2f323be357e3c6e1b30131755083" title="Log::trace" alt="" coords="629,81,709,108"/>
+<area shape="rect" id="node6" href="$class_fecha.html#ad0e99c3947b9c8f4306c6bef4473a79f" title="Fecha::obtenerFecha" alt="" coords="760,56,905,83"/>
+</map>

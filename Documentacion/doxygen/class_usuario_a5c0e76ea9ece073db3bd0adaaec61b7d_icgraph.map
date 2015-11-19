@@ -1,0 +1,6 @@
+<map id="Usuario::agregarArchivo" name="Usuario::agregarArchivo">
+<area shape="rect" id="node2" href="$class_archivo.html#a54874a2670cd5856680a4380eddef4ec" title="Archivo::crearArchivo" alt="" coords="229,17,375,43"/>
+<area shape="rect" id="node4" href="$class_archivo.html#ab0e30da7fa6529cc8c9d43b35b3f60bb" title="Archivo::recuperarArchivo" alt="" coords="216,71,388,98"/>
+<area shape="rect" id="node3" href="$class_manejador_archivos.html#af146a7644e5980a9a89cfdfb4e92e42c" title="ManejadorArchivos::\lcrearArchivo" alt="" coords="436,5,577,47"/>
+<area shape="rect" id="node5" href="$class_manejador_archivos.html#a45c476654bdc2fe7c4e5cce1f7a7d5ba" title="ManejadorArchivos::\lrecuperarArchivo" alt="" coords="436,71,577,112"/>
+</map>

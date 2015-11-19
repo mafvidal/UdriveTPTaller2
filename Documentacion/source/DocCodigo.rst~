@@ -4,4 +4,9 @@
 Documentacion de codigo
 =======================
 
-**Realizar la documentacion del codigo con doxygen**
+Para ver la documentacion del codigo, dirijase a la carpeta **Documentacion/doxygen** y habra el archivo **index.html**
+
+|
+|
+| :ref:`Volver a la pagina anterior <DocTecnica>`
+| :ref:`Volver a la pagina principal <index>`

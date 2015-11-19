@@ -1,0 +1,20 @@
+<map id="ev_handler" name="ev_handler">
+<area shape="rect" id="node2" href="$class_administrador_servidor.html#a2bec43b2baeec01aeee06190a3ddce3c" title="AdministradorServidor\l::administrar" alt="" coords="139,299,289,341"/>
+<area shape="rect" id="node3" href="$class_log.html#a234395858ff81b299c43e285bc7a9f01" title="Log::info" alt="" coords="872,31,944,57"/>
+<area shape="rect" id="node5" href="$class_log.html#a3b533efb43050cfa7311778f2ac01fe6" title="Log::debug" alt="" coords="865,244,951,271"/>
+<area shape="rect" id="node6" href="$class_manejador_archivos_fisicos.html#ac8f94264787cbdc6b37d21eaa92ff6a1" title="ManejadorArchivosFisicos\l::crearArchivoFisico" alt="" coords="572,89,747,130"/>
+<area shape="rect" id="node8" href="$class_log.html#ad09c72b31da2043bd7c2c0d963c53db5" title="Log::warn" alt="" coords="620,307,699,333"/>
+<area shape="rect" id="node9" href="$class_manejador_archivos_fisicos.html#ac89d009945007c4c5f3e1488434879d6" title="ManejadorArchivosFisicos\l::actualizarArchivoFisico" alt="" coords="337,190,512,231"/>
+<area shape="rect" id="node12" href="$class_manejador_archivos_fisicos.html#a20de2b9e2c15a0960f4cff3c0f791704" title="ManejadorArchivosFisicos\l::guardarFoto" alt="" coords="337,125,512,166"/>
+<area shape="rect" id="node13" href="$class_respuesta.html#a7ceacbce77799c8d925b7e6366bfe843" title="Respuesta::agregarEstado" alt="" coords="571,365,748,392"/>
+<area shape="rect" id="node14" href="$class_respuesta.html#ae498cdffda54bb858937acdb091f269c" title="Respuesta::agregarMensaje" alt="" coords="567,471,752,497"/>
+<area shape="rect" id="node15" href="$class_respuesta.html#a451dd1599a35b960ce3c09281b743b99" title="Respuesta::obtenerRespuesta" alt="" coords="560,521,759,548"/>
+<area shape="rect" id="node16" href="$class_manejador_archivos_fisicos.html#a7b57537a3de27dc88d0d5f23ab96e04b" title="ManejadorArchivosFisicos\l::enviarArchivo" alt="" coords="337,409,512,450"/>
+<area shape="rect" id="node17" href="$class_manejador_archivos_fisicos.html#a90121b5124669cedd13f510a42bea964" title="ManejadorArchivosFisicos\l::cargarArchivo" alt="" coords="337,577,512,618"/>
+<area shape="rect" id="node4" href="$class_fecha.html#ad0e99c3947b9c8f4306c6bef4473a79f" title="Fecha::obtenerFecha" alt="" coords="1057,207,1203,233"/>
+<area shape="rect" id="node7" href="$class_controlador_actualizacion.html#a085006d8cdd2c8d095a1ce8097d57fd2" title="ControladorActualizacion\l::seEstaActualizandoElArchivo" alt="" coords="807,89,1009,130"/>
+<area shape="rect" id="node10" href="$class_basede_datos.html#a17cbf4c51ea948b82d00e184fc723df3" title="BasedeDatos::leer" alt="" coords="594,155,725,181"/>
+<area shape="rect" id="node11" href="$class_log.html#a547c2f323be357e3c6e1b30131755083" title="Log::trace" alt="" coords="868,180,948,207"/>
+<area shape="rect" id="node18" href="$class_controlador_actualizacion.html#a538a3ab78a384e2ef9a40d6fd8aee93b" title="ControladorActualizacion\l::obtenerArchivo" alt="" coords="576,573,743,614"/>
+<area shape="rect" id="node19" href="$class_controlador_actualizacion.html#a4489de12b183aa02ab663f65226c7d44" title="ControladorActualizacion\l::archivoActualizado" alt="" coords="576,690,743,731"/>
+</map>

@@ -41,18 +41,22 @@
         
   <div class="section" id="documentacion-de-clases">
 <span id="docclases"></span><h1>Documentación de clases<a class="headerlink" href="#documentacion-de-clases" title="Enlazar permanentemente con este título">¶</a></h1>
-<p><strong>A continuación se muestra el diagrama general de clases para el servidor:</strong></p>
+<p><strong>A continuación se muestra el diagrama para el manejo de la base de datos:</strong></p>
 <div class="figure align-center">
-<img alt="_images/diagramaGeneral.png" src="_images/diagramaGeneral.png" />
+<img alt="_images/baseDeDatos.png" src="_images/baseDeDatos.png" />
 </div>
 <p>Para el manejo de la base de datos, se creo la clase <strong>BaseDeDatos</strong> la cual se encarga de manejar la librería RocksDB, y esta desarrollada según el patrón singleton.</p>
 <p>Esta clase, crea una familias de columnas, dividida en; <em>usuarios</em>, <em>archivos</em>, <em>etiquetas</em>, <em>nombre</em>, <em>propietario</em> y <em>extensión</em>. Donde cada una almacena sus propias claves y valores. Las columnas usuarios, y archivos, almacenan la información de los mismos, mientras que etiquetas, nombre, propietario, extensión, almacenan los meta-datos que contienen los archivos.</p>
 <p>Las clases <strong>archivo</strong>, <strong>usuario</strong>, <strong>buscador</strong>, <strong>actualizador</strong> y <strong>restaurador</strong> se encargan de serializar/deserializar la información, e interactuar con la clase <strong>BaseDeDatos</strong> para consulta o almacenamiento de información.</p>
+<p><strong>A continuación se muestra el diagrama para la comunicacion del servidor:</strong></p>
+<div class="align-center figure">
+<a class="reference internal image-reference" href="_images/servidor.png"><img alt="alternate text" src="_images/servidor.png" style="width: 650px; height: 600px;" /></a>
+</div>
 <p>Para el manejo de la comunicación con el cliente se creo la clase <strong>Servidor</strong>, la cual es la encargada de escuchar nuevas conexiones de clientes, al escuchar una conexión crea un hilo, a traves de la librería mongoose, y atiende la consulta mediante la clase <strong>AdministradorServidor</strong>. Esta clase, se encarga de parsear la <em>URL</em>, y administrar el pedido del cliente, para ello utiliza las distintas clases; <strong>ManejadorUsuarios</strong>, <strong>ManejadorBuscador</strong>, <strong>ManejadorArchivos</strong>, <strong>ManejadorArchivosFisicos</strong>, los cuales funcionan como una interfaz entre el servidor y la base de datos.</p>
 <p>Finalmente, se tiene la clase <strong>ControladorActualizacion</strong>, la cual esta desarrollada según el patrón singleton, y es la encargada que mas de un usuario no actualice a la vez el mismo archivo físico.</p>
-<p><strong>El siguiente diagrama de secuencia muestra como se registra un usuario en el sistema:</strong></p>
-<div class="figure align-center">
-<img alt="_images/registrarUsuario.png" src="_images/registrarUsuario.png" />
+<p><strong>Finalmente se muestra un diagrama de actividades, al registrar un usuario:</strong></p>
+<div class="align-center figure">
+<a class="reference internal image-reference" href="_images/registrarUsuario.png"><img alt="alternate text" src="_images/registrarUsuario.png" style="width: 650px; height: 600px;" /></a>
 </div>
 <div class="line-block">
 <div class="line"><br /></div>

@@ -1,0 +1,10 @@
+<map id="Archivo::crearArchivo" name="Archivo::crearArchivo">
+<area shape="rect" id="node2" href="$class_usuario.html#af651a7ee1d4cb157ccd083da3b6410b1" title="Usuario::aumentarCuotaUsada" alt="" coords="200,56,403,83"/>
+<area shape="rect" id="node6" href="$class_log.html#a547c2f323be357e3c6e1b30131755083" title="Log::trace" alt="" coords="665,157,745,184"/>
+<area shape="rect" id="node7" href="$class_basede_datos.html#a9006355f6e15dc37236aad7bc7d2dbe7" title="BasedeDatos::guardar" alt="" coords="456,107,608,133"/>
+<area shape="rect" id="node8" href="$class_hash.html#aa4354e656ec528392c2632811c84e72e" title="Hash::obtenerHashNuevo" alt="" coords="215,5,388,32"/>
+<area shape="rect" id="node9" href="$class_usuario.html#a5c0e76ea9ece073db3bd0adaaec61b7d" title="Usuario::agregarArchivo" alt="" coords="451,208,613,235"/>
+<area shape="rect" id="node3" href="$class_basede_datos.html#a17cbf4c51ea948b82d00e184fc723df3" title="BasedeDatos::leer" alt="" coords="467,56,597,83"/>
+<area shape="rect" id="node4" href="$class_log.html#a3b533efb43050cfa7311778f2ac01fe6" title="Log::debug" alt="" coords="661,107,748,133"/>
+<area shape="rect" id="node5" href="$class_fecha.html#ad0e99c3947b9c8f4306c6bef4473a79f" title="Fecha::obtenerFecha" alt="" coords="796,132,941,159"/>
+</map>

@@ -1,0 +1,14 @@
+<map id="Archivo.h" name="Archivo.h">
+<area shape="rect" id="node2" href="$_base_de_datos_8h.html" title="BaseDeDatos.h" alt="" coords="585,304,700,331"/>
+<area shape="rect" id="node13" href="$_log_8h.html" title="Log.h" alt="" coords="1110,379,1165,405"/>
+<area shape="rect" id="node18" href="$_constantes_8h.html" title="Constantes.h" alt="" coords="291,304,391,331"/>
+<area shape="rect" id="node20" href="$_actualizador_8h.html" title="Actualizador.h" alt="" coords="782,80,887,107"/>
+<area shape="rect" id="node21" href="$_hash_8h.html" title="Hash.h" alt="" coords="245,229,309,256"/>
+<area shape="rect" id="node22" href="$_usuario_8h.html" title="Usuario.h" alt="" coords="974,229,1053,256"/>
+<area shape="rect" id="node29" href="$_restaurador_8h.html" title="Restaurador.h" alt="" coords="573,155,677,181"/>
+<area shape="rect" id="node15" href="$_fecha_8h.html" title="Fecha.h" alt="" coords="5,453,75,480"/>
+<area shape="rect" id="node23" href="$_manejador_archivos_fisicos_8h.html" title="ManejadorArchivosFisicos.h" alt="" coords="1124,155,1311,181"/>
+<area shape="rect" id="node27" href="$_excepciones_8h.html" title="Excepciones.h" alt="" coords="689,229,797,256"/>
+<area shape="rect" id="node24" href="$_respuesta_8h.html" title="Respuesta.h" alt="" coords="1515,229,1611,256"/>
+<area shape="rect" id="node25" href="$_controlador_actualizacion_8h.html" title="ControladorActualizacion.h" alt="" coords="1280,304,1459,331"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="ControladorActualizacion::obtenerArchivo" name="ControladorActualizacion::obtenerArchivo">
+<area shape="rect" id="node2" href="$class_manejador_archivos_fisicos.html#a90121b5124669cedd13f510a42bea964" title="ManejadorArchivosFisicos\l::cargarArchivo" alt="" coords="220,5,395,47"/>
+<area shape="rect" id="node3" href="$class_administrador_servidor.html#a2bec43b2baeec01aeee06190a3ddce3c" title="AdministradorServidor\l::administrar" alt="" coords="443,5,593,47"/>
+<area shape="rect" id="node4" href="$_servidor_8cpp.html#ab4bb4b8ac28d6cb008893b3060687142" title="ev_handler" alt="" coords="641,13,727,39"/>
+</map>

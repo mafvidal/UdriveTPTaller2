@@ -1,0 +1,9 @@
+<map id="ManejadorArchivosFisicos::ManejadorArchivosFisicos" name="ManejadorArchivosFisicos::ManejadorArchivosFisicos">
+<area shape="rect" id="node2" href="$class_basede_datos.html#a1b298e4f9d6adde1e9ab574e617c1194" title="BasedeDatos::obteberInstancia" alt="" coords="236,5,441,32"/>
+<area shape="rect" id="node3" href="$class_controlador_actualizacion.html#a8d4085c857a565f7e051add538d54757" title="ControladorActualizacion\l::obteberInstanciaControlador" alt="" coords="242,57,435,98"/>
+<area shape="rect" id="node4" href="$class_log.html#af73823079e45413e37638485347f4403" title="Log::obteberInstanciaLog" alt="" coords="255,123,423,149"/>
+<area shape="rect" id="node5" href="$class_basede_datos.html#a17cbf4c51ea948b82d00e184fc723df3" title="BasedeDatos::leer" alt="" coords="273,173,404,200"/>
+<area shape="rect" id="node6" href="$class_log.html#a3b533efb43050cfa7311778f2ac01fe6" title="Log::debug" alt="" coords="489,148,576,175"/>
+<area shape="rect" id="node8" href="$class_log.html#a547c2f323be357e3c6e1b30131755083" title="Log::trace" alt="" coords="493,199,573,225"/>
+<area shape="rect" id="node7" href="$class_fecha.html#ad0e99c3947b9c8f4306c6bef4473a79f" title="Fecha::obtenerFecha" alt="" coords="624,173,769,200"/>
+</map>

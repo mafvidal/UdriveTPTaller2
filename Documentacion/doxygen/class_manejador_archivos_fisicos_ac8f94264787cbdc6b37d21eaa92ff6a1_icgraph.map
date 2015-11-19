@@ -1,0 +1,6 @@
+<map id="ManejadorArchivosFisicos::crearArchivoFisico" name="ManejadorArchivosFisicos::crearArchivoFisico">
+<area shape="rect" id="node2" href="$class_administrador_servidor.html#a2bec43b2baeec01aeee06190a3ddce3c" title="AdministradorServidor\l::administrar" alt="" coords="451,26,601,67"/>
+<area shape="rect" id="node4" href="$class_manejador_archivos_fisicos.html#ac89d009945007c4c5f3e1488434879d6" title="ManejadorArchivosFisicos\l::actualizarArchivoFisico" alt="" coords="228,26,403,67"/>
+<area shape="rect" id="node5" href="$class_manejador_archivos_fisicos.html#a20de2b9e2c15a0960f4cff3c0f791704" title="ManejadorArchivosFisicos\l::guardarFoto" alt="" coords="228,91,403,132"/>
+<area shape="rect" id="node3" href="$_servidor_8cpp.html#ab4bb4b8ac28d6cb008893b3060687142" title="ev_handler" alt="" coords="649,33,735,60"/>
+</map>

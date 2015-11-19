@@ -1,0 +1,6 @@
+<map id="Usuario::agregarArchivoCompartido" name="Usuario::agregarArchivoCompartido">
+<area shape="rect" id="node2" href="$class_archivo.html#a746a0a3a3bda547fef6d1c4167307613" title="Archivo::compartir" alt="" coords="305,17,433,43"/>
+<area shape="rect" id="node4" href="$class_archivo.html#ab0e30da7fa6529cc8c9d43b35b3f60bb" title="Archivo::recuperarArchivo" alt="" coords="283,71,455,98"/>
+<area shape="rect" id="node3" href="$class_manejador_archivos.html#a514d1cb885cc710b5cbb2a9dfd3d2a59" title="ManejadorArchivos::\lcompartirArchivo" alt="" coords="503,5,644,47"/>
+<area shape="rect" id="node5" href="$class_manejador_archivos.html#a45c476654bdc2fe7c4e5cce1f7a7d5ba" title="ManejadorArchivos::\lrecuperarArchivo" alt="" coords="503,71,644,112"/>
+</map>

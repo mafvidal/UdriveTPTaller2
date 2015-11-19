@@ -4,7 +4,7 @@
 Instalar Docker
 ===============
 
-La siguiente es una gia para instalar docker en ubuntu, para instalarlo en otro sistema operativo, consulte la pagina de `docker <https://docs.docker.com/v1.8/installation/>`_
+La siguiente es una guía para instalar docker en ubuntu, para instalarlo en otro sistema operativo, consulte la pagina de `docker <https://docs.docker.com/v1.8/installation/>`_
 
 Para instalar Docker primero debe tener instalado curl, para comprobar si curl esta instalado ejecute el siguiente comando en la terminal:
 

@@ -1,0 +1,10 @@
+<map id="ManejadorUsuario::obtenerArchivosPapelera" name="ManejadorUsuario::obtenerArchivosPapelera">
+<area shape="rect" id="node2" href="$class_usuario.html#a0e2252dd7c5380891de28d2b5eb4ac00" title="Usuario::verPapelera" alt="" coords="259,31,403,57"/>
+<area shape="rect" id="node7" href="$class_respuesta.html#a7ceacbce77799c8d925b7e6366bfe843" title="Respuesta::agregarEstado" alt="" coords="243,81,420,108"/>
+<area shape="rect" id="node8" href="$class_respuesta.html#a66b6a2841d52848310134a16295ade28" title="Respuesta::agregarDatos" alt="" coords="246,132,417,159"/>
+<area shape="rect" id="node9" href="$class_respuesta.html#a451dd1599a35b960ce3c09281b743b99" title="Respuesta::obtenerRespuesta" alt="" coords="232,183,431,209"/>
+<area shape="rect" id="node3" href="$class_basede_datos.html#a17cbf4c51ea948b82d00e184fc723df3" title="BasedeDatos::leer" alt="" coords="479,31,609,57"/>
+<area shape="rect" id="node4" href="$class_log.html#a3b533efb43050cfa7311778f2ac01fe6" title="Log::debug" alt="" coords="657,5,744,32"/>
+<area shape="rect" id="node6" href="$class_log.html#a547c2f323be357e3c6e1b30131755083" title="Log::trace" alt="" coords="661,56,741,83"/>
+<area shape="rect" id="node5" href="$class_fecha.html#ad0e99c3947b9c8f4306c6bef4473a79f" title="Fecha::obtenerFecha" alt="" coords="792,31,937,57"/>
+</map>

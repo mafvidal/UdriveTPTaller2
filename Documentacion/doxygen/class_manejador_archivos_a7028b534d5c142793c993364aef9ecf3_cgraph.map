@@ -1,0 +1,14 @@
+<map id="ManejadorArchivos::restaurarArchivo" name="ManejadorArchivos::restaurarArchivo">
+<area shape="rect" id="node2" href="$class_archivo.html#a5bcf097725e3e59b65fc68410c7f5e26" title="Archivo::restaurar" alt="" coords="231,56,357,83"/>
+<area shape="rect" id="node6" href="$class_log.html#a3b533efb43050cfa7311778f2ac01fe6" title="Log::debug" alt="" coords="888,81,975,108"/>
+<area shape="rect" id="node10" href="$class_respuesta.html#a7ceacbce77799c8d925b7e6366bfe843" title="Respuesta::agregarEstado" alt="" coords="205,208,383,235"/>
+<area shape="rect" id="node11" href="$class_respuesta.html#ae498cdffda54bb858937acdb091f269c" title="Respuesta::agregarMensaje" alt="" coords="201,259,387,285"/>
+<area shape="rect" id="node12" href="$class_log.html#ad09c72b31da2043bd7c2c0d963c53db5" title="Log::warn" alt="" coords="500,157,579,184"/>
+<area shape="rect" id="node13" href="$class_respuesta.html#a451dd1599a35b960ce3c09281b743b99" title="Respuesta::obtenerRespuesta" alt="" coords="195,309,393,336"/>
+<area shape="rect" id="node3" href="$class_restaurador.html#afd329e56006bfade1b5500d939b3f074" title="Restaurador::version" alt="" coords="468,5,611,32"/>
+<area shape="rect" id="node4" href="$class_restaurador.html#a645628ea8334730a7023298a566b592e" title="Restaurador::restaurarArchivo" alt="" coords="441,56,637,83"/>
+<area shape="rect" id="node5" href="$class_basede_datos.html#aa47f212ccd117e5e72078268b48a529c" title="BasedeDatos::eliminar" alt="" coords="685,5,840,32"/>
+<area shape="rect" id="node9" href="$class_basede_datos.html#a9006355f6e15dc37236aad7bc7d2dbe7" title="BasedeDatos::guardar" alt="" coords="687,56,839,83"/>
+<area shape="rect" id="node8" href="$class_log.html#a547c2f323be357e3c6e1b30131755083" title="Log::trace" alt="" coords="891,31,971,57"/>
+<area shape="rect" id="node7" href="$class_fecha.html#ad0e99c3947b9c8f4306c6bef4473a79f" title="Fecha::obtenerFecha" alt="" coords="1023,81,1168,108"/>
+</map>

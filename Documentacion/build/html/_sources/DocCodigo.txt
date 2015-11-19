@@ -1,10 +1,10 @@
 .. _DocCodigo:
 
 
-Documentacion de codigo
+Documentación de código
 =======================
 
-**Realizar la documentacion del codigo con doxygen**
+Para ver la documentación del código, diríjase a la carpeta **Documentacion/doxygen** y habrá el archivo **index.html**
 
 |
 |

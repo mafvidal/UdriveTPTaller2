@@ -1,0 +1,5 @@
+<map id="BasedeDatos::leer" name="BasedeDatos::leer">
+<area shape="rect" id="node2" href="$class_log.html#a3b533efb43050cfa7311778f2ac01fe6" title="Log::debug" alt="" coords="184,5,271,32"/>
+<area shape="rect" id="node4" href="$class_log.html#a547c2f323be357e3c6e1b30131755083" title="Log::trace" alt="" coords="187,56,267,83"/>
+<area shape="rect" id="node3" href="$class_fecha.html#ad0e99c3947b9c8f4306c6bef4473a79f" title="Fecha::obtenerFecha" alt="" coords="319,31,464,57"/>
+</map>

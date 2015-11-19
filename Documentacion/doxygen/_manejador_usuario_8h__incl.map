@@ -1,0 +1,15 @@
+<map id="ManejadorUsuario.h" name="ManejadorUsuario.h">
+<area shape="rect" id="node2" href="$_usuario_8h.html" title="Usuario.h" alt="" coords="949,80,1027,107"/>
+<area shape="rect" id="node14" href="$_log_8h.html" title="Log.h" alt="" coords="195,453,250,480"/>
+<area shape="rect" id="node25" href="$_respuesta_8h.html" title="Respuesta.h" alt="" coords="1907,379,2003,405"/>
+<area shape="rect" id="node3" href="$_base_de_datos_8h.html" title="BaseDeDatos.h" alt="" coords="648,379,763,405"/>
+<area shape="rect" id="node19" href="$_constantes_8h.html" title="Constantes.h" alt="" coords="1041,379,1141,405"/>
+<area shape="rect" id="node21" href="$_archivo_8h.html" title="Archivo.h" alt="" coords="949,155,1027,181"/>
+<area shape="rect" id="node16" href="$_fecha_8h.html" title="Fecha.h" alt="" coords="123,528,192,555"/>
+<area shape="rect" id="node22" href="$_actualizador_8h.html" title="Actualizador.h" alt="" coords="845,229,950,256"/>
+<area shape="rect" id="node23" href="$_hash_8h.html" title="Hash.h" alt="" coords="851,304,915,331"/>
+<area shape="rect" id="node30" href="$_restaurador_8h.html" title="Restaurador.h" alt="" coords="432,229,536,256"/>
+<area shape="rect" id="node24" href="$_manejador_archivos_fisicos_8h.html" title="ManejadorArchivosFisicos.h" alt="" coords="1141,304,1328,331"/>
+<area shape="rect" id="node28" href="$_excepciones_8h.html" title="Excepciones.h" alt="" coords="465,379,573,405"/>
+<area shape="rect" id="node26" href="$_controlador_actualizacion_8h.html" title="ControladorActualizacion.h" alt="" coords="1267,379,1445,405"/>
+</map>

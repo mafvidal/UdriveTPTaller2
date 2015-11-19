@@ -1,0 +1,6 @@
+<map id="Hash::obtenerHashDelArchivo" name="Hash::obtenerHashDelArchivo">
+<area shape="rect" id="node2" href="$class_basede_datos.html#a17cbf4c51ea948b82d00e184fc723df3" title="BasedeDatos::leer" alt="" coords="252,31,383,57"/>
+<area shape="rect" id="node3" href="$class_log.html#a3b533efb43050cfa7311778f2ac01fe6" title="Log::debug" alt="" coords="431,5,517,32"/>
+<area shape="rect" id="node5" href="$class_log.html#a547c2f323be357e3c6e1b30131755083" title="Log::trace" alt="" coords="434,56,514,83"/>
+<area shape="rect" id="node4" href="$class_fecha.html#ad0e99c3947b9c8f4306c6bef4473a79f" title="Fecha::obtenerFecha" alt="" coords="565,31,711,57"/>
+</map>
