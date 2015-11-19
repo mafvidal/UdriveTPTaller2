@@ -79,7 +79,7 @@ BasedeDatos::BasedeDatos() {
 
 	this->log = Log::obteberInstanciaLog();
 
-	dirPath = "./testdb/";
+	dirPath = "./datosdb/";
 
 	this->log->info("Abriendo base de datos en "+dirPath);
 

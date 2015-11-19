@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Documentación de administración &mdash; documentación de UdriveTP - 2.5.1</title>
+    <title>Limitaciones &mdash; documentación de UdriveTP - 2.5.1</title>
     
     <link rel="stylesheet" href="_static/scrolls.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -32,28 +32,27 @@
     <div id="content">
       <div class="header">
         <h1 class="heading"><a href="index.html"
-          title="back to the documentation overview"><span>Documentación de administración</span></a></h1>
+          title="back to the documentation overview"><span>Limitaciones</span></a></h1>
       </div>
       <div class="relnav" role="navigation" aria-label="related navigation">
-        <a href="#">Documentación de administración</a>
+        <a href="#">Limitaciones</a>
       </div>
       <div id="contentwrapper">
         
-  <div class="section" id="documentacion-de-administracion">
-<span id="manadministracion"></span><h1>Documentación de administración<a class="headerlink" href="#documentacion-de-administracion" title="Enlazar permanentemente con este título">¶</a></h1>
+  <div class="section" id="limitaciones">
+<span id="id1"></span><h1>Limitaciones<a class="headerlink" href="#limitaciones" title="Enlazar permanentemente con este título">¶</a></h1>
+<p>El servidor cuenta con las siguientes limitaciones:</p>
 <ul class="simple">
-<li><a class="reference internal" href="InicioRapido.html#iniciorapido"><span>Inicio rápido</span></a></li>
-<li><a class="reference internal" href="Configuracion.html#configuracion"><span>Configuración del entorno</span></a></li>
-<li><a class="reference internal" href="ServidorDocker.html#servidordocker"><span>Ejecutar el servidor en Docker</span></a></li>
-<li><a class="reference internal" href="Servidor.html#servidor"><span>Ejecutar el servidor</span></a></li>
-<li><a class="reference internal" href="Tests.html#tests"><span>Correr Pruebas</span></a></li>
-<li><a class="reference internal" href="Troubleshooting.html#troubleshooting"><span>Problemas comunes y solución</span></a></li>
-<li><a class="reference internal" href="mantenimiento.html#mantenimiento"><span>Mantenimiento</span></a></li>
-<li><a class="reference internal" href="limitaciones.html#limitaciones"><span>Limitaciones</span></a></li>
+<li>La información guardada por la base de datos se almacena en el directorio <strong>datosdb</strong>.</li>
+<li>Los archivos que envía el cliente se almacenan en el directorio <strong>Udrive</strong>.</li>
+<li>El servidor siempre utiliza el puerto 8000 para las comunicaciones con los clientes.</li>
+<li>Siempre al ejecutar el servidor se crea el archivo <strong>Log.txt</strong>, y al volver a ejecutar el servidor, el log se agrega al archivo existente.</li>
+<li>Por cada vez que se corren los tests se debe eliminar la carpeta <strong>datosdb</strong>.</li>
 </ul>
 <div class="line-block">
 <div class="line"><br /></div>
 <div class="line"><br /></div>
+<div class="line"><a class="reference internal" href="ManAdministracion.html#manadministracion"><span>Volver a la pagina anterior</span></a></div>
 <div class="line"><a class="reference internal" href="index.html#index"><span>Volver a la pagina principal</span></a></div>
 </div>
 </div>

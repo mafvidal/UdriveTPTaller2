@@ -9,6 +9,8 @@ Documentación de administración
 * :ref:`Ejecutar el servidor <Servidor>`
 * :ref:`Correr Pruebas <Tests>`
 * :ref:`Problemas comunes y solución <Troubleshooting>`
+* :ref:`Mantenimiento <mantenimiento>`
+* :ref:`Limitaciones <limitaciones>`
 
 |
 |
