@@ -10,8 +10,8 @@ include_directories("${PROJECT_SOURCE_DIR}/bibliotecas/mongoose" "${PROJECT_SOUR
 
 #Incluimos las clases
 file(GLOB Clases_INC
-	"${PROJECT_SOURCE_DIR}/clasesCP2/*.h"
-	"${PROJECT_SOURCE_DIR}/clasesCP2/*.cpp"
+	"${PROJECT_SOURCE_DIR}/clasesCP2/cabeceras/*.h"
+	"${PROJECT_SOURCE_DIR}/clasesCP2/codigoFuente/*.cpp"
 )
 
 #Incluimos archivos de prueba

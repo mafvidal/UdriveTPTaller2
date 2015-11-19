@@ -1,4 +1,4 @@
-#include "Actualizador.h"
+#include "../cabeceras/Actualizador.h"
 
 Actualizador::Actualizador(const string &usuarioQueEstaModificando,const string &datosAActualizar) {
 
