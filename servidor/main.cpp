@@ -46,7 +46,10 @@ int main(int argc, char *argv[]) {
 
 	}
 
+	//Obtengo las instancias iniciales para evitar problemas
+	//al conectarse varios usuarios
 	BasedeDatos *baseDeDatos = BasedeDatos::obteberInstancia();
+	ControladorActualizacion * ca = ControladorActualizacion::obteberInstanciaControlador();
 
 	log->info("Inicia servidor");
 

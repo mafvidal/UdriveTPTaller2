@@ -47,7 +47,6 @@ FILE* ControladorActualizacion::obtenerArchivo(const string &hashArchivo){
 }
 
 ControladorActualizacion::~ControladorActualizacion() {
-	cout<<"ELIMINADAControlador"<<endl;
 }
 
 //Metodos privados
