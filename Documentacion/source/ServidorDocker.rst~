@@ -9,13 +9,13 @@ Una vez instalado Docker, deberá descargar la imagen que contiene el servidor, 
 
 .. code-block:: shell
 
-	docker pull mafvidal/tp:v9
+	docker pull mafvidal/tp:v7
 
 Luego deberá ejecutar la imagen mediante el siguiente comando:
 
 .. code-block:: shell
 
-	docker run -it mafvidal/tp:v9
+	docker run -it mafvidal/tp:v7
 
 Debe acceder al directorio que contiene el ejecutable del servidor, ejecutando el siguiente comando:
 
