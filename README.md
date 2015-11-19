@@ -26,11 +26,11 @@ Para el desarrollo, se debió cumplir con las siguientes restricciones:
 
 * Desarrollar el servidor en C/C++.
 * Desarrollar el cliente en Java utilizando el SDK de Android.
-* Desarrollar el proyecto mediante integración continua, utilizando `GitHub <https://github.com/>`_ y `Travis CI <https://travis-ci.org/>`_
-* Desplegar el servidor en `Docker <https://www.docker.com/>`_
+* Desarrollar el proyecto mediante integración continua, utilizando GitHub  y Travis CI
+* Desplegar el servidor en Docker
 * Realizar para el servidor pruebas unitarias, y tener un code coverage mayor al 71%.
-* Utilizar como base de datos, para el servidor, `RocksDB <http://rocksdb.org/>`_
-* Realizar la documentación del proyecto con `Sphinx <http://sphinx-doc.org/>`_
+* Utilizar como base de datos, para el servidor, RocksDB
+* Realizar la documentación del proyecto con Sphinx
 
 ##Instalacion general
 
