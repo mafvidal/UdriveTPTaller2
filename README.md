@@ -57,11 +57,11 @@ Para el desarrollo, se debió cumplir con las siguientes restricciones:
 
 #### Descargar imagen con este repo de dockerHub(Hasta commit 48)
 
- - docker pull mafvidal/tp:v5
+ - docker pull mafvidal/tp:v9
 
 ### Correr imagen
 
- - docker run -it mafvidal/tp:v5
+ - docker run -it mafvidal/tp:v9
 
 ### Ver el repo en la imagen
 
