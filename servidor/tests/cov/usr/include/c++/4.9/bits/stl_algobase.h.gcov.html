@@ -4,7 +4,7 @@
 
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <title>LCOV - coverage.info - /usr/include/c++/4.9/bits/stl_algobase.h</title>
+  <title>LCOV - coverage.total - /usr/include/c++/4.9/bits/stl_algobase.h</title>
   <link rel="stylesheet" type="text/css" href="../../../../../gcov.css">
 </head>
 
@@ -28,7 +28,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test:</td>
-            <td class="headerValue">coverage.info</td>
+            <td class="headerValue">coverage.total</td>
             <td></td>
             <td class="headerItem">Lines:</td>
             <td class="headerCovTableEntry">24</td>
@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2015-11-16 13:56:42</td>
+            <td class="headerValue">2015-11-21 15:57:06</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">16</td>
@@ -253,14 +253,14 @@
 <span class="lineNum">     191 </span>            :   */
 <a name="192"><span class="lineNum">     192 </span>            :   template&lt;typename _Tp&gt;</a>
 <span class="lineNum">     193 </span>            :     inline const _Tp&amp;
-<span class="lineNum">     194 </span><span class="lineCov">      10301 :     min(const _Tp&amp; __a, const _Tp&amp; __b)</span>
+<span class="lineNum">     194 </span><span class="lineCov">       9552 :     min(const _Tp&amp; __a, const _Tp&amp; __b)</span>
 <span class="lineNum">     195 </span>            :     {
 <span class="lineNum">     196 </span>            :       // concept requirements
 <span class="lineNum">     197 </span>            :       __glibcxx_function_requires(_LessThanComparableConcept&lt;_Tp&gt;)
 <span class="lineNum">     198 </span>            :       //return __b &lt; __a ? __b : __a;
-<span class="lineNum">     199 </span><span class="lineCov">      10301 :       if (__b &lt; __a)</span>
-<span class="lineNum">     200 </span><span class="lineCov">       3134 :         return __b;</span>
-<span class="lineNum">     201 </span><span class="lineCov">       7167 :       return __a;</span>
+<span class="lineNum">     199 </span><span class="lineCov">       9552 :       if (__b &lt; __a)</span>
+<span class="lineNum">     200 </span><span class="lineCov">       2868 :         return __b;</span>
+<span class="lineNum">     201 </span><span class="lineCov">       6684 :       return __a;</span>
 <span class="lineNum">     202 </span>            :     }
 <span class="lineNum">     203 </span>            : 
 <span class="lineNum">     204 </span>            :   /**
@@ -276,14 +276,14 @@
 <span class="lineNum">     214 </span>            :   */
 <a name="215"><span class="lineNum">     215 </span>            :   template&lt;typename _Tp&gt;</a>
 <span class="lineNum">     216 </span>            :     inline const _Tp&amp;
-<span class="lineNum">     217 </span><span class="lineCov">        993 :     max(const _Tp&amp; __a, const _Tp&amp; __b)</span>
+<span class="lineNum">     217 </span><span class="lineCov">        957 :     max(const _Tp&amp; __a, const _Tp&amp; __b)</span>
 <span class="lineNum">     218 </span>            :     {
 <span class="lineNum">     219 </span>            :       // concept requirements
 <span class="lineNum">     220 </span>            :       __glibcxx_function_requires(_LessThanComparableConcept&lt;_Tp&gt;)
 <span class="lineNum">     221 </span>            :       //return  __a &lt; __b ? __b : __a;
-<span class="lineNum">     222 </span><span class="lineCov">        993 :       if (__a &lt; __b)</span>
+<span class="lineNum">     222 </span><span class="lineCov">        957 :       if (__a &lt; __b)</span>
 <span class="lineNum">     223 </span><span class="lineCov">         38 :         return __b;</span>
-<span class="lineNum">     224 </span><span class="lineCov">        955 :       return __a;</span>
+<span class="lineNum">     224 </span><span class="lineCov">        919 :       return __a;</span>
 <span class="lineNum">     225 </span>            :     }
 <span class="lineNum">     226 </span>            : 
 <span class="lineNum">     227 </span>            :   /**

@@ -6,13 +6,13 @@ cmake_minimum_required(VERSION 2.6)
 
 #Se inclueyen todos los archivos de la carpeta clases
 file(GLOB Clases 
-	"clasesCP2/cabeceras/*.h"
-	"clasesCP2/codigoFuente/*.cpp"
+	"clases/cabeceras/*.h"
+	"clases/codigoFuente/*.cpp"
 )
 
 
 #Incluyo el directorio para evitar poner la ruta entera por cada vez que se la usa
-include_directories(clasesCP2/cabeceras/ bibliotecas/rocksdb/include bibliotecas/mongoose bibliotecas/JsonCpp)
+include_directories(clases/cabeceras/ bibliotecas/rocksdb/include bibliotecas/mongoose bibliotecas/JsonCpp)
 
 #Vincula los archivos al ejecutable
 add_executable(servidor main ${Clases} bibliotecas/mongoose/mongoose.c bibliotecas/JsonCpp/jsoncpp.cpp)

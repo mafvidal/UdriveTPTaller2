@@ -1,0 +1,443 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - coverage.total - clases/codigoFuente/Archivo.cpp</title>
+  <link rel="stylesheet" type="text/css" href="../../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../../index.html">top level</a> - <a href="index.html">clases/codigoFuente</a> - Archivo.cpp<span style="font-size: 80%;"> (source / <a href="Archivo.cpp.func-sort-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">coverage.total</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">157</td>
+            <td class="headerCovTableEntry">198</td>
+            <td class="headerCovTableEntryMed">79.3 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2015-11-21 15:57:06</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">13</td>
+            <td class="headerCovTableEntry">16</td>
+            <td class="headerCovTableEntryMed">81.2 %</td>
+          </tr>
+          <tr><td><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : #include &quot;../cabeceras/Archivo.h&quot;</a>
+<span class="lineNum">       2 </span>            : 
+<span class="lineNum">       3 </span><span class="lineCov">         41 : Archivo::Archivo() {</span>
+<span class="lineNum">       4 </span>            : 
+<span class="lineNum">       5 </span><span class="lineCov">         41 :         this-&gt;baseDeDatos = BasedeDatos::obteberInstancia();</span>
+<span class="lineNum">       6 </span><span class="lineCov">         41 :         this-&gt;log = Log::obteberInstanciaLog();</span>
+<span class="lineNum">       7 </span>            : 
+<a name="8"><span class="lineNum">       8 </span><span class="lineCov">         41 : }</span></a>
+<span class="lineNum">       9 </span>            : 
+<span class="lineNum">      10 </span><span class="lineCov">         15 : string Archivo::crearArchivo(const string &amp;usuario,const string &amp;json){</span>
+<span class="lineNum">      11 </span>            : 
+<span class="lineNum">      12 </span><span class="lineCov">         15 :         Value datos;</span>
+<span class="lineNum">      13 </span><span class="lineCov">         30 :         Value datosAGuardar;</span>
+<span class="lineNum">      14 </span><span class="lineCov">         30 :         Value metadatos;</span>
+<span class="lineNum">      15 </span><span class="lineCov">         30 :         Value usuarios(arrayValue);</span>
+<span class="lineNum">      16 </span><span class="lineCov">         30 :         Reader lector;</span>
+<span class="lineNum">      17 </span><span class="lineCov">         30 :         Hash hash;</span>
+<span class="lineNum">      18 </span><span class="lineCov">         30 :         Usuario usuarioAGuardar;</span>
+<span class="lineNum">      19 </span>            : 
+<span class="lineNum">      20 </span><span class="lineCov">         15 :         lector.parse(json,datos,false);</span>
+<span class="lineNum">      21 </span>            : 
+<span class="lineNum">      22 </span><span class="lineCov">         15 :         if( !usuarioAGuardar.aumentarCuotaUsada(usuario,datos.get(&quot;Espacio&quot;,0).asUInt()) ){</span>
+<span class="lineNum">      23 </span>            : 
+<span class="lineNum">      24 </span><span class="lineNoCov">          0 :                 throw ELimiteDeCuota();</span>
+<span class="lineNum">      25 </span>            : 
+<span class="lineNum">      26 </span>            :         }
+<span class="lineNum">      27 </span>            : 
+<span class="lineNum">      28 </span><span class="lineCov">         30 :         const string &amp;nombreArchivo = usuario + datos.get(&quot;Directorio&quot;,&quot;&quot;).asString()+datos.get(&quot;Nombre&quot;,&quot;&quot;).asString()+datos.get(&quot;Extension&quot;,&quot;&quot;).asString();</span>
+<span class="lineNum">      29 </span>            : 
+<span class="lineNum">      30 </span><span class="lineCov">         30 :         const string &amp;hashArchivo = hash.obtenerHashNuevo(nombreArchivo);</span>
+<span class="lineNum">      31 </span>            : 
+<span class="lineNum">      32 </span><span class="lineCov">         15 :         this-&gt;log-&gt;trace(&quot;Se agrega los metadatos del archivo con ID: &quot;+nombreArchivo+&quot; y hash: &quot;+hashArchivo);</span>
+<span class="lineNum">      33 </span>            : 
+<span class="lineNum">      34 </span><span class="lineCov">         15 :         datosAGuardar[&quot;Usuarios&quot;] = usuarios;</span>
+<span class="lineNum">      35 </span><span class="lineCov">         15 :         datosAGuardar[&quot;Eliminado&quot;] = false;</span>
+<span class="lineNum">      36 </span>            : 
+<span class="lineNum">      37 </span><span class="lineCov">         15 :         metadatos[&quot;Propietario&quot;] = usuario;</span>
+<span class="lineNum">      38 </span><span class="lineCov">         15 :         metadatos[&quot;Espacio&quot;] = datos.get(&quot;Espacio&quot;,0).asUInt();</span>
+<span class="lineNum">      39 </span><span class="lineCov">         15 :         metadatos[&quot;Nombre&quot;] = datos.get(&quot;Nombre&quot;,&quot;&quot;).asString();</span>
+<span class="lineNum">      40 </span><span class="lineCov">         15 :         metadatos[&quot;Extension&quot;] = datos.get(&quot;Extension&quot;,&quot;&quot;).asString();</span>
+<span class="lineNum">      41 </span><span class="lineCov">         15 :         metadatos[&quot;Directorio&quot;] = datos.get(&quot;Directorio&quot;,&quot;&quot;).asString();</span>
+<span class="lineNum">      42 </span><span class="lineCov">         15 :         metadatos[&quot;Etiquetas&quot;] = datos[&quot;Etiquetas&quot;];</span>
+<span class="lineNum">      43 </span><span class="lineCov">         15 :         metadatos[&quot;Version&quot;] = 0;</span>
+<span class="lineNum">      44 </span>            : 
+<span class="lineNum">      45 </span><span class="lineCov">         15 :         datosAGuardar[&quot;MetaDatos&quot;] = metadatos;</span>
+<span class="lineNum">      46 </span>            : 
+<span class="lineNum">      47 </span><span class="lineCov">         15 :         usuarioAGuardar.agregarArchivo(usuario,hashArchivo);</span>
+<span class="lineNum">      48 </span><span class="lineCov">         15 :         this-&gt;guardarMetadatosAUsuarios(usuario,datos,hashArchivo);</span>
+<span class="lineNum">      49 </span>            : 
+<span class="lineNum">      50 </span>            :         //Guardo los metadatos del archivo en la base de datos
+<span class="lineNum">      51 </span><span class="lineCov">         15 :         this-&gt;baseDeDatos-&gt;guardar(ARCHIVOS,hashArchivo,datosAGuardar.toStyledString());</span>
+<span class="lineNum">      52 </span>            : 
+<span class="lineNum">      53 </span><span class="lineCov">         30 :         return hashArchivo;</span>
+<span class="lineNum">      54 </span>            : 
+<a name="55"><span class="lineNum">      55 </span>            : }</a>
+<span class="lineNum">      56 </span>            : 
+<span class="lineNum">      57 </span><span class="lineCov">          4 : string Archivo::eliminarArchivo(const string &amp;nombreUsuarioEliminador,const string &amp;json){</span>
+<span class="lineNum">      58 </span>            : 
+<span class="lineNum">      59 </span><span class="lineCov">          4 :         Value datos;</span>
+<span class="lineNum">      60 </span><span class="lineCov">          8 :         Value datosAEliminar;</span>
+<span class="lineNum">      61 </span><span class="lineCov">          8 :         Value metadatos;</span>
+<span class="lineNum">      62 </span><span class="lineCov">          8 :         Reader lector;</span>
+<span class="lineNum">      63 </span><span class="lineCov">          8 :         Hash hash;</span>
+<span class="lineNum">      64 </span><span class="lineCov">          8 :         Usuario usuario;</span>
+<span class="lineNum">      65 </span>            : 
+<span class="lineNum">      66 </span><span class="lineCov">          4 :         lector.parse(json,datosAEliminar,false);</span>
+<span class="lineNum">      67 </span>            : 
+<span class="lineNum">      68 </span><span class="lineCov">          4 :         if ( nombreUsuarioEliminador != datosAEliminar.get(&quot;Propietario&quot;,&quot;&quot;).asString() )</span>
+<span class="lineNum">      69 </span><span class="lineNoCov">          0 :                 return &quot;NoEsPropietario&quot;;</span>
+<span class="lineNum">      70 </span>            : 
+<span class="lineNum">      71 </span><span class="lineCov">          8 :         const string nombre = datosAEliminar.get(&quot;Propietario&quot;,&quot;&quot;).asString() + datosAEliminar.get(&quot;Directorio&quot;,&quot;&quot;).asString() + datosAEliminar.get(&quot;Nombre&quot;,&quot;&quot;).asString() + datosAEliminar.get(&quot;Extension&quot;,&quot;&quot;).asString();</span>
+<span class="lineNum">      72 </span>            : 
+<span class="lineNum">      73 </span><span class="lineCov">          8 :         string hashArchivo = hash.obtenerHashDelArchivo(nombre);</span>
+<span class="lineNum">      74 </span>            : 
+<span class="lineNum">      75 </span><span class="lineCov">          4 :         this-&gt;log-&gt;trace(&quot;Se eliminan los metadatos del archivo con ID: &quot;+nombre+&quot; y hash: &quot;+hashArchivo);</span>
+<span class="lineNum">      76 </span>            : 
+<span class="lineNum">      77 </span><span class="lineCov">          8 :         string datosDelArchivo = this-&gt;baseDeDatos-&gt;leer(ARCHIVOS,hashArchivo);</span>
+<span class="lineNum">      78 </span>            : 
+<span class="lineNum">      79 </span><span class="lineCov">          4 :         lector.parse(datosDelArchivo,datos,false);</span>
+<span class="lineNum">      80 </span>            : 
+<span class="lineNum">      81 </span><span class="lineCov">          4 :         const unsigned int &amp;cuotaAEliminar = datos[&quot;MetaDatos&quot;].get(&quot;Espacio&quot;,0).asUInt();</span>
+<span class="lineNum">      82 </span>            : 
+<span class="lineNum">      83 </span><span class="lineCov">          4 :         if( datos.get(&quot;Eliminado&quot;,false).asBool() ){</span>
+<span class="lineNum">      84 </span>            : 
+<span class="lineNum">      85 </span><span class="lineNoCov">          0 :                 throw EArchivoYaEliminado();</span>
+<span class="lineNum">      86 </span>            : 
+<span class="lineNum">      87 </span>            :         }
+<span class="lineNum">      88 </span>            : 
+<span class="lineNum">      89 </span><span class="lineCov">          4 :         datos[&quot;Eliminado&quot;] = true;</span>
+<span class="lineNum">      90 </span>            : 
+<span class="lineNum">      91 </span><span class="lineCov">          4 :         this-&gt;baseDeDatos-&gt;guardar(ARCHIVOS,hashArchivo,datos.toStyledString());</span>
+<span class="lineNum">      92 </span>            : 
+<span class="lineNum">      93 </span>            :         //cout&lt;&lt;datos.toStyledString()&lt;&lt;endl;
+<span class="lineNum">      94 </span>            : 
+<span class="lineNum">      95 </span><span class="lineCov">          6 :         for ( unsigned int indice = 0; indice &lt; datos[&quot;Usuarios&quot;].size(); ++indice ){</span>
+<span class="lineNum">      96 </span>            : 
+<span class="lineNum">      97 </span><span class="lineCov">          2 :                 const string nombreUsuario = (datos[&quot;Usuarios&quot;])[indice].asString();</span>
+<span class="lineNum">      98 </span>            : 
+<span class="lineNum">      99 </span><span class="lineCov">          2 :                 usuario.eliminarArchivoCompartido(nombreUsuario,hashArchivo);</span>
+<span class="lineNum">     100 </span><span class="lineCov">          2 :                 usuario.enviarALaPapelera(nombreUsuario,hashArchivo);</span>
+<span class="lineNum">     101 </span><span class="lineCov">          2 :                 usuario.disminuirCuotaUsada(nombreUsuario,cuotaAEliminar);</span>
+<span class="lineNum">     102 </span>            : 
+<span class="lineNum">     103 </span><span class="lineCov">          2 :         }</span>
+<span class="lineNum">     104 </span>            : 
+<span class="lineNum">     105 </span><span class="lineCov">          4 :         usuario.eliminarArchivo(datosAEliminar.get(&quot;Propietario&quot;,&quot;&quot;).asString(),hashArchivo);</span>
+<span class="lineNum">     106 </span><span class="lineCov">          4 :         usuario.enviarALaPapelera(datosAEliminar.get(&quot;Propietario&quot;,&quot;&quot;).asString(),hashArchivo);</span>
+<span class="lineNum">     107 </span><span class="lineCov">          4 :         usuario.disminuirCuotaUsada(datosAEliminar.get(&quot;Propietario&quot;,&quot;&quot;).asString(),cuotaAEliminar);</span>
+<span class="lineNum">     108 </span>            : 
+<span class="lineNum">     109 </span><span class="lineCov">          8 :         return &quot;OK&quot;;</span>
+<span class="lineNum">     110 </span>            : 
+<a name="111"><span class="lineNum">     111 </span>            : }</a>
+<span class="lineNum">     112 </span>            : 
+<span class="lineNum">     113 </span><span class="lineCov">         15 : Value Archivo::obtenerDatos(const string &amp; hashDelArchivo){</span>
+<span class="lineNum">     114 </span>            : 
+<span class="lineNum">     115 </span><span class="lineCov">         15 :         Value datos;</span>
+<span class="lineNum">     116 </span><span class="lineCov">         30 :         Value metadatos;</span>
+<span class="lineNum">     117 </span><span class="lineCov">         15 :         Value metadatosNuevos;</span>
+<span class="lineNum">     118 </span><span class="lineCov">         30 :         Reader lector;</span>
+<span class="lineNum">     119 </span>            : 
+<span class="lineNum">     120 </span><span class="lineCov">         30 :         const string &amp;datosDelArchivo = this-&gt;baseDeDatos-&gt;leer(ARCHIVOS,hashDelArchivo);</span>
+<span class="lineNum">     121 </span>            : 
+<span class="lineNum">     122 </span><span class="lineCov">         15 :         lector.parse(datosDelArchivo,datos);</span>
+<span class="lineNum">     123 </span>            : 
+<span class="lineNum">     124 </span><span class="lineCov">         15 :         metadatos = datos[&quot;MetaDatos&quot;];</span>
+<span class="lineNum">     125 </span>            : 
+<span class="lineNum">     126 </span><span class="lineCov">         15 :         metadatosNuevos[&quot;Propietario&quot;] = metadatos.get(&quot;Propietario&quot;,&quot;&quot;).asString();</span>
+<span class="lineNum">     127 </span><span class="lineCov">         15 :         metadatosNuevos[&quot;Nombre&quot;] = metadatos.get(&quot;Nombre&quot;,&quot;&quot;).asString();</span>
+<span class="lineNum">     128 </span><span class="lineCov">         15 :         metadatosNuevos[&quot;Extension&quot;] = metadatos.get(&quot;Extension&quot;,&quot;&quot;).asString();</span>
+<span class="lineNum">     129 </span><span class="lineCov">         15 :         metadatosNuevos[&quot;Directorio&quot;] = metadatos.get(&quot;Directorio&quot;,&quot;&quot;).asString();</span>
+<span class="lineNum">     130 </span><span class="lineCov">         15 :         metadatosNuevos[&quot;Version&quot;] = metadatos.get(&quot;Version&quot;,0).asUInt();</span>
+<span class="lineNum">     131 </span><span class="lineCov">         15 :         metadatosNuevos[&quot;Etiquetas&quot;] = metadatos[&quot;Etiquetas&quot;];</span>
+<span class="lineNum">     132 </span><span class="lineCov">         15 :         metadatosNuevos[&quot;UsuarioQueModifico&quot;] = metadatos.get(&quot;UsuarioQueModifico&quot;,&quot;&quot;).asString();</span>
+<span class="lineNum">     133 </span><span class="lineCov">         15 :         metadatosNuevos[&quot;FechaDeModificacion&quot;] = metadatos.get(&quot;FechaDeModificacion&quot;,&quot;&quot;).asString();</span>
+<span class="lineNum">     134 </span><span class="lineCov">         15 :         metadatosNuevos[&quot;ID&quot;] = hashDelArchivo;</span>
+<span class="lineNum">     135 </span>            : 
+<span class="lineNum">     136 </span><span class="lineCov">         30 :         return metadatosNuevos;</span>
+<span class="lineNum">     137 </span>            : 
+<a name="138"><span class="lineNum">     138 </span>            : }</a>
+<span class="lineNum">     139 </span>            : 
+<span class="lineNum">     140 </span><span class="lineCov">          3 : string Archivo::compartir(const string &amp;usuariosACompartir,const string &amp; json){</span>
+<span class="lineNum">     141 </span>            : 
+<span class="lineNum">     142 </span><span class="lineCov">          3 :         Usuario usuario;</span>
+<span class="lineNum">     143 </span><span class="lineCov">          6 :         Value usuarios;</span>
+<span class="lineNum">     144 </span><span class="lineCov">          6 :         Value compartido;</span>
+<span class="lineNum">     145 </span><span class="lineCov">          6 :         Reader lector;</span>
+<span class="lineNum">     146 </span><span class="lineCov">          6 :         Value datos;</span>
+<span class="lineNum">     147 </span><span class="lineCov">          6 :         Value datosDelArchivo;</span>
+<span class="lineNum">     148 </span><span class="lineCov">          6 :         Hash hash;</span>
+<span class="lineNum">     149 </span><span class="lineCov">          6 :         string resultado =&quot;&quot;;</span>
+<span class="lineNum">     150 </span>            : 
+<span class="lineNum">     151 </span><span class="lineCov">          3 :         lector.parse(json,datos,false);</span>
+<span class="lineNum">     152 </span>            : 
+<span class="lineNum">     153 </span><span class="lineCov">          6 :         const string nombreCompleto = datos.get(&quot;Propietario&quot;,&quot;&quot;).asString() + datos.get(&quot;Directorio&quot;,&quot;&quot;).asString() + datos.get(&quot;Nombre&quot;,&quot;&quot;).asString() + datos.get(&quot;Extension&quot;,&quot;&quot;).asString();</span>
+<span class="lineNum">     154 </span>            : 
+<span class="lineNum">     155 </span><span class="lineCov">          6 :         const string hashDelArchivo = hash.obtenerHashDelArchivo(nombreCompleto);</span>
+<span class="lineNum">     156 </span>            : 
+<span class="lineNum">     157 </span><span class="lineCov">          3 :         if( hashDelArchivo == &quot;&quot; ){</span>
+<span class="lineNum">     158 </span><span class="lineNoCov">          0 :                 return &quot;&quot;;</span>
+<span class="lineNum">     159 </span>            :         }
+<span class="lineNum">     160 </span>            : 
+<span class="lineNum">     161 </span><span class="lineCov">          3 :         lector.parse(this-&gt;baseDeDatos-&gt;leer(ARCHIVOS,hashDelArchivo),compartido,false);</span>
+<span class="lineNum">     162 </span>            : 
+<span class="lineNum">     163 </span><span class="lineCov">          3 :         lector.parse(usuariosACompartir,usuarios);</span>
+<span class="lineNum">     164 </span>            : 
+<span class="lineNum">     165 </span><span class="lineCov">          3 :         datosDelArchivo = this-&gt;obtenerDatos(hashDelArchivo);</span>
+<span class="lineNum">     166 </span>            : 
+<span class="lineNum">     167 </span><span class="lineCov">          8 :         for ( unsigned int indice = 0; indice &lt; usuarios.size(); ++indice ){</span>
+<span class="lineNum">     168 </span>            : 
+<span class="lineNum">     169 </span><span class="lineCov">          5 :                 const string nombreUsuario = usuarios[indice].asString();</span>
+<span class="lineNum">     170 </span>            : 
+<span class="lineNum">     171 </span><span class="lineCov">          5 :                 if( this-&gt;baseDeDatos-&gt;leer(USUARIOS,nombreUsuario) ==&quot;&quot; ){</span>
+<span class="lineNum">     172 </span>            : 
+<span class="lineNum">     173 </span><span class="lineNoCov">          0 :                         this-&gt;log-&gt;warn(&quot;El usuario: &quot;+nombreUsuario+&quot; que se desea compartir el archivo: &quot;+hashDelArchivo+&quot; no existe&quot;);</span>
+<span class="lineNum">     174 </span>            : 
+<span class="lineNum">     175 </span><span class="lineNoCov">          0 :                         resultado = resultado+nombreUsuario+&quot;, &quot;;</span>
+<span class="lineNum">     176 </span>            : 
+<span class="lineNum">     177 </span><span class="lineNoCov">          0 :                         continue;</span>
+<span class="lineNum">     178 </span>            :                 }
+<span class="lineNum">     179 </span>            : 
+<span class="lineNum">     180 </span><span class="lineCov">          5 :                 compartido[&quot;Usuarios&quot;].append(nombreUsuario);</span>
+<span class="lineNum">     181 </span>            : 
+<span class="lineNum">     182 </span><span class="lineCov">          5 :                 usuario.agregarArchivoCompartido(nombreUsuario,hashDelArchivo);</span>
+<span class="lineNum">     183 </span>            : 
+<span class="lineNum">     184 </span><span class="lineCov">          5 :                 this-&gt;guardarMetadatosAUsuarios(nombreUsuario,datosDelArchivo,hashDelArchivo);</span>
+<span class="lineNum">     185 </span>            : 
+<span class="lineNum">     186 </span><span class="lineCov">          5 :         }</span>
+<span class="lineNum">     187 </span>            : 
+<span class="lineNum">     188 </span><span class="lineCov">          3 :         this-&gt;baseDeDatos-&gt;guardar(ARCHIVOS,hashDelArchivo,compartido.toStyledString());</span>
+<span class="lineNum">     189 </span>            : 
+<span class="lineNum">     190 </span><span class="lineCov">          3 :         if( resultado == &quot;&quot;)</span>
+<span class="lineNum">     191 </span><span class="lineCov">          3 :                 return &quot;OK&quot;;</span>
+<span class="lineNum">     192 </span>            :         else
+<span class="lineNum">     193 </span><span class="lineCov">          3 :                 return resultado;</span>
+<span class="lineNum">     194 </span>            : 
+<a name="195"><span class="lineNum">     195 </span>            : }</a>
+<span class="lineNum">     196 </span>            : 
+<span class="lineNum">     197 </span><span class="lineCov">          2 : string Archivo::actualizar(const string &amp; nombreUsuario,const string &amp; json){</span>
+<span class="lineNum">     198 </span>            : 
+<span class="lineNum">     199 </span>            :         try{
+<span class="lineNum">     200 </span>            : 
+<span class="lineNum">     201 </span><span class="lineCov">          2 :                 Actualizador actualizador(nombreUsuario,json);</span>
+<span class="lineNum">     202 </span><span class="lineCov">          2 :                 return actualizador.actualizarArchivo();</span>
+<span class="lineNum">     203 </span>            : 
+<span class="lineNum">     204 </span><span class="lineNoCov">          0 :         }catch (EArchivoInexistente e){</span>
+<span class="lineNum">     205 </span>            : 
+<span class="lineNum">     206 </span><span class="lineNoCov">          0 :                 throw e;</span>
+<span class="lineNum">     207 </span>            : 
+<span class="lineNum">     208 </span>            :         }
+<span class="lineNum">     209 </span>            : 
+<a name="210"><span class="lineNum">     210 </span>            : }</a>
+<span class="lineNum">     211 </span>            : 
+<span class="lineNum">     212 </span><span class="lineCov">          1 : string Archivo::restaurar(const string &amp; nombreUsuario,const string &amp; json){</span>
+<span class="lineNum">     213 </span>            : 
+<span class="lineNum">     214 </span>            :         try{
+<span class="lineNum">     215 </span>            : 
+<span class="lineNum">     216 </span><span class="lineCov">          1 :                 Restaurador restaurador(nombreUsuario,json);</span>
+<span class="lineNum">     217 </span>            : 
+<span class="lineNum">     218 </span><span class="lineCov">          1 :                 if ( restaurador.version() == 0 ){</span>
+<span class="lineNum">     219 </span>            : 
+<span class="lineNum">     220 </span><span class="lineNoCov">          0 :                         return &quot;Version0&quot;;</span>
+<span class="lineNum">     221 </span>            : 
+<span class="lineNum">     222 </span>            :                 }
+<span class="lineNum">     223 </span>            : 
+<span class="lineNum">     224 </span><span class="lineCov">          1 :                 return restaurador.restaurarArchivo();</span>
+<span class="lineNum">     225 </span>            : 
+<span class="lineNum">     226 </span><span class="lineNoCov">          0 :         }catch (EArchivoInexistente e){</span>
+<span class="lineNum">     227 </span>            : 
+<span class="lineNum">     228 </span><span class="lineNoCov">          0 :                 throw e;</span>
+<span class="lineNum">     229 </span>            : 
+<span class="lineNum">     230 </span>            :         }
+<span class="lineNum">     231 </span>            : 
+<a name="232"><span class="lineNum">     232 </span>            : }</a>
+<span class="lineNum">     233 </span>            : 
+<span class="lineNum">     234 </span><span class="lineCov">          1 : bool Archivo::recuperarArchivo(const string &amp;nombreUsuarioRecuperador,const string &amp;json){</span>
+<span class="lineNum">     235 </span>            : 
+<span class="lineNum">     236 </span><span class="lineCov">          1 :         Value datos;</span>
+<span class="lineNum">     237 </span><span class="lineCov">          2 :         Value datosARecuperar;</span>
+<span class="lineNum">     238 </span><span class="lineCov">          2 :         Value metadatos;</span>
+<span class="lineNum">     239 </span><span class="lineCov">          2 :         Reader lector;</span>
+<span class="lineNum">     240 </span><span class="lineCov">          2 :         Hash hash;</span>
+<span class="lineNum">     241 </span><span class="lineCov">          2 :         Usuario usuario;</span>
+<span class="lineNum">     242 </span>            : 
+<span class="lineNum">     243 </span><span class="lineCov">          1 :         lector.parse(json,datosARecuperar,false);</span>
+<span class="lineNum">     244 </span>            : 
+<span class="lineNum">     245 </span><span class="lineCov">          2 :         const string nombre = datosARecuperar.get(&quot;Propietario&quot;,&quot;&quot;).asString() + datosARecuperar.get(&quot;Directorio&quot;,&quot;&quot;).asString() + datosARecuperar.get(&quot;Nombre&quot;,&quot;&quot;).asString() + datosARecuperar.get(&quot;Extension&quot;,&quot;&quot;).asString();</span>
+<span class="lineNum">     246 </span>            : 
+<span class="lineNum">     247 </span><span class="lineCov">          2 :         string hashArchivo = hash.obtenerHashDelArchivo(nombre);</span>
+<span class="lineNum">     248 </span>            : 
+<span class="lineNum">     249 </span><span class="lineCov">          2 :         string datosDelArchivo = this-&gt;baseDeDatos-&gt;leer(ARCHIVOS,hashArchivo);</span>
+<span class="lineNum">     250 </span>            : 
+<span class="lineNum">     251 </span><span class="lineCov">          1 :         lector.parse(datosDelArchivo,datos,false);</span>
+<span class="lineNum">     252 </span>            : 
+<span class="lineNum">     253 </span><span class="lineCov">          1 :         const unsigned int &amp;cuotaAgregar = datos[&quot;MetaDatos&quot;].get(&quot;Espacio&quot;,0).asUInt();</span>
+<span class="lineNum">     254 </span>            : 
+<span class="lineNum">     255 </span><span class="lineCov">          1 :         if ( usuario.obtenerCuotaDisponible(nombreUsuarioRecuperador) &lt; cuotaAgregar )</span>
+<span class="lineNum">     256 </span><span class="lineNoCov">          0 :                         return false;</span>
+<span class="lineNum">     257 </span>            : 
+<span class="lineNum">     258 </span><span class="lineCov">          1 :         if( !datos.get(&quot;Eliminado&quot;,true).asBool() ){</span>
+<span class="lineNum">     259 </span>            : 
+<span class="lineNum">     260 </span><span class="lineNoCov">          0 :                 throw EArchivoExistente();</span>
+<span class="lineNum">     261 </span>            : 
+<span class="lineNum">     262 </span>            :         }
+<span class="lineNum">     263 </span>            : 
+<span class="lineNum">     264 </span>            : 
+<span class="lineNum">     265 </span><span class="lineCov">          1 :         datos[&quot;Eliminado&quot;] = false;</span>
+<span class="lineNum">     266 </span>            : 
+<span class="lineNum">     267 </span><span class="lineCov">          1 :         this-&gt;baseDeDatos-&gt;guardar(ARCHIVOS,hashArchivo,datos.toStyledString());</span>
+<span class="lineNum">     268 </span>            : 
+<span class="lineNum">     269 </span><span class="lineCov">          1 :         for ( unsigned int indice = 0; indice &lt; datos[&quot;Usuarios&quot;].size(); ++indice ){</span>
+<span class="lineNum">     270 </span>            : 
+<span class="lineNum">     271 </span><span class="lineNoCov">          0 :                 const string nombreUsuario = (datos[&quot;Usuarios&quot;])[indice].asString();</span>
+<span class="lineNum">     272 </span>            : 
+<span class="lineNum">     273 </span><span class="lineNoCov">          0 :                 usuario.agregarArchivoCompartido(nombreUsuario,hashArchivo);</span>
+<span class="lineNum">     274 </span><span class="lineNoCov">          0 :                 usuario.sacarDeLaPapelera(nombreUsuario,hashArchivo);</span>
+<span class="lineNum">     275 </span><span class="lineNoCov">          0 :                 usuario.aumentarCuotaUsada(nombreUsuario,cuotaAgregar);</span>
+<span class="lineNum">     276 </span>            : 
+<span class="lineNum">     277 </span><span class="lineNoCov">          0 :         }</span>
+<span class="lineNum">     278 </span>            : 
+<span class="lineNum">     279 </span><span class="lineCov">          1 :         usuario.agregarArchivo(datosARecuperar.get(&quot;Propietario&quot;,&quot;&quot;).asString(),hashArchivo);</span>
+<span class="lineNum">     280 </span><span class="lineCov">          1 :         usuario.sacarDeLaPapelera(datosARecuperar.get(&quot;Propietario&quot;,&quot;&quot;).asString(),hashArchivo);</span>
+<span class="lineNum">     281 </span><span class="lineCov">          1 :         usuario.aumentarCuotaUsada(datosARecuperar.get(&quot;Propietario&quot;,&quot;&quot;).asString(),cuotaAgregar);</span>
+<span class="lineNum">     282 </span>            : 
+<span class="lineNum">     283 </span><span class="lineCov">          2 :         return true;</span>
+<span class="lineNum">     284 </span>            : 
+<a name="285"><span class="lineNum">     285 </span>            : }</a>
+<span class="lineNum">     286 </span>            : 
+<span class="lineNum">     287 </span><span class="lineCov">         41 : Archivo::~Archivo() {</span>
+<span class="lineNum">     288 </span>            : 
+<a name="289"><span class="lineNum">     289 </span><span class="lineCov">         41 : }</span></a>
+<span class="lineNum">     290 </span>            : 
+<span class="lineNum">     291 </span><span class="lineCov">         20 : void Archivo::guardarMetadatosAUsuarios(const string &amp;usuario,const Value &amp;datos,const string &amp;hash){</span>
+<span class="lineNum">     292 </span>            : 
+<span class="lineNum">     293 </span>            :         //Guardo los metadatos de las etiquetas para el archivo
+<span class="lineNum">     294 </span><span class="lineCov">         20 :         Value etiquetas(arrayValue);</span>
+<span class="lineNum">     295 </span><span class="lineCov">         20 :         etiquetas = datos[&quot;Etiquetas&quot;];</span>
+<span class="lineNum">     296 </span>            : 
+<span class="lineNum">     297 </span><span class="lineCov">         69 :         for ( unsigned int indice = 0; indice &lt; etiquetas.size(); ++indice ){</span>
+<span class="lineNum">     298 </span>            : 
+<span class="lineNum">     299 </span><span class="lineCov">         49 :                 const string etiqueta = etiquetas[indice].asString();</span>
+<span class="lineNum">     300 </span><span class="lineCov">         49 :                 this-&gt;guardarMetadato(ETIQUETAS,usuario,etiqueta,hash);</span>
+<span class="lineNum">     301 </span>            : 
+<span class="lineNum">     302 </span><span class="lineCov">         49 :         }</span>
+<span class="lineNum">     303 </span>            : 
+<span class="lineNum">     304 </span>            :         //Guardo el metadato Nombre para el archivo
+<span class="lineNum">     305 </span><span class="lineCov">         20 :         this-&gt;guardarMetadato(NOMBRE,usuario,datos.get(&quot;Nombre&quot;,&quot;&quot;).asString(),hash);</span>
+<span class="lineNum">     306 </span>            :         //Guardo el metadato Extension para el archivo
+<span class="lineNum">     307 </span><span class="lineCov">         20 :         this-&gt;guardarMetadato(EXTENSION,usuario,datos.get(&quot;Extension&quot;,&quot;&quot;).asString(),hash);</span>
+<span class="lineNum">     308 </span>            :         //Guardo el metadato Propietario para el archivo
+<span class="lineNum">     309 </span><span class="lineCov">         20 :         this-&gt;guardarMetadato(PROPIETARIO,usuario,usuario,hash);</span>
+<span class="lineNum">     310 </span>            : 
+<span class="lineNum">     311 </span>            :         //usuarioAGuardar.agregarArchivo(usuario,hash);
+<span class="lineNum">     312 </span>            : 
+<a name="313"><span class="lineNum">     313 </span><span class="lineCov">         20 : }</span></a>
+<span class="lineNum">     314 </span>            : 
+<span class="lineNum">     315 </span><span class="lineCov">        109 : void Archivo::guardarMetadato(const unsigned int &amp;TIPO,const string &amp;usuario,const string &amp;metadato,const string &amp; hashArchivo){</span>
+<span class="lineNum">     316 </span>            : 
+<span class="lineNum">     317 </span><span class="lineCov">        109 :         Value datos;</span>
+<span class="lineNum">     318 </span><span class="lineCov">        218 :         Value archivos(arrayValue);</span>
+<span class="lineNum">     319 </span>            : 
+<span class="lineNum">     320 </span><span class="lineCov">        218 :         const string &amp;nombre = usuario+metadato;</span>
+<span class="lineNum">     321 </span><span class="lineCov">        218 :         const string metadatos = this-&gt;baseDeDatos-&gt;leer(TIPO,nombre);</span>
+<span class="lineNum">     322 </span>            : 
+<span class="lineNum">     323 </span><span class="lineCov">        109 :         if (metadatos != &quot;&quot;){</span>
+<span class="lineNum">     324 </span>            : 
+<span class="lineNum">     325 </span><span class="lineNoCov">          0 :                 Reader lector;</span>
+<span class="lineNum">     326 </span>            : 
+<span class="lineNum">     327 </span><span class="lineNoCov">          0 :                 lector.parse(metadatos,datos,false);</span>
+<span class="lineNum">     328 </span><span class="lineNoCov">          0 :                 archivos = datos[&quot;Archivos&quot;];</span>
+<span class="lineNum">     329 </span>            : 
+<span class="lineNum">     330 </span>            :         }
+<span class="lineNum">     331 </span>            : 
+<span class="lineNum">     332 </span><span class="lineCov">        109 :         archivos.append(hashArchivo);</span>
+<span class="lineNum">     333 </span><span class="lineCov">        109 :         datos[&quot;Archivos&quot;] = archivos;</span>
+<span class="lineNum">     334 </span>            : 
+<span class="lineNum">     335 </span><span class="lineCov">        218 :         this-&gt;baseDeDatos-&gt;guardar(TIPO,nombre,datos.toStyledString());</span>
+<span class="lineNum">     336 </span>            : 
+<a name="337"><span class="lineNum">     337 </span><span class="lineCov">        109 : }</span></a>
+<span class="lineNum">     338 </span>            : 
+<span class="lineNum">     339 </span><span class="lineNoCov">          0 : string Archivo::obtenerMetadatos(const Value &amp;metadatos){</span>
+<span class="lineNum">     340 </span>            : 
+<span class="lineNum">     341 </span><span class="lineNoCov">          0 :         Value datos;</span>
+<span class="lineNum">     342 </span><span class="lineNoCov">          0 :         Value metadatosNuevos;</span>
+<span class="lineNum">     343 </span><span class="lineNoCov">          0 :         Reader lector;</span>
+<span class="lineNum">     344 </span>            : 
+<span class="lineNum">     345 </span><span class="lineNoCov">          0 :         metadatosNuevos[&quot;Propietario&quot;] = metadatos.get(&quot;Propietario&quot;,&quot;&quot;).asString();</span>
+<span class="lineNum">     346 </span><span class="lineNoCov">          0 :         metadatosNuevos[&quot;Nombre&quot;] = metadatos.get(&quot;Nombre&quot;,&quot;&quot;).asString();</span>
+<span class="lineNum">     347 </span><span class="lineNoCov">          0 :         metadatosNuevos[&quot;Extension&quot;] = metadatos.get(&quot;Extension&quot;,&quot;&quot;).asString();</span>
+<span class="lineNum">     348 </span><span class="lineNoCov">          0 :         metadatosNuevos[&quot;Directorio&quot;] = metadatos.get(&quot;Directorio&quot;,&quot;&quot;).asString();</span>
+<span class="lineNum">     349 </span><span class="lineNoCov">          0 :         metadatosNuevos[&quot;Version&quot;] = metadatos.get(&quot;Version&quot;,0).asUInt();</span>
+<span class="lineNum">     350 </span><span class="lineNoCov">          0 :         metadatosNuevos[&quot;Etiquetas&quot;] = metadatos[&quot;Etiquetas&quot;];</span>
+<span class="lineNum">     351 </span><span class="lineNoCov">          0 :         metadatosNuevos[&quot;UsuarioQueModifico&quot;] = metadatos.get(&quot;UsuarioQueModifico&quot;,&quot;&quot;).asString();</span>
+<span class="lineNum">     352 </span><span class="lineNoCov">          0 :         metadatosNuevos[&quot;FechaDeModificacion&quot;] = metadatos.get(&quot;FechaDeModificacion&quot;,&quot;&quot;).asString();</span>
+<span class="lineNum">     353 </span>            : 
+<span class="lineNum">     354 </span><span class="lineNoCov">          0 :         return metadatosNuevos.toStyledString();</span>
+<span class="lineNum">     355 </span>            : 
+<a name="356"><span class="lineNum">     356 </span>            : }</a>
+<span class="lineNum">     357 </span>            : 
+<span class="lineNum">     358 </span><span class="lineNoCov">          0 : string Archivo::convertirAString(const unsigned int &amp;valor){</span>
+<span class="lineNum">     359 </span>            : 
+<span class="lineNum">     360 </span><span class="lineNoCov">          0 :         string hashString;</span>
+<span class="lineNum">     361 </span><span class="lineNoCov">          0 :         ostringstream convertir;</span>
+<span class="lineNum">     362 </span><span class="lineNoCov">          0 :         convertir &lt;&lt; valor;</span>
+<span class="lineNum">     363 </span><span class="lineNoCov">          0 :         hashString = convertir.str();</span>
+<span class="lineNum">     364 </span>            : 
+<a name="365"><span class="lineNum">     365 </span><span class="lineNoCov">          0 :         return hashString;</span></a>
+<span class="lineNum">     366 </span>            : 
+<span class="lineNum">     367 </span><span class="lineCov">          6 : }</span>
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.11</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

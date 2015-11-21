@@ -4,7 +4,7 @@
 
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <title>LCOV - coverage.info - /usr/include/c++/4.9/ext/aligned_buffer.h</title>
+  <title>LCOV - coverage.total - /usr/include/c++/4.9/ext/aligned_buffer.h</title>
   <link rel="stylesheet" type="text/css" href="../../../../../gcov.css">
 </head>
 
@@ -28,7 +28,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test:</td>
-            <td class="headerValue">coverage.info</td>
+            <td class="headerValue">coverage.total</td>
             <td></td>
             <td class="headerItem">Lines:</td>
             <td class="headerCovTableEntry">8</td>
@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2015-11-16 13:56:42</td>
+            <td class="headerValue">2015-11-21 15:57:06</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">8</td>
@@ -110,24 +110,24 @@
 <span class="lineNum">      48 </span>            :         _M_storage;
 <a name="49"><span class="lineNum">      49 </span>            : </a>
 <span class="lineNum">      50 </span>            :       void*
-<span class="lineNum">      51 </span><span class="lineCov">       7179 :       _M_addr() noexcept</span>
+<span class="lineNum">      51 </span><span class="lineCov">       6434 :       _M_addr() noexcept</span>
 <span class="lineNum">      52 </span>            :       {
-<span class="lineNum">      53 </span><span class="lineCov">       7179 :         return static_cast&lt;void*&gt;(&amp;_M_storage);</span>
+<span class="lineNum">      53 </span><span class="lineCov">       6434 :         return static_cast&lt;void*&gt;(&amp;_M_storage);</span>
 <span class="lineNum">      54 </span>            :       }
 <a name="55"><span class="lineNum">      55 </span>            : </a>
 <span class="lineNum">      56 </span>            :       const void*
-<span class="lineNum">      57 </span><span class="lineCov">      16385 :       _M_addr() const noexcept</span>
+<span class="lineNum">      57 </span><span class="lineCov">      15449 :       _M_addr() const noexcept</span>
 <span class="lineNum">      58 </span>            :       {
-<span class="lineNum">      59 </span><span class="lineCov">      16385 :         return static_cast&lt;const void*&gt;(&amp;_M_storage);</span>
+<span class="lineNum">      59 </span><span class="lineCov">      15449 :         return static_cast&lt;const void*&gt;(&amp;_M_storage);</span>
 <span class="lineNum">      60 </span>            :       }
 <a name="61"><span class="lineNum">      61 </span>            : </a>
 <span class="lineNum">      62 </span>            :       _Tp*
-<span class="lineNum">      63 </span><span class="lineCov">       7179 :       _M_ptr() noexcept</span>
-<span class="lineNum">      64 </span><span class="lineCov">       7179 :       { return static_cast&lt;_Tp*&gt;(_M_addr()); }</span>
+<span class="lineNum">      63 </span><span class="lineCov">       6434 :       _M_ptr() noexcept</span>
+<span class="lineNum">      64 </span><span class="lineCov">       6434 :       { return static_cast&lt;_Tp*&gt;(_M_addr()); }</span>
 <a name="65"><span class="lineNum">      65 </span>            : </a>
 <span class="lineNum">      66 </span>            :       const _Tp*
-<span class="lineNum">      67 </span><span class="lineCov">      16385 :       _M_ptr() const noexcept</span>
-<span class="lineNum">      68 </span><span class="lineCov">      16385 :       { return static_cast&lt;const _Tp*&gt;(_M_addr()); }</span>
+<span class="lineNum">      67 </span><span class="lineCov">      15449 :       _M_ptr() const noexcept</span>
+<span class="lineNum">      68 </span><span class="lineCov">      15449 :       { return static_cast&lt;const _Tp*&gt;(_M_addr()); }</span>
 <span class="lineNum">      69 </span>            :     };
 <span class="lineNum">      70 </span>            : 
 <span class="lineNum">      71 </span>            : } // namespace
