@@ -31,19 +31,19 @@ public:
 	static ControladorActualizacion * obteberInstanciaControlador();
 	/*
 	* Marca que el archivo esta siendo actualizado
-	* @params hashArchivo ID del archivo que se desea actualizar.
-	* @params archivo archivo a actualizar.
+	* @param hashArchivo ID del archivo que se desea actualizar.
+	* @param archivo archivo a actualizar.
 	* @return retorna si otro usuario esta actualizando el mismo archivo
 	*/
 	bool seEstaActualizandoElArchivo(const string &hashArchivo,FILE * archivo);
 	/*
 	* Da por finalizada la actualizacion del archivo
-	* @params hashArchivo ID del archivo que se desea actualizar.
+	* @param hashArchivo ID del archivo que se desea actualizar.
 	*/
 	void archivoActualizado(const string &hashArchivo);
 	/*
 	* Metodo que retorna el archivo correspondiente al ID
-	* @params hashArchivo ID del archivo que se desea actualizar.
+	* @param hashArchivo ID del archivo que se desea actualizar.
 	* @return retorna el archivo a actualizar
 	*/
 	FILE* obtenerArchivo(const string &hashArchivo);

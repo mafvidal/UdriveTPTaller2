@@ -26,17 +26,17 @@ public:
 	Respuesta();
 	/**
 	* Almacena el estado de la consulta
-	* @params estado estado de la consulta.
+	* @param estado estado de la consulta.
 	*/
 	void agregarEstado(const string &estado);
 	/**
 	* Almacena el los datos resultantes de la consulta
-	* @params datos datos a enviar al cliente.
+	* @param datos datos a enviar al cliente.
 	*/
 	void agregarDatos(const string &datos);
 	/**
 	* Almacena el mensaje que resulto de la consulta
-	* @params mensaje mensaje de la consulta.
+	* @param mensaje mensaje de la consulta.
 	*/
 	void agregarMensaje(const string &mensaje);
 	/**

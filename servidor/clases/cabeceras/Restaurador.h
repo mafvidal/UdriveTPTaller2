@@ -53,8 +53,8 @@ private:
 public:
 	/**
 	* Inicializa los datos a restaurar
-	* @params usuarioQueRestaura El usuario que restaura el archivo.
-	* @params datosARestaurar Los datos para identificar el archivo a restaurar.
+	* @param usuarioQueRestaura El usuario que restaura el archivo.
+	* @param datosARestaurar Los datos para identificar el archivo a restaurar.
 	*/
 	Restaurador(const string &usuarioQueRestaura,const string &datosARestaurar);
 	/**

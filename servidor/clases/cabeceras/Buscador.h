@@ -30,29 +30,29 @@ public:
 	Buscador();
 	/**
 	* Busca el archivo en la base de datos por su etiqueta
-	* @params usuario que desea realizar la busqueda.
-	* @params etiqueta etiqueta a buscar.
+	* @param usuario que desea realizar la busqueda.
+	* @param etiqueta etiqueta a buscar.
 	* @return retorna la lista de archivos que coincide con la etiqueta
 	*/
 	string buscarPorEtiqueta(const string &usuario,const string &etiqueta);
 	/**
 	* Busca el archivo en la base de datos por su propietario
-	* @params usuario que desea realizar la busqueda.
-	* @params propietario propietario a buscar.
+	* @param usuario que desea realizar la busqueda.
+	* @param propietario propietario a buscar.
 	* @return retorna la lista de archivos que coincide con el propietario.
 	*/
 	string buscarPorPropietario(const string &usuario,const string &propietario);
 	/**
 	* Busca el archivo en la base de datos por su nombre
-	* @params usuario que desea realizar la busqueda.
-	* @params nombre nombre a buscar.
+	* @param usuario que desea realizar la busqueda.
+	* @param nombre nombre a buscar.
 	* @return retorna la lista de archivos que coincide con el nombre.
 	*/
 	string buscarPorNombre(const string &usuario,const string &nombre);
 	/**
 	* Busca el archivo en la base de datos por su extension
-	* @params usuario que desea realizar la busqueda.
-	* @params extension extension a buscar.
+	* @param usuario que desea realizar la busqueda.
+	* @param extension extension a buscar.
 	* @return retorna la lista de archivos que coincide con el extension.
 	*/
 	string buscarPorExtension(const string &usuario,const string &extension);

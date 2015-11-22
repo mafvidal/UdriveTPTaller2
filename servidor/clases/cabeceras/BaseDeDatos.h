@@ -39,23 +39,23 @@ public:
 	static BasedeDatos * obteberInstancia();
 	/**
 	* Permite almacenar datos en la base de datos
-	* @params TIPO tipo de dato a guardar.
-	* @params clave ID que se almacena en la base de datos.
+	* @param TIPO tipo de dato a guardar.
+	* @param clave ID que se almacena en la base de datos.
 	* @valor valor a guardar en la base de datos.
 	* @return retorna se pudo o no guardar
 	*/
 	bool guardar(const int TIPO,const string &clave,const string &valor);
 	/**
 	* Permite leer datos en la base de datos
-	* @params TIPO tipo de dato a leer.
-	* @params clave ID para identificar el dato en la base de datos a leer.
+	* @param TIPO tipo de dato a leer.
+	* @param clave ID para identificar el dato en la base de datos a leer.
 	* @return retorna los datos a leer
 	*/
 	const string leer(const int TIPO,const string &clave);
 	/**
 	* Permite eliminar datos en la base de datos
-	* @params TIPO tipo de dato a eliminar.
-	* @params clave ID que permite identificar el dato a eliminar.
+	* @param TIPO tipo de dato a eliminar.
+	* @param clave ID que permite identificar el dato a eliminar.
 	* @return retorna se pudo o no eliminar
 	*/
 	bool eliminar(const int TIPO,const string &clave);
