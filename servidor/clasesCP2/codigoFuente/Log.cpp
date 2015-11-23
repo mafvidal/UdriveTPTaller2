@@ -61,6 +61,7 @@ void Log::error(const string &mensaje){
 
 		this->mtx.lock();
 		this->Archivo << fecha.obtenerFecha() << " [ERROR]	" <<  mensaje << "\n";
+		this->Archivo.flush();
 		this->mtx.unlock();
 
 	}
@@ -73,6 +74,7 @@ void Log::warn(const string &mensaje){
 
 		this->mtx.lock();
 		this->Archivo << fecha.obtenerFecha() << " [WARN]	" <<  mensaje << "\n";
+		this->Archivo.flush();
 		this->mtx.unlock();
 
 	}
@@ -85,6 +87,7 @@ void Log::info(const string &mensaje){
 
 		this->mtx.lock();
 		this->Archivo << fecha.obtenerFecha() << " [INFO]	" <<  mensaje << "\n";
+		this->Archivo.flush();
 		this->mtx.unlock();
 
 	}
@@ -97,6 +100,7 @@ void Log::debug(const string &mensaje){
 
 		this->mtx.lock();
 		this->Archivo << fecha.obtenerFecha() << " [DEBUG]	" <<  mensaje << "\n";
+		this->Archivo.flush();
 		this->mtx.unlock();
 
 	}
@@ -109,6 +113,7 @@ void Log::trace(const string &mensaje){
 
 		this->mtx.lock();
 		this->Archivo << fecha.obtenerFecha() << " [TRACE]	" <<  mensaje << "\n";
+		this->Archivo.flush();
 		this->mtx.unlock();
 
 	}
