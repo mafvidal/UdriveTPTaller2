@@ -8,5 +8,6 @@ var searchData=
   ['elimitedecuota',['ELimiteDeCuota',['../class_e_limite_de_cuota.html',1,'']]],
   ['enviararchivo',['enviarArchivo',['../class_manejador_archivos_fisicos.html#a7b57537a3de27dc88d0d5f23ab96e04b',1,'ManejadorArchivosFisicos']]],
   ['error',['error',['../class_log.html#ae640fc8799efee4a4977ab7a8a9a7d7b',1,'Log']]],
-  ['eusuarioinexistente',['EUsuarioInexistente',['../class_e_usuario_inexistente.html',1,'']]]
+  ['eusuarioinexistente',['EUsuarioInexistente',['../class_e_usuario_inexistente.html',1,'']]],
+  ['existeusuario',['existeUsuario',['../class_usuario.html#a8a6a506d0c4f668b101fdf1c8cd2c00f',1,'Usuario']]]
 ];

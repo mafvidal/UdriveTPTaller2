@@ -22,34 +22,49 @@ private:
 public:
 	Usuario();
 	/**
-	* Retorna true si se logro identificar correctamente al usuario
-	* Retorna false si la clave o el usuario son incorrectos
+	* Verifica si el usuario y la clave son correctas
+	* @param usuario nombre del usuario que desea identificarse
+	* @param json contiene la clave del usuario a identificarse
+	* @return retornar si el usuario pudo o no identificarse 
+	* con la clave y nombre de usuario
 	*/
 	bool identificarse(const string &usuario,const string &json);
 	/**
 	* Registra al usuario en la base de datos
-	* Si el usuario ya existe, no lo registra, y retorna false
-	* Si el usuario es registrado correctamente retorna true
+	* @param usuario nombre del usuario que desea registrase
+	* @param json contiene los datos del usuario
+	* @return retornar si el usuario pudo o no registrarse
 	*/
 	bool registrarse(const string &usuario,const string &json);
 	/**
-	* Retorna los metadatos del usuario
+	* Permite obtener los metadatos de un usuario
+	* @param usuario nombre del usuario del que se desea obtener sus metadatos
+	* @return retorna los metadatos del usuario
 	*/
 	string obtenerDatos(const string &usuario);
 	/**
 	* Actualiza los datos del usuario; clave, cuota, metadatos
+	* @param usuario nombre del usuario que se desea actualizar sus datos
+	* @param json contiene los datos del usuario a actualizar
+	* @return retornar si se pudieron actualizar los datos correctamente
 	*/
 	bool actualizarDatos(const string &usuario,const string & json);
 	/**
-	* Retorna la lista de archivos propios del usuario
+	* Permite obtener los archivos que posee el usuario
+	* @param usuario nombre del usuario del que se desean obtener los archivos
+	* @return retornar la lista de archivos que posee el usuario
 	*/
 	string obtenerArchivos(const string & usuario);
 	/**
-	* Retorna la lista de archivos que fueron compartidos con el usuario
+	* Permite obtener los archivos que fueron compartidos con el usuario
+	* @param usuario nombre del usuario del que se desean obtener los archivos
+	* @return retornar la lista de archivos compartidos con el usuario
 	*/
 	string obtenerArchivosCompartidos(const string & usuario);
 	/**
-	* Retorna los metadatos de los archivos que el usuario posee en la papelera
+	* Permite obtener los archivos que se encuentran en la papelera
+	* @param usuario nombre del usuario del que se desean obtener los archivos
+	* @return retornar la lista de archivos que se encuentran en la papelera
 	*/
 	string verPapelera(const string &usuario);
 	void eliminarArchivoCompartido(const string &usuario,const string &hashArchivo);
@@ -57,25 +72,36 @@ public:
 	void eliminarArchivo(const string &usuario,const string &hashArchivo);
 	void agregarArchivo(const string &usuario,const string &hashArchivo);
 	void enviarALaPapelera(const string &nombreUsuario,const string &hashArchivo);
-	/*
-	* Retorna si el usuario se encuentra o no almacenado en la base de datos
+	/**
+	* Permite verificar si un usuario se encuentra en la base de datos
+	* @param usuario nombre del usuario del que se desea verificar si esta en la base de datos
+	* @return Retorna si el usuario se encuentra o no almacenado en la base de datos
 	*/
 	bool existeUsuario(const string &nombreUsuario);
 	/**
-	* Recupera el archivo de la papelera
+	* Permite sacar un archivo de la papelera
+	* @param usuario nombre del usuario del que se recuperar el archivo
+	* @param hashArchivo ID del archivo a sacar de la papelera
+	* @return Retorna si el usuario se encuentra o no almacenado en la base de datos
 	*/
 	void sacarDeLaPapelera(const string &nombreUsuario,const string &hashArchivo);
 	/**
 	* Aumenta la cuota usada por el usuario
-	* Si la cuota no se puede aumenta ya que es mayor que el tope retorna false
+	* @param usuario nombre del usuario del que se quiere aumentar la cuota usada
+	* @param cuotaUsada valor a aumentar
+	* @return Si la cuota no se puede aumenta ya que es mayor que el tope retorna false
 	*/
 	bool aumentarCuotaUsada(const string &nombreUsuario,const unsigned int cuotaUsada);
 	/**
 	* Disminuye la cuota usada por el usuario, segun el valor recibido
+	* @param usuario nombre del usuario del que se quiere disminuir la cuota usada
+	* @param cuotaUsada valor a disminuir
 	*/
 	void disminuirCuotaUsada(const string &nombreUsuario,const unsigned int cuotaUsada);
 	/**
-	* Retorna el valor de la cuota que el usuario tiene diponible
+	* Permite conocer la cuota que el usuario dispone
+	* @param usuario nombre del usuario del que se quiere conocer la cuota disponible
+	* @return retorna el valor de la cuota que el usuario tiene diponible
 	*/
 	unsigned int obtenerCuotaDisponible(const string &nombreUsuario);
 	virtual ~Usuario();

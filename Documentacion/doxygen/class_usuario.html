@@ -122,8 +122,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>agregarArchivo</b> (c
 <tr class="memitem:a0ece7b5d1d08dc898c8a848d29ebd319"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0ece7b5d1d08dc898c8a848d29ebd319"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>enviarALaPapelera</b> (const string &amp;nombreUsuario, const string &amp;hashArchivo)</td></tr>
 <tr class="separator:a0ece7b5d1d08dc898c8a848d29ebd319"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8a6a506d0c4f668b101fdf1c8cd2c00f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8a6a506d0c4f668b101fdf1c8cd2c00f"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>existeUsuario</b> (const string &amp;nombreUsuario)</td></tr>
+<tr class="memitem:a8a6a506d0c4f668b101fdf1c8cd2c00f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_usuario.html#a8a6a506d0c4f668b101fdf1c8cd2c00f">existeUsuario</a> (const string &amp;nombreUsuario)</td></tr>
 <tr class="separator:a8a6a506d0c4f668b101fdf1c8cd2c00f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af62e77d64043ee3c72edf6befb7f290a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_usuario.html#af62e77d64043ee3c72edf6befb7f290a">sacarDeLaPapelera</a> (const string &amp;nombreUsuario, const string &amp;hashArchivo)</td></tr>
 <tr class="separator:af62e77d64043ee3c72edf6befb7f290a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -160,7 +159,14 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>existeUsuario</b> (co
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Actualiza los datos del usuario; clave, cuota, metadatos </p>
+<p>Actualiza los datos del usuario; clave, cuota, metadatos </p><dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">usuario</td><td>nombre del usuario que se desea actualizar sus datos </td></tr>
+    <tr><td class="paramname">json</td><td>contiene los datos del usuario a actualizar </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd>retornar si se pudieron actualizar los datos correctamente </dd></dl>
 
 </div>
 </div>
@@ -187,7 +193,14 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>existeUsuario</b> (co
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Aumenta la cuota usada por el usuario Si la cuota no se puede aumenta ya que es mayor que el tope retorna false </p>
+<p>Aumenta la cuota usada por el usuario </p><dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">usuario</td><td>nombre del usuario del que se quiere aumentar la cuota usada </td></tr>
+    <tr><td class="paramname">cuotaUsada</td><td>valor a aumentar </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd>Si la cuota no se puede aumenta ya que es mayor que el tope retorna false </dd></dl>
 
 </div>
 </div>
@@ -214,7 +227,36 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>existeUsuario</b> (co
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Disminuye la cuota usada por el usuario, segun el valor recibido </p>
+<p>Disminuye la cuota usada por el usuario, segun el valor recibido </p><dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">usuario</td><td>nombre del usuario del que se quiere disminuir la cuota usada </td></tr>
+    <tr><td class="paramname">cuotaUsada</td><td>valor a disminuir </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a8a6a506d0c4f668b101fdf1c8cd2c00f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Usuario::existeUsuario </td>
+          <td>(</td>
+          <td class="paramtype">const string &amp;&#160;</td>
+          <td class="paramname"><em>nombreUsuario</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Permite verificar si un usuario se encuentra en la base de datos </p><dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">usuario</td><td>nombre del usuario del que se desea verificar si esta en la base de datos </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd>Retorna si el usuario se encuentra o no almacenado en la base de datos </dd></dl>
 
 </div>
 </div>
@@ -241,7 +283,14 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>existeUsuario</b> (co
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Retorna true si se logro identificar correctamente al usuario Retorna false si la clave o el usuario son incorrectos </p>
+<p>Verifica si el usuario y la clave son correctas </p><dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">usuario</td><td>nombre del usuario que desea identificarse </td></tr>
+    <tr><td class="paramname">json</td><td>contiene la clave del usuario a identificarse </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd>retornar si el usuario pudo o no identificarse con la clave y nombre de usuario </dd></dl>
 
 </div>
 </div>
@@ -258,7 +307,13 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>existeUsuario</b> (co
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Retorna la lista de archivos propios del usuario </p>
+<p>Permite obtener los archivos que posee el usuario </p><dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">usuario</td><td>nombre del usuario del que se desean obtener los archivos </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd>retornar la lista de archivos que posee el usuario </dd></dl>
 
 </div>
 </div>
@@ -275,7 +330,13 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>existeUsuario</b> (co
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Retorna la lista de archivos que fueron compartidos con el usuario </p>
+<p>Permite obtener los archivos que fueron compartidos con el usuario </p><dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">usuario</td><td>nombre del usuario del que se desean obtener los archivos </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd>retornar la lista de archivos compartidos con el usuario </dd></dl>
 
 </div>
 </div>
@@ -292,7 +353,13 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>existeUsuario</b> (co
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Retorna el valor de la cuota que el usuario tiene diponible </p>
+<p>Permite conocer la cuota que el usuario dispone </p><dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">usuario</td><td>nombre del usuario del que se quiere conocer la cuota disponible </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd>retorna el valor de la cuota que el usuario tiene diponible </dd></dl>
 
 </div>
 </div>
@@ -309,7 +376,13 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>existeUsuario</b> (co
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Retorna los metadatos del usuario </p>
+<p>Permite obtener los metadatos de un usuario </p><dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">usuario</td><td>nombre del usuario del que se desea obtener sus metadatos </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd>retorna los metadatos del usuario </dd></dl>
 
 </div>
 </div>
@@ -336,7 +409,14 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>existeUsuario</b> (co
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Registra al usuario en la base de datos Si el usuario ya existe, no lo registra, y retorna false Si el usuario es registrado correctamente retorna true </p>
+<p>Registra al usuario en la base de datos </p><dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">usuario</td><td>nombre del usuario que desea registrase </td></tr>
+    <tr><td class="paramname">json</td><td>contiene los datos del usuario </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd>retornar si el usuario pudo o no registrarse </dd></dl>
 
 </div>
 </div>
@@ -363,7 +443,14 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>existeUsuario</b> (co
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Recupera el archivo de la papelera </p>
+<p>Permite sacar un archivo de la papelera </p><dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">usuario</td><td>nombre del usuario del que se recuperar el archivo </td></tr>
+    <tr><td class="paramname">hashArchivo</td><td>ID del archivo a sacar de la papelera </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd>Retorna si el usuario se encuentra o no almacenado en la base de datos </dd></dl>
 
 </div>
 </div>
@@ -380,7 +467,13 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>existeUsuario</b> (co
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Retorna los metadatos de los archivos que el usuario posee en la papelera </p>
+<p>Permite obtener los archivos que se encuentran en la papelera </p><dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">usuario</td><td>nombre del usuario del que se desean obtener los archivos </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd>retornar la lista de archivos que se encuentran en la papelera </dd></dl>
 
 </div>
 </div>
@@ -390,7 +483,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>existeUsuario</b> (co
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generado el Domingo, 22 de Noviembre de 2015 19:22:31 para Udrive por &#160;<a href="http://www.doxygen.org/index.html">
+Generado el Lunes, 23 de Noviembre de 2015 10:40:29 para Udrive por &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>
