@@ -152,9 +152,7 @@ public class MyDrive extends Activity {
 
                 Gson gson = new Gson();
                 res = gson.fromJson(r, ResultadoDrive.class);
-                List<Archivos> arch = res.getArchivos();
-
-                System.out.println("Estado : " + res.getEstado() + "///" + "RES : " + arch.get(0).getNombre());
+                //List<Archivos> arch = res.getArchivos();
 
             } catch (IOException e) {
 

@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TableRow;
 
 import com.google.gson.Gson;
@@ -40,16 +41,26 @@ public class MenuArchivo extends Activity {
         final String MyUrl = intent.getStringExtra("MyUrl");
         final String DirectorioOriginal = intent.getStringExtra("DirectorioOriginal");
         final String ExtensionOriginal = intent.getStringExtra("ExtensionOriginal");
-        final String Fecha = intent.getStringExtra("Fecha");
         final String NombreOriginal = intent.getStringExtra("NombreOriginal");
         final String Propietario = intent.getStringExtra("Propietario");
-        final String UsuarioQueModifico = usua;
-        final int Version = intent.getIntExtra("Version", -1);
 
         final TableRow Actualizar = (TableRow) findViewById(R.id.trActuMeta);
         final TableRow Eliminar = (TableRow) findViewById(R.id.trEliminar);
         final TableRow Ver = (TableRow) findViewById(R.id.trVerMeta);
 
+        final Button Volver = (Button) findViewById(R.id.buttVolver);
+
+        Volver.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MenuArchivo.this, MyDrive.class);
+                intent.putExtra("Usuario", usua);
+                intent.putExtra("Contra", contra);
+                intent.putExtra("MyUrl", MyUrl);
+                startActivity(intent);
+                setResult(RESULT_OK, intent);
+            }
+        });
 
         Ver.setOnClickListener(new View.OnClickListener() {
             @Override

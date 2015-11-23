@@ -68,8 +68,6 @@ public class ActualizarMetadatos extends Activity {
                 Gson gson = new Gson();
                 jSon = gson.toJson(arch);
 
-
-
                 String url = MyUrl;
 
 
@@ -80,6 +78,7 @@ public class ActualizarMetadatos extends Activity {
                     url += "usuarios/" + usua + "/archivos/actualizar";
                     System.out.println("Actu URL : " + url);
                     System.out.println("JSON : "+ jSon);
+                    System.out.println("Prop : "+ Propietario);
                     regCon reg = new regCon();
                     reg.execute(url);
 
