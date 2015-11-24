@@ -9,6 +9,8 @@ Documentación del proyecto
 * :ref:`División de tareas <DivTareas>`
 * :ref:`Control de versiones y workflow <ControlVersionesWorkflow>`
 * :ref:`Tickets <Tickets>`
+* :ref:`Tareas que no se completaron <TareasFaltan>`
+
 |
 |
 | :ref:`Volver a la pagina principal <index>`

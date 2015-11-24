@@ -1,0 +1,27 @@
+.. _CaracCliente:
+
+Características
+===============
+
+La aplicacion **Undrive** presenta las siguientes caracteristicas:
+
+* Permite registrar un usuario en el sistema
+	 **IMAGEN DEL USUARIO**
+
+* Permite actualizar la informacion del usuario:
+	 **IMAGEN ACTUALIZAR DATOS**
+
+* Permite subir archivos:
+	 **IMAGEN SUBIR ARCHIVOS**
+
+* Permite descargar archivos:
+	 **IMAGEN DESCARGAR ARCHIVOS**
+
+* Permite compartir archivos con otros usuario:
+	 **IMAGEN COMPARTIR ARCHIVOS CON OTROS USUARIOS**
+
+|
+|
+| :ref:`Volver a la pagina anterior <ManCliente>`
+| :ref:`Volver a la pagina principal <index>`
+

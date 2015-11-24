@@ -1,0 +1,15 @@
+.. _DocProyecto:
+
+Documentación del proyecto
+==========================
+
+* :ref:`Descripción del proyecto <descripcionDelProyecto>`
+* :ref:`Cronograma <cronograma>`
+* :ref:`Integración continua <IntegracionContinua>`
+* :ref:`División de tareas <DivTareas>`
+* :ref:`Control de versiones y workflow <ControlVersionesWorkflow>`
+* :ref:`Tickets <Tickets>`
+* :ref:`Tareas que no se completaron <TareasFaltan>`
+|
+|
+| :ref:`Volver a la pagina principal <index>`
