@@ -81,6 +81,10 @@
             android:name=".ActualizarMetadatos"
             android:label="@string/title_activity_actualizar_metadatos" >
         </activity>
+        <activity
+            android:name=".EnviarArchivo"
+            android:label="@string/title_activity_enviar_archivo" >
+        </activity>
     </application>
 
 </manifest>

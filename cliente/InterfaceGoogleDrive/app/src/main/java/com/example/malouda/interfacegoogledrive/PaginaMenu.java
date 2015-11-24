@@ -58,7 +58,7 @@ public class PaginaMenu extends Activity {
         trAmigos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(PaginaMenu.this, PaginaMenu.class);
+                Intent intent = new Intent(PaginaMenu.this, EnviarArchivo.class);
 
                 intent.putExtra("Usuario", usua);
                 intent.putExtra("Contra", contra);

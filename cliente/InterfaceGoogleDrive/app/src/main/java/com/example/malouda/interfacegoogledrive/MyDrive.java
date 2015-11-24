@@ -199,7 +199,6 @@ public class MyDrive extends Activity {
 
 
     private void addPdf (TableLayout tl, final String MyUrl, final String usua, Archivos archivos, final String contra){
-        final String Nombre = archivos.getNombre();
         final String ID = archivos.getID();
         final String Propietario = archivos.getPropietario();
         final String DirectorioOriginal = archivos.getDirectorio();
@@ -214,7 +213,7 @@ public class MyDrive extends Activity {
         TextView txtArchivo = new TextView(MyDrive.this);
         txtArchivo.setTextColor(Color.BLACK);
         txtArchivo.setTextSize(30);
-        txtArchivo.setText(Nombre + ".pdf");
+        txtArchivo.setText(NombreOriginal + ".pdf");
 
         MyTableRow tr = new MyTableRow(MyDrive.this);
         tr.setID(Long.parseLong(ID));
@@ -224,19 +223,6 @@ public class MyDrive extends Activity {
         tr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url = MyUrl + "usuarios/" + usua + "/archivofisico/" + ID;
-                archivoCon con = new archivoCon();
-                con.execute(url);
-
-                //Wait until end of the thread
-                try {
-                    con.get();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                }
-                abrirArchivo(url, Nombre);
 
                 Intent intent = new Intent(MyDrive.this, MenuArchivo.class);
 
@@ -247,6 +233,7 @@ public class MyDrive extends Activity {
                 intent.putExtra("Propietario", Propietario);
                 intent.putExtra("DirectorioOriginal", DirectorioOriginal);
                 intent.putExtra("ExtensionOriginal", ExtensionOriginal);
+                intent.putExtra("ID", ID);
 
                 startActivity(intent);
                 setResult(RESULT_OK, intent);
@@ -256,60 +243,7 @@ public class MyDrive extends Activity {
     }
 
     private void addDoc (TableLayout tl, final String MyUrl, final String usua, Archivos archivos, final String contra){
-       /* final String Nombre = archivos.getNombre();
-        final String ID = archivos.getID();
-        final String Propietario = archivos.getPropietario();
-        final String DirectorioOriginal = archivos.getDirectorio();
-        final String ExtensionOriginal = archivos.getExtension();
-        final String NombreOriginal = archivos.getNombre();
 
-        ImageView imgDoc = new ImageView(MyDrive.this);
-        int imgDocId = R.drawable.doc;
-        imgDoc.setBackground(ContextCompat.getDrawable(this, imgDocId));
-        imgDoc.setLayoutParams(layoutParams);
-
-        TextView txtArchivo = new TextView(MyDrive.this);
-        txtArchivo.setTextColor(Color.BLACK);
-        txtArchivo.setTextSize(30);
-        txtArchivo.setText(Nombre + ".doc");
-
-        MyTableRow tr = new MyTableRow(MyDrive.this);
-        tr.setID(Long.parseLong(ID));
-        tr.setArchivos(archivos);
-        tr.addView(imgDoc);
-        tr.addView(txtArchivo);
-        tr.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String url = MyUrl + "usuarios/" + usua + "/archivofisico/" + ID;
-                archivoCon con = new archivoCon();
-                con.execute(url);
-
-                //Wait until end of the thread
-                try {
-                    con.get();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                }
-                abrirArchivo(url, Nombre);
-
-                Intent intent = new Intent(MyDrive.this, MenuArchivo.class);
-
-                intent.putExtra("Usuario", usua);
-                intent.putExtra("Contra", contra);
-                intent.putExtra("MyUrl", MyUrl);
-                intent.putExtra("NombreOriginal", NombreOriginal);
-                intent.putExtra("Propietario", Propietario);
-                intent.putExtra("DirectorioOriginal", DirectorioOriginal);
-                intent.putExtra("ExtensionOriginal", ExtensionOriginal);
-                startActivity(intent);
-                setResult(RESULT_OK, intent);
-            }
-
-        });
-        tl.addView(tr);*/
         final String Nombre = archivos.getNombre();
         final String ID = archivos.getID();
         final String Propietario = archivos.getPropietario();

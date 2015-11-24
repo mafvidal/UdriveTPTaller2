@@ -18,4 +18,5 @@
     <string name="title_activity_metadatos_archivo">MetadatosArchivo</string>
     <string name="title_activity_menu_archivo">MenuArchivo</string>
     <string name="title_activity_actualizar_metadatos">ActualizarMetadatos</string>
+    <string name="title_activity_enviar_archivo">EnviarArchivo</string>
 </resources>
