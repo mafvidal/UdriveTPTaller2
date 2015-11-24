@@ -3,15 +3,6 @@
 Cómo usar Udrive
 ================
 
-Ingresar IP
-+++++++++++
-
-Al arrancar la aplicacion le pedira que ingrese la ip del servidor
-
-.. figure::  imagenes/IngresarIP.png
-	:align: center
-
-
 Menu de inicio
 ++++++++++++++
 
@@ -56,7 +47,7 @@ Para ver las opciones del archivo, seleccione el archivo, y aparecera el siguien
  5 - Volver al menu anterior
 
 
-.. figure::  imagenes/menuarchivos.png
+.. figure::  imagenes/Menuarchivo.png
 	:align: center
 
 
@@ -73,6 +64,24 @@ Para para actualizar la informacion del archivo debera seleccionar actualizar me
 
 
 .. figure::  imagenes/Actualizardatosdearchivo.png
+	:align: center
+
+
+Ver opciones de usuario
++++++++++++++++++++++++
+
+Para ver las opciones de usuario debe acceder al menú de configuración de usuario, y tendrá disponible las siguientes opciones:
+
+ 1 - Configuarar la cuenta del usuario, permitiendole actualizar sus datos.
+
+ 2 - Ver los datos de la cuenta del usuario.
+
+ 3 - Crear un archivo.
+
+ 4 - Desconectarse de la sesion actual.
+
+
+.. figure::  imagenes/MenuUsuario.png
 	:align: center
 
 
