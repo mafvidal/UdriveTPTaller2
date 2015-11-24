@@ -1,10 +1,12 @@
 package com.example.malouda.interfacegoogledrive;
 
 import android.app.Activity;
+import android.app.DownloadManager;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -13,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TableRow;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 
@@ -43,12 +46,38 @@ public class MenuArchivo extends Activity {
         final String ExtensionOriginal = intent.getStringExtra("ExtensionOriginal");
         final String NombreOriginal = intent.getStringExtra("NombreOriginal");
         final String Propietario = intent.getStringExtra("Propietario");
+        final String ID = intent.getStringExtra("ID");
 
         final TableRow Actualizar = (TableRow) findViewById(R.id.trActuMeta);
         final TableRow Eliminar = (TableRow) findViewById(R.id.trEliminar);
         final TableRow Ver = (TableRow) findViewById(R.id.trVerMeta);
+        final TableRow Descargar = (TableRow) findViewById(R.id.trDescargar);
 
         final Button Volver = (Button) findViewById(R.id.buttVolver);
+
+        Descargar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String url = MyUrl + "usuarios/" + usua + "/archivofisico/" + ID;
+                archivoCon con = new archivoCon();
+                con.execute(url);
+
+                //Wait until end of the thread
+                try {
+                    con.get();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                }
+
+                abrirArchivo(url, NombreOriginal);
+                Toast.makeText(getApplicationContext(), "Descargado",
+                        Toast.LENGTH_LONG).show();
+
+            }
+        });
 
         Volver.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -188,6 +217,43 @@ public class MenuArchivo extends Activity {
         @Override
         protected void onPostExecute(String result) {
         }
+    }
+
+    private class archivoCon extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... urls) {
+
+            // params comes from the execute() call: params[0] is the url.
+            try {
+                URL url = new URL(urls[0]);
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setReadTimeout(10000 /* milliseconds */);
+                conn.setConnectTimeout(15000 /* milliseconds */);
+                conn.setRequestMethod("GET");
+                conn.setDoInput(true);
+
+                //Read the body
+                conn.connect();
+
+            } catch (IOException e) {
+
+                return "Unable to retrieve web page. URL may be invalid.  \n" + "Error : " + e;
+            }
+            return "Enviado : ";
+        }
+        // onPostExecute displays the results of the AsyncTask.
+        @Override
+        protected void onPostExecute(String result) {
+        }
+    }
+
+
+    private void abrirArchivo(String url, String nombre){
+        DownloadManager manager = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
+        DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
+        request.setTitle(nombre);
+        manager.enqueue(request);
     }
 
 }

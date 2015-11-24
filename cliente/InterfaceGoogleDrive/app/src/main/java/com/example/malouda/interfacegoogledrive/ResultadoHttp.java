@@ -15,4 +15,6 @@ public class ResultadoHttp {
     public String getEstado(){
         return Estado;
     }
+
+    public String getMensaje(){return Mensaje;}
 }

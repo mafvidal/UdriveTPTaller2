@@ -35,9 +35,6 @@ public class MainActivity extends Activity {
         intent = getIntent();
         final String MyUrl = intent.getStringExtra("MyUrl");
 
-        System.out.println("URL : " + MyUrl);
-
-
         final EditText Usua = (EditText) findViewById(R.id.usuario);
         final EditText Contra = (EditText) findViewById(R.id.contra);
 
